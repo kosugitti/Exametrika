@@ -10,6 +10,7 @@ summary(dat)
 
 U <- as.matrix(dat[, -1])
 Z <- ifelse(is.na(U), 0, 1)
+Una <- dat[,-1]
 
 ## NAに数値を与えなければならない
 U <- ifelse(is.na(U), -99, U)
@@ -44,15 +45,23 @@ rBar <- rBar %>% array(dim = 1)
 Var_r <- t(r - c(rBar) * OneS) %*% (r - c(rBar) * OneS) / (S - 1)
 rBarW <- (t(OneS) %*% rW) / S
 Var_rW <- t(rW - c(rBarW) * OneS) %*% (rW - c(rBarW) * OneS) / (S - 1)
-Xi_sW <- (rW - c(rBarW)) / sqrt(c(Var_rW))
+Zeta_sW <- (rW - c(rBarW)) / sqrt(c(Var_rW))
 
-Xi <- (r - c(rBar) * OneS) / (sqrt(c(Var_r)) * OneS)
-Xi_W <- (rW - c(rBarW) * OneS) / (sqrt(c(Var_rW)) * OneS)
+Zeta <- (r - c(rBar) * OneS) / (sqrt(c(Var_r)) * OneS)
+Zeta_W <- (rW - c(rBarW) * OneS) / (sqrt(c(Var_rW)) * OneS)
 
 ## Parcentile Rank
 ## Stanine
 pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07, 0.04))
-quantile(t, pbs)
+Stanine <- quantile(t, pbs)
+
+empiiricalZeta <- ecdf(Zeta)
+empiricalZeta(Zeta)*100
+
+pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
+Stanine <- quantile(t, pbs)
+stanine_scores <- cut(t, breaks = c(-Inf, Stanine, Inf), right=F) %>%
+  factor(labels=1:9)
 
 # Single Item Analysis ----------------------------------------------------
 
@@ -133,7 +142,7 @@ mvtnorm::pmvnorm(lower = -Inf, Upper, mean = c(0, 0), Sigma)
 
 sBVN_11 <- function(rho, tau_j, tau_k) {
   tmp <- mvtnorm::pmvnorm(
-    lower = c(tau_j, tau_k), upper = c(Inf,Inf),
+    lower = c(tau_j, tau_k), upper = c(Inf, Inf),
     mean = c(0, 0), corr = matrix(c(1, rho, rho, 1), ncol = 2),
     keepAttr = FALSE,
     algorithm = Miwa
@@ -146,7 +155,6 @@ sBVN_01 <- function(rho, tau_j, tau_k) {
     mean = c(0, 0), corr = matrix(c(1, rho, rho, 1), ncol = 2),
     keepAttr = FALSE,
     algorithm = Miwa
-
   )
   return(tmp)
 }
@@ -156,38 +164,35 @@ sBVN_10 <- function(rho, tau_j, tau_k) {
     mean = c(0, 0), corr = matrix(c(1, rho, rho, 1), ncol = 2),
     keepAttr = FALSE,
     algorithm = Miwa
-
-
   )
   return(tmp)
 }
 sBVN_00 <- function(rho, tau_j, tau_k) {
   tmp <- mvtnorm::pmvnorm(
-    lower = c(-Inf,-Inf), upper = c(tau_j, tau_k),
+    lower = c(-Inf, -Inf), upper = c(tau_j, tau_k),
     mean = c(0, 0), corr = matrix(c(1, rho, rho, 1), ncol = 2),
     keepAttr = FALSE,
     algorithm = Miwa
-
   )
   return(tmp)
 }
 
 # 展開後 ---------------------------------------------------------------------
 
-sBVN_11_2 <- function(rho,tau_j,tau_k){
-  tmp <- mvtnorm::pmvnorm(upper=c(-tau_j,-tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+sBVN_11_2 <- function(rho, tau_j, tau_k) {
+  tmp <- mvtnorm::pmvnorm(upper = c(-tau_j, -tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   return(tmp)
 }
-sBVN_01_2 <- function(rho,tau_j,tau_k){
-  tmp <- pnorm(tau_j) - mvtnorm::pmvnorm(upper=c(tau_j,tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+sBVN_01_2 <- function(rho, tau_j, tau_k) {
+  tmp <- pnorm(tau_j) - mvtnorm::pmvnorm(upper = c(tau_j, tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   return(tmp)
 }
-sBVN_10_2 <- function(rho,tau_j,tau_k){
-  tmp <- pnorm(tau_k) - mvtnorm::pmvnorm(upper=c(tau_j,tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+sBVN_10_2 <- function(rho, tau_j, tau_k) {
+  tmp <- pnorm(tau_k) - mvtnorm::pmvnorm(upper = c(tau_j, tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   return(tmp)
 }
-sBVN_00_2 <- function(rho,tau_j,tau_k){
-  return(mvtnorm::pmvnorm(upper=c(tau_j,tau_k),corr=matrix(c(1,rho,rho,1),ncol=2)))
+sBVN_00_2 <- function(rho, tau_j, tau_k) {
+  return(mvtnorm::pmvnorm(upper = c(tau_j, tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2)))
 }
 
 log_likelihood_phi <- function(rho, tau_j, tau_k, S_00, S_11, S_10, S_01) {
@@ -198,8 +203,8 @@ log_likelihood_phi <- function(rho, tau_j, tau_k, S_00, S_11, S_10, S_01) {
 log_likelihood_phi(rho = 0.5, tau_j = -0.518, tau_k = 0.088, S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6)
 log_likelihood_phi(rho = 0.0, tau_j = -0.518, tau_k = 0.088, S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6)
 
-qnorm(1-(60/86))
-qnorm(1-(46/86))
+qnorm(1 - (60 / 86))
+qnorm(1 - (46 / 86))
 
 pnorm(0)
 qnorm(0.5)
@@ -207,7 +212,7 @@ qnorm(0.5)
 optimize(
   function(x) {
     log_likelihood_phi(
-      rho = x, tau_j = qnorm(1-(60/86)), tau_k = qnorm(1-(46/86)),
+      rho = x, tau_j = qnorm(1 - (60 / 86)), tau_k = qnorm(1 - (46 / 86)),
       S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6
     )
   },
@@ -218,7 +223,7 @@ optimize(
 optimize(
   function(x) {
     log_likelihood_phi(
-      rho = x, tau_j = qnorm(1-(60/86)), tau_k = qnorm(1-(40/86)),
+      rho = x, tau_j = qnorm(1 - (60 / 86)), tau_k = qnorm(1 - (40 / 86)),
       S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6
     )
   },
@@ -226,51 +231,58 @@ optimize(
 )
 
 
-log_likelihood_phi(rho = 0.619, tau_j = qnorm(1-(60/86)), tau_k = qnorm(1-(46/86)),S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6)
-log_likelihood_phi(rho = 0.598, tau_j = qnorm(1-(60/86)), tau_k = qnorm(1-(46/86)),S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6)
+log_likelihood_phi(rho = 0.619, tau_j = qnorm(1 - (60 / 86)), tau_k = qnorm(1 - (46 / 86)), S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6)
+log_likelihood_phi(rho = 0.598, tau_j = qnorm(1 - (60 / 86)), tau_k = qnorm(1 - (46 / 86)), S_00 = 20, S_11 = 40, S_10 = 20, S_01 = 6)
 
 
 # テトラコリック相関を関数化 -----------------------------------------------------------
 ### 2x2データからロウデータをつくる
-tenkai <- function(f)
-{
-  list(x=rep(row(f), f), y=rep(col(f), f))
+tenkai <- function(f) {
+  list(x = rep(row(f), f), y = rep(col(f), f))
 }
 
-ret <- tenkai(matrix(c(20, 6, 20, 40),ncol=2))
-ret$x <- ret$x -1
-ret$y <- ret$y -1
-ret %>% as.data.frame() %>% table()
+ret <- tenkai(matrix(c(20, 6, 20, 40), ncol = 2))
+ret$x <- ret$x - 1
+ret$y <- ret$y - 1
+ret %>%
+  as.data.frame() %>%
+  table()
 x <- ret$x
 y <- ret$y
 
 ### 自作関数
-tetrachoricCorrelation <- function(x,y){
+tetrachoricCorrelation <- function(x, y) {
   # data format check
-  if(length(x) != sum(x==0|x==1)){stop("X should be 1/0.")}
-  if(length(y) != sum(y==0|y==1)){stop("Y should be 1/0.")}
-  if(length(x) != length(y)){stop("The length of X and Y are different.")}
+  if (length(x) != sum(x == 0 | x == 1)) {
+    stop("X should be 1/0.")
+  }
+  if (length(y) != sum(y == 0 | y == 1)) {
+    stop("Y should be 1/0.")
+  }
+  if (length(x) != length(y)) {
+    stop("The length of X and Y are different.")
+  }
   # count 2x2 cells
-  tbl <- table(x,y)
-  S00 <- tbl[1,1]
-  S10 <- tbl[2,1]
-  S01 <- tbl[1,2]
-  S11 <- tbl[2,2]
+  tbl <- table(x, y)
+  S00 <- tbl[1, 1]
+  S10 <- tbl[2, 1]
+  S01 <- tbl[1, 2]
+  S11 <- tbl[2, 2]
   # calcs tau
-  tau_j <- qnorm(1-mean(x))
-  tau_k <- qnorm(1-mean(y))
+  tau_j <- qnorm(1 - mean(x))
+  tau_k <- qnorm(1 - mean(y))
   ## BVN funcs
-  BVN11 <- function(rho,tau_j,tau_k){
-    mvtnorm::pmvnorm(upper=c(-tau_j,-tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+  BVN11 <- function(rho, tau_j, tau_k) {
+    mvtnorm::pmvnorm(upper = c(-tau_j, -tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   }
-  BVN01 <- function(rho,tau_j,tau_k){
-    pnorm(tau_j) - mvtnorm::pmvnorm(upper=c(tau_j,tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+  BVN01 <- function(rho, tau_j, tau_k) {
+    pnorm(tau_j) - mvtnorm::pmvnorm(upper = c(tau_j, tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   }
-  BVN10 <- function(rho,tau_j,tau_k){
-    pnorm(tau_k) - mvtnorm::pmvnorm(upper=c(tau_j,tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+  BVN10 <- function(rho, tau_j, tau_k) {
+    pnorm(tau_k) - mvtnorm::pmvnorm(upper = c(tau_j, tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   }
-  BVN00 <- function(rho,tau_j,tau_k){
-    mvtnorm::pmvnorm(upper=c(tau_j,tau_k),corr=matrix(c(1,rho,rho,1),ncol=2))
+  BVN00 <- function(rho, tau_j, tau_k) {
+    mvtnorm::pmvnorm(upper = c(tau_j, tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
   }
   ## LL
   log_likelihood_phi <- function(rho, tau_j, tau_k, S00, S11, S10, S01) {
@@ -279,31 +291,103 @@ tetrachoricCorrelation <- function(x,y){
   }
   ret <- optimize(
     function(x) {
-      log_likelihood_phi(rho = x,tau_j, tau_k, S00, S11, S10, S01)
+      log_likelihood_phi(rho = x, tau_j, tau_k, S00, S11, S10, S01)
     },
     interval = c(1, -1), maximum = T
   )
   return(ret$maximum)
 }
 
-tetrachoricCorrelation(x,y)
+tetrachoricCorrelation(x, y)
 
-tetrachoricCorrelationMatrix<- function(data){
+tetrachoricCorrelationMatrix <- function(data) {
   m <- ncol(data)
-  mat <- matrix(NA,ncol=m,nrow=m)
-  colnames(mat)<- colnames(data)
+  mat <- matrix(NA, ncol = m, nrow = m)
+  colnames(mat) <- colnames(data)
   rownames(mat) <- colnames(data)
-  for(i in 1:(m-1)){
-    for(j in (i+1):m){
-      mat[i,j] <- tetrachoricCorrelation(x= data[,i],y=data[,j])
-      mat[j,i] <- mat[i,j]
+  for (i in 1:(m - 1)) {
+    for (j in (i + 1):m) {
+      x <- data[,i]
+      y <- data[,j]
+      pairwise <- !is.na(x+y)
+      mat[i, j] <- tetrachoricCorrelation(x = x[pairwise], y =y[pairwise])
+      mat[j, i] <- mat[i, j]
     }
   }
   diag(mat) <- 1
   return(mat)
 }
 
+tetrachoricCorrelationMatrix(Z*Una)
 
 # Item-Total Correlation --------------------------------------------------
 
+rho_Zi <- t(Z * (U - OneS %*% t(p))) %*% Zeta / (t(Z) %*% OneS - OneJ) / sqrt(diag(C))
 
+
+# Item-Total Biserial Correlation -----------------------------------------
+
+ItemJ <- c(rep(0, 8), rep(1, 12))
+Zeta.example <- c(
+  -3.21, -1.02, -0.71, -0.71, 0.02, 0.25, 0.48, 0.97,
+  -0.43, -0.42, -0.32, -0.20, 0.25, 0.36, 0.38, 0.42,
+  0.49, 0.74, 1.23, 1.44
+)
+
+LL_itbc <- function(rho, Zeta, U) {
+  tau_j <- qnorm(1-mean(U))
+  tmp <- (1 - U) %*% (log(pnorm(tau_j,
+                                mean = rho * Zeta,
+                                sd = sqrt(1 - rho^2)))) +
+    U %*% (log(1-pnorm(tau_j,
+                         mean = rho * Zeta,
+                         sd = sqrt(1 - rho^2))))
+  return(tmp)
+}
+
+optimize(
+  function(x) {
+    LL_itbc(rho = x, Zeta.example, ItemJ)
+  },
+  interval = c(1, -1), maximum = T
+)
+
+### 関数化
+Biserial_Correlation <- function(i,t){
+  if(length(i) != sum(i == 0 | i == 1)){stop("Item must be binary.")}
+  ## i must be binary, t must be contenious
+  tau_j <- qnorm(1-mean(i))
+  ll <- function(rho,tau_j,i,t){
+    tmp <- (1-i)%*%(log(pnorm(tau_j,mean = rho*t,sd=sqrt(1-rho^2))))+
+      i%*%(log(1-pnorm(tau_j,mean=rho*t,sd=sqrt(1-rho^2))))
+  }
+  ret <- optimize(function(x){ll(rho=x,tau_j,i,t)},interval = c(-1,1),maximum = T)
+  return(ret$maximum)
+}
+
+### 項目全体
+IT_Biserial_Correlation <- function(data,Zeta){
+  ITB <- rep(NA,ncol(data))
+  for(i in 1:ncol(data)){
+    tmp <- data[,i]
+    pairwise <- !is.na(tmp+Zeta)
+    ITB[i] <- Biserial_Correlation(tmp[pairwise],Zeta[pairwise])
+  }
+  return(ITB)
+}
+
+
+IT_Biserial_Correlation(Una,Zeta)
+
+# Test Analysis -----------------------------------------------------------
+## Rの基礎関数で対応
+
+
+# Dimensionality Analysis -------------------------------------------------
+
+R <- tetrachoricCorrelationMatrix(Z*Una)
+
+Esystem <- eigen(R)
+Esystem$values
+Esystem$values/20
+cumsum(Esystem$values/20)
