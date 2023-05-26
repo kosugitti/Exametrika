@@ -13,7 +13,7 @@ nrs <- function(U, Z = NULL, w = NULL) {
   nr <- nrow(U)
   ## if Missing indicator not given
   if (is.null(Z)) {
-    Z <- matrix(1, ncol = nc, nrow = nr)
+    Z <- ifelse(is.na(U), 0, 1)
   }
   # if item weight vector not given
   if (is.null(w)) {
@@ -39,7 +39,7 @@ passage <- function(U, Z = NULL, w = NULL) {
   tw <- nrs(U, Z, w)
   ## if Missing indicator not given
   if (is.null(Z)) {
-    Z <- matrix(1, ncol = nc, nrow = nr)
+    Z <- ifelse(is.na(U), 0, 1)
   }
   # if item weight vector not given
   if (is.null(w)) {
@@ -66,7 +66,7 @@ sscore <- function(U, Z = NULL, w = NULL) {
   OneS <- rep(1, length = S)
   ## if Missing indicator not given
   if (is.null(Z)) {
-    Z <- matrix(1, ncol = J, nrow = S)
+    Z <- ifelse(is.na(U), 0, 1)
   }
   # if item weight vector not given
   if (is.null(w)) {
