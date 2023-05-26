@@ -3,7 +3,7 @@ library(tidyverse)
 
 # DataMatrix --------------------------------------------------------------
 
-dat <- read_csv("sampleData/J20S400.csv", na = "-99") %>%
+dat <- read_csv("develop/sampleData/J20S400.csv", na = "-99") %>%
   mutate(Student = as.factor(Student))
 
 summary(dat)

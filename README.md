@@ -1,5 +1,26 @@
+
 # Exametrika
 
-Exametrika is an R package for test theory models that includes item response theory, latent rank theory, bilustering, and Bayesian networks.
+<!-- badges: start -->
+<!-- badges: end -->
 
-Source: Shojima, K. (2022). Test Data Engineering, Springer.
+The goal of Exametrika is to ...
+
+## Installation
+
+You can install the development version of Exametrika from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("kosugitti/Exametrika")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(Exametrika)
+## basic example code
+```
+
