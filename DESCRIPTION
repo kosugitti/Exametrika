@@ -1,8 +1,8 @@
 Package: Exametrika
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Exametrika
 Version: 0.1.0
-Author: Who wrote it
+Author: Koji Kosugi
 Maintainer: The package maintainer <kosugitti@gmail.com>
 Description: This package is for Test Data Engineering and 
 allows for various analyses such as 1PL, 2PL, 3PL, 4PL-IRT, 
