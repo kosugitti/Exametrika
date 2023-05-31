@@ -284,25 +284,20 @@ y <- ret$y
 
 ### 自作関数
 tetrachoricCorrelation <- function(x, y) {
-  # data format check
-  if (length(x) != sum(x == 0 | x == 1)) {
-    stop("X should be 1/0.")
-  }
-  if (length(y) != sum(y == 0 | y == 1)) {
-    stop("Y should be 1/0.")
-  }
-  if (length(x) != length(y)) {
-    stop("The length of X and Y are different.")
-  }
+  pairwise <- !is.na(x + y)
   # count 2x2 cells
-  tbl <- table(x, y)
+  tbl <- table(x[pairwise], y[pairwise])
   S00 <- tbl[1, 1]
   S10 <- tbl[2, 1]
   S01 <- tbl[1, 2]
   S11 <- tbl[2, 2]
+  if(S00==0){S00 <- 0.5}
+  if(S10==0){S10 <- 0.5}
+  if(S01==0){S01 <- 0.5}
+  if(S11==0){S11 <- 0.5}
   # calcs tau
-  tau_j <- qnorm(1 - mean(x))
-  tau_k <- qnorm(1 - mean(y))
+  tau_j <- qnorm(1 - mean(x,na.rm=T))
+  tau_k <- qnorm(1 - mean(y,na.rm=T))
   ## BVN funcs
   BVN11 <- function(rho, tau_j, tau_k) {
     mvtnorm::pmvnorm(upper = c(-tau_j, -tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
@@ -321,16 +316,48 @@ tetrachoricCorrelation <- function(x, y) {
     S00 * log(BVN00(rho, tau_j, tau_k)) + S01 * log(BVN01(rho, tau_j, tau_k)) +
       S10 * log(BVN10(rho, tau_j, tau_k)) + S11 * log(BVN11(rho, tau_j, tau_k))
   }
-  ret <- optimize(
-    function(x) {
-      log_likelihood_phi(rho = x, tau_j, tau_k, S00, S11, S10, S01)
+  # ret <- optimize(
+  #   function(x) {
+  #     log_likelihood_phi(rho = x, tau_j, tau_k, S00, S11, S10, S01)
+  #   },
+  #   interval = c(1, -1), maximum = T
+  # )
+  ret <- optim(
+    par = 0,  # initial value
+    fn = function(x) {
+      -log_likelihood_phi(rho = x, tau_j, tau_k, S00, S11, S10, S01)
     },
-    interval = c(1, -1), maximum = T
+    lower = -1,  # lower limit
+    upper = 1,  # upper limit
+    method = "Brent"  # one-dimensional optimization method
   )
-  return(ret$maximum)
+  return(ret$par)
 }
 
 tetrachoricCorrelation(x, y)
+
+
+# -------------------------------------------------------------------------0531
+# 精度にチャレンジ
+psychRet <- tetrachoric(matrix(c(37,8,140,203),2,2))
+### 2x2データからロウデータをつくる
+tenkai <- function(f) {
+  list(x = rep(row(f), f), y = rep(col(f), f))
+}
+
+ret <- tenkai(matrix(c(37,8,140,203), ncol = 2))
+ret$x <- ret$x - 1
+ret$y <- ret$y - 1
+ret %>%
+  as.data.frame() %>%
+  table()
+x <- ret$x
+y <- ret$y
+
+tetrachoricCorrelation(x,y)
+psychRet$rho
+
+# -------------------------------------------------------------------------
 
 
 
@@ -343,7 +370,6 @@ tetrachoricCorrelationMatrix <- function(data) {
     for (j in (i + 1):m) {
       x <- data[, i]
       y <- data[, j]
-      pairwise <- !is.na(x + y)
       mat[i, j] <- tetrachoricCorrelation(x = x[pairwise], y = y[pairwise])
       mat[j, i] <- mat[i, j]
     }

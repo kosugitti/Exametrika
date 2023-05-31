@@ -130,8 +130,6 @@ test_that("Phi Coefficient", {
 test_that("Tetrachoric Correlation Matrix", {
   result <- TetrachoricCorrelationMatrix(U, na = -99) %>% unname()
   Una <- ifelse(U == -99, NA, U)
-  result2 <- psych::tetrachoric(Una, global = T)
-  ret2 <- result2$rho %>% unname()
   expect <- Ch03Tet %>% unname()
-  expect_equal(expected = expect, object = result, tolerance = 0.01)
+  expect_equal(expected = expect, object = result, tolerance = 0.0001)
 })
