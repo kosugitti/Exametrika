@@ -18,7 +18,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   # get ID vector
   ID <- data[, id]
   if (all(ID %in% c(0, 1, NA, na))) {
-    ID <- paste0("Student",seq(1:NROW(data)))
+    ID <- paste0("Student", seq(1:NROW(data)))
     U <- data
   } else {
     U <- data[, -id]
@@ -57,7 +57,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   }
 
   # Return the resulting U, Una, Z, and w
-  return(list(U = U, ID = ID, Z = Z, w = w))
+  return(list(U = U, ID = ID, ItemLabel = ItemLabel, Z = Z, w = w))
 }
 
 

@@ -125,6 +125,33 @@ MI <- P_00 * log(L_00, base = 2) + P_01 * log(L_01, base = 2) +
 diag(MI) <- diag(P_00 * log(L_00, base = 2) + P_11 * log(L_11, base = 2))
 
 
+
+# GPT4 refined ------------------------------------------------------------
+
+# Calculate joint response matrix
+S <- list()
+S$S_11 <- t(Z * U) %*% (Z * U)
+S$S_10 <- t(Z * U) %*% (Z * (1 - U))
+S$S_01 <- t(Z * (1 - U)) %*% (Z * U)
+S$S_00 <- t(Z * (1 - U)) %*% (Z * (1 - U))
+
+# Calculate joint probability matrix
+P <- lapply(S, function(x) x / (t(Z) %*% Z))
+
+# Calculate lift matrix
+L <- list()
+L$L_11 <- P$S_11 / (p %*% t(p))
+L$L_10 <- P$S_10 / (p %*% t(1 - p))
+L$L_01 <- P$S_01 / ((1 - p) %*% t(p))
+L$L_00 <- P$S_00 / ((1 - p) %*% t(1 - p))
+
+# Calculate mutual information
+MI <- P$S_00 * log(L$L_00, base = 2) + P$S_01 * log(L$L_01, base = 2) +
+  P$S_10 * log(L$L_10, base = 2) + P$S_11 * log(L$L_11, base = 2)
+diag(MI) <- diag(P$S_00 * log(L$L_00, base = 2) + P$S_11 * log(L$L_11, base = 2))
+
+
+
 # Interitem Correlation Analysis ------------------------------------------
 ## Phi Coefficient
 C <- t(Z * (U - OneS %*% t(p))) %*% (Z * (U - OneS %*% t(p))) / (t(Z) %*% Z - OneJ %*% t(OneJ))
@@ -304,6 +331,8 @@ tetrachoricCorrelation <- function(x, y) {
 }
 
 tetrachoricCorrelation(x, y)
+
+
 
 tetrachoricCorrelationMatrix <- function(data) {
   m <- ncol(data)
