@@ -1,23 +1,38 @@
 #' @title dataFormat
 #' @description
-#' This function returns the sample size, data matrix, missing value identifier matrix,
-#' and weight matrix from the given data matrix.
-#' @param U is a data matrix of the type matrix or data.frame.
+#' @param data is a data matrix of the type matrix or data.frame.
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @param id id indicates the column number containing the examinee ID. The default is 1.
+#' If the answer pattern is contained in the first column, it is treated as if there is no ID vector.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
-#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @export
 #' @return
 #'
-dataFormat <- function(U, na = NULL, Z = NULL, w = NULL) {
+dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   # Check if U is either a matrix or a dataframe, otherwise stop the execution
-  if (!is.matrix(U) && !is.data.frame(U)) {
-    stop("U must be matrix or data.frame")
+  if (!is.matrix(data) && !is.data.frame(data)) {
+    stop("Data must be matrix or data.frame")
   }
-  # Convert U to matrix if it's not already
+
+  # get ID vector
+  ID <- data[, id]
+  if (all(ID %in% c(0, 1, NA, na))) {
+    ID <- paste0("Student",seq(1:NROW(data)))
+    U <- data
+  } else {
+    U <- data[, -id]
+  }
+  # get Item-labels
+  ItemLabel <- colnames(U)
+  if (is.null(ItemLabel)) {
+    ItemLabel <- paste0("Item", seq(1:NCOL(U)))
+  }
+
   U <- as.matrix(U)
   # Check U matrix
   if (!all(U %in% c(0, 1, NA, na))) {
-    stop("U can only contain the values 0, 1, NA, and the specified missing value")
+    stop("Data matrix can only contain the values 0, 1, NA, and the specified missing value")
   }
   # Check if Z is indicator matrix,or not.
   if (!is.null(Z)) {
@@ -42,7 +57,7 @@ dataFormat <- function(U, na = NULL, Z = NULL, w = NULL) {
   }
 
   # Return the resulting U, Una, Z, and w
-  return(list(U = U, Z = Z, w = w))
+  return(list(U = U, ID = ID, Z = Z, w = w))
 }
 
 
@@ -58,7 +73,7 @@ dataFormat <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # nrs(U)
 nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(U = U, na = na, Z = Z, w = w)
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   tmp$U <- ifelse(is.na(tmp$U), 0, tmp$U)
   tW <- (tmp$Z * tmp$U) %*% tmp$w
   return(tW)
@@ -76,7 +91,7 @@ nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # passage(U)
 passage <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(U = U, na = na, Z = Z, w = w)
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   tw <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
   Js <- NCOL(U) - rowSums(is.na(tmp$U))
   rW <- tw / Js
@@ -98,7 +113,7 @@ passage <- function(U, na = NULL, Z = NULL, w = NULL) {
 sscore <- function(U, na = NULL, Z = NULL, w = NULL) {
   S <- nrow(U)
   OneS <- rep(1, length = S)
-  tmp <- dataFormat(U = U, na = na, Z = Z, w = w)
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   rW <- passage(U = tmp$U, Z = tmp$Z, w = tmp$w)
   rBarW <- (t(OneS) %*% rW) / S
   Var_rW <- t(rW - c(rBarW) * OneS) %*% (rW - c(rBarW) * OneS) / (S - 1)
@@ -120,7 +135,7 @@ sscore <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # percentile(U)
 percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(U = U, na = na, Z = Z, w = w)
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   sstmp <- sscore(U = tmp$U, Z = tmp$Z, w = tmp$w)
   empiricalZeta <- ecdf(sstmp)
   ret <- ceiling(empiricalZeta(sstmp) * 100)
@@ -148,7 +163,7 @@ percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # stanine(U)
 stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(U = U, na = na, Z = Z, w = w)
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   sttmp <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
   pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
   stanine_prob <- quantile(sttmp, pbs)
@@ -156,7 +171,37 @@ stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
   stanine_prob_ss <- quantile(sttmp2, pbs)
   stanine_scores <- cut(sttmp2, breaks = c(-Inf, stanine_prob_ss, Inf), right = F)
   stanine_scores <- factor(stanine_scores, labels = 1:9)
-  return(list(stanine=stanine_prob,stanineScore = stanine_scores))
+  return(list(stanine = stanine_prob, stanineScore = stanine_scores))
 }
 
+#' @title StudentAnalysis
+#' @description
+#' The StudentAnalysis function returns descriptive statistics for each individual student.
+#' Specifically, it provides the number of responses, the number of correct answers,
+#' the passage rate, the standardized score, the percentile, and the stanine.
+#' @param U U is a data matrix of the type matrix or data.frame.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param w w is item weight vector
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @export
+#'
 
+StudentAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  NRS <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
+  NR <- NCOL(tmp$U) - rowSums(is.na(tmp$U))
+  PR <- passage(U = tmp$U, Z = tmp$Z, w = tmp$w)
+  SS <- sscore(U = tmp$U, Z = tmp$Z, w = tmp$w)
+  Ptile <- percentile(U = tmp$U, Z = tmp$Z, w = tmp$w)
+  ST <- stanine(U = tmp$U, Z = tmp$Z, w = tmp$w)
+  ret <- data.frame(
+    ID = tmp$ID,
+    NR = NR,
+    NRS = NRS,
+    PR = PR,
+    SS = SS,
+    Percentile = Ptile,
+    Stanine = ST$stanineScore
+  )
+  return(ret)
+}

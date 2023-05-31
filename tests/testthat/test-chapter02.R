@@ -10,7 +10,6 @@ Ch03CTT <- read_excel("Chapter03CTT.xlsx",
 dat <- read_csv("sampleData/J20S400.csv")
 U <- as.matrix(dat[, -1])
 Z <- ifelse(is.na(U), 0, 1)
-Una <- ifelse(U == -99, NA, U)
 
 test_that("NRS", {
   result <- nrs(U, na = -99) %>% as.vector()
@@ -31,7 +30,9 @@ test_that("sscore", {
 })
 
 test_that("percentile", {
-  result <- percentile(U, na = -99) %>% as.vector()%>% ceiling()
+  result <- percentile(U, na = -99) %>%
+    as.vector() %>%
+    ceiling()
   expect <- Ch03CTT$`Percentile Rank` %>% as.vector()
   expect_equal(result, expect)
 })

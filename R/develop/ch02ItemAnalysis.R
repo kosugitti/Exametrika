@@ -61,10 +61,10 @@ empiricalZeta(Zeta * 100)
 
 pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
 Stanine <- quantile(t, pbs)
-stanine_scores <- cut(t, breaks = c(-Inf, Stanine-1, Inf), right = T) %>%
+stanine_scores <- cut(t, breaks = c(-Inf, Stanine - 1, Inf), right = T) %>%
   factor(labels = 1:9)
 
-StanineW <- quantile(Zeta_W,pbs)
+StanineW <- quantile(Zeta_W, pbs)
 stanine_scoresW <- cut(Zeta_W, breaks = c(-Inf, StanineW, Inf), right = F) %>%
   factor(labels = 1:9)
 

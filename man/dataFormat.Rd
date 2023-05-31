@@ -4,18 +4,20 @@
 \alias{dataFormat}
 \title{dataFormat}
 \usage{
-dataFormat(U, na = NULL, Z = NULL, w = NULL)
+dataFormat(data, na = NULL, id = 1, Z = NULL, w = NULL)
 }
 \arguments{
-\item{U}{is a data matrix of the type matrix or data.frame.}
+\item{data}{is a data matrix of the type matrix or data.frame.}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
+
+\item{id}{id indicates the column number containing the examinee ID. The default is 1.
+If the answer pattern is contained in the first column, it is treated as if there is no ID vector.}
 
 \item{Z}{Z is a missing indicator matrix of the type matrix or data.frame}
 
 \item{w}{w is item weight vector}
 }
 \description{
-This function returns the sample size, data matrix, missing value identifier matrix,
-and weight matrix from the given data matrix.
+dataFormat
 }
