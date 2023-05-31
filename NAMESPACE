@@ -2,4 +2,8 @@
 
 export(nrs)
 export(passage)
+export(percentile)
 export(sscore)
+export(stanine)
+import(stats)
+importFrom(stats,ecdf)

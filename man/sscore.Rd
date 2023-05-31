@@ -4,10 +4,12 @@
 \alias{sscore}
 \title{sscore}
 \usage{
-sscore(U, Z = NULL, w = NULL)
+sscore(U, na = NULL, Z = NULL, w = NULL)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
+
+\item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
 \item{Z}{Z is a missing indicator matrix of the type matrix or data.frame}
 
@@ -21,5 +23,5 @@ The standardized score indicates how high or low the student's ability is
 placed in the standard normal distribution.
 }
 \examples{
-# sscore(x)
+# sscore(U)
 }

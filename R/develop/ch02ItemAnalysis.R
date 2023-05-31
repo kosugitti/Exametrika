@@ -3,14 +3,15 @@ library(tidyverse)
 
 # DataMatrix --------------------------------------------------------------
 
-dat <- read_csv("develop/sampleData/J20S400.csv", na = "-99") %>%
+dat <- read_csv("tests/testthat/sampleData/J20S400.csv") %>%
   mutate(Student = as.factor(Student))
 
 summary(dat)
 
-U <- as.matrix(dat[, -1])
-Z <- ifelse(is.na(U), 0, 1)
-Una <- dat[, -1]
+U <- jj <- as.matrix(dat[, -1])
+Una <- ifelse(U == -99, NA, U)
+Z <- ifelse(is.na(Una), 0, 1)
+U <- ifelse(U == -99, 0, U)
 
 ## NAに数値を与えなければならない
 U <- ifelse(is.na(U), -99, U)
@@ -19,7 +20,7 @@ S <- nrow(U)
 J <- ncol(U)
 OneJ <- rep(1, length = J)
 OneS <- rep(1, length = S)
-
+Js <- Z %*% OneJ
 # Student Analysis --------------------------------------------------------
 
 ## NRS:Number-Right Score
@@ -37,8 +38,8 @@ min(t)
 max(t)
 ## Passage Rate
 r <- t / (Z %*% OneJ)
-rW <- tW / (Z %*% W)
-
+r <- t / Js
+rW <- tW / Js
 ## Standardized Score
 rBar <- (t(OneS) %*% r) / S
 rBar <- rBar %>% array(dim = 1)
@@ -55,12 +56,16 @@ Zeta_W <- (rW - c(rBarW) * OneS) / (sqrt(c(Var_rW)) * OneS)
 pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07, 0.04))
 Stanine <- quantile(t, pbs)
 
-empiricalZeta <- ecdf(Zeta)
-empiricalZeta(Zeta) * 100
+empiricalZeta <- ecdf(Zeta_W)
+empiricalZeta(Zeta * 100)
 
 pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
 Stanine <- quantile(t, pbs)
-stanine_scores <- cut(t, breaks = c(-Inf, Stanine, Inf), right = F) %>%
+stanine_scores <- cut(t, breaks = c(-Inf, Stanine-1, Inf), right = T) %>%
+  factor(labels = 1:9)
+
+StanineW <- quantile(Zeta_W,pbs)
+stanine_scoresW <- cut(Zeta_W, breaks = c(-Inf, StanineW, Inf), right = F) %>%
   factor(labels = 1:9)
 
 # Single Item Analysis ----------------------------------------------------

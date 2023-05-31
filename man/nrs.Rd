@@ -4,10 +4,12 @@
 \alias{nrs}
 \title{nrs}
 \usage{
-nrs(U, Z = NULL, w = NULL)
+nrs(U, na = NULL, Z = NULL, w = NULL)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
+
+\item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
 \item{Z}{Z is a missing indicator matrix of the type matrix or data.frame}
 
@@ -21,5 +23,5 @@ This function counts and returns the number of correct answers from the data mat
 The Number-right score (NRS) function returns the count of the items passed to it.
 }
 \examples{
-# nrs(x)
+# nrs(U)
 }
