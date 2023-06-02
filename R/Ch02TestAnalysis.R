@@ -72,5 +72,9 @@ DimensonalityAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
     PercentageOfVariance = EvalVariance,
     CumulativeVariance = CumVari
   ))
+  x <- df$Component
+  y <- df$Eigenvalue
+  plot(x, y, xlab="Number of Components", ylab="Eigenvalue",type="b")
+
   return(df)
 }
