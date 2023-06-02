@@ -239,3 +239,27 @@ TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
   diag(mat) <- 1
   return(mat)
 }
+
+
+#' @title Inter-Item Analysis
+#' @description
+#' Inter-Item Analysis returns various metrics such as JSS, JCRR, CCR,
+#' IL, MI, Phi, and Tetrachoric correlations in the form of a matrix.
+#' @param U U is a data matrix of the type matrix or data.frame.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param w w is item weight vector
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @export
+
+InterItemAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  JSS <- JointSampleSize(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  JCRR <- JCRR(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  IL <- ItemLift(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  MI <- MutualInformation(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  Phi <- PhiCoefficient(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  Tet <- TetrachoricCorrelationMatrix(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  return(list(
+    JSS = JSS, JCRR=JCRR,IL=IL,MI=MI,Phi=Phi,Tetrachoric=Tet
+  ))
+}

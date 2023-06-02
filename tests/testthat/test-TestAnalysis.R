@@ -20,6 +20,7 @@ ClassicalTestTheory <- Ch03Tests[, 3:4] %>%
   rename(name = 1, value = 2) %>%
   mutate(value = as.numeric(value))
 ## read same data
+# dat <- read_csv("tests/testthat/sampleData/J20S400.csv")
 dat <- read_csv("sampleData/J20S400.csv")
 U <- as.matrix(dat[, -1])
 Z <- ifelse(U == -99, 0, 1)
