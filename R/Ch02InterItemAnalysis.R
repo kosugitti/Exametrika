@@ -253,13 +253,13 @@ TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
 
 InterItemAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
   tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  JSS <- JointSampleSize(U=tmp$U,Z=tmp$Z,w=tmp$z)
-  JCRR <- JCRR(U=tmp$U,Z=tmp$Z,w=tmp$z)
-  IL <- ItemLift(U=tmp$U,Z=tmp$Z,w=tmp$z)
-  MI <- MutualInformation(U=tmp$U,Z=tmp$Z,w=tmp$z)
-  Phi <- PhiCoefficient(U=tmp$U,Z=tmp$Z,w=tmp$z)
-  Tet <- TetrachoricCorrelationMatrix(U=tmp$U,Z=tmp$Z,w=tmp$z)
+  JSS <- JointSampleSize(U = tmp$U, Z = tmp$Z, w = tmp$z)
+  JCRR <- JCRR(U = tmp$U, Z = tmp$Z, w = tmp$z)
+  IL <- ItemLift(U = tmp$U, Z = tmp$Z, w = tmp$z)
+  MI <- MutualInformation(U = tmp$U, Z = tmp$Z, w = tmp$z)
+  Phi <- PhiCoefficient(U = tmp$U, Z = tmp$Z, w = tmp$z)
+  Tet <- TetrachoricCorrelationMatrix(U = tmp$U, Z = tmp$Z, w = tmp$z)
   return(list(
-    JSS = JSS, JCRR=JCRR,IL=IL,MI=MI,Phi=Phi,Tetrachoric=Tet
+    JSS = JSS, JCRR = JCRR, IL = IL, MI = MI, Phi = Phi, Tetrachoric = Tet
   ))
 }

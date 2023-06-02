@@ -19,5 +19,5 @@ If the answer pattern is contained in the first column, it is treated as if ther
 \item{w}{w is item weight vector}
 }
 \description{
-dataFormat
+This function serves the role of formatting the data prior to the analysis.
 }

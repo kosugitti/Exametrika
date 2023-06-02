@@ -1,13 +1,13 @@
 ### Read Output of Mathematica
 library(tidyverse)
 library(readxl)
-Ch03CTT <- read_excel("Chapter03CTT.xlsx",
+Ch03CTT <- suppressMessages(read_excel("Chapter03CTT.xlsx",
   sheet = "Student"
-) %>%
+)) %>%
   select_if(is.numeric) %>%
   as.data.frame()
 ## read same data
-dat <- read_csv("sampleData/J20S400.csv")
+dat <- suppressMessages(read_csv("sampleData/J20S400.csv"))
 U <- as.matrix(dat[, -1])
 Z <- ifelse(is.na(U), 0, 1)
 

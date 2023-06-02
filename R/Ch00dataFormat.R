@@ -1,5 +1,6 @@
 #' @title dataFormat
 #' @description
+#' This function serves the role of formatting the data prior to the analysis.
 #' @param data is a data matrix of the type matrix or data.frame.
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
 #' @param id id indicates the column number containing the examinee ID. The default is 1.
@@ -7,7 +8,6 @@
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @export
-#' @return
 #'
 dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   # Check if U is either a matrix or a dataframe, otherwise stop the execution
