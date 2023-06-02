@@ -45,7 +45,7 @@ Ch03Tet <- read_excel("Chapter03CTT.xlsx",
 ## read same data
 dat <- read_csv("sampleData/J20S400.csv")
 U <- as.matrix(dat[, -1])
-Z <- ifelse(is.na(U), 0, 1)
+Z <- ifelse(U == -99, 0, 1)
 
 # Test Section ------------------------------------------------------------
 
@@ -73,19 +73,6 @@ test_that("Item Entropy", {
   expect <- Ch03Items$`Item Entropy` %>% as.vector()
   expect_equal(result, expect)
 })
-
-# not yet -----------------------------------------------------------------
-#
-# test_that("Item Total Correlation", {
-#   result <- ItemTotalCorr(U, na = -99) %>% as.vector()
-#   expect <- Ch03Items$`Item-Total Correlation` %>% as.vector()
-#   expect_equal(result, expect)
-# })
-# test_that("Item Total Biserial Correlation", {
-#   result <- ItemEntropy(U, na = -99) %>% as.vector()
-#   expect <- Ch03Items$`Item-Total Bisereal Correlation` %>% as.vector()
-#   expect_equal(result, expect)
-# })
 
 # Between Items Section ---------------------------------------------------
 
@@ -132,4 +119,17 @@ test_that("Tetrachoric Correlation Matrix", {
   Una <- ifelse(U == -99, NA, U)
   expect <- Ch03Tet %>% unname()
   expect_equal(expected = expect, object = result, tolerance = 0.0001)
+})
+
+test_that("Item Total Correlation", {
+  result <- ItemTotalCorr(U, na = -99)
+  expect <- Ch03Items$`Item-Total Correlation`
+  expect_equal(expected = expect, object = as.vector(result))
+})
+
+
+test_that("Item Total Biserial Correlation", {
+  result <- ITBiserial(U, na = -99) %>% as.vector()
+  expect <- Ch03Items$`Item-Total Bisereal Correlation` %>% as.vector()
+  expect_equal(result, expect, tolerance = 0.0001)
 })

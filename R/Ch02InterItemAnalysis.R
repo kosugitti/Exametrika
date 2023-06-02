@@ -166,13 +166,21 @@ tetrachoric <- function(x, y) {
   S10 <- tbl[2, 1]
   S01 <- tbl[1, 2]
   S11 <- tbl[2, 2]
-  if(S00==0){S00 <- 0.5}
-  if(S10==0){S10 <- 0.5}
-  if(S01==0){S01 <- 0.5}
-  if(S11==0){S11 <- 0.5}
+  if (S00 == 0) {
+    S00 <- 0.5
+  }
+  if (S10 == 0) {
+    S10 <- 0.5
+  }
+  if (S01 == 0) {
+    S01 <- 0.5
+  }
+  if (S11 == 0) {
+    S11 <- 0.5
+  }
   # calcs tau
-  tau_j <- qnorm(1 - mean(x,na.rm=TRUE))
-  tau_k <- qnorm(1 - mean(y,na.rm=TRUE))
+  tau_j <- qnorm(1 - mean(x, na.rm = TRUE))
+  tau_k <- qnorm(1 - mean(y, na.rm = TRUE))
   ## BVN funcs
   BVN11 <- function(rho, tau_j, tau_k) {
     pmvnorm(upper = c(-tau_j, -tau_k), corr = matrix(c(1, rho, rho, 1), ncol = 2))
@@ -192,13 +200,13 @@ tetrachoric <- function(x, y) {
       S10 * log(BVN10(rho, tau_j, tau_k)) + S11 * log(BVN11(rho, tau_j, tau_k))
   }
   ret <- optim(
-    par = 0,  # initial value
+    par = 0, # initial value
     fn = function(x) {
       -log_likelihood_phi(rho = x, tau_j, tau_k, S00, S11, S10, S01)
     },
-    lower = -1,  # lower limit
-    upper = 1,  # upper limit
-    method = "Brent"  # one-dimensional optimization method
+    lower = -1, # lower limit
+    upper = 1, # upper limit
+    method = "Brent" # one-dimensional optimization method
   )
   return(ret$par)
 }
