@@ -4,7 +4,7 @@ library(tidyverse)
 # MLE for Ability ---------------------------------------------------------
 ## IRT functions
 LogisticModel <- function(a = 1, b, c = 0, d = 0, theta) {
-  p <- c + (d - c) / (1 + exp(-a * (theta - b)))
+  p <- c +( (d - c) / (1 + exp(-a * (theta - b))))
   return(p)
 }
 
@@ -226,15 +226,82 @@ dat <- read_csv("tests/testthat/sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
 
 tmp <- Exametrika::dataFormat(dat, na = -99)
-U <- ifelse(is.na(tmp$U),0,tmp$U) * tmp$Z
+U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
 rho <- Exametrika::ItemTotalCorr(U)
 tau <- Exametrika::ItemThreshold(U)
 
-### Initialize
-a <- 2 * rho
-b <- 2 * tau
-c <- rep(0.05,NCOL(U))
-d <- rep(0.95,NCOL(U))
+testlength <- NCOL(U)
 
-quadrature <- seq(-3.2,3.2,0.4)
+### Initialize
+model <- 3
+slope <- 2 * rho
+loc <- 2 * tau
+if (model >= 3) {
+  loasym <- rep(0.05, testlength)
+} else {
+  loasym <- rep(0, testlength)
+}
+if (model >= 4) {
+  upasym <- rep(0.95, testlength)
+} else {
+  upasym <- rep(1, testlength)
+}
+
+paramset <- matrix(c(slope, loc, loasym, upasym), ncol = 4)
+
+quadrature <- seq(-3.2, 3.2, 0.4)
+
+const <- exp(-testlength)
+
+loglike <- -1 / const
+oldloglike <- -2 / const
+
+
+itemloglike <- rep(loglike / testlength, testlength)
+
+log(LogisticModel(a = paramset[2,1],b=paramset[2,2],c=paramset[2,3],d=paramset[2,4],theta=-3.2)+const)
+
+LogisticModel(a = paramset[j, 1],
+              b = paramset[j, 2],
+              c = paramset[j, 3],
+              d = paramset[j, 4],
+              theta = quadrature)
+
+### Expectation
+lpj <- matrix(NA, nrow = testlength, ncol = length(quadrature))
+for (j in 1:testlength) {
+    lpj[j, ] <- log(LogisticModel(a = paramset[j, 1],
+                                   b = paramset[j, 2],
+                                   c = paramset[j, 3],
+                                   d = paramset[j, 4],
+                                   theta = quadrature) + const )
+}
+lpj
+
+lqj <- matrix(NA,nrow=testlength,ncol=length(quadrature))
+for (j in 1:testlength) {
+  lqj[j, ] <- log(1-LogisticModel(a = paramset[j, 1],
+                                b = paramset[j, 2],
+                                c = paramset[j, 3],
+                                d = paramset[j, 4],
+                                theta = quadrature) + const )
+}
+lqj
+
+
+posttheta_numerator <-exp(
+  (tmp$Z * tmp$U) %*% lpj +
+  (tmp$Z * (1-tmp$U)) %*% lqj -
+  matrix(rep(quadrature^2/2,NROW(tmp$U)),nrow=NROW(tmp$U),byrow=T))
+
+post_theta <-  posttheta_numerator/rowSums(posttheta_numerator)
+
+marginal_posttheta <- colSums(post_theta)
+
+qjtrue <- t(tmp$Z*tmp$U)%*% post_theta
+qjfalse <- t(tmp$Z*(1-tmp$U))%*% post_theta
+
+### Maximize
+
+
