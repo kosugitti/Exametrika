@@ -218,3 +218,23 @@ EAP_PSD <- function(Lambda, U, Z) {
 }
 
 EAP_PSD(Lambda, U, Z)
+
+
+# 4.5 EM algorithm --------------------------------------------------------
+library(Exametrika)
+dat <- read_csv("tests/testthat/sampleData/J15S500.csv") %>%
+  mutate(Student = as.factor(Student))
+
+tmp <- Exametrika::dataFormat(dat, na = -99)
+U <- ifelse(is.na(tmp$U),0,tmp$U) * tmp$Z
+
+rho <- Exametrika::ItemTotalCorr(U)
+tau <- Exametrika::ItemThreshold(U)
+
+### Initialize
+a <- 2 * rho
+b <- 2 * tau
+c <- rep(0.05,NCOL(U))
+d <- rep(0.95,NCOL(U))
+
+quadrature <- seq(-3.2,3.2,0.4)

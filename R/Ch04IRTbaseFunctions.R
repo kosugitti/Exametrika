@@ -38,7 +38,7 @@ ThreePLM <- function(a,b,c,theta){
 #' @param d upper asymptote parameter
 #' @param theta ability parameter
 
-ThreePLM <- function(a,b,c,d,theta){
+FourPLM <- function(a,b,c,d,theta){
   p = c + (d-c)/(1+exp(-a*(theta - b)))
   return(p)
 }
@@ -51,8 +51,50 @@ ThreePLM <- function(a,b,c,d,theta){
 #' @param b slope parameter
 #' @param theta ability parameter
 
-ThreePLM <- function(b,theta){
+RaschModel <- function(b,theta){
   p = 1/(1+exp(-1 * (theta - b)))
   return(p)
 }
 
+#' @title IIF for 2PLM
+#' @description
+#' Item Information Function for 2PLM
+#' @param a slope parameter
+#' @param b locaiton parameter
+#' @param theta ability parameter
+
+IIF2PLM <- function(a,b,theta){
+  a^2 * TwoPLM(a,b,theta) * (1-TwoPLM(a,b,theta))
+}
+
+#' @title IIF for 3PLM
+#' @description
+#' Item Information Function for 3PLM
+#' @param a slope parameter
+#' @param b locaiton parameter
+#' @param c lower asymptote parameter
+#' @param theta ability parameter
+
+IIF3PLM <- function(a,b,c,theta){
+  numerator <- a^2 * (1-ThreePLM(a,b,c,theta)) * (ThreePLM(a,b,c,theta)-c)^2
+  denominator <- (1-c)^2*ThreePLM(a,b,c,theta)
+  tmp <- numerator/denominator
+  return(tmp)
+}
+
+#' @title IIF for 4PLM
+#' @description
+#' Item Information Function for 4PLM
+#' @param a slope parameter
+#' @param b locaiton parameter
+#' @param c lower asymptote parameter
+#' @param d upper asymptote parameter
+#' @param theta ability parameter
+
+IIF4PLM <- function(a,b,c,d,theta){
+  numerator <- a^2 *(FourPLM(a,b,c,d,theta)-c) * (d-FourPLM(a,b,c,d,theta)) *
+    (FourPLM(a,b,c,d,theta) * (c + d - FourPLM(a,b,c,d,theta)) - c*d)
+  denominator <- (d-c)^2*FourPLM(a,b,c,d,theta)*(1-FourPLM(a,b,c,d,theta))
+  tmp <- numerator/denominator
+  return(tmp)
+}
