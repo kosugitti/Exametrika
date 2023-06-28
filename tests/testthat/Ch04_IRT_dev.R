@@ -3,8 +3,8 @@ library(tidyverse)
 
 # MLE for Ability ---------------------------------------------------------
 ## IRT functions
-LogisticModel <- function(a = 1, b, c = 0, d = 0, theta) {
-  p <- c +( (d - c) / (1 + exp(-a * (theta - b))))
+LogisticModel <- function(a = 1, b, c = 0, d = 1, theta) {
+  p <- c + ((d - c) / (1 + exp(-a * (theta - b))))
   return(p)
 }
 
@@ -260,48 +260,294 @@ oldloglike <- -2 / const
 
 itemloglike <- rep(loglike / testlength, testlength)
 
-log(LogisticModel(a = paramset[2,1],b=paramset[2,2],c=paramset[2,3],d=paramset[2,4],theta=-3.2)+const)
+log(LogisticModel(a = paramset[2, 1], b = paramset[2, 2], c = paramset[2, 3], d = paramset[2, 4], theta = -3.2) + const)
 
-LogisticModel(a = paramset[j, 1],
-              b = paramset[j, 2],
-              c = paramset[j, 3],
-              d = paramset[j, 4],
-              theta = quadrature)
 
 ### Expectation
 lpj <- matrix(NA, nrow = testlength, ncol = length(quadrature))
 for (j in 1:testlength) {
-    lpj[j, ] <- log(LogisticModel(a = paramset[j, 1],
-                                   b = paramset[j, 2],
-                                   c = paramset[j, 3],
-                                   d = paramset[j, 4],
-                                   theta = quadrature) + const )
+  lpj[j, ] <- log(LogisticModel(
+    a = paramset[j, 1],
+    b = paramset[j, 2],
+    c = paramset[j, 3],
+    d = paramset[j, 4],
+    theta = quadrature
+  ) + const)
 }
 lpj
 
-lqj <- matrix(NA,nrow=testlength,ncol=length(quadrature))
+lqj <- matrix(NA, nrow = testlength, ncol = length(quadrature))
 for (j in 1:testlength) {
-  lqj[j, ] <- log(1-LogisticModel(a = paramset[j, 1],
-                                b = paramset[j, 2],
-                                c = paramset[j, 3],
-                                d = paramset[j, 4],
-                                theta = quadrature) + const )
+  lqj[j, ] <- log(1 - LogisticModel(
+    a = paramset[j, 1],
+    b = paramset[j, 2],
+    c = paramset[j, 3],
+    d = paramset[j, 4],
+    theta = quadrature
+  ) + const)
 }
 lqj
 
 
-posttheta_numerator <-exp(
+posttheta_numerator <- exp(
   (tmp$Z * tmp$U) %*% lpj +
-  (tmp$Z * (1-tmp$U)) %*% lqj -
-  matrix(rep(quadrature^2/2,NROW(tmp$U)),nrow=NROW(tmp$U),byrow=T))
+    (tmp$Z * (1 - tmp$U)) %*% lqj -
+    matrix(rep(quadrature^2 / 2, NROW(tmp$U)), nrow = NROW(tmp$U), byrow = T)
+)
 
-post_theta <-  posttheta_numerator/rowSums(posttheta_numerator)
+post_theta <- posttheta_numerator / rowSums(posttheta_numerator)
 
 marginal_posttheta <- colSums(post_theta)
 
-qjtrue <- t(tmp$Z*tmp$U)%*% post_theta
-qjfalse <- t(tmp$Z*(1-tmp$U))%*% post_theta
+qjtrue <- t(tmp$Z * tmp$U) %*% post_theta
+qjfalse <- t(tmp$Z * (1 - tmp$U)) %*% post_theta
 
 ### Maximize
 
+slopeprior <- function(a, m, s) {
+  -(log(max(a, const)) - m)^2 / (2 * s^2) - log(max(a, const)) - log(s)
+}
 
+asymprior <- function(c, alp, bet) {
+  (alp - 1) * log(c) + (bet - 1) * log(1 - c)
+}
+
+objective_function <- function(params, j) {
+  a <- params[1]
+  b <- params[2]
+  c <- params[3]
+  exloglike <- sum(
+    qjtrue[j, ] * log(LogisticModel(a = a, b = b, c = c, d = 1, theta = quadrature)) +
+      qjfalse[j, ] * log(1 - LogisticModel(a = a, b = b, c = c, d = 1, quadrature))
+  )
+  exloglike <- exloglike - (b / 2)^2 / 2 + slopeprior(a, 0, 0.5) + asymprior(c, 2, 5)
+  return(exloglike)
+}
+
+
+# 初期値の設定
+initial_values <- c(1, 0.1, 0.1) # a, bの初期値
+for (j in 1:testlength) {
+  result <- optim(
+    initial_values,
+    objective_function,
+    method = "BFGS",
+    control = list(fnscale = -1),
+    j = j
+  )
+  print(paste(j, result$value))
+}
+
+
+# EMalgorithm -----------------------------------------------------
+dat <- read_csv("tests/testthat/sampleData/J15S500.csv") %>%
+  mutate(Student = as.factor(Student))
+
+tmp <- Exametrika::dataFormat(dat, na = -99)
+U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
+
+rho <- Exametrika::ItemTotalCorr(U)
+tau <- Exametrika::ItemThreshold(U)
+
+testlength <- NCOL(U)
+
+model <- 3
+
+
+### Function Definition
+LogisticModel <- function(a = 1, b, c = 0, d = 1, theta) {
+  p <- c + ((d - c) / (1 + exp(-a * (theta - b))))
+  return(p)
+}
+
+slopeprior <- function(a, m, s) {
+  -(log(max(a, const)) - m)^2 / (2 * s^2) - log(max(a, const)) - log(s)
+}
+
+asymprior <- function(c, alp, bet) {
+  (alp - 1) * log(c) + (bet - 1) * log(1 - c)
+}
+
+objective_function2 <- function(params, j) {
+  a <- params[1]
+  b <- params[2]
+  exloglike <- sum(
+    qjtrue[j, ] * log(LogisticModel(a = a, b = b, c = 0, d = 1, theta = quadrature)) +
+      qjfalse[j, ] * log(1 - LogisticModel(a = a, b = b, c = 0, d = 1, quadrature))
+  )
+  exloglike <- exloglike - (b / 2)^2 / 2 + slopeprior(a, 0, 0.5)
+  return(exloglike)
+}
+
+objective_function3 <- function(params, j) {
+  a <- params[1]
+  b <- params[2]
+  c <- params[3]
+  exloglike <- sum(
+    qjtrue[j, ] * log(LogisticModel(a = a, b = b, c = c, d = 1, theta = quadrature)) +
+      qjfalse[j, ] * log(1 - LogisticModel(a = a, b = b, c = c, d = 1, quadrature))
+  )
+  exloglike <- exloglike - (b / 2)^2 / 2 + slopeprior(a, 0, 0.5) + asymprior(c, 2, 5)
+  return(exloglike)
+}
+
+objective_function4 <- function(params, j) {
+  a <- params[1]
+  b <- params[2]
+  c <- params[3]
+  d <- params[4]
+  exloglike <- sum(
+    qjtrue[j, ] * log(LogisticModel(a = a, b = b, c = c, d = d, theta = quadrature)) +
+      qjfalse[j, ] * log(1 - LogisticModel(a = a, b = b, c = c, d = d, quadrature))
+  )
+  exloglike <- exloglike - (b / 2)^2 / 2 + slopeprior(a, 0, 0.5) + asymprior(c, 2, 5) + asymprior(d, 10, 2)
+  return(exloglike)
+}
+
+
+### Initialize
+
+slope <- 2 * rho
+loc <- 2 * tau
+if (model >= 3) {
+  loasym <- rep(0.05, testlength)
+} else {
+  loasym <- rep(0, testlength)
+}
+if (model >= 4) {
+  upasym <- rep(0.95, testlength)
+} else {
+  upasym <- rep(1, testlength)
+}
+
+paramset <- matrix(c(slope, loc, loasym, upasym), ncol = 4)
+
+quadrature <- seq(-3.2, 3.2, 0.4)
+
+const <- exp(-testlength)
+
+loglike <- -1 / const
+oldloglike <- -2 / const
+
+
+itemloglike <- rep(loglike / testlength, testlength)
+
+
+emt <- 0
+maxemt <- 25
+FLG <- TRUE
+
+if (model == 2) {
+  opt_func <- objective_function2
+} else if (model == 3) {
+  opt_func <- objective_function3
+} else if (model == 4) {
+  opt_func <- objective_function4
+} else {
+  stop("The model must set either 2, 3, or 4")
+}
+
+while (FLG) {
+  if (loglike - oldloglike <= 1e-7*abs(oldloglike)) {
+    FLG <- FALSE
+  }
+  emt <- emt + 1
+  oldloglike <- loglike
+  if (emt > maxemt) {
+    FLG <- FALSE
+  }
+  ### Expectation
+  lpj <- matrix(NA, nrow = testlength, ncol = length(quadrature))
+  for (j in 1:testlength) {
+    lpj[j, ] <- log(LogisticModel(
+      a = paramset[j, 1],
+      b = paramset[j, 2],
+      c = paramset[j, 3],
+      d = paramset[j, 4],
+      theta = quadrature
+    ) + const)
+  }
+
+  lqj <- matrix(NA, nrow = testlength, ncol = length(quadrature))
+  for (j in 1:testlength) {
+    lqj[j, ] <- log(1 - LogisticModel(
+      a = paramset[j, 1],
+      b = paramset[j, 2],
+      c = paramset[j, 3],
+      d = paramset[j, 4],
+      theta = quadrature
+    ) + const)
+  }
+
+  posttheta_numerator <- exp(
+    (tmp$Z * tmp$U) %*% lpj +
+      (tmp$Z * (1 - tmp$U)) %*% lqj -
+      matrix(rep(quadrature^2 / 2, NROW(tmp$U)), nrow = NROW(tmp$U), byrow = T)
+  )
+
+  post_theta <- posttheta_numerator / rowSums(posttheta_numerator)
+
+  marginal_posttheta <- colSums(post_theta)
+  #
+  qjtrue <- t(tmp$Z * tmp$U) %*% post_theta
+  qjfalse <- t(tmp$Z * (1 - tmp$U)) %*% post_theta
+
+  ### Maximize
+  if (model == 2) {
+    initial_values <- c(0.5, 0.5) # a, bの初期値
+  } else if (model == 3) {
+    initial_values <- c(0.5, 0.5, 0.05) # a, b, cの初期値
+  } else if (model == 4) {
+    initial_values <- c(0.5, 0.5, 0.05, 0.05) # a, b, c, dの初期値
+  }
+
+  totalLogLike <- 0
+  for (j in 1:testlength) {
+    result <- optim(
+      initial_values,
+      opt_func,
+      control = list(fnscale = -1),
+      j = j
+    )
+    totalLogLike <- totalLogLike + result$value
+    if(model==2){
+      newparams <- c(result$par,0,1)
+    }else if(model==3){
+      newparams <- c(result$par,1)
+    }else if(model==4){
+      newparams <- result$par
+    }
+    paramset[j, ] <- newparams
+  }
+  print(paste("iter", emt, "LogLik", totalLogLike))
+  loglike <- totalLogLike
+}
+
+paramset
+EAPs(paramset,tmp$U,tmp$Z)
+
+# 4.5.8 Posterior Standard Deviation ------------------------------
+### model3
+Mathematica <- read_excel("tests/testthat/mtmk_v13/Chapter04IRT_3.xlsx",sheet = "Item")
+Goal_params3 <- Mathematica[,7:9]
+
+
+lambda_1MAP <- paramset[1,1:3]
+lambda_1MAP_Goal <- Goal_params3[1,1:3]
+
+# prior slope Log_normal(0,0.5)
+# prior location normal(0,2)
+# prior lower_asym Beta(2,5)
+
+Ipr_a <- function(a){
+  (1 - 0.5^2 - log(a))/(a^2*0.5^2)
+}
+
+Ipr_cd <- function(c){
+  1/c^2 + 4/(1-c)^2
+}
+
+Ipr_a(lambda_1MAP_Goal[1])
+Ipr_a(lambda_1MAP[1])
+Ipr_b <- 1/2^2
+Ipr_cd(lambda_1MAP_Goal[3])
