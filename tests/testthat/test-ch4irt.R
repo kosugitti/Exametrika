@@ -26,6 +26,7 @@ dat <- read_csv("tests/testthat/sampleData/J15S500.csv") %>%
 tmp <- Exametrika::dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
-result <- IRT(model=4,U=U)
+result <- IRT(model = 3, U = U)
+param <- result$params[1, 1:2]
 result$params
 result$item_log_like

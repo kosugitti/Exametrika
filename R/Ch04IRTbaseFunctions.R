@@ -105,4 +105,3 @@ Item_Information_Func <- function(a = 1, b, c = 1, d = 0, theta) {
   tmp <- numerator / denominator
   return(tmp)
 }
-

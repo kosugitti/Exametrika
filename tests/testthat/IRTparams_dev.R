@@ -70,11 +70,11 @@ objective_function <- function(params, j) {
   return(exloglike)
 }
 
-objective_function_IRT <- function(lambda, model,qjtrue, qjfalse, quadrature) {
+objective_function_IRT <- function(lambda, model, qjtrue, qjfalse, quadrature) {
   a <- lambda[1]
   b <- lambda[2]
-  c <- ifelse(model>2,lambda[3],0)
-  d <- ifelse(model>3,lambda[4],1)
+  c <- ifelse(model > 2, lambda[3], 0)
+  d <- ifelse(model > 3, lambda[4], 1)
 
   exloglike <- sum(
     qjtrue * log(LogisticModel(a = a, b = b, c = c, d = d, theta = quadrature)) +
@@ -131,7 +131,7 @@ FLG <- TRUE
 itemloglike <- array(NA, testlength)
 
 while (FLG) {
-  if (abs(loglike - oldloglike) < 0.00001*abs(oldloglike)) {
+  if (abs(loglike - oldloglike) < 0.00001 * abs(oldloglike)) {
     FLG <- FALSE
   }
   emt <- emt + 1
@@ -181,14 +181,14 @@ while (FLG) {
   for (j in 1:testlength) {
     ## 初期値微動,上限下限設定
     initial_values <- paramset[j, 1:model] + rnorm(model, 0, 0.01)
-    initial_values <- c(0.5,0.5,0,1)[1:model]
+    initial_values <- c(0.5, 0.5, 0, 1)[1:model]
     lowers <- c(-Inf, -5, 1e-10, 1e-10)[1:model]
     uppers <- c(Inf, 5, 1 - 1e-10, 1 - 1e-10)[1:model]
 
     optim_flg <- FALSE
     max_attempt <- 100
     attempt <- 0
-    while (!optim_flg & attempt < max_attempt ) {
+    while (!optim_flg & attempt < max_attempt) {
       attempt <- attempt + 1
       tryCatch(
         {
@@ -212,7 +212,7 @@ while (FLG) {
             qjtrue = qjtrue[j, ],
             qjfalse = qjfalse[j, ],
             quadrature = quadrature,
-            #j=j
+            # j=j
           )
           optim_flg <- TRUE
         },
@@ -234,7 +234,7 @@ while (FLG) {
     paramset[j, ] <- newparams
   }
   loglike <- totalLogLike
-  print(paste("iter", emt, "LogLik", totalLogLike,"itemloglike",itemloglike[2]))
+  print(paste("iter", emt, "LogLik", totalLogLike, "itemloglike", itemloglike[2]))
 }
 
 

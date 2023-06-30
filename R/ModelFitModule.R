@@ -9,7 +9,7 @@
 #' @param nobs number of observations
 #' @export
 
-Model_Fit <- function(ell_A,ell_B,ell_N,df_A,df_B,nobs){
+Model_Fit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
   ### this model
   chi_A <- 2 * (ell_B - ell_A)
   ### Null model
@@ -27,9 +27,11 @@ Model_Fit <- function(ell_A,ell_B,ell_N,df_A,df_B,nobs){
   BIC <- chi_A - df_A * log(nobs)
 
   return(list(
-    NFI = NFI, RFI=RFI, IFI=IFI, TLI = TLI,CFI=CFI,RMSEA=RMSEA,
-    AIC=AIC,CAIC=CAIC,BIC=BIC
+    model_Chi_sq = chi_A,
+    null_Chi_sq = chi_B,
+    model_df = df_A,
+    null_df = df_B,
+    NFI = NFI, RFI = RFI, IFI = IFI, TLI = TLI, CFI = CFI, RMSEA = RMSEA,
+    AIC = AIC, CAIC = CAIC, BIC = BIC
   ))
-
 }
-

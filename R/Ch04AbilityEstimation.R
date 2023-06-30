@@ -43,4 +43,3 @@ EAP_PSD <- function(Lambda, U, Z) {
 
   return(list(EAP = EAP, PSDs = PSDs))
 }
-

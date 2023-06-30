@@ -27,8 +27,8 @@ asymprior <- function(c, alp, bet) {
 objective_function_IRT <- function(lambda, model, qjtrue, qjfalse, quadrature) {
   a <- lambda[1]
   b <- lambda[2]
-  c <- ifelse(model>2,lambda[3],0)
-  d <- ifelse(model>3,lambda[4],1)
+  c <- ifelse(model > 2, lambda[3], 0)
+  d <- ifelse(model > 3, lambda[4], 1)
 
   exloglike <- sum(
     qjtrue * log(LogisticModel(a = a, b = b, c = c, d = d, theta = quadrature)) +
@@ -228,6 +228,7 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
       uppers <- c(Inf, 5, 1 - 1e-10, 1 - 1e-10)[1:model]
       ## optimization
       optim_flg <- FALSE
+      warning_flg <- FALSE
       max_attempt <- 100
       attempt <- 0
       while (!optim_flg & attempt < max_attempt) {
@@ -251,6 +252,9 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
           },
           error = function(e) {
             initial_values <<- paramset[j, 1:model] + rnorm(model, 0, 0.1)
+          },
+          warning = function(w) {
+            warning_flg <- TRUE
           }
         )
       }
@@ -269,13 +273,18 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
     print(paste("iter", emt, "LogLik", totalLogLike))
   }
 
+  #### Warning
+  if (sum(paramset[, 1] > 10) > 0) {
+    warning("Some items have a discrimination parameter that exceeds 10.Please exercise caution in interpreting the model.")
+  }
+
   ## Returns
   #### Item information
   item_model_loglike <- itemloglike + (paramset[, 2] / 2)^2 / 2 - slopeprior(paramset[, 1], 0, 0.5)
-  if (model >= 3) {
+  if (model > 2) {
     item_model_loglike <- item_model_loglike - asymprior(paramset[, 3], 2, 5)
   }
-  if (model == 4) {
+  if (model > 3) {
     item_model_loglike <- item_model_loglike - asymprior(paramset[, 4], 10, 2)
   }
   item_PSD <- PSD_item_params(model, paramset, quadrature, marginal_posttheta)
@@ -316,17 +325,36 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
   df_A <- ntotal - model
   df_B <- ntotal - 1
 
-  FitIndices <- Model_Fit(ell_A,ell_B,ell_N,df_A,df_B,nobs)
+  ItemFitIndices <- Model_Fit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
+  TestFitIndices <- Model_Fit(sum(ell_A),
+    sum(ell_B),
+    sum(ell_N),
+    df_A = df_A * testlength,
+    df_B = df_B * testlength,
+    nobs
+  )
 
+  ## Formatting
+  paramset <- as.data.frame(paramset)[1:model]
+  item_PSD <- as.data.frame(item_PSD)[1:model]
+  colnames(paramset) <- colnames(item_PSD) <- c("slope", "location", "lowerAsym", "upperAsym")[1:model]
+  rownames(paramset) <- rownames(item_PSD) <- tmp$ItemLabel
+
+  names(item_model_loglike) <- tmp$ItemLabel
+  EAP <- data.frame(EAP)
+  PSD <- data.frame(PSD)
+  theta <- cbind(tmp$ID, EAP, PSD)
+
+  log_like <- data.frame(
+    item_log_like = item_model_loglike,
+    bench_log_like = ell_B,
+    Null_log_like = ell_N
+  )
   return(list(
     params = paramset,
-    item_log_like = item_model_loglike,
     item_PSD = item_PSD,
-    ability_EAP = EAP,
-    ability_PSD = PSD,
-    FitIndices = FitIndices
+    ability = theta,
+    ItemFitIndices = data.frame(ItemFitIndices),
+    TestFitIndices = data.frame(TestFitIndices)
   ))
 }
-
-
-

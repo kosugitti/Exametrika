@@ -100,8 +100,8 @@ FLG <- TRUE
 iterMax <- 100
 iter <- 0
 Vtmp <- V
-Ltmp <- rep(1,20)
-while(FLG & iter< iterMax){
+Ltmp <- rep(1, 20)
+while (FLG & iter < iterMax) {
   iter <- iter + 1
   Esys <- eigen(Vtmp)
   Eval <- Esys$values[1]
@@ -109,13 +109,12 @@ while(FLG & iter< iterMax){
   Load <- sqrt(Eval) * Evec
   Load <- sign(sum(sign(Load))) * Load
   Vtmp2 <- Load %*% t(Load)
-  print(paste(iter,Eval))
-  if(sum((Load-Ltmp)^2) > eps){
+  print(paste(iter, Eval))
+  if (sum((Load - Ltmp)^2) > eps) {
     Vtmp <- V
     Ltmp <- Load
     diag(Vtmp) <- diag(Vtmp2)
-  }else{
-    FLG = FALSE
+  } else {
+    FLG <- FALSE
   }
 }
-

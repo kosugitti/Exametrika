@@ -74,7 +74,7 @@ DimensonalityAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
   ))
   x <- df$Component
   y <- df$Eigenvalue
-  plot(x, y, xlab="Number of Components", ylab="Eigenvalue",type="b")
+  plot(x, y, xlab = "Number of Components", ylab = "Eigenvalue", type = "b")
 
   return(df)
 }
