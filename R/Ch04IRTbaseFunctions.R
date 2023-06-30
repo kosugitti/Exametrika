@@ -7,9 +7,10 @@
 #' @param a slope parameter
 #' @param b locaiton parameter
 #' @param theta ability parameter
+#' @export
 
-TwoPLM <- function(a,b,theta){
-  p = 1/(1+exp(-a*(theta - b)))
+TwoPLM <- function(a, b, theta) {
+  p <- 1 / (1 + exp(-a * (theta - b)))
   return(p)
 }
 
@@ -21,9 +22,10 @@ TwoPLM <- function(a,b,theta){
 #' @param b locaiton parameter
 #' @param c lower asymptote parameter
 #' @param theta ability parameter
+#' @export
 
-ThreePLM <- function(a,b,c,theta){
-  p = c + (1-c)/(1+exp(-a*(theta - b)))
+ThreePLM <- function(a, b, c, theta) {
+  p <- c + (1 - c) / (1 + exp(-a * (theta - b)))
   return(p)
 }
 
@@ -37,9 +39,10 @@ ThreePLM <- function(a,b,c,theta){
 #' @param c lower asymptote parameter
 #' @param d upper asymptote parameter
 #' @param theta ability parameter
+#' @export
 
-FourPLM <- function(a,b,c,d,theta){
-  p = c + (d-c)/(1+exp(-a*(theta - b)))
+LogisticModel <- function(a = 1, b, c = 0, d = 1, theta) {
+  p <- c + ((d - c) / (1 + exp(-a * (theta - b))))
   return(p)
 }
 
@@ -50,9 +53,10 @@ FourPLM <- function(a,b,c,d,theta){
 #' This model is also called the Rasch model.
 #' @param b slope parameter
 #' @param theta ability parameter
+#' @export
 
-RaschModel <- function(b,theta){
-  p = 1/(1+exp(-1 * (theta - b)))
+RaschModel <- function(b, theta) {
+  p <- 1 / (1 + exp(-1 * (theta - b)))
   return(p)
 }
 
@@ -62,9 +66,10 @@ RaschModel <- function(b,theta){
 #' @param a slope parameter
 #' @param b locaiton parameter
 #' @param theta ability parameter
+#' @export
 
-IIF2PLM <- function(a,b,theta){
-  a^2 * TwoPLM(a,b,theta) * (1-TwoPLM(a,b,theta))
+IIF2PLM <- function(a, b, theta) {
+  a^2 * TwoPLM(a, b, theta) * (1 - TwoPLM(a, b, theta))
 }
 
 #' @title IIF for 3PLM
@@ -74,11 +79,12 @@ IIF2PLM <- function(a,b,theta){
 #' @param b locaiton parameter
 #' @param c lower asymptote parameter
 #' @param theta ability parameter
+#' @export
 
-IIF3PLM <- function(a,b,c,theta){
-  numerator <- a^2 * (1-ThreePLM(a,b,c,theta)) * (ThreePLM(a,b,c,theta)-c)^2
-  denominator <- (1-c)^2*ThreePLM(a,b,c,theta)
-  tmp <- numerator/denominator
+IIF3PLM <- function(a, b, c, theta) {
+  numerator <- a^2 * (1 - ThreePLM(a, b, c, theta)) * (ThreePLM(a, b, c, theta) - c)^2
+  denominator <- (1 - c)^2 * ThreePLM(a, b, c, theta)
+  tmp <- numerator / denominator
   return(tmp)
 }
 
@@ -90,11 +96,13 @@ IIF3PLM <- function(a,b,c,theta){
 #' @param c lower asymptote parameter
 #' @param d upper asymptote parameter
 #' @param theta ability parameter
+#' @export
 
-IIF4PLM <- function(a,b,c,d,theta){
-  numerator <- a^2 *(FourPLM(a,b,c,d,theta)-c) * (d-FourPLM(a,b,c,d,theta)) *
-    (FourPLM(a,b,c,d,theta) * (c + d - FourPLM(a,b,c,d,theta)) - c*d)
-  denominator <- (d-c)^2*FourPLM(a,b,c,d,theta)*(1-FourPLM(a,b,c,d,theta))
-  tmp <- numerator/denominator
+Item_Information_Func <- function(a = 1, b, c = 1, d = 0, theta) {
+  numerator <- a^2 * (LogisticModel(a, b, c, d, theta) - c) * (d - LogisticModel(a, b, c, d, theta)) *
+    (LogisticModel(a, b, c, d, theta) * (c + d - LogisticModel(a, b, c, d, theta)) - c * d)
+  denominator <- (d - c)^2 * LogisticModel(a, b, c, d, theta) * (1 - LogisticModel(a, b, c, d, theta))
+  tmp <- numerator / denominator
   return(tmp)
 }
+

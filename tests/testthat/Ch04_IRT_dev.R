@@ -448,7 +448,7 @@ if (model == 2) {
 }
 
 while (FLG) {
-  if (loglike - oldloglike <= 1e-7*abs(oldloglike)) {
+  if (loglike - oldloglike <= 1e-7 * abs(oldloglike)) {
     FLG <- FALSE
   }
   emt <- emt + 1
@@ -510,11 +510,11 @@ while (FLG) {
       j = j
     )
     totalLogLike <- totalLogLike + result$value
-    if(model==2){
-      newparams <- c(result$par,0,1)
-    }else if(model==3){
-      newparams <- c(result$par,1)
-    }else if(model==4){
+    if (model == 2) {
+      newparams <- c(result$par, 0, 1)
+    } else if (model == 3) {
+      newparams <- c(result$par, 1)
+    } else if (model == 4) {
       newparams <- result$par
     }
     paramset[j, ] <- newparams
@@ -524,30 +524,150 @@ while (FLG) {
 }
 
 paramset
-EAPs(paramset,tmp$U,tmp$Z)
+eapscore <- post_theta %*% quadrature
+
+tmpA <- matrix(rep(quadrature, NROW(tmp$U)), nrow = NROW(tmp$U), byrow = T)
+tmpB <- matrix(rep(eapscore, length(quadrature)), nrow = NROW(tmp$U), byrow = F)
+
+psd <- diag(post_theta %*% t((tmpA - tmpB)^2))
+
+EAPs(paramset, tmp$U, tmp$Z)[[2]] - sqrt(psd)
 
 # 4.5.8 Posterior Standard Deviation ------------------------------
 ### model3
-Mathematica <- read_excel("tests/testthat/mtmk_v13/Chapter04IRT_3.xlsx",sheet = "Item")
-Goal_params3 <- Mathematica[,7:9]
+Mathematica <- read_excel("tests/testthat/mtmk_v13/Chapter04IRT_3.xlsx", sheet = "Item")
+Goal_params3 <- Mathematica[, 7:9]
 
 
-lambda_1MAP <- paramset[1,1:3]
-lambda_1MAP_Goal <- Goal_params3[1,1:3]
+lambda_1MAP <- paramset[1, 1:3]
+lambda_1MAP_Goal <- Goal_params3[1, 1:3] %>%
+  as.vector() %>%
+  unname() %>%
+  unlist()
 
 # prior slope Log_normal(0,0.5)
 # prior location normal(0,2)
 # prior lower_asym Beta(2,5)
 
-Ipr_a <- function(a){
-  (1 - 0.5^2 - log(a))/(a^2*0.5^2)
+Ipr_a <- function(a) {
+  (1 - 0.5^2 - log(a)) / (a^2 * 0.5^2)
 }
 
-Ipr_cd <- function(c){
-  1/c^2 + 4/(1-c)^2
+Ipr_cd <- function(c) {
+  1 / c^2 + 4 / (1 - c)^2
 }
 
 Ipr_a(lambda_1MAP_Goal[1])
 Ipr_a(lambda_1MAP[1])
-Ipr_b <- 1/2^2
+Ipr_b <- 1 / 2^2
 Ipr_cd(lambda_1MAP_Goal[3])
+
+
+a <- lambda_1MAP_Goal[1]
+b <- lambda_1MAP_Goal[2]
+c <- lambda_1MAP_Goal[3]
+
+p <- LogisticModel(a = a, b = b, c = c, d = 1, theta = quadrature)
+q <- 1 - p
+
+num <- (quadrature - b)^2 * (p - c)^2 * q
+den <- ((1 - c) ^2* p)
+
+(num / den * marginal_posttheta) %>% sum()
+
+
+num <- lambda_1MAP_Goal[1] * (quadrature - lambda_1MAP_Goal[2]) * (p-lambda_1MAP_Goal[3])^2 * q
+den <- (1-lambda_1MAP_Goal[3])^2 * p
+-(num/den * marginal_posttheta) %>% sum()
+
+### 関数化
+
+I_pr_lambda <- function(m,params){
+  a <- params[1]
+  b <- params[2]
+  c <- params[3]
+  d <- params[4]
+  I_pr_lambda <- diag(rep(NA,m))
+  I_pr_lambda[1,1] <- (1 - 0.5^2 - log(a)) / (a^2 * 0.5^2)
+  I_pr_lambda[2,2] <-  1 / 2^2
+  if(m > 2 ){
+    I_pr_lambda[3,3] <- 1 / c^2 + 4 / (1 - c)^2
+  }
+  if(m >3){
+    I_pr_lambda[4,4] <- 1 / d^2 + 4 / (1 - d)^2
+  }
+  return(I_pr_lambda)
+}
+
+
+I_F_lambda <- function(m,params,quadrature,marginal_posttheta){
+  a <- params[1]
+  b <- params[2]
+  c <- params[3]
+  d <- params[4]
+  p <- LogisticModel(a = a, b = b, c = c, d = d, theta = quadrature)
+  q <- 1 - p
+  I_F_lambda <- matrix(rep(NA,m*m),ncol=m)
+  den <- (d-c)^2 * p * q
+  ## aa
+  num <- (quadrature - b)^2 * (p-c)^2 * (d-p)^2
+  I_F_lambda[1,1] <- sum((num/den) * marginal_posttheta)
+  ## ba
+  num <- a * (quadrature -b)*(p-c)^2*(d-p)^2
+  I_F_lambda[1,2] <- I_F_lambda[2,1] <- -1 * sum(num/den * marginal_posttheta)
+  ## bb
+  num <- a^2 * (p-c)^2*(d-p)^2
+  I_F_lambda[2,2] <- sum((num/den) * marginal_posttheta)
+
+  if(m > 2){
+    ## ca
+    num <- (quadrature-b)*(p-c)*(d-p)^2
+    I_F_lambda[1,3] <- I_F_lambda[3,1] <- sum((num/den)*marginal_posttheta)
+    ## cb
+    num <- a * (p-c) * (d-p)^2
+    I_F_lambda[2,3] <- I_F_lambda[3,2] <- -1 * sum((num/den) * marginal_posttheta)
+    ## cc
+    num <- (d-p)^2
+    I_F_lambda[3,3] <- sum(num/den * marginal_posttheta)
+  }
+
+  if(m >3){
+    ## da
+    num <- (quadrature-b)*(p-c)^2
+    I_F_lmabda[1,4] <- I_F_lambda[4,1] <- -1 * sum((num/den) * marginal_posttheta)
+    ## db
+    num <- a * (p-c)^2 * (d-p)
+    I_F_lambda[2,4] <- I_F_lambda[4,2] <- -1 * sum((num/den) * marginal_posttheta)
+    ## dc
+    num <- (p-c) * (d-p)
+    I_F_lambda[3,4] <- I_F_lambda[4,3] <- sum((num/den)*marginal_posttheta)
+    ## dd
+    num <- (p-c)^2
+    I_F_lambda[4,4] <- sum((num/den) * marginal_posttheta)
+  }
+
+  return(I_F_lambda)
+}
+
+
+Ij <- I_F_lambda(3,c(lambda_1MAP_Goal,1),quadrature,marginal_posttheta) + I_pr_lambda(3,c(lambda_1MAP_Goal,1))
+Ij
+solve(Ij) %>% diag %>% sqrt
+
+
+PSD_item_MAP <- function(m,params,quadrature,marginal_posttheta){
+  J <- NROW(params)
+  ret <- array(NA,dim=c(J,m))
+  for(j in 1:J){
+    Ij <- I_F_lambda(m,params[j,],quadrature,marginal_posttheta) +
+            I_pr_lambda(m,params[j,])
+    ret[j,] <- sqrt(diag(solve(Ij)))
+  }
+  return(ret)
+}
+
+PSD_item_MAP(3,paramset,quadrature,marginal_posttheta)
+
+# Model Fit -------------------------------------------------------
+
+
