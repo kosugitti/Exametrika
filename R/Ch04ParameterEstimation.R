@@ -101,8 +101,8 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 
     if (model > 3) {
       ## da
-      num <- (quadrature - b) * (p - c)^2
-      I_F_lambda[1, 4] <- I_F_lambda[4, 1] <- -1 * sum((num / den) * marginal_posttheta)
+      num <- (quadrature - b) * (p - c)^2 * (d - p)
+      I_F_lambda[1, 4] <- I_F_lambda[4, 1] <- sum((num / den) * marginal_posttheta)
       ## db
       num <- a * (p - c)^2 * (d - p)
       I_F_lambda[2, 4] <- I_F_lambda[4, 2] <- -1 * sum((num / den) * marginal_posttheta)
@@ -252,9 +252,6 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
           },
           error = function(e) {
             initial_values <<- paramset[j, 1:model] + rnorm(model, 0, 0.1)
-          },
-          warning = function(w) {
-            warning_flg <- TRUE
           }
         )
       }

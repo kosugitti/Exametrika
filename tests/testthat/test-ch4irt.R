@@ -5,28 +5,24 @@ library(Exametrika)
 ### GOALS
 library(readxl)
 ### model2
-Mathematica <- read_excel("tests/testthat/mtmk_v13/Chapter04IRT_2.xlsx", sheet = "Item")
-Goal_params2 <- Mathematica[, 7:8]
-ellA2 <- Mathematica$`Log-Likelihood(Analysis Model)`
-### model3
-Mathematica <- read_excel("tests/testthat/mtmk_v13/Chapter04IRT_3.xlsx", sheet = "Item")
-Goal_params3 <- Mathematica[, 7:9]
-ellA3 <- Mathematica$`Log-Likelihood(Analysis Model)`
-### model4
-Mathematica <- read_excel("tests/testthat/mtmk_v13/Chapter04IRT_4.xlsx", sheet = "Item")
-Goal_params4 <- Mathematica[, 7:10]
-ellA4 <- Mathematica$`Log-Likelihood(Analysis Model)`
+pl2Test <- read_excel("Chapter04IRT2pl.xlsx", sheet = "Test")
+pl2Item <- read_excel("Chapter04IRT2pl.xlsx", sheet = "Item")
+pl2Student <- read_excel("Chapter04IRT2pl.xlsx", sheet = "Student")
 
-
-###
-
-dat <- read_csv("tests/testthat/sampleData/J15S500.csv") %>%
+dat <- read_csv("sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
 
 tmp <- Exametrika::dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
-result <- IRT(model = 3, U = U)
-param <- result$params[1, 1:2]
-result$params
-result$item_log_like
+result2 <- IRT(model = 2, U = U)
+
+test_that("2PL model Test Info", {
+  expect <- pl2Test[13:28, 2] %>%
+    unlist() %>%
+    unname() %>%
+    as.numeric()
+  expect <- expect[c(5, 1, 2, 6, 3, 7, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16)]
+  result <- result2$TestFitIndices %>% as.numeric()
+  expect_equal(result, expect, tolerance = 1e-4)
+})

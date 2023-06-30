@@ -27,6 +27,9 @@ Model_Fit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
   BIC <- chi_A - df_A * log(nobs)
 
   return(list(
+    model_log_like = ell_A,
+    bench_log_like = ell_B,
+    null_log_like = ell_N,
     model_Chi_sq = chi_A,
     null_Chi_sq = chi_B,
     model_df = df_A,

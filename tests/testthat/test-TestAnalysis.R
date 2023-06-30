@@ -2,6 +2,8 @@
 rm(list = ls())
 library(tidyverse, quietly = TRUE)
 library(readxl)
+library(Exametrika)
+
 # Ch03Tests <- read_excel("J20S400_Ch03CTT.xlsx",
 Ch03Tests <- suppressMessages(read_excel("J20S400_Ch03CTT.xlsx",
   sheet = "Test"
@@ -37,7 +39,7 @@ Z <- ifelse(U == -99, 0, 1)
 # Test Section ------------------------------------------------------------
 
 test_that("Simple Test Statistics", {
-  result <- TestStatistics(U, na = -99)
+  result <- Exametrika::TestStatistics(U, na = -99)
   expect <- Ch03Tests2[1:23, 2] %>%
     unlist() %>%
     as.vector()
@@ -46,7 +48,7 @@ test_that("Simple Test Statistics", {
 })
 
 test_that("Dimenosnality Analysis", {
-  result <- DimensonalityAnalysis(U, na = -99) %>%
+  result <- Exametrika::DimensonalityAnalysis(U, na = -99) %>%
     as.matrix() %>%
     unname()
   expect <- Dimensionality %>%
