@@ -4,7 +4,7 @@
 \alias{IRT}
 \title{Estimating Item parmateres using EM algorithm}
 \usage{
-IRT(model, U, na = NULL, Z = NULL, w = NULL)
+IRT(model = 2, U, na = NULL, Z = NULL, w = NULL)
 }
 \arguments{
 \item{model}{This argument takes the number of item parameters to be

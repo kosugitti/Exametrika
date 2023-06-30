@@ -286,11 +286,47 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
   tmpB <- matrix(rep(EAP, length(quadrature)), nrow = NROW(tmp$U), byrow = F)
   PSD <- diag(post_theta %*% t((tmpA - tmpB)^2))
 
+  ### Model fit
+  ell_A <- item_model_loglike
+  # Null model
+  nrs <- colSums(tmp$Z)
+  crr <- colSums(tmp$U) / nrs
+  const <- exp(-testlength)
+  nobs <- NROW(tmp$Z)
+  ell_N <- nobs * crr * log(crr + const) + nobs * (1 - crr) * log(1 - crr + const)
+
+  # Benchmark model
+  total <- rowSums(tmp$U)
+  totalList <- sort(unique(total))
+  totalDist <- as.vector(table(total))
+  ntotal <- length(totalList)
+  ## Group Membership Profile Matrix
+  MsG <- matrix(0, ncol = ntotal, nrow = nobs)
+  for (i in 1:nobs) {
+    MsG[i, which(totalList == total[i])] <- 1
+  }
+  ## PjG
+  PjG <- t(MsG) %*% (tmp$Z * tmp$U) / t(MsG) %*% tmp$Z
+  U1gj <- t(MsG) %*% (tmp$Z * tmp$U)
+  U0gj <- t(MsG) %*% (tmp$Z * (1 - tmp$U))
+
+  ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
+
+  # dfs
+  df_A <- ntotal - model
+  df_B <- ntotal - 1
+
+  FitIndices <- Model_Fit(ell_A,ell_B,ell_N,df_A,df_B,nobs)
+
   return(list(
     params = paramset,
     item_log_like = item_model_loglike,
     item_PSD = item_PSD,
     ability_EAP = EAP,
-    ability_PSD = PSD
+    ability_PSD = PSD,
+    FitIndices = FitIndices
   ))
 }
+
+
+

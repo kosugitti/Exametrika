@@ -4,12 +4,12 @@
 \alias{objective_function_IRT}
 \title{Log-likelihood function used in the Maximization Step (M-Step).}
 \usage{
-objective_function_IRT(model, lambda, qjtrue, qjfalse, quadrature)
+objective_function_IRT(lambda, model, qjtrue, qjfalse, quadrature)
 }
 \arguments{
-\item{model}{2,3,or 4 PL}
-
 \item{lambda}{item parameter vector}
+
+\item{model}{2,3,or 4 PL}
 
 \item{qjtrue}{correct resp pattern}
 
