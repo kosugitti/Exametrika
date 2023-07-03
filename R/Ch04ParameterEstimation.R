@@ -70,7 +70,7 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
       I_pr_lambda[3, 3] <- 1 / c^2 + 4 / (1 - c)^2
     }
     if (model > 3) {
-      I_pr_lambda[4, 4] <- 1 / d^2 + 4 / (1 - d)^2
+      I_pr_lambda[4, 4] <- 9 / d^2 + 1 / (1 - d)^2
     }
     ## I_F
     p <- LogisticModel(a = a, b = b, c = c, d = d, theta = quadrature)
@@ -101,7 +101,7 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 
     if (model > 3) {
       ## da
-      num <- (quadrature - b) * (p - c)^2 * (d - p)
+      num <- (quadrature - b) * (p - c)^2 * (d -p)
       I_F_lambda[1, 4] <- I_F_lambda[4, 1] <- sum((num / den) * marginal_posttheta)
       ## db
       num <- a * (p - c)^2 * (d - p)
@@ -290,7 +290,7 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
   EAP <- post_theta %*% quadrature
   tmpA <- matrix(rep(quadrature, NROW(tmp$U)), nrow = NROW(tmp$U), byrow = T)
   tmpB <- matrix(rep(EAP, length(quadrature)), nrow = NROW(tmp$U), byrow = F)
-  PSD <- diag(post_theta %*% t((tmpA - tmpB)^2))
+  PSD <- sqrt(diag(post_theta %*% t((tmpA - tmpB)^2)))
 
   ### Model fit
   ell_A <- item_model_loglike

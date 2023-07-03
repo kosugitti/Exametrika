@@ -97,7 +97,7 @@ objective_function_IRT <- function(lambda, model, qjtrue, qjfalse, quadrature) {
 
 ### Initialize
 
-model <- 3
+model <- 4
 
 slope <- 2 * rho
 loc <- 2 * tau
