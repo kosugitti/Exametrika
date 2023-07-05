@@ -9,6 +9,8 @@
 print.Exametrika <- function(x, digits = 3, ...) {
   if (length(class(x)) > 1) {
     value <- class(x)[2]
+  } else {
+    value <- "all"
   }
   switch(value,
     TestStatistics = {
@@ -28,11 +30,20 @@ print.Exametrika <- function(x, digits = 3, ...) {
       xdim <- x$Component
       ydim <- x$Eigenvalue
       plot(xdim, ydim,
-          xlab = "Number of Components",
-          ylab = "Eigenvalue", type = "b"
+        xlab = "Number of Components",
+        ylab = "Eigenvalue", type = "b"
       )
-    }, examData = {
+    },
+    examData = {
+      cat("Resp Pattern\n")
       print(x$U)
+      cat("Missing Pattern\n")
+      print(x$Z)
+      cat("Weight\n")
+      print(x$w)
+    },
+    all = {
+      print(x)
     }
   )
 }
