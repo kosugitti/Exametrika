@@ -534,7 +534,7 @@ tmpB <- matrix(rep(eapscore, length(quadrature)), nrow = NROW(tmp$U), byrow = F)
 
 psd <- sqrt(diag(post_theta %*% t((tmpA - tmpB)^2)))
 
-EAPs(paramset, tmp$U, tmp$Z)[[2]]-EAP_PSD(paramset,tmp$U,tmp$Z)$PSD
+EAPs(paramset, tmp$U, tmp$Z)[[2]] - EAP_PSD(paramset, tmp$U, tmp$Z)$PSD
 
 # 4.5.8 Posterior Standard Deviation ------------------------------
 ### model3
@@ -636,7 +636,7 @@ I_F_lambda <- function(m, params, quadrature, marginal_posttheta) {
 
   if (m > 3) {
     ## da
-    num <- (quadrature - b) * (p - c)^2 * (d-p)
+    num <- (quadrature - b) * (p - c)^2 * (d - p)
     I_F_lambda[1, 4] <- I_F_lambda[4, 1] <- sum((num / den) * marginal_posttheta)
     ## db
     num <- a * (p - c)^2 * (d - p)
@@ -659,8 +659,8 @@ I_F_lambda <- function(m, params, quadrature, marginal_posttheta) {
 #   diag() %>%
 #   sqrt()
 
-sqrt(diag(solve(I_pr_lambda(4,paramset[1,]) + I_F_lambda(4,params=paramset[1,],quadrature,marginal_posttheta))))
-sqrt(diag(solve(-1*Hessian[[1]])))
+sqrt(diag(solve(I_pr_lambda(4, paramset[1, ]) + I_F_lambda(4, params = paramset[1, ], quadrature, marginal_posttheta))))
+sqrt(diag(solve(-1 * Hessian[[1]])))
 
 PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
   J <- NROW(Lambda)
@@ -709,7 +709,7 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 
     if (model > 3) {
       ## da
-      num <- (quadrature - b) * (p - c)^2 * (d -p)
+      num <- (quadrature - b) * (p - c)^2 * (d - p)
       I_F_lambda[1, 4] <- I_F_lambda[4, 1] <- sum((num / den) * marginal_posttheta)
       ## db
       num <- a * (p - c)^2 * (d - p)
@@ -730,5 +730,4 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
   return(PSD = ret)
 }
 
-PSD_item_params(model = 4, paramset,quadrature, marginal_posttheta)
-
+PSD_item_params(model = 4, paramset, quadrature, marginal_posttheta)

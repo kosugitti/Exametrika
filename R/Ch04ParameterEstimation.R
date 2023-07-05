@@ -101,7 +101,7 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 
     if (model > 3) {
       ## da
-      num <- (quadrature - b) * (p - c)^2 * (d -p)
+      num <- (quadrature - b) * (p - c)^2 * (d - p)
       I_F_lambda[1, 4] <- I_F_lambda[4, 1] <- sum((num / den) * marginal_posttheta)
       ## db
       num <- a * (p - c)^2 * (d - p)
