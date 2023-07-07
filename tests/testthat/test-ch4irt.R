@@ -82,7 +82,9 @@ test_that("2PL model Item FitIndices", {
   expect <- pl2Item[, 18:26] %>%
     unlist() %>%
     as.numeric()
-  result <- result2$ItemFitIndices %>% unclass() %>% as.data.frame()
+  result <- result2$ItemFitIndices %>%
+    unclass() %>%
+    as.data.frame()
   result <- result[, 8:16] %>%
     unlist() %>%
     as.numeric()
@@ -179,7 +181,9 @@ test_that("3PL model Item FitIndices", {
   expect <- pl3Item[, 20:28] %>%
     unlist() %>%
     as.numeric()
-  result <- result3$ItemFitIndices %>% unclass %>% as.data.frame
+  result <- result3$ItemFitIndices %>%
+    unclass() %>%
+    as.data.frame()
   result <- result[, 8:16] %>%
     unlist() %>%
     as.numeric()
@@ -285,7 +289,9 @@ test_that("4PL Standardized FIdx", {
   expect <- pl4Item[, 22:30] %>%
     unlist() %>%
     as.numeric()
-  result <- result4$ItemFitIndices %>% unclass %>% as.data.frame
+  result <- result4$ItemFitIndices %>%
+    unclass() %>%
+    as.data.frame()
   result <- result[, 8:16] %>%
     unlist() %>%
     as.numeric()
@@ -310,4 +316,3 @@ test_that("4PL model Students", {
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)
 })
-
