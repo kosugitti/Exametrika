@@ -137,9 +137,13 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 #' @export
 #'
 
-IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
+IRT <- function(U,model = 2,  na = NULL, Z = NULL, w = NULL) {
   # data format
-  tmp <- Exametrika::dataFormat(data = U, na = na, Z = Z, w = w)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
   U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
   rho <- Exametrika::ItemTotalCorr(U)
@@ -267,8 +271,9 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
       paramset[j, ] <- newparams
     }
     loglike <- totalLogLike
-    print(paste("iter", emt, "LogLik", totalLogLike))
+    cat(paste("iter", emt, "LogLik", totalLogLike,"\n"))
   }
+  cat("\n")
 
   #### Warning
   if (sum(paramset[, 1] > 10) > 0) {
@@ -334,7 +339,8 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
   ## Formatting
   paramset <- as.data.frame(paramset)[1:model]
   item_PSD <- as.data.frame(item_PSD)[1:model]
-  colnames(paramset) <- colnames(item_PSD) <- c("slope", "location", "lowerAsym", "upperAsym")[1:model]
+  colnames(paramset) <- c("slope", "location", "lowerAsym", "upperAsym")[1:model]
+  colnames(item_PSD) <- c("PSD(slope)","PSD(location)","PSD(lowerAsym)","PSD(upperAsym)")[1:model]
   rownames(paramset) <- rownames(item_PSD) <- tmp$ItemLabel
 
   names(item_model_loglike) <- tmp$ItemLabel
@@ -347,11 +353,12 @@ IRT <- function(model = 2, U, na = NULL, Z = NULL, w = NULL) {
     bench_log_like = ell_B,
     Null_log_like = ell_N
   )
-  return(list(
+  ret <- structure(list(
     params = paramset,
     item_PSD = item_PSD,
     ability = theta,
-    ItemFitIndices = data.frame(ItemFitIndices),
-    TestFitIndices = data.frame(TestFitIndices)
-  ))
+    ItemFitIndices = ItemFitIndices,
+    TestFitIndices = TestFitIndices
+  ), class = c("Exametrika", "IRT"))
+  return(ret)
 }

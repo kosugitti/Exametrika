@@ -41,5 +41,7 @@ EAP_PSD <- function(Lambda, U, Z) {
   numerator <- rowSums((tmp1 * weight[, 1:N - 1] + tmp2 * weight[, 2:N]) * dev / 2)
   PSDs <- sqrt(numerator / denominator)
 
-  return(list(EAP = EAP, PSDs = PSDs))
+  ret <- list(EAP = EAP, PSDs = PSDs)
+  ret <- structure(ret, class = c("Exametrika", "IRT_EAP_PSD"))
+  return(ret)
 }

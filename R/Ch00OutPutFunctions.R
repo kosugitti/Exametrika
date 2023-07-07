@@ -42,8 +42,51 @@ print.Exametrika <- function(x, digits = 3, ...) {
       cat("Weight\n")
       print(x$w)
     },
+    IIAnalysis = {
+      cat("Joint Sample Size\n")
+      print(x$JSS, digits = digits)
+      cat("\nJoint Correct Response Rate\n")
+      print(x$JCRR, digits = digits)
+      cat("\nItem Lift\n")
+      print(x$IL, digits = digits)
+      cat("\nMutual Information\n")
+      print(x$MI, digits = digits)
+      cat("\nPhi coefficient\n")
+      print(x$Phi, digits = digits)
+      cat("\nCorrelation Matrix\n")
+      print(x$Tetrachoric, digits = digits)
+    },
+    CTT = {
+      cat("Realiability\n")
+      print(x$Reliability, digits = digits)
+      cat("\nReliability Excluding Item\n")
+      print(x$ReliabilityExcludingItem, digits = digits)
+    },
+    IRT_EAP_PSD = {
+      cat("Ability")
+      print(x$EAP, digits = digits)
+    },
+    IRT={
+      cat("Item Parameters\n")
+      y <- cbind(x$params,x$item_PSD)
+      print(y,digits=digits)
+      cat("\nItem Fit Indices\n")
+      y <- unclass(x$ItemFitIndices)
+      y <- as.data.frame(y)
+      print(round(y,digits))
+      cat("\nTest Fit Indices\n")
+      y <- unclass(x$TestFitIndices)
+      y <- t(as.data.frame(y))
+      colnames(y) <- "value"
+      print(round(y,digits))
+    },
+    matrix = {
+      class(x) <- "matrix"
+      print(x, digits = digits)
+    },
     all = {
-      print(x)
+      class(x) <- "list"
+      print(x, digits = digits)
     }
   )
 }

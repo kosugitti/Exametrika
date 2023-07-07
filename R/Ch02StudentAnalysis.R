@@ -10,7 +10,11 @@
 #' @examples
 #' # nrs(U)
 nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
   tmp$U <- ifelse(is.na(tmp$U), 0, tmp$U)
   tW <- (tmp$Z * tmp$U) %*% tmp$w
   return(tW)
@@ -28,7 +32,11 @@ nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # passage(U)
 passage <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
   tw <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
   Js <- NCOL(U) - rowSums(is.na(tmp$U))
   rW <- tw / Js
@@ -72,7 +80,11 @@ sscore <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # percentile(U)
 percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
   sstmp <- sscore(U = tmp$U, Z = tmp$Z, w = tmp$w)
   empiricalZeta <- ecdf(sstmp)
   ret <- ceiling(empiricalZeta(sstmp) * 100)
@@ -100,7 +112,11 @@ percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # stanine(U)
 stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
   sttmp <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
   pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
   stanine_prob <- quantile(sttmp, pbs)
@@ -124,7 +140,12 @@ stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
 #'
 
 StudentAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
+
   NRS <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
   NR <- NCOL(tmp$U) - rowSums(is.na(tmp$U))
   PR <- passage(U = tmp$U, Z = tmp$Z, w = tmp$w)

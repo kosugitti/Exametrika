@@ -18,7 +18,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   # get ID vector
   ID <- data[, id]
   if (all(ID %in% c(0, 1, NA, na))) {
-    ID <- paste0("Student", seq(1,NROW(data)))
+    ID <- paste0("Student", seq(1, NROW(data)))
     U <- data
   } else {
     U <- data[, -id]
@@ -26,7 +26,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   # get Item-labels
   ItemLabel <- colnames(U)
   if (is.null(ItemLabel)) {
-    ItemLabel <- paste0("Item", seq(1,NCOL(U)))
+    ItemLabel <- paste0("Item", seq(1, NCOL(U)))
   }
 
   U <- as.matrix(U)
@@ -57,9 +57,12 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
   }
 
   # Return
-  ret <- list(
-    U = U, ID = ID, ItemLabel = ItemLabel,
-    Z = Z, w = w)
-  class(ret) = c("Exametrika","examData")
+  ret <- structure(
+    list(
+      U = U, ID = ID, ItemLabel = ItemLabel,
+      Z = Z, w = w
+    ),
+    class = c("Exametrika", "examData")
+  )
   return(ret)
 }

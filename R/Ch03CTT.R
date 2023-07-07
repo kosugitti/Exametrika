@@ -141,7 +141,7 @@ OmegaCoefficient <- function(x, na = NULL, Z = NULL, w = NULL) {
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
 #' @export
 
-ClassicalTestTheory <- function(U, na = NULL, Z = NULL, w = NULL) {
+CTT <- function(U, na = NULL, Z = NULL, w = NULL) {
   tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   alphaAll <- AlphaCoefficient(x = tmp$U)
   omegaAll <- OmegaCoefficient(x = tmp$U)
@@ -166,5 +166,6 @@ ClassicalTestTheory <- function(U, na = NULL, Z = NULL, w = NULL) {
     "Alpha.Phi" = eachAlpha$AlphaPhi,
     "Alpha.Tetrachoric" = eachAlpha$AlphaTetrachoric
   ))
-  return(list(Reliability = df, ReliabilityExcludingItem = df2))
+  ret <- list(Reliability = df, ReliabilityExcludingItem = df2)
+  structure(ret, class = c("Exametrika", "CTT"))
 }

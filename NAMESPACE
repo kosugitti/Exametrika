@@ -3,7 +3,7 @@
 S3method(print,Exametrika)
 export(Biserial_Correlation)
 export(CCRR)
-export(ClassicalTestTheory)
+export(CTT)
 export(Dimensionality)
 export(IIF2PLM)
 export(IIF3PLM)

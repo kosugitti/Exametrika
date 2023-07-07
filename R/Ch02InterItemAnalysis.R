@@ -11,7 +11,8 @@
 JointSampleSize <- function(U, na = NULL, Z = NULL, w = NULL) {
   tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   S_jk <- t(tmp$Z) %*% tmp$Z
-  return(S_jk)
+  ret <- structure(S_jk, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 #' @title Joint Correct Response Rate
@@ -29,7 +30,8 @@ JCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
   U <- ifelse(is.na(tmp$U), 0, tmp$U)
   Z <- tmp$Z
   P_J <- t(Z * U) %*% (Z * U) / (t(Z) %*% Z)
-  return(P_J)
+  ret <- structure(P_J, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 
@@ -51,7 +53,8 @@ CCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
   Pj <- JCRR(tmp$U)
   p <- crr(tmp$U)
   P_C <- Pj / (p %*% t(OneJ))
-  return(P_C)
+  ret <- structure(P_C, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 
@@ -75,7 +78,8 @@ ItemLift <- function(U, na = NULL, Z = NULL, w = NULL) {
   Pc <- CCRR(tmp$U)
   p <- crr(tmp$U)
   P_L <- Pc / (OneJ %*% t(p))
-  return(P_L)
+  ret <- structure(P_L, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 #' @title Mutual Information
@@ -114,7 +118,8 @@ MutualInformation <- function(U, na = NULL, Z = NULL, w = NULL) {
   MI <- P$S_00 * log(L$L_00, base = 2) + P$S_01 * log(L$L_01, base = 2) +
     P$S_10 * log(L$L_10, base = 2) + P$S_11 * log(L$L_11, base = 2)
   diag(MI) <- diag(P$S_00 * log(L$L_00, base = 2) + P$S_11 * log(L$L_11, base = 2))
-  return(MI)
+  ret <- structure(MI, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 #' @title Phi-Coefficient
@@ -137,7 +142,8 @@ PhiCoefficient <- function(U, na = NULL, Z = NULL, w = NULL) {
   C <- t(Z * (U - OneS %*% t(p))) %*% (Z * (U - OneS %*% t(p))) / (t(Z) %*% Z - OneJ %*% t(OneJ))
   v <- diag(C)
   phi <- C / sqrt(v) %*% t(sqrt(v))
-  return(phi)
+  ret <- structure(phi, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 #' @title Tetrachoric Correlation
@@ -208,7 +214,8 @@ tetrachoric <- function(x, y) {
     upper = 1, # upper limit
     method = "Brent" # one-dimensional optimization method
   )
-  return(ret$par)
+  ret <- structure(ret$par, class = c("Exametrika"))
+  return(ret)
 }
 
 #' @title Tetrachoric Correlation Matrix
@@ -237,7 +244,8 @@ TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
     }
   }
   diag(mat) <- 1
-  return(mat)
+  ret <- structure(mat, class = c("Exametrika", "matrix"))
+  return(ret)
 }
 
 
@@ -259,7 +267,8 @@ InterItemAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
   MI <- MutualInformation(U = tmp$U, Z = tmp$Z, w = tmp$z)
   Phi <- PhiCoefficient(U = tmp$U, Z = tmp$Z, w = tmp$z)
   Tet <- TetrachoricCorrelationMatrix(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  return(list(
+  ret <- structure(list(
     JSS = JSS, JCRR = JCRR, IL = IL, MI = MI, Phi = Phi, Tetrachoric = Tet
-  ))
+  ), class = c("Exametrika", "IIAnalysis"))
+  return(ret)
 }

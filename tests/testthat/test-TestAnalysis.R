@@ -43,28 +43,25 @@ test_that("Simple Test Statistics", {
   expect <- Ch03Tests2[1:23, 2] %>%
     unlist() %>%
     as.vector()
-  result <- result$value %>% unname()
+  result <- unclass(result) %>% unlist() %>% as.vector()
   expect_equal(object = result, expected = expect)
 })
 
 test_that("Dimenosnality Analysis", {
-  result <- Exametrika::DimensonalityAnalysis(U, na = -99) %>%
-    as.matrix() %>%
-    unname()
+  result <- Exametrika::Dimensionality(U, na = -99) %>%
+    unclass() %>% unlist() %>% matrix(ncol=4)
   expect <- Dimensionality %>%
     as.matrix() %>%
     unname()
   expect_equal(object = result[, 2], expected = expect[, 2], tolerance = 1e-4)
-  expect_equal(object = result[, 3], expected = expect[, 3], tolerance = 1e-4)
-  expect_equal(object = result[, 4], expected = expect[, 4], tolerance = 1e-4)
+  expect_equal(object = result[, 3]/100, expected = expect[, 3], tolerance = 1e-4)
+  expect_equal(object = result[, 4]/100, expected = expect[, 4], tolerance = 1e-4)
 })
 
 
 test_that("Reliability", {
-  result <- ClassicalTestTheory(U, na = -99)
-  result <- result$Reliability[, 2] %>%
-    as.matrix() %>%
-    unname()
+  result <- CTT(U, na = -99)
+  result <- result$Reliability[,2] %>% as.matrix()
   expect <- CTTexpect[, 2] %>%
     as.matrix() %>%
     unname()
@@ -72,7 +69,7 @@ test_that("Reliability", {
 })
 
 test_that("Item Del Reliability", {
-  result <- ClassicalTestTheory(U, na = -99)
+  result <- CTT(U, na = -99)
   result <- result$ReliabilityExcludingItem[, -1] %>% unname()
   expect <- Ch03Items[, 8:10] %>% unname()
   expect_equal(object = result, expected = expect, tolerance = 1e-4)
