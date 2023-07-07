@@ -1,7 +1,6 @@
 ### Read Output of Mathematica
 suppressPackageStartupMessages(library(tidyverse))
 library(readxl)
-library(Exametrika)
 
 # シート名のベクターを作成
 sheets <- c(

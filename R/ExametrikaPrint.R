@@ -4,14 +4,12 @@
 #' @param x Exametrika Class object
 #' @param digits printed digits
 #' @param ... othre options
+#' @importFrom utils tail
 #' @export
 
 print.Exametrika <- function(x, digits = 3, ...) {
-  if (length(class(x)) > 1) {
-    value <- class(x)[2]
-  } else {
-    value <- "all"
-  }
+  value <- if (length(class(x)) > 1) tail(class(x), 1) else "all"
+
   switch(value,
     TestStatistics = {
       cat("Test Statics\n")

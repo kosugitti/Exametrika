@@ -98,10 +98,39 @@ IIF3PLM <- function(a, b, c, theta) {
 #' @param theta ability parameter
 #' @export
 
-Item_Information_Func <- function(a = 1, b, c = 1, d = 0, theta) {
+ItemInformationFunc <- function(a = 1, b, c = 1, d = 0, theta) {
   numerator <- a^2 * (LogisticModel(a, b, c, d, theta) - c) * (d - LogisticModel(a, b, c, d, theta)) *
     (LogisticModel(a, b, c, d, theta) * (c + d - LogisticModel(a, b, c, d, theta)) - c * d)
   denominator <- (d - c)^2 * LogisticModel(a, b, c, d, theta) * (1 - LogisticModel(a, b, c, d, theta))
   tmp <- numerator / denominator
+  return(tmp)
+}
+
+
+#' @title TIF for IRT
+#' @description
+#' Test Information Function for 4PLM
+#' @param params parameter matrix
+#' @param theta ability parameter
+#' @export
+
+TestInformationFunc <- function(params, theta) {
+  tl <- nrow(params)
+  tmp <- 0
+  for (i in 1:tl) {
+    a <- params[i, 1]
+    b <- params[i, 2]
+    if (ncol(params) > 2) {
+      c <- params[i, 3]
+    } else {
+      c <- 0
+    }
+    if (ncol(params) > 3) {
+      d <- params[i, 4]
+    } else {
+      d <- 1
+    }
+    tmp <- tmp + ItemInformationFunc(a = a, b = b, c = c, d = d, theta)
+  }
   return(tmp)
 }

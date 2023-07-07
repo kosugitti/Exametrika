@@ -354,6 +354,7 @@ IRT <- function(U,model = 2,  na = NULL, Z = NULL, w = NULL) {
     Null_log_like = ell_N
   )
   ret <- structure(list(
+    model = model,
     params = paramset,
     item_PSD = item_PSD,
     ability = theta,

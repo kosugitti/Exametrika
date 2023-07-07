@@ -4,13 +4,13 @@
 \alias{IRT}
 \title{Estimating Item parmateres using EM algorithm}
 \usage{
-IRT(model = 2, U, na = NULL, Z = NULL, w = NULL)
+IRT(U, model = 2, na = NULL, Z = NULL, w = NULL)
 }
 \arguments{
+\item{U}{U is a data matrix of the type matrix or data.frame.}
+
 \item{model}{This argument takes the number of item parameters to be
 estimated in the logistic model. It is limited to values 2, 3, or 4.}
-
-\item{U}{U is a data matrix of the type matrix or data.frame.}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
