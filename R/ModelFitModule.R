@@ -26,6 +26,16 @@ Model_Fit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
   CAIC <- chi_A - df_A * log(nobs - 1)
   BIC <- chi_A - df_A * log(nobs)
 
+  ## Clip Funciton
+  vars <- list(NFI, RFI, IFI, TLI, CFI)
+  names <- c("NFI", "RFI", "IFI", "TLI", "CFI")
+
+  for (i in 1:length(vars)) {
+    assign(names[i], pmin(pmax(vars[[i]], 0), 1))
+  }
+
+  RMSEA[is.nan(RMSEA)] <- 0
+
   ret <- structure(
     list(
       model_log_like = ell_A,

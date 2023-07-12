@@ -78,6 +78,10 @@ print.Exametrika <- function(x, digits = 3, ...) {
       colnames(y) <- "value"
       print(round(y,digits))
     },
+    ModelFit = {
+      tmp <- data.frame(unclass(x))
+      print(tmp)
+    },
     matrix = {
       class(x) <- "matrix"
       print(x, digits = digits)

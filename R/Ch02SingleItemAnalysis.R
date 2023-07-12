@@ -12,7 +12,7 @@
 
 crr <- function(U, na = NULL, Z = NULL, w = NULL) {
   tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  OneS <- rep(1, length = nrow(U))
+  OneS <- rep(1, length = nrow(tmp$U))
   Una <- ifelse(is.na(tmp$U), 0, tmp$U)
   p <- t(tmp$Z * Una) %*% OneS / t(tmp$Z) %*% OneS
   pW <- tmp$w * p

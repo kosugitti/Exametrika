@@ -10,7 +10,11 @@
 #' @export
 #'
 dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
-  value <- if (length(class(x)) > 1) tail(class(x), 1)
+  value <- if (length(class(data)) > 1) {
+    tail(class(data), 1)
+  } else {
+    class(data)
+  }
   if (value != "examData") {
     # Check if U is either a matrix or a dataframe, otherwise stop the execution
     if (!is.matrix(data) && !is.data.frame(data)) {

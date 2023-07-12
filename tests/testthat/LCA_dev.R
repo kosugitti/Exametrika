@@ -102,3 +102,60 @@ TRP
 ## メンバーの所属確率
 bMax <- matrix(rep(apply(postDist,1,max),ncls),ncol=ncls)
 cls01 <- sign(postDist - bMax)+1
+## クラスごとのメンバ数
+colSums(cls01)
+## IRP グラフ
+library(tidyverse)
+classRefMat |> t() |> as.data.frame() |>
+  rownames_to_column("item") |>
+  pivot_longer(-item) |>
+  mutate(class = str_extract(name,pattern="[0-9]") |> as.numeric()) |>
+  ggplot(aes(x=class,y=value))+geom_line()+geom_point()+facet_wrap(~item,ncol=3)
+
+## CLASS reference vector
+classRefMat |> t() |> as.data.frame() |>
+  rownames_to_column("item") |>
+  pivot_longer(-item) |>
+  mutate(class = str_extract(name,pattern="[0-9]") |> as.numeric()) |>
+  mutate(item = as.factor(item)) |>
+  mutate(itemID = as.numeric(item)) |>
+  ggplot(aes(x=itemID,y=value,color=as.factor(class)))+geom_line()+geom_point()
+
+## CLASS membership profiles
+postDist |> as.data.frame() |>
+  rowid_to_column("Students") |>
+  pivot_longer(-Students) |>
+  filter(Students < 16) |>
+  mutate(class = str_extract(name,pattern="[0-9]") |> as.numeric()) |>
+  ggplot(aes(x=class,y=value))+geom_line()+geom_point()+facet_wrap(~Students,ncol=3)
+
+
+# 5.5 Model Fit ---------------------------------------------------
+
+ell_A <- itemEll
+
+pj <- crr(tmp$U)
+pj_mat <- matrix(rep(pj,nrow(tmp$U)),ncol=testlength,byrow=T)
+ell_N <- colSums(tmp$U * log(pj_mat) + (tmp$Z * (1-tmp$U)) * log(1-pj_mat))
+
+# Benchmark model
+nobs <- NROW(tmp$Z)
+total <- rowSums(tmp$U)
+totalList <- sort(unique(total))
+totalDist <- as.vector(table(total))
+ntotal <- length(totalList)
+## Group Membership Profile Matrix
+MsG <- matrix(0, ncol = ntotal, nrow = nobs)
+for (i in 1:nobs) {
+  MsG[i, which(totalList == total[i])] <- 1
+}
+## PjG
+PjG <- t(MsG) %*% (tmp$Z * tmp$U) / t(MsG) %*% tmp$Z
+U1gj <- t(MsG) %*% (tmp$Z * tmp$U)
+U0gj <- t(MsG) %*% (tmp$Z * (1 - tmp$U))
+
+ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
+
+df_A <- ntotal - ncls
+df_N <- ntotal - 1
+Model_Fit(ell_A,ell_B,ell_N,df_A,df_B,nobs)
