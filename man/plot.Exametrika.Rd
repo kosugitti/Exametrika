@@ -4,7 +4,15 @@
 \alias{plot.Exametrika}
 \title{Plot Exametrika Output}
 \usage{
-\method{plot}{Exametrika}(x, type = c("IIC", "ICC", "TIC"), items = NULL, ...)
+\method{plot}{Exametrika}(
+  x,
+  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD"),
+  items = NULL,
+  students = NULL,
+  ncol = 1,
+  nrow = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{Exametrika Class object}
@@ -12,6 +20,12 @@
 \item{type}{Plot type}
 
 \item{items}{Plot item number}
+
+\item{students}{Plot students ID}
+
+\item{ncol}{Specifying the number of columns when there are many plots to be drawn}
+
+\item{nrow}{Specifying the number of rows when there are many plots to be drawn}
 
 \item{...}{othre optios}
 }

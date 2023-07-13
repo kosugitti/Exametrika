@@ -9,7 +9,7 @@
 #' @export
 #'
 
-LCA<- function(U,na = NULL, Z = NULL, w = NULL,ncls = 2) {
+LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -18,7 +18,7 @@ LCA<- function(U,na = NULL, Z = NULL, w = NULL,ncls = 2) {
   }
   U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
-  if(ncls < 2 | ncls > 20){
+  if (ncls < 2 | ncls > 20) {
     stop("[Caution!] An invalid number of classes was specified.")
   }
 
@@ -53,7 +53,6 @@ LCA<- function(U,na = NULL, Z = NULL, w = NULL,ncls = 2) {
 
     itemEll <- colSums(correct_cls * log(classRefMat + const) + incorrect_cls * log(1 - classRefMat + const))
     testEll <- sum(itemEll)
-    print(testEll)
 
     if (testEll - oldtestEll <= 0) {
       classRefMat <- old_classRefMat
@@ -70,22 +69,23 @@ LCA<- function(U,na = NULL, Z = NULL, w = NULL,ncls = 2) {
   ## Returns
   #### Class Information
   TRP <- classRefMat %*% tmp$w
-  bMax <- matrix(rep(apply(postDist,1,max),ncls),ncol=ncls)
-  clsNum <- apply(postDist,1,which.max)
-  cls01 <- sign(postDist - bMax)+1
-  LTD <- colSums(cls01)
+  bMax <- matrix(rep(apply(postDist, 1, max), ncls), ncol = ncls)
+  clsNum <- apply(postDist, 1, which.max)
+  cls01 <- sign(postDist - bMax) + 1
+  LCD <- colSums(cls01)
   CMD <- colSums(postDist)
-  StudentClass <- cbind(postDist,clsNum)
+  StudentClass <- cbind(postDist, clsNum)
+  colnames(StudentClass) <- c(paste("Membership", 1:ncls), "Estimate")
   ### Item Information
-  IRP = t(classRefMat)
-  colnames(IRP) <- paste0("IRP",1:ncls)
+  IRP <- t(classRefMat)
+  colnames(IRP) <- paste0("IRP", 1:ncls)
 
   ### Model Fit
   # each Items
   ell_A <- itemEll
   pj <- crr(tmp$U)
-  pj_mat <- matrix(rep(pj,nrow(tmp$U)),ncol=testlength,byrow=T)
-  ell_N <- colSums(tmp$U * log(pj_mat) + (tmp$Z * (1-tmp$U)) * log(1-pj_mat))
+  pj_mat <- matrix(rep(pj, nrow(tmp$U)), ncol = testlength, byrow = T)
+  ell_N <- colSums(tmp$U * log(pj_mat) + (tmp$Z * (1 - tmp$U)) * log(1 - pj_mat))
   # Benchmark model
   nobs <- NROW(tmp$Z)
   total <- rowSums(tmp$U)
@@ -105,22 +105,26 @@ LCA<- function(U,na = NULL, Z = NULL, w = NULL,ncls = 2) {
 
   df_A <- ntotal - ncls
   df_B <- ntotal - 1
-  ItemFitIndices <- Model_Fit(ell_A,ell_B,ell_N,df_A,df_B,nobs)
+  ItemFitIndices <- Model_Fit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
   # Test Total
   testEllmodel <- sum(ell_A)
   testEllbench <- sum(ell_B)
   testEllNull <- sum(ell_N)
 
-  TestFitIndices <- Model_Fit(ell_A = testEllmodel,ell_B=testEllbench,ell_N = testEllNull,
-                        df_A = df_A * testlength,
-                        df_B = df_B * testlength,nobs)
+  TestFitIndices <- Model_Fit(
+    ell_A = testEllmodel, ell_B = testEllbench, ell_N = testEllNull,
+    df_A = df_A * testlength,
+    df_B = df_B * testlength, nobs
+  )
 
   ret <- structure(list(
-    Nclass <- ncls,
-    N_EM_Cycle <- emt,
-    TRP = TRP,
-    LTD = LTD,
-    CMD = CMD,
+    testlength = testlength,
+    nobs = nobs,
+    Nclass = ncls,
+    N_EM_Cycle = emt,
+    TRP = as.vector(TRP),
+    LCD = as.vector(LCD),
+    CMD = as.vector(CMD),
     Students = StudentClass,
     IRP = IRP,
     ItemFitIndices = ItemFitIndices,

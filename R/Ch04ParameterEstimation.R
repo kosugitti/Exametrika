@@ -137,7 +137,7 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 #' @export
 #'
 
-IRT <- function(U,model = 2,  na = NULL, Z = NULL, w = NULL) {
+IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -271,7 +271,7 @@ IRT <- function(U,model = 2,  na = NULL, Z = NULL, w = NULL) {
       paramset[j, ] <- newparams
     }
     loglike <- totalLogLike
-    cat(paste("iter", emt, "LogLik", totalLogLike,"\n"))
+    cat(paste("iter", emt, "LogLik", totalLogLike, "\n"))
   }
   cat("\n")
 
@@ -340,7 +340,7 @@ IRT <- function(U,model = 2,  na = NULL, Z = NULL, w = NULL) {
   paramset <- as.data.frame(paramset)[1:model]
   item_PSD <- as.data.frame(item_PSD)[1:model]
   colnames(paramset) <- c("slope", "location", "lowerAsym", "upperAsym")[1:model]
-  colnames(item_PSD) <- c("PSD(slope)","PSD(location)","PSD(lowerAsym)","PSD(upperAsym)")[1:model]
+  colnames(item_PSD) <- c("PSD(slope)", "PSD(location)", "PSD(lowerAsym)", "PSD(upperAsym)")[1:model]
   rownames(paramset) <- rownames(item_PSD) <- tmp$ItemLabel
 
   names(item_model_loglike) <- tmp$ItemLabel
@@ -355,6 +355,8 @@ IRT <- function(U,model = 2,  na = NULL, Z = NULL, w = NULL) {
   )
   ret <- structure(list(
     model = model,
+    testlength = testlength,
+    nobs = nobs,
     params = paramset,
     item_PSD = item_PSD,
     ability = theta,

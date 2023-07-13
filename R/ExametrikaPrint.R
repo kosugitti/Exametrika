@@ -64,39 +64,43 @@ print.Exametrika <- function(x, digits = 3, ...) {
       cat("Ability")
       print(x$EAP, digits = digits)
     },
-    IRT={
+    IRT = {
       cat("Item Parameters\n")
-      y <- cbind(x$params,x$item_PSD)
-      print(y,digits=digits)
+      y <- cbind(x$params, x$item_PSD)
+      print(y, digits = digits)
       cat("\nItem Fit Indices\n")
       y <- unclass(x$ItemFitIndices)
       y <- as.data.frame(y)
-      print(round(y,digits))
+      print(round(y, digits))
       cat("\nTest Fit Indices\n")
       y <- unclass(x$TestFitIndices)
       y <- t(as.data.frame(y))
       colnames(y) <- "value"
-      print(round(y,digits))
+      print(round(y, digits))
     },
     LCA = {
       cat("Item Reference Profile\n")
-      print(IRP,digits=digits)
-      cat("\nTest Reference Profile\n")
-      print(TRP,digits = digits)
-      cat("\nLatent Class Distribution\n")
-      print(LCD,digits=digits)
-      cat("\nClass Membership Distribution\n")
-      print(CMD,digits=digits)
+      print(x$IRP, digits = digits)
+      cat("\nTest Profile\n")
+      y <- rbind(x$TRP, x$LCD, x$CMD)
+      rownames(y) <- c(
+        "Test Reference Profile",
+        "Latent Class Ditribution",
+        "Class Membership Distribuiton"
+      )
+      colnames(y) <- paste("Class", 1:x$Nclass)
+      print(round(y, digits))
       cat("\nItem Fit Indices\n")
       y <- unclass(x$ItemFitIndices)
       y <- as.data.frame(y)
+      print(round(y, digits))
       cat("\nTest Fit Indices\n")
-      print(paste("Number of Latent class:",Nclass))
-      print(paste("Number of EM cycle:",N_EM_Cycle))
+      cat(paste("Number of Latent class:", x$Nclass))
+      cat(paste("\nNumber of EM cycle:", x$N_EM_Cycle, "\n"))
       y <- unclass(x$TestFitIndices)
       y <- t(as.data.frame(y))
       colnames(y) <- "value"
-      print(round(y,digits))
+      print(round(y, digits))
     },
     ModelFit = {
       tmp <- data.frame(unclass(x))

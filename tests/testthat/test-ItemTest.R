@@ -54,45 +54,59 @@ test_that("Item Entropy", {
 # Between Items Section ---------------------------------------------------
 
 test_that("Joint sample size", {
-  result <- JointSampleSize(U, na = -99) %>% unclass() %>% unname()
+  result <- JointSampleSize(U, na = -99) %>%
+    unclass() %>%
+    unname()
   expect <- data_list$Ch03JSS %>% unname()
   expect_equal(result, expect)
 })
 
 test_that("Joint Correct Response Rate", {
-  result <- JCRR(U, na = -99) %>% unclass() %>% unname()
+  result <- JCRR(U, na = -99) %>%
+    unclass() %>%
+    unname()
   expect <- data_list$Ch03JCRR %>% unname()
   expect_equal(result, expect)
 })
 
 
 test_that("Conditional Correct Repsonse Rate", {
-  result <- CCRR(U, na = -99) %>% unclass() %>% unname()
+  result <- CCRR(U, na = -99) %>%
+    unclass() %>%
+    unname()
   expect <- data_list$Ch03CCRR %>% unname()
   expect_equal(result, expect)
 })
 
 
 test_that("Item Lift", {
-  result <- ItemLift(U, na = -99) %>% unclass() %>% unname()
+  result <- ItemLift(U, na = -99) %>%
+    unclass() %>%
+    unname()
   expect <- data_list$Ch03IL %>% unname()
   expect_equal(result, expect)
 })
 
 test_that("Mutual Informaiton", {
-  result <- MutualInformation(U, na = -99) %>% unclass() %>% unname()
+  result <- MutualInformation(U, na = -99) %>%
+    unclass() %>%
+    unname()
   expect <- data_list$Ch03MI %>% unname()
   expect_equal(result, expect)
 })
 
 test_that("Phi Coefficient", {
-  result <- PhiCoefficient(U, na = -99) %>% unclass() %>% unname()
+  result <- PhiCoefficient(U, na = -99) %>%
+    unclass() %>%
+    unname()
   expect <- data_list$Ch03Phi %>% unname()
   expect_equal(result, expect)
 })
 
 test_that("Tetrachoric Correlation Matrix", {
-  result <- TetrachoricCorrelationMatrix(U, na = -99) %>% unclass() %>% unname()
+  result <- TetrachoricCorrelationMatrix(U, na = -99) %>%
+    unclass() %>%
+    unname()
   Una <- ifelse(U == -99, NA, U)
   expect <- data_list$Ch03Tet %>% unname()
   expect_equal(expected = expect, object = result, tolerance = 1e-4)

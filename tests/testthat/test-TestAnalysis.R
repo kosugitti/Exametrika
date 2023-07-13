@@ -41,25 +41,29 @@ test_that("Simple Test Statistics", {
   expect <- Ch03Tests2[1:23, 2] %>%
     unlist() %>%
     as.vector()
-  result <- unclass(result) %>% unlist() %>% as.vector()
+  result <- unclass(result) %>%
+    unlist() %>%
+    as.vector()
   expect_equal(object = result, expected = expect)
 })
 
 test_that("Dimenosnality Analysis", {
   result <- Dimensionality(U, na = -99) %>%
-    unclass() %>% unlist() %>% matrix(ncol=4)
+    unclass() %>%
+    unlist() %>%
+    matrix(ncol = 4)
   expect <- Dimensionality %>%
     as.matrix() %>%
     unname()
   expect_equal(object = result[, 2], expected = expect[, 2], tolerance = 1e-4)
-  expect_equal(object = result[, 3]/100, expected = expect[, 3], tolerance = 1e-4)
-  expect_equal(object = result[, 4]/100, expected = expect[, 4], tolerance = 1e-4)
+  expect_equal(object = result[, 3] / 100, expected = expect[, 3], tolerance = 1e-4)
+  expect_equal(object = result[, 4] / 100, expected = expect[, 4], tolerance = 1e-4)
 })
 
 
 test_that("Reliability", {
   result <- CTT(U, na = -99)
-  result <- result$Reliability[,2] %>% as.matrix()
+  result <- result$Reliability[, 2] %>% as.matrix()
   expect <- CTTexpect[, 2] %>%
     as.matrix() %>%
     unname()

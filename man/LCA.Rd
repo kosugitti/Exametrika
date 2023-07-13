@@ -4,18 +4,18 @@
 \alias{LCA}
 \title{Latent Clas Analysis}
 \usage{
-LCA(U, na = NULL, Z = NULL, w = NULL, ncls = 2)
+LCA(U, ncls = 2, na = NULL, Z = NULL, w = NULL)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
+
+\item{ncls}{number of latent class}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
 \item{Z}{Z is a missing indicator matrix of the type matrix or data.frame}
 
 \item{w}{w is item weight vector}
-
-\item{ncls}{number of latent class}
 }
 \description{
 A function for estimating LCA using the EM algorithm.
