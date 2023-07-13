@@ -20,10 +20,17 @@ Model_Fit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
   IFI <- 1 - ((chi_A - df_A) / (chi_B - df_A))
   TLI <- 1 - ((chi_A / df_A) - 1) / ((chi_B / df_B) - 1)
   CFI <- 1 - ((chi_A - df_A) / (chi_B - df_B))
-  RMSEA <- sqrt((chi_A - df_A) / (df_A * nobs - 1))
+
+  # RMSEA
+  if ((df_A * nobs - 1) == 0) {
+    stop("Division by zero is not allowed.")
+  }
+  corrected_values <- pmax(chi_A - df_A, 0)
+  RMSEA <- sqrt(corrected_values / (df_A * nobs - 1))
+
   ## Information Criteria
   AIC <- chi_A - 2 * df_A
-  CAIC <- chi_A - df_A * log(nobs - 1)
+  CAIC <- chi_A - df_A * log(nobs + 1)
   BIC <- chi_A - df_A * log(nobs)
 
   ## Clip Funciton
@@ -34,7 +41,6 @@ Model_Fit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
     assign(names[i], pmin(pmax(vars[[i]], 0), 1))
   }
 
-  RMSEA[is.nan(RMSEA)] <- 0
 
   ret <- structure(
     list(

@@ -104,6 +104,8 @@ bMax <- matrix(rep(apply(postDist,1,max),ncls),ncol=ncls)
 cls01 <- sign(postDist - bMax)+1
 ## クラスごとのメンバ数
 colSums(cls01)
+colSums(postDist)
+
 ## IRP グラフ
 library(tidyverse)
 classRefMat |> t() |> as.data.frame() |>
@@ -134,7 +136,7 @@ postDist |> as.data.frame() |>
 
 ell_A <- itemEll
 
-pj <- crr(tmp$U)
+pj <- Exametrika::crr(tmp$U)
 pj_mat <- matrix(rep(pj,nrow(tmp$U)),ncol=testlength,byrow=T)
 ell_N <- colSums(tmp$U * log(pj_mat) + (tmp$Z * (1-tmp$U)) * log(1-pj_mat))
 
@@ -157,5 +159,13 @@ U0gj <- t(MsG) %*% (tmp$Z * (1 - tmp$U))
 ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
 
 df_A <- ntotal - ncls
-df_N <- ntotal - 1
-Model_Fit(ell_A,ell_B,ell_N,df_A,df_B,nobs)
+df_B <- ntotal - 1
+Exametrika::Model_Fit(ell_A,ell_B,ell_N,df_A,df_B,nobs)
+
+testEllmodel <- sum(ell_A)
+testEllbench <- sum(ell_B)
+testEllNull <- sum(ell_N)
+
+Exametrika::Model_Fit(ell_A = testEllmodel,ell_B=testEllbench,ell_N = testEllNull,
+                      df_A = df_A * testlength,
+                      df_B = df_B * testlength,nobs)
