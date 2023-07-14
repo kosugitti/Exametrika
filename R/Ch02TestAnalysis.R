@@ -5,6 +5,25 @@
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return
+#' \describe{
+#' \item{TestLength}{Length of the test. The number of items included in the test.}
+#' \item{SampleSize}{Sample size. The number of rows in the dataset.}
+#' \item{Mean}{Average number of correct answers.}
+#' \item{SEofMean}{Standard error of mean}
+#' \item{Variance}{Variance}
+#' \item{SD}{Standard Deviation}
+#' \item{Skewness}{Skewness}
+#' \item{Kurtosis}{Kurtosis}
+#' \item{Min}{Minimum score}
+#' \item{Max}{Max score}
+#' \item{Range}{Range of score}
+#' \item{Q1}{First quartile. Same as the 25th percentile.}
+#' \item{Median}{Median.Same as the 50th percentile.}
+#' \item{Q3}{Third quartile. Same as the 75th percentile.}
+#' \item{IQR}{Interquartile range. It is calculated by subtracting the first quartile from the third quartile.}
+#' \item{Stanine}{see [stanine]}
+#' }
 #' @export
 
 TestStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {

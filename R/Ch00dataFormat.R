@@ -7,6 +7,18 @@
 #' If the answer pattern is contained in the first column, it is treated as if there is no ID vector.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
+#' @return
+#' \describe{
+#' \item{U}{Data matrix. A matrix with rows representing the sample size and columns
+#'  representing the number of items, where elements are either 0 or 1. \eqn{u_{ij}=1} indicates
+#'   that student i correctly answered item j, while \eqn{u_{ij}=0} means that student i answered
+#'    item j incorrectly.}
+#' \item{ID}{The ID label given by the designated column or function."}
+#' \item{ItemLabel}{The item names given by the provided column names or function.}
+#' \item{Z}{Missing indicator matrix.\eqn{z_{uj}=1} indicates that item j is presented to Student i,
+#' while \eqn{z_{ij}=0} indicates item j is NOT presented to Student i.}
+#' \item{w}{item weight vector}
+#' }
 #' @export
 #'
 dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {

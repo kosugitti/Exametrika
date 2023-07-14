@@ -1,13 +1,33 @@
-#' @title Plot Exametrika Output
+#' @title Plotting functions for the Exametrika package of class "Exametrika"
 #' @description
-#' Plot format for Exametria Class
+#' Combines several plotting functions into one for objects of class "Exametrika".
+#' This can be used to plot the results of [IRT], [LCA].
 #' @param x Exametrika Class object
-#' @param type Plot type
-#' @param items Plot item number
-#' @param students Plot students ID
-#' @param nc Specifying the number of columns when there are many plots to be drawn
-#' @param nr Specifying the number of rows when there are many plots to be drawn
-#' @param ... othre optios
+#' @param type Plot type.Specify one of the following: "IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP".
+#' "IIC", "ICC", "TIC" plot the results of [IRT] (Item Response Theory),
+#' while "IRP", "TRP", "LCD", "CMP" plot the results of [LCA] (Latent Class Analysis)."
+#' @param items Specify the items you want to plot as a vector. If not specifically designated,
+#' all items will be included.When the type is IIC, if the specified item is 0, it returns a TIC
+#' representing the entire test.
+#' @param students Specify the numbers of the students you want to plot as a vector.
+#' If not specifically designated, all students will be included.
+#' @param nc Specifying the number of columns when there are many plots to be drawn. The default is 1.
+#' @param nr Specifying the number of rows when there are many plots to be drawn. The default is 1.
+#' @param ... other options
+#' @details
+#' Each model has its own plot.
+#' In [IRT] (Item Response Theory), we can visually check the characteristics of items and the entire test
+#' by observing the item response curve("ICC"), item information curve("IIC"), and test information curve("TIC").
+#'
+#' In [LCA] (Latent Class Analysis), an Item Reference Profile("IRP") that represents the correspondence
+#' between items and latent classes is plotted. This places the latent classes on the x-axis, and the
+#' proportion of students belonging to that class who answer the item correctly on the y-axis.
+#' The Test Reference Profile("TRP") and Latent Class Distribution("LCD") are plots that display two types of
+#' information simultaneously. One is a bar graph showing the number of members in each class, and the other
+#' is a line graph showing the average score taken by students in each membership class
+#' and the class membership distribution.
+#' The Class Membership Profile("CMP") visualizes the probability of a student belonging to each latent class.
+#'
 #' @importFrom graphics curve
 #' @importFrom utils tail
 #' @importFrom graphics axis barplot mtext par text
@@ -16,7 +36,7 @@
 plot.Exametrika <- function(x,
                             type = c(
                               "IIC", "ICC", "TIC",
-                              "IRP", "TRP", "LCD", "CMP",
+                              "IRP", "TRP", "LCD", "CMP"
                             ),
                             items = NULL,
                             students = NULL,
@@ -141,7 +161,7 @@ plot.Exametrika <- function(x,
         par(old_par)
       }
       if (type == "LCD") {
-        # Latent Class Distibution ----------------------------------------
+        # Latent Class Distribution ----------------------------------------
         old_par <- par(no.readonly = TRUE)
         par(mar = c(5, 4, 4, 4) + 0.1)
         bp <- barplot(x$LCD,

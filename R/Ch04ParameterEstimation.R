@@ -129,11 +129,33 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 #' A function for estimating item parameters using the EM algorithm.
 #' @param model This argument takes the number of item parameters to be
 #' estimated in the logistic model. It is limited to values 2, 3, or 4.
-#' @param U U is a data matrix of the type matrix or data.frame.
+#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
+#' it is converted to the Exametrika class with the \code{\link{dataFormat}} function.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
 #' @importFrom stats optim
+#' @details
+#' Apply the 2, 3, and 4 parameter logistic models to estimate the item and subject populations.
+#' The 4PL model can be described as follows.
+#' \deqn{P(\theta,a_j,b_j,c_j,d_j)= c_j + \frac{d_j -c_j}{1+exp\{-a_j(\theta - b_j)\}}}
+#' \eqn{a_j, b_j, c_j}, and \eqn{d_j} are parameters related to item j, and are parameters that
+#' adjust the logistic curve.
+#' \eqn{a_j} is called the slope parameter, \eqn{b_j} is the location, \eqn{c_j} is the lower asymptote,
+#' and \eqn{d_j} is the upper asymptote paramter.
+#' The model includes lower models, and among the 4PL models, the case where \eqn{d=1} is the 3PL model,
+#' and among the 3PL models, the case where \eqn{c=0} is the 2PL model.
+#' @return
+#' \describe{
+#' \item{model}{number of item parameters you set.}
+#' \item{testlength}{Length of the test. The number of items included in the test.}
+#' \item{nobs}{Sample size. The number of rows in the dataset.}
+#' \item{params}{Matrix containing the estimated item parameters}
+#' \item{itemPSD}{Posterior standard deviation of the item parameters}
+#' \item{ability}{Estimated parameters of students ability}
+#' \item{ItemFitIndices}{Fit index for each item.See also \code{\link{ModelFit}}}
+#' \item{TestFitIndices}{Overall fit index for the test.See also \code{\link{ModelFit}}}
+#' }
 #' @export
 #'
 
@@ -289,7 +311,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   if (model > 3) {
     item_model_loglike <- item_model_loglike - asymprior(paramset[, 4], 10, 2)
   }
-  item_PSD <- PSD_item_params(model, paramset, quadrature, marginal_posttheta)
+  itemPSD <- PSD_item_params(model, paramset, quadrature, marginal_posttheta)
 
   ### Ability Scores
   EAP <- post_theta %*% quadrature
@@ -327,8 +349,8 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   df_A <- ntotal - model
   df_B <- ntotal - 1
 
-  ItemFitIndices <- Model_Fit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
-  TestFitIndices <- Model_Fit(sum(ell_A),
+  ItemFitIndices <- ModelFit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
+  TestFitIndices <- ModelFit(sum(ell_A),
     sum(ell_B),
     sum(ell_N),
     df_A = df_A * testlength,
@@ -338,7 +360,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
 
   ## Formatting
   paramset <- as.data.frame(paramset)[1:model]
-  item_PSD <- as.data.frame(item_PSD)[1:model]
+  itemPSD <- as.data.frame(itemPSD)[1:model]
   colnames(paramset) <- c("slope", "location", "lowerAsym", "upperAsym")[1:model]
   colnames(item_PSD) <- c("PSD(slope)", "PSD(location)", "PSD(lowerAsym)", "PSD(upperAsym)")[1:model]
   rownames(paramset) <- rownames(item_PSD) <- tmp$ItemLabel
@@ -358,7 +380,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
     testlength = testlength,
     nobs = nobs,
     params = paramset,
-    item_PSD = item_PSD,
+    itemPSD = itemPSD,
     ability = theta,
     ItemFitIndices = ItemFitIndices,
     TestFitIndices = TestFitIndices

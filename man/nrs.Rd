@@ -2,7 +2,7 @@
 % Please edit documentation in R/Ch02StudentAnalysis.R
 \name{nrs}
 \alias{nrs}
-\title{nrs}
+\title{Number Right Score}
 \usage{
 nrs(U, na = NULL, Z = NULL, w = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Ch02StudentAnalysis.R
 \name{stanine}
 \alias{stanine}
-\title{stanine}
+\title{Stanine}
 \usage{
 stanine(U, na = NULL, Z = NULL, w = NULL)
 }

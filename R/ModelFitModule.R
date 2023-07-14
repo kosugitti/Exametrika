@@ -7,9 +7,28 @@
 #' @param df_A degrees of freedom of this model
 #' @param df_B degrees of freedom of saturated model
 #' @param nobs number of observations
+#' @return
+#' \describe{
+#' \item{model_log_like}{log likelihood of analysis model}
+#' \item{bench_log_like}{log likelihood of benchmark model}
+#' \item{null_log_like}{log likelihood of null model}
+#' \item{model_Chi_sq}{Chi-Square statistics for analysis model}
+#' \item{null_Chi_sq}{Chi-Square statistics for null model}
+#' \item{model_df}{degrees of freedom of analysis model}
+#' \item{null_df}{degrees of freedom of null model}
+#' \item{NFI}{Normed Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{RFI}{Relative Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{IFI}{Incremental Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{TLI}{Tucker-Lewis Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{CFI}{Comparative Fit Inderx. Lager values closer to 1.0 indicate a better fit.}
+#' \item{RMSEA}{Root Mean Square Error of Approximation. Smaller values closer to 0.0 indicate a better fit.}
+#' \item{AIC}{Akaike Information Criterion. A lower value indicates a better fit.}
+#' \item{CAIC}{Consistent AIC.A lower value indicates a better fit.}
+#' \item{BIC}{Bayesian Information Criterion. A lower value indicates a better fit.}
+#' }
 #' @export
 
-Model_Fit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
+ModelFit <- function(ell_A, ell_B, ell_N, df_A, df_B, nobs) {
   ### this model
   chi_A <- 2 * (ell_B - ell_A)
   ### Null model

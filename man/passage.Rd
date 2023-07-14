@@ -2,7 +2,7 @@
 % Please edit documentation in R/Ch02StudentAnalysis.R
 \name{passage}
 \alias{passage}
-\title{passage}
+\title{Passage Rate of student}
 \usage{
 passage(U, na = NULL, Z = NULL, w = NULL)
 }

@@ -1,11 +1,29 @@
-#' @title Latent Clas Analysis
+#' @title Latent Class Analysis
 #' @description
 #' A function for estimating LCA using the EM algorithm.
-#' @param U U is a data matrix of the type matrix or data.frame.
+#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
+#' it is converted to the Exametrika class with the [dataFormat] function.
+#' @param ncls number of latent class
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @param ncls number of latent class
+#' @return
+#' \describe{
+#'  \item{nobs}{Sample size. The number of rows in the dataset.}
+#'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{Nclass}{number of classes you set}
+#'  \item{TRP}{Test Reference Profile matrix. The TRP is the column sum vector of estimated class reference matrix,
+#' \eqn{\hat{\Pi}_c}}
+#'  \item{LCD}{Latent Class Dstribution table.see also [plot.Exametrika]}
+#'  \item{CMD}{Class Membership Dstribution table. see also [plot.Exametrika]}
+#'  \item{Students}{Class Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_c}, \eqn{\hat{m}_c}, is the
+#' class membership profile of Student s, namely the posterior probability distribution representing the student's
+#' belonging to the respective latent classes. The last column indicates the latent class estimate.}
+#'  \item{IRP}{Item Reference Profile matrix.The IRP of item j is the j-th row vector in the class reference matrix,
+#' \eqn{\hat{\pi}_c}}
+#'  \item{ItemFitIndices}{Fit index for each item.See also [ModelFit]}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [ModelFit]}
+#' }
 #' @export
 #'
 
@@ -105,13 +123,13 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL) {
 
   df_A <- ntotal - ncls
   df_B <- ntotal - 1
-  ItemFitIndices <- Model_Fit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
+  ItemFitIndices <- ModelFit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
   # Test Total
   testEllmodel <- sum(ell_A)
   testEllbench <- sum(ell_B)
   testEllNull <- sum(ell_N)
 
-  TestFitIndices <- Model_Fit(
+  TestFitIndices <- ModelFit(
     ell_A = testEllmodel, ell_B = testEllbench, ell_N = testEllNull,
     df_A = df_A * testlength,
     df_B = df_B * testlength, nobs

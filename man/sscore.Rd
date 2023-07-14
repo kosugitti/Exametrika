@@ -2,7 +2,7 @@
 % Please edit documentation in R/Ch02StudentAnalysis.R
 \name{sscore}
 \alias{sscore}
-\title{sscore}
+\title{Standardized Score}
 \usage{
 sscore(U, na = NULL, Z = NULL, w = NULL)
 }

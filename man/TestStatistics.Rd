@@ -15,6 +15,26 @@ TestStatistics(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+\describe{
+\item{TestLength}{Length of the test. The number of items included in the test.}
+\item{SampleSize}{Sample size. The number of rows in the dataset.}
+\item{Mean}{Average number of correct answers.}
+\item{SEofMean}{Standard error of mean}
+\item{Variance}{Variance}
+\item{SD}{Standard Deviation}
+\item{Skewness}{Skewness}
+\item{Kurtosis}{Kurtosis}
+\item{Min}{Minimum score}
+\item{Max}{Max score}
+\item{Range}{Range of score}
+\item{Q1}{First quartile. Same as the 25th percentile.}
+\item{Median}{Median.Same as the 50th percentile.}
+\item{Q3}{Third quartile. Same as the 75th percentile.}
+\item{IQR}{Interquartile range. It is calculated by subtracting the first quartile from the third quartile.}
+\item{Stanine}{see \link{stanine}}
+}
+}
 \description{
 Statistics regarding the total score.
 }

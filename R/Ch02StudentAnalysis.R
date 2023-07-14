@@ -1,4 +1,4 @@
-#' @title nrs
+#' @title Number Right Score
 #' @description \code{nrs}
 #' The Number-right score (NRS) function returns the count of the items passed to it.
 #' @param U U is a data matrix of the type matrix or data.frame.
@@ -20,7 +20,7 @@ nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
   return(tW)
 }
 
-#' @title passage
+#' @title Passage Rate of student
 #' @description
 #' Passage rate of Student s is NRS divided by the number of presented items.
 #' @param U U is a data matrix of the type matrix or data.frame.
@@ -43,7 +43,7 @@ passage <- function(U, na = NULL, Z = NULL, w = NULL) {
   return(rW)
 }
 
-#' @title sscore
+#' @title Standardized Score
 #' @description
 #' The standardized score indicates how high or low the student's ability is
 #' placed in the standard normal distribution.
@@ -91,7 +91,7 @@ percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
   return(ret)
 }
 
-#' @title stanine
+#' @title Stanine
 #' @description
 #' The Stanine scoring system divides students into nine groups.
 #' These groups correspond to the following percentile ranges:

@@ -1,6 +1,6 @@
-#' @title crr
+#' @title Correct Response Rate
 #' @description
-#' THe correct response rate (CRR) is one of the most basic and important
+#' The correct response rate (CRR) is one of the most basic and important
 #'  statistics for item analysis. This is an index of item difficulty and
 #'  a measure of how many students out of those who tried an item correctly
 #'  responded to it.

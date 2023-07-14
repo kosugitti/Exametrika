@@ -2,33 +2,53 @@
 % Please edit documentation in R/ExametrikaPlot.R
 \name{plot.Exametrika}
 \alias{plot.Exametrika}
-\title{Plot Exametrika Output}
+\title{Plotting functions for the Exametrika package of class "Exametrika"}
 \usage{
 \method{plot}{Exametrika}(
   x,
-  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD"),
+  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP", ),
   items = NULL,
   students = NULL,
-  ncol = 1,
-  nrow = 1,
+  nc = 1,
+  nr = 1,
   ...
 )
 }
 \arguments{
 \item{x}{Exametrika Class object}
 
-\item{type}{Plot type}
+\item{type}{Plot type.Specify one of the following: "IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP".
+"IIC", "ICC", "TIC" plot the results of \link{IRT} (Item Response Theory),
+while "IRP", "TRP", "LCD", "CMP" plot the results of \link{LCA} (Latent Class Analysis)."}
 
-\item{items}{Plot item number}
+\item{items}{Specify the items you want to plot as a vector. If not specifically designated,
+all items will be included.When the type is IIC, if the specified item is 0, it returns a TIC
+representing the entire test.}
 
-\item{students}{Plot students ID}
+\item{students}{Specify the numbers of the students you want to plot as a vector.
+If not specifically designated, all students will be included.}
 
-\item{ncol}{Specifying the number of columns when there are many plots to be drawn}
+\item{nc}{Specifying the number of columns when there are many plots to be drawn. The default is 1.}
 
-\item{nrow}{Specifying the number of rows when there are many plots to be drawn}
+\item{nr}{Specifying the number of rows when there are many plots to be drawn. The default is 1.}
 
-\item{...}{othre optios}
+\item{...}{other options}
 }
 \description{
-Plot format for Exametria Class
+Combines several plotting functions into one for objects of class "Exametrika".
+This can be used to plot the results of \link{IRT}, \link{LCA}.
+}
+\details{
+Each model has its own plot.
+In \link{IRT} (Item Response Theory), we can visually check the characteristics of items and the entire test
+by observing the item response curve("ICC"), item information curve("IIC"), and test information curve("TIC").
+
+In \link{LCA} (Latent Class Analysis), an Item Reference Profile("IRP") that represents the correspondence
+between items and latent classes is plotted. This places the latent classes on the x-axis, and the
+proportion of students belonging to that class who answer the item correctly on the y-axis.
+The Test Reference Profile("TRP") and Latent Class Distribution("LCD") are plots that display two types of
+information simultaneously. One is a bar graph showing the number of members in each class, and the other
+is a line graph showing the average score taken by students in each membership class
+and the class membership distribution.
+The Class Membership Profile("CMP") visualizes the probability of a student belonging to each latent class.
 }
