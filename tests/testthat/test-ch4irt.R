@@ -40,7 +40,7 @@ test_that("2PL model Item Params Info", {
   expect <- pl2Item$`PSD(Slope)` %>%
     unlist() %>%
     as.numeric()
-  result <- result2$item_PSD[, 1] %>%
+  result <- result2$itemPSD[, 1] %>%
     unlist() %>%
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)
@@ -48,7 +48,7 @@ test_that("2PL model Item Params Info", {
   expect <- pl2Item$`PSD(Loc)` %>%
     unlist() %>%
     as.numeric()
-  result <- result2$item_PSD[, 2] %>%
+  result <- result2$itemPSD[, 2] %>%
     unlist() %>%
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)
@@ -147,7 +147,7 @@ test_that("3PL model Item Params Info", {
   expect <- pl3Item[, 10:12] %>%
     unlist() %>%
     as.numeric()
-  result <- result3$item_PSD %>%
+  result <- result3$itemPSD %>%
     unlist() %>%
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)
@@ -250,7 +250,7 @@ test_that("4PL model Item PSD", {
   expect <- pl4Item[, 11:14] %>%
     unlist() %>%
     as.numeric()
-  result <- result4$item_PSD %>%
+  result <- result4$itemPSD %>%
     unlist() %>%
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)

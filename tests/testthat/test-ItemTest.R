@@ -5,7 +5,7 @@ library(readxl)
 # シート名のベクターを作成
 sheets <- c(
   "Item", "Joint Sample Size", "Joint Correct Response Rate",
-  "Conditioal Correct Response Rat", "Item Lift", "Mutual Information",
+  "Conditional Correct Response Ra", "Item Lift", "Mutual Information",
   "Phi Coefficient", "Tetrachoric Correlation"
 )
 

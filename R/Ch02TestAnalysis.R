@@ -42,7 +42,7 @@ TestStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {
   SDs <- sqrt(mean((tW - Mean)^2))
   tmpZ <- (tW - Mean) / SDs
   Skewness <- mean(tmpZ^3)
-  Kurtosis <- mean(tmpZ^4)
+  Kurtosis <- mean(tmpZ^4) - 3
   Min <- min(tW)
   Max <- max(tW)
   Range <- Max - Min

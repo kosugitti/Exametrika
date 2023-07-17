@@ -362,8 +362,8 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   paramset <- as.data.frame(paramset)[1:model]
   itemPSD <- as.data.frame(itemPSD)[1:model]
   colnames(paramset) <- c("slope", "location", "lowerAsym", "upperAsym")[1:model]
-  colnames(item_PSD) <- c("PSD(slope)", "PSD(location)", "PSD(lowerAsym)", "PSD(upperAsym)")[1:model]
-  rownames(paramset) <- rownames(item_PSD) <- tmp$ItemLabel
+  colnames(itemPSD) <- c("PSD(slope)", "PSD(location)", "PSD(lowerAsym)", "PSD(upperAsym)")[1:model]
+  rownames(paramset) <- rownames(itemPSD) <- tmp$ItemLabel
 
   names(item_model_loglike) <- tmp$ItemLabel
   EAP <- data.frame(EAP)
