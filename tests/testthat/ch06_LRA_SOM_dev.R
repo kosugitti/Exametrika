@@ -24,7 +24,7 @@ sigma_list <- ((maxT - 1:maxT) * sigma1 + (1:maxT - 1) * sigmaT) / (maxT - 1)
 kappa1 <- 0.01
 kappaT <- 0.0001
 
-kappa_list <- ((maxT - 1:maxT) * kappa1 + (1:maxT - 1) * kappaT) / (nclus*(maxT - 1))
+kappa_list <- ((maxT - 1:maxT) * kappa1 + (1:maxT - 1) * kappaT) / (nclus * (maxT - 1))
 
 prior_list <- rep(1 / nclus, nclus)
 

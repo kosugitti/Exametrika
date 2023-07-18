@@ -66,7 +66,7 @@ print.Exametrika <- function(x, digits = 3, ...) {
     },
     IRT = {
       cat("Item Parameters\n")
-      y <- cbind(x$params, x$item_PSD)
+      y <- cbind(x$params, x$itemPSD)
       print(y, digits = digits)
       cat("\nItem Fit Indices\n")
       y <- unclass(x$ItemFitIndices)

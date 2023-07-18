@@ -321,42 +321,8 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
 
   ### Model fit
   ell_A <- item_model_loglike
-  # Null model
-  nrs <- colSums(tmp$Z)
-  crr <- colSums(tmp$U) / nrs
-  const <- exp(-testlength)
-  nobs <- NROW(tmp$Z)
-  ell_N <- nobs * crr * log(crr + const) + nobs * (1 - crr) * log(1 - crr + const)
+  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, model)
 
-  # Benchmark model
-  total <- rowSums(tmp$U)
-  totalList <- sort(unique(total))
-  totalDist <- as.vector(table(total))
-  ntotal <- length(totalList)
-  ## Group Membership Profile Matrix
-  MsG <- matrix(0, ncol = ntotal, nrow = nobs)
-  for (i in 1:nobs) {
-    MsG[i, which(totalList == total[i])] <- 1
-  }
-  ## PjG
-  PjG <- t(MsG) %*% (tmp$Z * tmp$U) / t(MsG) %*% tmp$Z
-  U1gj <- t(MsG) %*% (tmp$Z * tmp$U)
-  U0gj <- t(MsG) %*% (tmp$Z * (1 - tmp$U))
-
-  ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
-
-  # dfs
-  df_A <- ntotal - model
-  df_B <- ntotal - 1
-
-  ItemFitIndices <- ModelFit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
-  TestFitIndices <- ModelFit(sum(ell_A),
-    sum(ell_B),
-    sum(ell_N),
-    df_A = df_A * testlength,
-    df_B = df_B * testlength,
-    nobs
-  )
 
   ## Formatting
   paramset <- as.data.frame(paramset)[1:model]
@@ -370,11 +336,6 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   PSD <- data.frame(PSD)
   theta <- cbind(tmp$ID, EAP, PSD)
 
-  log_like <- data.frame(
-    item_log_like = item_model_loglike,
-    bench_log_like = ell_B,
-    Null_log_like = ell_N
-  )
   ret <- structure(list(
     model = model,
     testlength = testlength,
@@ -382,8 +343,8 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
     params = paramset,
     itemPSD = itemPSD,
     ability = theta,
-    ItemFitIndices = ItemFitIndices,
-    TestFitIndices = TestFitIndices
+    ItemFitIndices = FitIndices$item,
+    TestFitIndices = FitIndices$test
   ), class = c("Exametrika", "IRT"))
   return(ret)
 }

@@ -101,39 +101,7 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL) {
   ### Model Fit
   # each Items
   ell_A <- itemEll
-  pj <- crr(tmp$U)
-  pj_mat <- matrix(rep(pj, nrow(tmp$U)), ncol = testlength, byrow = T)
-  ell_N <- colSums(tmp$U * log(pj_mat) + (tmp$Z * (1 - tmp$U)) * log(1 - pj_mat))
-  # Benchmark model
-  nobs <- NROW(tmp$Z)
-  total <- rowSums(tmp$U)
-  totalList <- sort(unique(total))
-  totalDist <- as.vector(table(total))
-  ntotal <- length(totalList)
-  ## Group Membership Profile Matrix
-  MsG <- matrix(0, ncol = ntotal, nrow = nobs)
-  for (i in 1:nobs) {
-    MsG[i, which(totalList == total[i])] <- 1
-  }
-  ## PjG
-  PjG <- t(MsG) %*% (tmp$Z * tmp$U) / t(MsG) %*% tmp$Z
-  U1gj <- t(MsG) %*% (tmp$Z * tmp$U)
-  U0gj <- t(MsG) %*% (tmp$Z * (1 - tmp$U))
-  ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
-
-  df_A <- ntotal - ncls
-  df_B <- ntotal - 1
-  ItemFitIndices <- ModelFit(ell_A, ell_B, ell_N, df_A, df_B, nobs)
-  # Test Total
-  testEllmodel <- sum(ell_A)
-  testEllbench <- sum(ell_B)
-  testEllNull <- sum(ell_N)
-
-  TestFitIndices <- ModelFit(
-    ell_A = testEllmodel, ell_B = testEllbench, ell_N = testEllNull,
-    df_A = df_A * testlength,
-    df_B = df_B * testlength, nobs
-  )
+  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, ncls)
 
   ret <- structure(list(
     testlength = testlength,
@@ -145,7 +113,7 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL) {
     CMD = as.vector(CMD),
     Students = StudentClass,
     IRP = IRP,
-    ItemFitIndices = ItemFitIndices,
-    TestFitIndices = TestFitIndices
+    ItemFitIndices = FitIndices$item,
+    TestFitIndices = FitIndices$test
   ), class = c("Exametrika", "LCA"))
 }
