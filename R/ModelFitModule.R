@@ -52,7 +52,7 @@ ModelFit <- function(U, Z, ell_A, nparam) {
   U0gj <- t(MsG) %*% (Z * (1 - U))
   ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
 
-  #chisquares
+  # chisquares
   chi_A <- 2 * (ell_B - ell_A)
   chi_B <- 2 * (ell_B - ell_N)
 
@@ -152,8 +152,8 @@ calcFitIndices <- function(chi_A, chi_B, df_A, df_B, nobs) {
     assign(names[i], pmin(pmax(vars[[i]], 0), 1))
   }
 
-  for(i in 1:length(chi_A)){
-    if(df_A[i]<=0){
+  for (i in 1:length(chi_A)) {
+    if (df_A[i] <= 0) {
       RFI[i] <- NaN
       TLI[i] <- NaN
       RMSEA[i] <- NaN

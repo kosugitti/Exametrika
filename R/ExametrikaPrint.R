@@ -96,7 +96,7 @@ print.Exametrika <- function(x, digits = 3, ...) {
       print(round(y, digits))
       cat("\nTest Fit Indices\n")
       cat(paste("Number of Latent class:", x$Nclass))
-      cat(paste("\nNumber of EM cycle:", x$N_EM_Cycle, "\n"))
+      cat(paste("\nNumber of EM cycle:", x$N_Cycle, "\n"))
       y <- unclass(x$TestFitIndices)
       y <- t(as.data.frame(y))
       colnames(y) <- "value"

@@ -7,6 +7,7 @@
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @param maxiter Maximum number of iterations.
 #' @return
 #' \describe{
 #'  \item{nobs}{Sample size. The number of rows in the dataset.}
@@ -27,7 +28,7 @@
 #' @export
 #'
 
-LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL) {
+LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL, maxiter = 100) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -37,77 +38,38 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL) {
   U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
   if (ncls < 2 | ncls > 20) {
-    stop("[Caution!] An invalid number of classes was specified.")
+    stop("Please set the number of classes to a number between 2 and less than 20.")
   }
 
-  # Initialize
-  testlength <- NCOL(tmp$U)
-  beta1 <- 1
-  beta2 <- 1
-  const <- exp(-testlength)
-  testEll <- -1 / const
-  oldtestEll <- -2 / const
-  itemEll <- rep(testEll / testlength, testlength)
-  classRefMat <- matrix(rep(1:ncls / (ncls + 1), testlength), ncol = testlength)
-
-  ## EM algorithm
-  emt <- 0
-  maxemt <- 100
-  FLG <- TRUE
-
-  while (FLG) {
-    emt <- emt + 1
-    oldtestEll <- testEll
-
-    llmat <- tmp$U %*% t(log(classRefMat + const)) + (tmp$Z * (1 - tmp$U)) %*% t(log(1 - classRefMat + const))
-    exp_llmat <- exp(llmat)
-    postDist <- exp_llmat / rowSums(exp_llmat)
-
-    correct_cls <- t(postDist) %*% tmp$U
-    incorrect_cls <- t(postDist) %*% (tmp$Z * (1 - tmp$U))
-
-    old_classRefMat <- classRefMat
-    classRefMat <- (correct_cls + beta1 - 1) / (correct_cls + incorrect_cls + beta1 + beta2 - 2)
-
-    itemEll <- colSums(correct_cls * log(classRefMat + const) + incorrect_cls * log(1 - classRefMat + const))
-    testEll <- sum(itemEll)
-
-    if (testEll - oldtestEll <= 0) {
-      classRefMat <- old_classRefMat
-      FLG <- FALSE
-    }
-    if ((testEll - oldtestEll) <= 0.0001 * abs(oldtestEll)) {
-      FLG <- FALSE
-    }
-    if (emt == maxemt) {
-      FLG <- FALSE
-    }
-  }
+  em_ret <- emclus(tmp$U, tmp$Z, ncls,
+    Fil = diag(rep(1, ncls)),
+    beta1 = 1, beta2 = 1, maxiter
+  )
 
   ## Returns
   #### Class Information
-  TRP <- classRefMat %*% tmp$w
-  bMax <- matrix(rep(apply(postDist, 1, max), ncls), ncol = ncls)
-  clsNum <- apply(postDist, 1, which.max)
-  cls01 <- sign(postDist - bMax) + 1
+  TRP <- em_ret$classRefMat %*% tmp$w
+  bMax <- matrix(rep(apply(em_ret$postDist, 1, max), ncls), ncol = ncls)
+  clsNum <- apply(em_ret$postDist, 1, which.max)
+  cls01 <- sign(em_ret$postDist - bMax) + 1
   LCD <- colSums(cls01)
-  CMD <- colSums(postDist)
-  StudentClass <- cbind(postDist, clsNum)
+  CMD <- colSums(em_ret$postDist)
+  StudentClass <- cbind(em_ret$postDist, clsNum)
   colnames(StudentClass) <- c(paste("Membership", 1:ncls), "Estimate")
   ### Item Information
-  IRP <- t(classRefMat)
+  IRP <- t(em_ret$classRefMat)
   colnames(IRP) <- paste0("IRP", 1:ncls)
 
   ### Model Fit
   # each Items
-  ell_A <- itemEll
+  ell_A <- em_ret$itemEll
   FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, ncls)
 
   ret <- structure(list(
-    testlength = testlength,
+    testlength = testlength <- NCOL(tmp$U),
     nobs = nobs,
     Nclass = ncls,
-    N_EM_Cycle = emt,
+    N_Cycle = em_ret$iter,
     TRP = as.vector(TRP),
     LCD = as.vector(LCD),
     CMD = as.vector(CMD),
