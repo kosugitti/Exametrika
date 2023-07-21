@@ -5,7 +5,8 @@
 #' @param x Exametrika Class object
 #' @param type Plot type.Specify one of the following: "IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP".
 #' "IIC", "ICC", "TIC" plot the results of [IRT] (Item Response Theory),
-#' while "IRP", "TRP", "LCD", "CMP" plot the results of [LCA] (Latent Class Analysis)."
+#' while "IRP", "TRP", "LCD", "CMP" plot the results of [LCA] (Latent Class Analysis) and
+#' [LRA](Latent Rank Analysis)"
 #' @param items Specify the items you want to plot as a vector. If not specifically designated,
 #' all items will be included.When the type is IIC, if the specified item is 0, it returns a TIC
 #' representing the entire test.
@@ -69,6 +70,88 @@ plot.Exametrika <- function(x,
     1:nobs
   }
 
+  LCA_LRA_common <-function(){
+    if (type == "IRP") {
+      # Item Reference Profile ----------------------------------------
+      params <- x$IRP[plotItemID, ]
+      for (i in 1:nrow(params)) {
+        y <- params[i, ]
+        plot(y,
+             type = "b",
+             ylab = "Correct Response Rate",
+             xlab = "Latent Class",
+             ylim = c(0, 1),
+             main = paste("Item", i)
+        )
+      }
+    }
+    if (type == "TRP") {
+      # Test Reference Profile ----------------------------------------
+      old_par <- par(no.readonly = TRUE)
+      par(mar = c(5, 4, 4, 4) + 0.1)
+      bp <- barplot(x$LCD,
+                    names.arg = 1:x$Nclass,
+                    ylim = c(0, max(x$LCD) + 10),
+                    xlim = c(0, x$Nclass + 1),
+                    xlab = "Latent Class",
+                    ylab = "Number of Students"
+      )
+      text(x = bp, y = x$LCD, label = x$LCD, pos = 1, cex = 1.2)
+      par(new = TRUE)
+      plot(bp, x$TRP,
+           type = "b", pch = 19, lty = 1,
+           axes = FALSE, xaxt = "n", xlab = "", ylab = "",
+           bty = "n",
+           ylim = c(0, testlength),
+           xlim = c(0, x$Nclass + 1),
+      )
+      axis(4, at = pretty(range(0, testlength)))
+      mtext("Expected Score", side = 4, line = 3)
+      par(old_par)
+    }
+    if (type == "LCD") {
+      # Latent Class Distribution ----------------------------------------
+      old_par <- par(no.readonly = TRUE)
+      par(mar = c(5, 4, 4, 4) + 0.1)
+      bp <- barplot(x$LCD,
+                    names.arg = 1:x$Nclass,
+                    ylim = c(0, max(x$LCD) + 10),
+                    xlim = c(0, x$Nclass + 1),
+                    xlab = "Latent Class",
+                    ylab = "Number of Students"
+      )
+      text(x = bp, y = x$LCD, label = x$LCD, pos = 1, cex = 1.2)
+      par(new = TRUE)
+      plot(bp, x$CMD,
+           type = "b", pch = 19, lty = 1,
+           axes = FALSE, xaxt = "n", xlab = "", ylab = "",
+           bty = "n",
+           ylim = c(0, max(x$LCD) + 10),
+           xlim = c(0, x$Nclass + 1),
+      )
+      axis(4, at = pretty(range(0, max(x$LCD) + 10)))
+      mtext("Frequency", side = 4, line = 3)
+      par(old_par)
+    }
+    if (type == "CMP") {
+      # Class Membership Profile ----------------------------------------
+      params <- x$Students[plotStudentID, 1:x$Nclass]
+      for (i in 1:NROW(params)) {
+        y <- params[i, ]
+        plot(y,
+             type = "b",
+             xlab = "Latent Class",
+             ylab = "Membership",
+             ylim = c(0, 1),
+             main = paste("Student", plotStudentID[i])
+        )
+      }
+    }
+  }
+
+
+# Switching function (main) ----------------------------------------
+
   switch(value,
     IRT = {
       if ((type %in% c("IIC", "TIC") && any(plotItemID == 0)) ||
@@ -122,82 +205,10 @@ plot.Exametrika <- function(x,
       }
     },
     LCA = {
-      if (type == "IRP") {
-        # Item Reference Profile ----------------------------------------
-        params <- x$IRP[plotItemID, ]
-        for (i in 1:nrow(params)) {
-          y <- params[i, ]
-          plot(y,
-            type = "b",
-            ylab = "Correct Response Rate",
-            xlab = "Latent Class",
-            ylim = c(0, 1),
-            main = paste("Item", i)
-          )
-        }
-      }
-      if (type == "TRP") {
-        # Test Reference Profile ----------------------------------------
-        old_par <- par(no.readonly = TRUE)
-        par(mar = c(5, 4, 4, 4) + 0.1)
-        bp <- barplot(x$LCD,
-          names.arg = 1:x$Nclass,
-          ylim = c(0, max(x$LCD) + 10),
-          xlim = c(0, x$Nclass + 1),
-          xlab = "Latent Class",
-          ylab = "Number of Students"
-        )
-        text(x = bp, y = x$LCD, label = x$LCD, pos = 1, cex = 1.2)
-        par(new = TRUE)
-        plot(bp, x$TRP,
-          type = "b", pch = 19, lty = 1,
-          axes = FALSE, xaxt = "n", xlab = "", ylab = "",
-          bty = "n",
-          ylim = c(0, testlength),
-          xlim = c(0, x$Nclass + 1),
-        )
-        axis(4, at = pretty(range(0, testlength)))
-        mtext("Expected Score", side = 4, line = 3)
-        par(old_par)
-      }
-      if (type == "LCD") {
-        # Latent Class Distribution ----------------------------------------
-        old_par <- par(no.readonly = TRUE)
-        par(mar = c(5, 4, 4, 4) + 0.1)
-        bp <- barplot(x$LCD,
-          names.arg = 1:x$Nclass,
-          ylim = c(0, max(x$LCD) + 10),
-          xlim = c(0, x$Nclass + 1),
-          xlab = "Latent Class",
-          ylab = "Number of Students"
-        )
-        text(x = bp, y = x$LCD, label = x$LCD, pos = 1, cex = 1.2)
-        par(new = TRUE)
-        plot(bp, x$CMD,
-          type = "b", pch = 19, lty = 1,
-          axes = FALSE, xaxt = "n", xlab = "", ylab = "",
-          bty = "n",
-          ylim = c(0, max(x$LCD) + 10),
-          xlim = c(0, x$Nclass + 1),
-        )
-        axis(4, at = pretty(range(0, max(x$LCD) + 10)))
-        mtext("Frequency", side = 4, line = 3)
-        par(old_par)
-      }
-      if (type == "CMP") {
-        # Class Membership Profile ----------------------------------------
-        params <- x$Students[plotStudentID, 1:x$Nclass]
-        for (i in 1:NROW(params)) {
-          y <- params[i, ]
-          plot(y,
-            type = "b",
-            xlab = "Latent Class",
-            ylab = "Membership",
-            ylim = c(0, 1),
-            main = paste("Student", plotStudentID[i])
-          )
-        }
-      }
+      LCA_LRA_common()
+    },
+    LRA = {
+      LCA_LRA_common()
     },
     none = {
       cat("Sorry, this is not an object that can be plotted.")

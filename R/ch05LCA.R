@@ -68,7 +68,7 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL, maxiter = 100) {
 
   ret <- structure(list(
     testlength = testlength <- NCOL(tmp$U),
-    nobs = nobs,
+    nobs = NROW(tmp$U),
     Nclass = ncls,
     N_Cycle = fit$iter,
     TRP = as.vector(TRP),
