@@ -293,7 +293,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
       paramset[j, ] <- newparams
     }
     loglike <- totalLogLike
-    cat(paste("iter", emt, "LogLik", totalLogLike, "\n"))
+    cat(paste("iter", emt, "LogLik", totalLogLike, "\r"))
   }
   cat("\n")
 

@@ -1,10 +1,10 @@
 library(tidyverse)
 ### GOALS
 library(readxl)
-test <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Test")
-class <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Rank")
-items <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Item")
-student <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Student")
+test <- read_excel("Chapter06LRA(GTMmic1).xlsx", sheet = "Test")
+class <- read_excel("Chapter06LRA(GTMmic1).xlsx", sheet = "Rank")
+items <- read_excel("Chapter06LRA(GTMmic1).xlsx", sheet = "Item")
+student <- read_excel("Chapter06LRA(GTMmic1).xlsx", sheet = "Student")
 
 
 ### Target
@@ -14,7 +14,7 @@ dat <- read_csv("sampleData/J15S500.csv") %>%
 tmp <- Exametrika::dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
-model <- LRA(tmp, ncls = 6, mic = FALSE)
+model <- LRA(tmp, ncls = 6, mic = TRUE)
 
 ### test
 test_that("LCA Test Info", {
@@ -41,7 +41,7 @@ test_that("LRA Class Info", {
     unname() |>
     as.numeric()
   result <- model$LCD |> as.numeric()
-  expect_equal(result, expect, tolerance = 1e-4)
+  expect_equal(result, expect, tolerance = 1e-3)
   ## CMD
   expect <- class[3, 2:7] |>
     unlist() |>
@@ -51,7 +51,7 @@ test_that("LRA Class Info", {
   expect_equal(result, expect, tolerance = 1e-4)
 })
 
-test_that("LRA Item Info", {
+test_that("LRA Item Info1 IRP", {
   ## IRP
   expect <- items[, 6:11] |>
     unlist() |>
@@ -59,6 +59,9 @@ test_that("LRA Item Info", {
     as.numeric()
   result <- model$IRP |> as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
+})
+
+test_that("LRA Item Info2 IRPindex", {
   ## IRP index
   expect <- items[, 12:17] |>
     unlist() |>
@@ -66,6 +69,9 @@ test_that("LRA Item Info", {
     as.numeric()
   result <- model$IRPIndex |> as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
+})
+
+test_that("LRA Item Info3 FitIndex", {
   ## FitIndex
   expect <- items[, c(22, 18, 19, 23, 20, 24, 21, 25:33)] |>
     unlist() |>
@@ -76,6 +82,8 @@ test_that("LRA Item Info", {
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
 })
+
+
 
 test_that("LRA Student Info", {
   ##

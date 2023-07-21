@@ -102,6 +102,32 @@ print.Exametrika <- function(x, digits = 3, ...) {
       colnames(y) <- "value"
       print(round(y, digits))
     },
+    LRA = {
+      cat("Item Reference Profile\n")
+      print(x$IRP, digits = digits)
+      cat("\nItem Reference Profile Indices\n")
+      print(x$IRPIndex, digits = digits)
+      cat("\nTest Profile\n")
+      y <- rbind(x$TRP, x$LCD, x$CMD)
+      rownames(y) <- c(
+        "Test Reference Profile",
+        "Latent Class Ditribution",
+        "Class Membership Distribuiton"
+      )
+      colnames(y) <- paste("Class", 1:x$Nclass)
+      print(round(y, digits))
+      cat("\nItem Fit Indices\n")
+      y <- unclass(x$ItemFitIndices)
+      y <- as.data.frame(y)
+      print(round(y, digits))
+      cat("\nTest Fit Indices\n")
+      cat(paste("Number of Latent class:", x$Nclass))
+      cat(paste("\nNumber of EM cycle:", x$N_Cycle, "\n"))
+      y <- unclass(x$TestFitIndices)
+      y <- t(as.data.frame(y))
+      colnames(y) <- "value"
+      print(round(y, digits))
+    },
     ModelFit = {
       tmp <- data.frame(unclass(x))
       print(tmp)

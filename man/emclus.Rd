@@ -4,7 +4,7 @@
 \alias{emclus}
 \title{emclus funciton}
 \usage{
-emclus(U, Z, ncls, Fil, beta1, beta2, maxiter = 100)
+emclus(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE)
 }
 \arguments{
 \item{U}{response matrix U of the examData class.}
@@ -20,6 +20,8 @@ emclus(U, Z, ncls, Fil, beta1, beta2, maxiter = 100)
 \item{beta2}{beta distribution parameter2 as prior density of rank reference matrix}
 
 \item{maxiter}{Maximum number of iterations.}
+
+\item{mic}{Monotonic increasing IRP option}
 }
 \description{
 This function is used for both LCA (Latent Class Analysis) and

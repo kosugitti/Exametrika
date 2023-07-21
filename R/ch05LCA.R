@@ -41,35 +41,36 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL, maxiter = 100) {
     stop("Please set the number of classes to a number between 2 and less than 20.")
   }
 
-  em_ret <- emclus(tmp$U, tmp$Z, ncls,
+  fit <- emclus(tmp$U, tmp$Z, ncls,
     Fil = diag(rep(1, ncls)),
-    beta1 = 1, beta2 = 1, maxiter
+    beta1 = 1, beta2 = 1, maxiter,
+    mic = FALSE
   )
 
   ## Returns
   #### Class Information
-  TRP <- em_ret$classRefMat %*% tmp$w
-  bMax <- matrix(rep(apply(em_ret$postDist, 1, max), ncls), ncol = ncls)
-  clsNum <- apply(em_ret$postDist, 1, which.max)
-  cls01 <- sign(em_ret$postDist - bMax) + 1
+  TRP <- fit$classRefMat %*% tmp$w
+  bMax <- matrix(rep(apply(fit$postDist, 1, max), ncls), ncol = ncls)
+  clsNum <- apply(fit$postDist, 1, which.max)
+  cls01 <- sign(fit$postDist - bMax) + 1
   LCD <- colSums(cls01)
-  CMD <- colSums(em_ret$postDist)
-  StudentClass <- cbind(em_ret$postDist, clsNum)
+  CMD <- colSums(fit$postDist)
+  StudentClass <- cbind(fit$postDist, clsNum)
   colnames(StudentClass) <- c(paste("Membership", 1:ncls), "Estimate")
   ### Item Information
-  IRP <- t(em_ret$classRefMat)
+  IRP <- t(fit$classRefMat)
   colnames(IRP) <- paste0("IRP", 1:ncls)
 
   ### Model Fit
   # each Items
-  ell_A <- em_ret$itemEll
+  ell_A <- itemEll(tmp$U, tmp$Z, fit$postDist, fit$classRefMat)
   FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, ncls)
 
   ret <- structure(list(
     testlength = testlength <- NCOL(tmp$U),
     nobs = nobs,
     Nclass = ncls,
-    N_Cycle = em_ret$iter,
+    N_Cycle = fit$iter,
     TRP = as.vector(TRP),
     LCD = as.vector(LCD),
     CMD = as.vector(CMD),

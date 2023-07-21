@@ -10,7 +10,7 @@ LRA(
   na = NULL,
   Z = NULL,
   w = NULL,
-  method = c("SOM", "GTM"),
+  method = "GTM",
   mic = FALSE,
   maxiter = 100,
   BIC.check = FALSE
@@ -58,9 +58,12 @@ number of iterations.}
 \item{CMD}{Class Membership Dstribution table. see also \link{plot.Exametrika}}
 \item{Students}{Class Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_c}, \eqn{\hat{m}_c}, is the
 class membership profile of Student s, namely the posterior probability distribution representing the student's
-belonging to the respective latent classes. The last column indicates the latent class estimate.}
+belonging to the respective latent classes. It also includes the rank with the maximum estimated membership probability,
+as well as the rank-up odds and rank-down odds.}
 \item{IRP}{Item Reference Profile matrix.The IRP of item j is the j-th row vector in the class reference matrix,
 \eqn{\hat{\pi}_c}}
+\item{IRPIndex}{The IRP information includes the item location parameters B and Beta,
+the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
 \item{ItemFitIndices}{Fit index for each item.See also \link{ModelFit}}
 \item{TestFitIndices}{Overall fit index for the test.See also \link{ModelFit}}
 }

@@ -12,10 +12,10 @@
 #' @param beta1 beta distribution parameter1 as prior density of rank reference matrix
 #' @param beta2 beta distribution parameter2 as prior density of rank reference matrix
 #' @param maxiter Maximum number of iterations.
-#'
+#' @param mic Monotonic increasing IRP option
 #'
 
-emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100) {
+emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE) {
   # Initialize
   testlength <- NCOL(U)
   const <- exp(-testlength)
@@ -42,10 +42,13 @@ emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100) {
 
     old_classRefMat <- classRefMat
     classRefMat <- (correct_cls + beta1 - 1) / (correct_cls + incorrect_cls + beta1 + beta2 - 2)
+    if (mic) {
+      classRefMat <- apply(classRefMat, 2, sort)
+    }
 
     itemEll <- colSums(correct_cls * log(classRefMat + const) + incorrect_cls * log(1 - classRefMat + const))
     testEll <- sum(itemEll)
-
+    cat(paste("iter", emt, "LogLik", testEll, "\r"))
     if (testEll - oldtestEll <= 0) {
       classRefMat <- old_classRefMat
       FLG <- FALSE
@@ -61,9 +64,26 @@ emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100) {
 
   ret <- list(
     iter = emt,
-    itemEll = itemEll,
     postDist = postDist,
     classRefMat = classRefMat
   )
   return(ret)
+}
+
+
+#' @title calc final item-ell
+#' @description
+#' Using the original data, class membership matrix, and class reference matrix,
+#'  the log-likelihood for each item is calculated.s
+#' @param U response matrix U of the examData class.
+#' @param Z missing indicator matrix Z of the examData class.
+#' @param postDist class membership matrix
+#' @param classRefMat class reference matrix
+
+itemEll <- function(U, Z, postDist, classRefMat) {
+  const <- exp(-NCOL(U))
+  correct_cls <- t(postDist) %*% U
+  incorrect_cls <- t(postDist) %*% (Z * (1 - U))
+  item_ell <- colSums(correct_cls * log(classRefMat + const) + incorrect_cls * log(1 - classRefMat + const))
+  return(item_ell)
 }

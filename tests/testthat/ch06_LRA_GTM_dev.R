@@ -16,7 +16,7 @@ ncls <- 6
 
 # test EMclus -----------------------------------------------------
 
-emclus(tmp$U, tmp$Z,ncls = 6, Fil = diag(rep(1, 6)), beta1 = 1, beta2 = 1)
+emclus(tmp$U, tmp$Z, ncls = 6, Fil = diag(rep(1, 6)), beta1 = 1, beta2 = 1)
 
 # LRA_GTM ---------------------------------------------------------
 
@@ -31,12 +31,12 @@ Filter <- diag(rep(f0, ncls)) + t(f1) + f1
 Filter[, 1] <- Filter[, 1] / sum(Filter[, 1])
 Filter[, ncls] <- Filter[, ncls] / sum(Filter[, ncls])
 
-emclus(tmp$U, tmp$Z,ncls = 6, Fil = Filter, 1, 1)
+emclus(tmp$U, tmp$Z, ncls = 6, Fil = Filter, 1, 1)
 
 # test ------------------------------------------------------------
 
 LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
-                method=c("SOM","GTM"),
+                method = c("SOM", "GTM"),
                 mic = FALSE,
                 maxiter = 100,
                 BIC.check = FALSE) {
@@ -53,7 +53,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   }
 
 
-  if(method =="SOM"){
+  if (method == "SOM") {
     print("SOM")
     somt <- 0
     alpha1 <- 1
@@ -101,7 +101,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
         winner <- which.max(mlrank)
         loglike <- loglike + mlrank[winner]
         hhh <- matrix(rep(hhhmat[h_count, (ncls + 1 - winner):(2 * ncls - winner)], testlength),
-                      nrow = testlength, byrow = T
+          nrow = testlength, byrow = T
         )
         RefMat <- RefMat + hhh * (tmp$U[ss, ] - RefMat)
         prior_list <- prior_list + (kappa_list[h_count] / ncls)
@@ -118,7 +118,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
       expllmat <- exp(llmat)
       postdist <- expllmat / rowSums(expllmat)
 
-      if(BIC.check){
+      if (BIC.check) {
         if (somt > maxiter * 10) {
           message("Reached ten times the maximum number of iterations.")
           FLG <- FALSE
@@ -129,13 +129,13 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
         item_ell <- colSums(item_ell)
         FI <- ModelFit(tmp$U, tmp$Z, item_ell, ncls)
         diff <- abs(oldBIC - FI$test$BIC)
-        print(paste("iter",somt, "BIC ",FI$test$BIC))
+        print(paste("iter", somt, "BIC ", FI$test$BIC))
         oldBIC <- FI$test$BIC
         if (diff < 1e-4) {
           FLG <- FALSE
         }
-      }else{
-        if(somt == maxiter){
+      } else {
+        if (somt == maxiter) {
           FLG <- FALSE
         }
       }
@@ -153,14 +153,13 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
       postDist = postdist,
       classRefMat = classRefMat
     )
-
-  }else{
+  } else {
     print("GTM")
     # GTM.
     f0 <- ifelse(ncls < 6, 1.05 - 0.05 * ncls,
-                 ifelse(ncls < 11, 1.00 - 0.04 * ncls,
-                        0.80 - 0.02 * ncls
-                 )
+      ifelse(ncls < 11, 1.00 - 0.04 * ncls,
+        0.80 - 0.02 * ncls
+      )
     )
     f1 <- diag(0, ncls)
     f1[row(f1) == col(f1) - 1] <- (1 - f0) / 2
@@ -168,7 +167,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     Filter[, 1] <- Filter[, 1] / sum(Filter[, 1])
     Filter[, ncls] <- Filter[, ncls] / sum(Filter[, ncls])
 
-    fit <- emclus(tmp$U, tmp$Z,ncls = ncls, Fil = Filter, 1, 1)
+    fit <- emclus(tmp$U, tmp$Z, ncls = ncls, Fil = Filter, 1, 1)
   }
 
   #### Class Information
@@ -202,9 +201,8 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     ItemFitIndices = FitIndices$item,
     TestFitIndices = FitIndices$test
   ), class = c("Exametrika", "LRA"))
-
 }
 # do the test ------------------------------------------------------------
 
-LRA(tmp$U,method="GTM",ncls=6) -> unGTM
-LRA(tmp$U,method="SOM",ncls=6,BIC.check = T,mic=T,maxiter = 300) -> unSOM
+LRA(tmp$U, method = "GTM", ncls = 6) -> unGTM
+LRA(tmp$U, method = "SOM", ncls = 6, BIC.check = T, mic = T, maxiter = 300) -> unSOM

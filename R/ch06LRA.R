@@ -33,9 +33,12 @@
 #'  \item{CMD}{Class Membership Dstribution table. see also [plot.Exametrika]}
 #'  \item{Students}{Class Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_c}, \eqn{\hat{m}_c}, is the
 #' class membership profile of Student s, namely the posterior probability distribution representing the student's
-#' belonging to the respective latent classes. The last column indicates the latent class estimate.}
+#' belonging to the respective latent classes. It also includes the rank with the maximum estimated membership probability,
+#' as well as the rank-up odds and rank-down odds.}
 #'  \item{IRP}{Item Reference Profile matrix.The IRP of item j is the j-th row vector in the class reference matrix,
 #' \eqn{\hat{\pi}_c}}
+#'  \item{IRPIndex}{The IRP information includes the item location parameters B and Beta,
+#'  the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
 #'  \item{ItemFitIndices}{Fit index for each item.See also [ModelFit]}
 #'  \item{TestFitIndices}{Overall fit index for the test.See also [ModelFit]}
 #' }
@@ -43,7 +46,7 @@
 #'
 
 LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
-                method=c("SOM","GTM"),
+                method = "GTM",
                 mic = FALSE,
                 maxiter = 100,
                 BIC.check = FALSE) {
@@ -54,14 +57,20 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     tmp <- U
   }
   U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
-  testlength <- ncol(tmp$U)
+  testlength <- NCOL(tmp$U)
+  samplesize <- NROW(tmp$U)
+  const <- exp(-testlength)
+
+  if (method != "SOM" & method != "GTM") {
+    print(method)
+  }
 
   if (ncls < 2 | ncls > 20) {
     stop("Please set the number of classes to a number between 2 and less than 20.")
   }
 
 
-  if(method =="SOM"){
+  if (method == "SOM") {
     somt <- 0
     alpha1 <- 1
     alphaT <- 0.01
@@ -108,7 +117,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
         winner <- which.max(mlrank)
         loglike <- loglike + mlrank[winner]
         hhh <- matrix(rep(hhhmat[h_count, (ncls + 1 - winner):(2 * ncls - winner)], testlength),
-                      nrow = testlength, byrow = T
+          nrow = testlength, byrow = T
         )
         RefMat <- RefMat + hhh * (tmp$U[ss, ] - RefMat)
         prior_list <- prior_list + (kappa_list[h_count] / ncls)
@@ -123,48 +132,40 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
         t(log(1 - t(RefMat) + const))
       expllmat <- exp(llmat)
       postdist <- expllmat / rowSums(expllmat)
-
-      if(BIC.check){
+      item_ell <- itemEll(tmp$U, tmp$Z, postdist, t(RefMat))
+      if (BIC.check) {
         if (somt > maxiter * 10) {
-          message("Reached ten times the maximum number of iterations.")
+          message("\nReached ten times the maximum number of iterations.")
           FLG <- FALSE
+          break
         }
-        correctcls <- t(postdist) %*% tmp$U
-        incorrectcls <- t(postdist) %*% (tmp$Z * (1 - tmp$U))
-        item_ell <- correctcls * log(t(RefMat) + const) + incorrectcls * (log(1 - t(RefMat) + const))
-        item_ell <- colSums(item_ell)
         FI <- ModelFit(tmp$U, tmp$Z, item_ell, ncls)
         diff <- abs(oldBIC - FI$test$BIC)
         oldsBIC <- FI$test$BIC
         if (diff < 1e-4) {
+          message("\nConverged before reaching maximum iterations.")
           FLG <- FALSE
+          break
         }
-      }else{
-        if(somt == maxiter){
+      } else {
+        if (somt == maxiter) {
           FLG <- FALSE
         }
       }
+      show.progress(somt, maxiter * ifelse(BIC.check, 10, 1), msg = sum(item_ell))
     }
-
-    correctcls <- t(postdist) %*% tmp$U
-    incorrectcls <- t(postdist) %*% (tmp$Z * (1 - tmp$U))
-    classRefMat <- (correctcls) / (correctcls + incorrectcls)
-    item_ell <- correctcls * log(t(RefMat) + const) + incorrectcls * (log(1 - t(RefMat) + const))
-    item_ell <- colSums(item_ell)
 
     fit <- list(
       iter = somt,
-      itemEll = item_ell,
       postDist = postdist,
-      classRefMat = classRefMat
+      classRefMat = t(RefMat)
     )
-
-  }else{
+  } else {
     # GTM.
     f0 <- ifelse(ncls < 6, 1.05 - 0.05 * ncls,
-                 ifelse(ncls < 11, 1.00 - 0.04 * ncls,
-                        0.80 - 0.02 * ncls
-                 )
+      ifelse(ncls < 11, 1.00 - 0.04 * ncls,
+        0.80 - 0.02 * ncls
+      )
     )
     f1 <- diag(0, ncls)
     f1[row(f1) == col(f1) - 1] <- (1 - f0) / 2
@@ -172,10 +173,15 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     Filter[, 1] <- Filter[, 1] / sum(Filter[, 1])
     Filter[, ncls] <- Filter[, ncls] / sum(Filter[, ncls])
 
-    fit <- emclus(tmp$U, tmp$Z,ncls = ncls, Fil = Filter, 1, 1)
+    fit <- emclus(tmp$U, tmp$Z,
+      ncls = ncls,
+      Fil = Filter, 1, 1, mic = mic
+    )
   }
 
   ## Returns
+  testlength <- NCOL(tmp$U)
+  nobs <- NROW(tmp$U)
   #### Class Information
   TRP <- fit$classRefMat %*% tmp$w
   bMax <- matrix(rep(apply(fit$postDist, 1, max), ncls), ncol = ncls)
@@ -183,20 +189,53 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   cls01 <- sign(fit$postDist - bMax) + 1
   LCD <- colSums(cls01)
   CMD <- colSums(fit$postDist)
-  StudentClass <- cbind(fit$postDist, clsNum)
-  colnames(StudentClass) <- c(paste("Membership", 1:ncls), "Estimate")
+  StudentClass <- fit$postDist
+  RU <- ifelse(clsNum + 1 > ncls, NA, clsNum + 1)
+  RD <- ifelse(clsNum - 1 < 1, NA, clsNum - 1)
+  RUO <- StudentClass[cbind(1:nobs, RU)] / StudentClass[cbind(1:nobs, clsNum)]
+  RDO <- StudentClass[cbind(1:nobs, RD)] / StudentClass[cbind(1:nobs, clsNum)]
+  StudentClass <- cbind(StudentClass, clsNum, RUO, RDO)
+  colnames(StudentClass) <- c(
+    paste("Membership", 1:ncls), "Estimate",
+    "Rank-Up Odds", "Rank-Down Odds"
+  )
   ### Item Information
   IRP <- t(fit$classRefMat)
   colnames(IRP) <- paste0("IRP", 1:ncls)
+  # item location index
+  Beta <- apply(abs(IRP - 0.5), 1, which.min)
+  B <- IRP[cbind(1:testlength, Beta)]
+  # item slope index and item monotonicity index
+  A <- Alpha <- rep(NA, testlength)
+  C <- Gamma <- rep(0, testlength)
+  for (i in 1:testlength) {
+    vec <- IRP[i, ]
+    lags <- vec - c(NA, vec[1:(ncls - 1)])
+    A[i] <- max(lags, na.rm = T)
+    Alpha[i] <- which.max(lags) - 1
+    C[i] <- sum(lags[lags < 0], na.rm = T)
+    if (C[i] != 0) {
+      Gamma[i] <- (length(lags[lags < 0]) - 1) / (ncls - 1)
+    }
+  }
+  IRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
+  if (sum(C) == 0) {
+    message("Strongly ordinal alignment condition was satisfied.")
+  }
 
   ### Model Fit
   # each Items
-  ell_A <- fit$itemEll
-  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, ncls)
+  ell_A <- itemEll(tmp$U, tmp$Z, fit$postDist, fit$classRefMat)
+  if (method == "GTM") {
+    nparam <- sum(diag(Filter))
+  } else {
+    nparam <- ncls
+  }
+  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, nparam)
 
   ret <- structure(list(
-    testlength = testlength <- NCOL(tmp$U),
-    nobs = NROW(tmp$U),
+    testlength = testlength,
+    nobs = nobs,
     Nclass = ncls,
     N_Cycle = fit$iter,
     TRP = as.vector(TRP),
@@ -204,8 +243,8 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     CMD = as.vector(CMD),
     Students = StudentClass,
     IRP = IRP,
+    IRPIndex = IRPIndex,
     ItemFitIndices = FitIndices$item,
     TestFitIndices = FitIndices$test
   ), class = c("Exametrika", "LRA"))
-
 }
