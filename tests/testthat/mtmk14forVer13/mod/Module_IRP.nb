@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     28309,        684]
-NotebookOptionsPosition[     27682,        666]
-NotebookOutlinePosition[     28062,        683]
-CellTagsIndexPosition[     28019,        680]
+NotebookDataLength[     28563,        691]
+NotebookOptionsPosition[     27943,        673]
+NotebookOutlinePosition[     28317,        690]
+CellTagsIndexPosition[     28274,        687]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -140,6 +140,12 @@ Cell[BoxData[
              "2"}], ")"}]}]}], ";", 
         RowBox[{"(*", " ", 
          RowBox[{"C", "*", "J"}], " ", "*)"}], "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"mic", "\[Equal]", "1"}], ",", 
+          RowBox[{"clsrefmat", "=", 
+           RowBox[{"Sort", "/@", "clsrefmat"}]}]}], "]"}], ";", 
+        "\[IndentingNewLine]", 
         RowBox[{"itemell", "=", 
          RowBox[{"Total", "[", 
           RowBox[{
@@ -170,8 +176,9 @@ Cell[BoxData[
    3.854053121980958*^9, 3.854053122238488*^9}, {3.854053998931329*^9, 
    3.854054004374457*^9}, {3.8540541056459384`*^9, 3.8540541058763123`*^9}, {
    3.8540541900500164`*^9, 3.854054204219857*^9}, {3.8540548843166895`*^9, 
-   3.8540548845144424`*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"4d009152-b561-42f7-a4f9-009cbd03b11c"],
+   3.8540548845144424`*^9}, {3.8988280131945977`*^9, 
+   3.898828013369881*^9}},ExpressionUUID->"4d009152-b561-42f7-a4f9-\
+009cbd03b11c"],
 
 Cell[BoxData[
  RowBox[{
@@ -664,8 +671,8 @@ Cell[BoxData[
    3.8535422262389765`*^9}},
  CellLabel->"In[4]:=",ExpressionUUID->"06910301-00b7-4b70-af6b-d892acc2c7b2"]
 },
-WindowSize->{1858, 1157},
-WindowMargins->{{Automatic, 1836}, {-19, Automatic}},
+WindowSize->{1540, 825},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 Magnification->1.5,
 FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (2019\:5e745\:67083\
 \:65e5)",
@@ -682,11 +689,13 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 6621, 153, 798, "Input",ExpressionUUID->"4d009152-b561-42f7-a4f9-009cbd03b11c"],
-Cell[7182, 175, 4921, 120, 334, "Input",ExpressionUUID->"ab954220-4e5e-4243-9f63-edd8ada07fda"],
-Cell[12106, 297, 8617, 214, 653, "Input",ExpressionUUID->"b4e62515-9a54-4dad-9f45-46b930a672b2"],
-Cell[20726, 513, 6952, 151, 450, "Input",ExpressionUUID->"06910301-00b7-4b70-af6b-d892acc2c7b2"]
+Cell[558, 20, 6882, 160, 856, "Input",ExpressionUUID->"4d009152-b561-42f7-a4f9-009cbd03b11c"],
+Cell[7443, 182, 4921, 120, 363, "Input",ExpressionUUID->"ab954220-4e5e-4243-9f63-edd8ada07fda"],
+Cell[12367, 304, 8617, 214, 740, "Input",ExpressionUUID->"b4e62515-9a54-4dad-9f45-46b930a672b2"],
+Cell[20987, 520, 6952, 151, 70, "Input",ExpressionUUID->"06910301-00b7-4b70-af6b-d892acc2c7b2"]
 }
 ]
 *)
+
+(* End of internal cache information *)
 
