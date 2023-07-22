@@ -22,6 +22,8 @@
 #'  continues until the overall change in BIC falls below a negligible
 #'  amount, or until the iteration count reaches ten times the maximum
 #'  number of iterations.
+#' @param seed random seed for SOM.If not specified, a value derived from
+#'  the original data will be automatically assigned.
 #' @return
 #' \describe{
 #'  \item{nobs}{Sample size. The number of rows in the dataset.}
@@ -49,7 +51,8 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
                 method = "GTM",
                 mic = FALSE,
                 maxiter = 100,
-                BIC.check = FALSE) {
+                BIC.check = FALSE,
+                seed = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -108,7 +111,13 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
       }
 
       loglike <- 0
-      set.seed(sum(tmp$U) + somt)
+
+      if(is.null(seed)){
+        set.seed(sum(tmp$U) + somt)
+      }else{
+        set.seed(seed)
+      }
+
       is <- order(runif(samplesize, 1, 100))
 
       for (s in 1:samplesize) {

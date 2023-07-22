@@ -13,7 +13,8 @@ LRA(
   method = "GTM",
   mic = FALSE,
   maxiter = 100,
-  BIC.check = FALSE
+  BIC.check = FALSE,
+  seed = NULL
 )
 }
 \arguments{
@@ -46,6 +47,9 @@ number of iterations is reached. If set to TRUE, iteration
 continues until the overall change in BIC falls below a negligible
 amount, or until the iteration count reaches ten times the maximum
 number of iterations.}
+
+\item{seed}{random seed for SOM.If not specified, a value derived from
+the original data will be automatically assigned.}
 }
 \value{
 \describe{

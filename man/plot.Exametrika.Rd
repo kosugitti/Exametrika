@@ -19,7 +19,8 @@
 
 \item{type}{Plot type.Specify one of the following: "IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP".
 "IIC", "ICC", "TIC" plot the results of \link{IRT} (Item Response Theory),
-while "IRP", "TRP", "LCD", "CMP" plot the results of \link{LCA} (Latent Class Analysis)."}
+while "IRP", "TRP", "LCD", "CMP" plot the results of \link{LCA} (Latent Class Analysis) and
+\link{LRA}(Latent Rank Analysis)"}
 
 \item{items}{Specify the items you want to plot as a vector. If not specifically designated,
 all items will be included.When the type is IIC, if the specified item is 0, it returns a TIC
