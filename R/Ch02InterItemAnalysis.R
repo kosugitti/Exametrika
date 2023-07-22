@@ -167,7 +167,9 @@ PhiCoefficient <- function(U, na = NULL, Z = NULL, w = NULL) {
 tetrachoric <- function(x, y) {
   pairwise <- !is.na(x + y)
   # count 2x2 cells
-  tbl <- table(x[pairwise], y[pairwise])
+  x.fac <- factor(x[pairwise], levels = 0:1)
+  y.fac <- factor(y[pairwise], levels = 0:1)
+  tbl <- table(x.fac[pairwise], y.fac[pairwise])
   S00 <- tbl[1, 1]
   S10 <- tbl[2, 1]
   S01 <- tbl[1, 2]
@@ -237,8 +239,8 @@ TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
   rownames(mat) <- tmp$ItemLabel
   for (i in 1:(m - 1)) {
     for (j in (i + 1):m) {
-      x <- tmp$U[, i]
-      y <- tmp$U[, j]
+      x <- U[, i]
+      y <- U[, j]
       mat[i, j] <- tetrachoric(x, y)
       mat[j, i] <- mat[i, j]
     }

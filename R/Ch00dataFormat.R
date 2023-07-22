@@ -78,6 +78,18 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
       w <- rep(1, NCOL(U))
     }
 
+    #check sd for each items
+    sd.check <- apply(U,2,function(x) sd(x,na.rm=T))
+    if(sum(is.na(sd.check))!=0){
+      message("The following items with no variance.Excluded from the data.")
+      cat(ItemLabel[is.na(sd.check)])
+      cat("\n\n")
+      U <- U[,!is.na(sd.check)]
+      Z <- Z[,!is.na(sd.check)]
+      ItemLabel <- ItemLabel[!is.na(sd.check)]
+      w <- w[!is.na(sd.check)]
+    }
+
     # Return
     ret <- structure(
       list(
@@ -214,3 +226,4 @@ dataFormat.long <- function(data, na = NULL,
     return(ret)
   }
 }
+

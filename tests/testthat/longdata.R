@@ -7,3 +7,8 @@ read.csv("pool01.csv") |>
   na.omit() |>
   write_csv(file="pool01long.csv")
 dat <- read_csv("pool01long.csv")
+
+dat <- read.csv("pool01.csv")
+dat <- dat[,-1]
+library(Exametrika)
+CTT(dat)

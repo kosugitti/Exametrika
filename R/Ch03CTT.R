@@ -7,6 +7,7 @@
 #' @param na This parameter identifies the numbers or characters that should be treated as missing values when 'x' is a data matrix.
 #' @references Cronbach, L. J. (1951). Coefficient alpha and the internal structure of a test. Psychometrika, 16,297–334.
 #' @importFrom stats cov
+#' @export
 
 AlphaCoefficient <- function(x, na = NULL, Z = NULL, w = NULL) {
   calcs <- function(V) {
@@ -87,6 +88,7 @@ AlphaIfDel <- function(x, delItem = NULL, na = NULL, Z = NULL, w = NULL) {
 #' @param w This parameter is an item weight vector. It is only required if 'x' is a data matrix.
 #' @param na This parameter identifies the numbers or characters that should be treated as missing values when 'x' is a data matrix.
 #' @importFrom stats cov
+#' @export
 
 OmegaCoefficient <- function(x, na = NULL, Z = NULL, w = NULL) {
   calcs <- function(V) {
