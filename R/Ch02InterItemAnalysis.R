@@ -169,7 +169,7 @@ tetrachoric <- function(x, y) {
   # count 2x2 cells
   x.fac <- factor(x[pairwise], levels = 0:1)
   y.fac <- factor(y[pairwise], levels = 0:1)
-  tbl <- table(x.fac[pairwise], y.fac[pairwise])
+  tbl <- table(x.fac, y.fac)
   S00 <- tbl[1, 1]
   S10 <- tbl[2, 1]
   S01 <- tbl[1, 2]
@@ -232,15 +232,14 @@ tetrachoric <- function(x, y) {
 TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
   tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   Z <- tmp$Z
-  U <- ifelse(is.na(tmp$U), 0, tmp$U)
-  m <- ncol(U)
+  m <- ncol(tmp$U)
   mat <- matrix(NA, ncol = m, nrow = m)
   colnames(mat) <- tmp$ItemLabel
   rownames(mat) <- tmp$ItemLabel
   for (i in 1:(m - 1)) {
     for (j in (i + 1):m) {
-      x <- U[, i]
-      y <- U[, j]
+      x <- tmp$U[, i]
+      y <- tmp$U[, j]
       mat[i, j] <- tetrachoric(x, y)
       mat[j, i] <- mat[i, j]
     }

@@ -2,37 +2,28 @@
 library(tidyverse, quietly = TRUE)
 library(readxl)
 
-# Ch03Tests <- read_excel("J20S400_Ch03CTT.xlsx",
-Ch03Tests <- suppressMessages(read_excel("J20S400_Ch03CTT.xlsx",
-  sheet = "Test"
-))
+Ch03Tests <- read_excel("Chapter03CTT.xlsx",sheet = "Test")
 
 SimpleStatistics <- Ch03Tests[1:23, 1:2] %>%
   rename(name = 1, value = 2) %>%
   mutate(value = as.numeric(value))
 
-Ch03Tests2 <- suppressMessages(read_excel("Chapter03CTT.xlsx"))
+Ch03Tests2 <- read_excel("Chapter03CTT.xlsx")
 
-Dimensionality <- suppressMessages(read_excel("Chapter03CTT.xlsx",
-  sheet = "Dimensionality"
-))
+Dimensionality <- read_excel("Chapter03CTT.xlsx",sheet = "Dimensionality")
 
-CTTexpect <- Ch03Tests[1:6, 3:4] %>%
-  rename(name = 1, value = 2) %>%
-  mutate(value = as.numeric(value))
+CTTexpect <- Ch03Tests[24:29,]
 
-Ch03Items <- suppressMessages(read_excel("J20S400_Ch03CTT.xlsx",
+Ch03Items <- read_excel("Chapter03CTT.xlsx",
   sheet = "Item",
-  skip = 1
-)) %>%
+) %>%
   select_if(is.numeric) %>%
   as.data.frame()
 
 ## read same data
 # dat <- read_csv("tests/testthat/sampleData/J20S400.csv")
-dat <- suppressMessages(read_csv("sampleData/J20S400.csv"))
-U <- as.matrix(dat[, -1])
-Z <- ifelse(U == -99, 0, 1)
+U <- suppressMessages(read_csv("sampleData/J20S400.csv"))
+dat <- dataFormat(U,na = -99,id=1)
 
 # Test Section ------------------------------------------------------------
 
@@ -48,7 +39,7 @@ test_that("Simple Test Statistics", {
 })
 
 test_that("Dimenosnality Analysis", {
-  result <- Dimensionality(U, na = -99) %>%
+  result <- Dimensionality(dat) %>%
     unclass() %>%
     unlist() %>%
     matrix(ncol = 4)

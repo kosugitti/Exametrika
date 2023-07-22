@@ -89,7 +89,7 @@ Dimensionality <- function(U, na = NULL, Z = NULL, w = NULL) {
   } else {
     tmp <- U
   }
-  R <- TetrachoricCorrelationMatrix(U = tmp$U, Z = tmp$Z, w = tmp$z)
+  R <- TetrachoricCorrelationMatrix(U = tmp$U, Z = tmp$Z, w = tmp$w)
   Esystem <- eigen(R)
   Eval <- Esystem$values
   EvalVariance <- Esystem$values / length(Eval) * 100
