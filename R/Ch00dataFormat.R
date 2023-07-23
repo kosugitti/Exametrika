@@ -54,15 +54,16 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     }
 
     U <- as.matrix(U)
-    # Check U matrix
-    if (!all(U %in% c(0, 1, NA, na))) {
-      stop("Data matrix can only contain the values 0, 1, NA, and the specified missing value")
-    }
     # Check if Z is indicator matrix,or not.
     if (!is.null(Z)) {
       if (!all(Z %in% c(0, 1))) {
         stop("The missing indicator matrix must contains only 0 or 1")
       }
+      U <- ifelse(Z == 0, -1, U)
+    }
+    # Check U matrix
+    if (!all(U %in% c(0, 1, -1,NA, na))) {
+      stop("Data matrix can only contain the values 0, 1, NA, and the specified missing value")
     }
 
     ### This function finally makes each matrix as follow:

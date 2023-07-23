@@ -587,7 +587,7 @@ stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
   }
   sttmp <- nrs(tmp)
   pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
-  stanine_prob <- quantile(sttmp, pbs)
+  stanine_prob <- quantile(sttmp, pbs, na.rm = TRUE)
   sttmp2 <- percentile(tmp)
   stanine_prob_ss <- quantile(sttmp2, pbs)
   stanine_scores <- cut(sttmp2, breaks = c(-Inf, stanine_prob_ss, Inf), right = F)
