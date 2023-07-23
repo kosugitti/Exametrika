@@ -3,13 +3,13 @@ library(tidyverse)
 library(readxl)
 library(Exametrika)
 
-Ch03CTT <- suppressMessages(read_excel("Chapter03CTT.xlsx",
+Ch03CTT <- suppressMessages(read_excel("../../develop/Chapter03CTT.xlsx",
   sheet = "Student"
 )) %>%
   select_if(is.numeric) %>%
   as.data.frame()
 ## read same data
-dat <- suppressMessages(read_csv("sampleData/J20S400.csv"))
+dat <- suppressMessages(read_csv("../../develop/sampleData/J20S400.csv"))
 U <- as.matrix(dat[, -1])
 Z <- ifelse(is.na(U), 0, 1)
 

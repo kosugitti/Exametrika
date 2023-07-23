@@ -679,9 +679,9 @@ TestStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {
   Min <- min(tW)
   Max <- max(tW)
   Range <- Max - Min
-  Q1 <- quantile(tW, probs = 0.25)
-  Median <- quantile(tW, probs = 0.5)
-  Q3 <- quantile(tW, probs = 0.75)
+  Q1 <- quantile(tW, probs = 0.25, na.rm = TRUE)
+  Median <- quantile(tW, probs = 0.5, na.rm = TRUE)
+  Q3 <- quantile(tW, probs = 0.75, na.rm = TRUE)
   IQR <- Q3 - Q1
   Stanine <- stanine(tmp)
   ret <-

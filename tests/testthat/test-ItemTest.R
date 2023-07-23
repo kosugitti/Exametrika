@@ -11,7 +11,7 @@ sheets <- c(
 
 # 各シートからデータを読み込む
 data_list <- lapply(sheets, function(sheet) {
-  suppressMessages(read_excel("Chapter03CTT.xlsx", sheet = sheet)) %>%
+  suppressMessages(read_excel("../../develop/Chapter03CTT.xlsx", sheet = sheet)) %>%
     select_if(is.numeric) %>%
     as.matrix()
 })
@@ -20,7 +20,7 @@ data_list <- lapply(sheets, function(sheet) {
 names(data_list) <- c("Ch03Items", "Ch03JSS", "Ch03JCRR", "Ch03CCRR", "Ch03IL", "Ch03MI", "Ch03Phi", "Ch03Tet")
 
 ## read same data
-dat <- suppressMessages(read_csv("sampleData/J20S400.csv"))
+dat <- suppressMessages(read_csv("../../develop/sampleData/J20S400.csv"))
 U <- as.matrix(dat[, -1])
 Z <- ifelse(U == -99, 0, 1)
 

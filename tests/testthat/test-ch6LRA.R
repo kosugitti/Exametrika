@@ -1,17 +1,18 @@
 library(tidyverse)
 ### GOALS
 library(readxl)
-test <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Test")
-class <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Rank")
-items <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Item")
-student <- read_excel("Chapter06LRA(GTMmic0).xlsx", sheet = "Student")
+library(Exametrika)
+test <- read_excel("../../develop/Chapter06LRA(GTMmic0).xlsx", sheet = "Test")
+class <- read_excel("../../develop/Chapter06LRA(GTMmic0).xlsx", sheet = "Rank")
+items <- read_excel("../../develop/Chapter06LRA(GTMmic0).xlsx", sheet = "Item")
+student <- read_excel("../../develop/Chapter06LRA(GTMmic0).xlsx", sheet = "Student")
 
 
 ### Target
-dat <- read_csv("sampleData/J15S500.csv") %>%
+dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
 
-tmp <- Exametrika::dataFormat(dat, na = -99)
+tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
 model <- LRA(tmp, ncls = 6)

@@ -54,6 +54,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     }
 
     U <- as.matrix(U)
+    U[is.na(U)] <- -1
     # Check if Z is indicator matrix,or not.
     if (!is.null(Z)) {
       if (!all(Z %in% c(0, 1))) {
@@ -71,7 +72,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     # Z is the missing identifier matrix composed solely of 0s and 1s.
     if (!is.null(na)) {
       ## na value specified
-      U <- ifelse(U == na, -1, U)
+      U <- ifelse(U == na , -1, U)
     }
 
     Z <- ifelse(U == -1, 0, 1)

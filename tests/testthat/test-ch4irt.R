@@ -1,4 +1,3 @@
-rm(list = ls())
 library(tidyverse)
 library(Exametrika)
 
@@ -6,14 +5,14 @@ library(Exametrika)
 library(readxl)
 
 ### model2
-pl2Test <- read_excel("Chapter04IRT2pl.xlsx", sheet = "Test")
-pl2Item <- read_excel("Chapter04IRT2pl.xlsx", sheet = "Item")
-pl2Student <- read_excel("Chapter04IRT2pl.xlsx", sheet = "Student")
+pl2Test <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Test")
+pl2Item <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Item")
+pl2Student <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Student")
 
-dat <- read_csv("sampleData/J15S500.csv") %>%
+dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
 
-tmp <- Exametrika::dataFormat(dat, na = -99)
+tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
 result2 <- IRT(model = 2, U = U)
@@ -112,15 +111,15 @@ test_that("2PL model Students", {
 
 
 # model3 ------------------------------------------------------------------
-pl3Test <- read_excel("Chapter04IRT3pl.xlsx", sheet = "Test")
-pl3Item <- read_excel("Chapter04IRT3pl.xlsx", sheet = "Item")
-pl3Student <- read_excel("Chapter04IRT3pl.xlsx", sheet = "Student")
+pl3Test <- read_excel("../../develop/Chapter04IRT3pl.xlsx", sheet = "Test")
+pl3Item <- read_excel("../../develop/Chapter04IRT3pl.xlsx", sheet = "Item")
+pl3Student <- read_excel("../../develop/Chapter04IRT3pl.xlsx", sheet = "Student")
 
 
-dat <- read_csv("sampleData/J15S500.csv") %>%
+dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
 
-tmp <- Exametrika::dataFormat(dat, na = -99)
+tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
 result3 <- IRT(model = 3, U = U)
@@ -212,15 +211,15 @@ test_that("3PL model Students", {
 
 
 # model4 ------------------------------------------------------------------
-pl4Test <- read_excel("Chapter04IRT4pl.xlsx", sheet = "Test")
-pl4Item <- read_excel("Chapter04IRT4pl.xlsx", sheet = "Item")
-pl4Student <- read_excel("Chapter04IRT4pl.xlsx", sheet = "Student")
+pl4Test <- read_excel("../../develop/Chapter04IRT4pl.xlsx", sheet = "Test")
+pl4Item <- read_excel("../../develop/Chapter04IRT4pl.xlsx", sheet = "Item")
+pl4Student <- read_excel("../../develop/Chapter04IRT4pl.xlsx", sheet = "Student")
 
 
-dat <- read_csv("sampleData/J15S500.csv") %>%
+dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
 
-tmp <- Exametrika::dataFormat(dat, na = -99)
+tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
 result4 <- IRT(model = 4, U = U)
