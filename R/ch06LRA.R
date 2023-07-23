@@ -59,7 +59,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   } else {
     tmp <- U
   }
-  U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
+  U <- tmp$U * tmp$Z
   testlength <- NCOL(tmp$U)
   samplesize <- NROW(tmp$U)
   const <- exp(-testlength)
@@ -112,9 +112,9 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
 
       loglike <- 0
 
-      if(is.null(seed)){
+      if (is.null(seed)) {
         set.seed(sum(tmp$U) + somt)
-      }else{
+      } else {
         set.seed(seed)
       }
 

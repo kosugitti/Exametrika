@@ -1,14 +1,14 @@
-rm(list=ls())
+rm(list = ls())
 library(tidyverse)
 read.csv("pool01.csv") |>
   select(-GID) |>
   pivot_longer(-ID) |>
-  mutate(ID = paste0("Student",ID)) |>
+  mutate(ID = paste0("Student", ID)) |>
   na.omit() |>
-  write_csv(file="pool01long.csv")
+  write_csv(file = "pool01long.csv")
 dat <- read_csv("pool01long.csv")
 
 dat <- read.csv("pool01.csv")
-dat <- dat[,-1]
+dat <- dat[, -1]
 library(Exametrika)
 CTT(dat)

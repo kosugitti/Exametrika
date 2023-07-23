@@ -35,7 +35,6 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL, maxiter = 100) {
   } else {
     tmp <- U
   }
-  U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
   if (ncls < 2 | ncls > 20) {
     stop("Please set the number of classes to a number between 2 and less than 20.")

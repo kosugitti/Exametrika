@@ -11,8 +11,10 @@
 #' \describe{
 #' \item{U}{Data matrix. A matrix with rows representing the sample size and columns
 #'  representing the number of items, where elements are either 0 or 1. \eqn{u_{ij}=1} indicates
-#'   that student i correctly answered item j, while \eqn{u_{ij}=0} means that student i answered
-#'    item j incorrectly.}
+#'  that student i correctly answered item j, while \eqn{u_{ij}=0} means that student i answered
+#'  item j incorrectly. If the data contains NA values, any value can be filled in the matrix U,
+#'  represented by the following missing value index matrix Z. However, in this funciton,
+#'  -1 is assigned.}
 #' \item{ID}{The ID label given by the designated column or function."}
 #' \item{ItemLabel}{The item names given by the provided column names or function.}
 #' \item{Z}{Missing indicator matrix.\eqn{z_{uj}=1} indicates that item j is presented to Student i,
@@ -34,9 +36,9 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     }
 
     # get ID vector
-    if(is.null(rownames(data))){
+    if (is.null(rownames(data))) {
       ID <- rownames(data)
-    }else{
+    } else {
       ID <- data[, id]
     }
     if (all(ID %in% c(0, 1, NA, na))) {
@@ -68,24 +70,24 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     # Z is the missing identifier matrix composed solely of 0s and 1s.
     if (!is.null(na)) {
       ## na value specified
-      U <- ifelse(U == na, NA, U)
+      U <- ifelse(U == na, -1, U)
     }
 
-    Z <- ifelse(is.na(U), 0, 1)
+    Z <- ifelse(U == -1, 0, 1)
 
     # If w is not specified, create a vector of 1s with length equal to the number of columns in U
     if (is.null(w)) {
       w <- rep(1, NCOL(U))
     }
 
-    #check sd for each items
-    sd.check <- apply(U,2,function(x) sd(x,na.rm=T))
-    if(sum(is.na(sd.check))!=0){
+    # check sd for each items
+    sd.check <- apply(U, 2, function(x) sd(x, na.rm = T))
+    if (sum(is.na(sd.check)) != 0) {
       message("The following items with no variance.Excluded from the data.")
       cat(ItemLabel[is.na(sd.check)])
       cat("\n\n")
-      U <- U[,!is.na(sd.check)]
-      Z <- Z[,!is.na(sd.check)]
+      U <- U[, !is.na(sd.check)]
+      Z <- Z[, !is.na(sd.check)]
       ItemLabel <- ItemLabel[!is.na(sd.check)]
       w <- w[!is.na(sd.check)]
     }
@@ -146,69 +148,69 @@ dataFormat.long <- function(data, na = NULL,
       stop("Data must be matrix or data.frame")
     }
 
-    if(is.null(Sid)){
+    if (is.null(Sid)) {
       stop("column number for identifier for Student must be specified.")
     }
 
-    if(is.null(Qid)){
+    if (is.null(Qid)) {
       stop("column number for identifier for Quesitons must be specified.")
     }
 
-    if(is.null(Resp)){
+    if (is.null(Resp)) {
       stop("column number for response pattern must be specified.")
     }
 
-    if(is.data.frame(data)){
+    if (is.data.frame(data)) {
       Sid_vec <- data[[Sid]]
       Qid_vec <- data[[Qid]]
       Resp_vec <- data[[Resp]]
-    }else{
-      Sid_vec <- data[,Sid]
-      Qid_vec <- data[,Qid]
-      Resp_vec <- data[,Resp]
+    } else {
+      Sid_vec <- data[, Sid]
+      Qid_vec <- data[, Qid]
+      Resp_vec <- data[, Resp]
     }
 
-    if(!is.numeric(Sid_vec)){
+    if (!is.numeric(Sid_vec)) {
       Sid_vec <- as.factor(Sid_vec)
       Sid_label <- unique(levels(Sid_vec))
       Sid_num <- as.numeric(Sid_vec)
-    }else{
+    } else {
       Sid_num <- Sid_vec
-      Sid_label <- unique(paste0("Student",Sid_num))
+      Sid_label <- unique(paste0("Student", Sid_num))
     }
 
-    if(!is.numeric(Qid_vec)){
+    if (!is.numeric(Qid_vec)) {
       Qid_vec <- as.factor(Qid_vec)
       Qid_label <- unique(levels(Qid_vec))
       Qid_num <- as.numeric(Qid_vec)
-    }else{
+    } else {
       Qid_num <- Qid_vec
-      Qid_label <- unique(paste0("Q",Qid_vec))
+      Qid_label <- unique(paste0("Q", Qid_vec))
     }
 
     Resp_vec <- as.numeric(Resp_vec)
-    if(!is.null(na)){
-      Resp_vec[Resp_vec==na] <- NA
+    if (!is.null(na)) {
+      Resp_vec[Resp_vec == na] <- NA
     }
 
-    U <- matrix(NA,ncol=max(Qid_num),nrow=max(Sid_num))
-    for(i in 1:length(Resp_vec)){
-      U[Sid_num[i],Qid_num[i]] <- Resp_vec[i]
+    U <- matrix(NA, ncol = max(Qid_num), nrow = max(Sid_num))
+    for (i in 1:length(Resp_vec)) {
+      U[Sid_num[i], Qid_num[i]] <- Resp_vec[i]
     }
     if (!is.null(na)) {
       ## na value specified
-      U <- ifelse(U == na, NA, U)
+      U <- ifelse(U == na, -1, U)
     }
 
-    Z <- ifelse(is.na(U), 0, 1)
+    Z <- ifelse(U == -1, 0, 1)
 
     if (is.null(w)) {
       w <- rep(1, NCOL(U))
-    }else{
-      if(is.data.frame(data)){
+    } else {
+      if (is.data.frame(data)) {
         w_vec <- data[[w]]
-      }else{
-        w_vec <- data[,w]
+      } else {
+        w_vec <- data[, w]
       }
       w <- w_vec[unique(Qid_num)]
     }
@@ -222,8 +224,7 @@ dataFormat.long <- function(data, na = NULL,
       class = c("Exametrika", "examData")
     )
     return(ret)
-  }else{
+  } else {
     return(ret)
   }
 }
-

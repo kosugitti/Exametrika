@@ -2,7 +2,7 @@
 library(tidyverse, quietly = TRUE)
 library(readxl)
 
-Ch03Tests <- read_excel("Chapter03CTT.xlsx",sheet = "Test")
+Ch03Tests <- read_excel("Chapter03CTT.xlsx", sheet = "Test")
 
 SimpleStatistics <- Ch03Tests[1:23, 1:2] %>%
   rename(name = 1, value = 2) %>%
@@ -10,9 +10,9 @@ SimpleStatistics <- Ch03Tests[1:23, 1:2] %>%
 
 Ch03Tests2 <- read_excel("Chapter03CTT.xlsx")
 
-Dimensionality <- read_excel("Chapter03CTT.xlsx",sheet = "Dimensionality")
+Dimensionality <- read_excel("Chapter03CTT.xlsx", sheet = "Dimensionality")
 
-CTTexpect <- Ch03Tests[24:29,]
+CTTexpect <- Ch03Tests[24:29, ]
 
 Ch03Items <- read_excel("Chapter03CTT.xlsx",
   sheet = "Item",
@@ -23,12 +23,12 @@ Ch03Items <- read_excel("Chapter03CTT.xlsx",
 ## read same data
 # dat <- read_csv("tests/testthat/sampleData/J20S400.csv")
 U <- suppressMessages(read_csv("sampleData/J20S400.csv"))
-dat <- dataFormat(U,na = -99,id=1)
+dat <- dataFormat(U, na = -99, id = 1)
 
 # Test Section ------------------------------------------------------------
 
 test_that("Simple Test Statistics", {
-  result <- TestStatistics(U, na = -99)
+  result <- TestStatistics(dat)
   expect <- Ch03Tests2[1:23, 2] %>%
     unlist() %>%
     as.vector()

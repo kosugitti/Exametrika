@@ -166,7 +166,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   } else {
     tmp <- U
   }
-  U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
+  U <- tmp$U * tmp$Z
 
   rho <- Exametrika::ItemTotalCorr(U)
   tau <- Exametrika::ItemThreshold(U)

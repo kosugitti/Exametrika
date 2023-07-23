@@ -23,7 +23,9 @@ If the answer pattern is contained in the first column, it is treated as if ther
 \item{U}{Data matrix. A matrix with rows representing the sample size and columns
 representing the number of items, where elements are either 0 or 1. \eqn{u_{ij}=1} indicates
 that student i correctly answered item j, while \eqn{u_{ij}=0} means that student i answered
-item j incorrectly.}
+item j incorrectly. If the data contains NA values, any value can be filled in the matrix U,
+represented by the following missing value index matrix Z. However, in this funciton,
+-1 is assigned.}
 \item{ID}{The ID label given by the designated column or function."}
 \item{ItemLabel}{The item names given by the provided column names or function.}
 \item{Z}{Missing indicator matrix.\eqn{z_{uj}=1} indicates that item j is presented to Student i,

@@ -19,10 +19,15 @@ AlphaCoefficient <- function(x, na = NULL, Z = NULL, w = NULL) {
   }
 
   if (NROW(x) != NCOL(x)) {
-    tmp <- dataFormat(data = x, na = na, Z = Z, w = w)
+    if (class(x)[1] != "Exametrika") {
+      tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+    } else {
+      tmp <- x
+    }
+    V2 <- Exametrika::PhiCoefficient(tmp)
+    V3 <- Exametrika::TetrachoricCorrelationMatrix(tmp)
+    tmp$U[tmp$Z == 0] <- NA
     V1 <- stats::cov(tmp$U, use = "pairwise")
-    V2 <- Exametrika::PhiCoefficient(tmp$U)
-    V3 <- Exametrika::TetrachoricCorrelationMatrix(tmp$U)
     alpha1 <- calcs(V1)
     alpha2 <- calcs(V2)
     alpha3 <- calcs(V3)
@@ -63,11 +68,17 @@ AlphaIfDel <- function(x, delItem = NULL, na = NULL, Z = NULL, w = NULL) {
     }
   }
 
+  if (class(x)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- x
+  }
+
   if (NROW(x) != NCOL(x)) {
-    tmp <- dataFormat(data = x, na = na, Z = Z, w = w)
+    V2 <- Exametrika::PhiCoefficient(tmp)
+    V3 <- Exametrika::TetrachoricCorrelationMatrix(tmp)
+    tmp$U[tmp$Z == 0] <- NA
     V1 <- stats::cov(tmp$U, use = "pairwise")
-    V2 <- Exametrika::PhiCoefficient(tmp$U)
-    V3 <- Exametrika::TetrachoricCorrelationMatrix(tmp$U)
     alpha1 <- calcs(V1, delItem)
     alpha2 <- calcs(V2, delItem)
     alpha3 <- calcs(V3, delItem)
@@ -114,10 +125,15 @@ OmegaCoefficient <- function(x, na = NULL, Z = NULL, w = NULL) {
   }
 
   if (NROW(x) != NCOL(x)) {
-    tmp <- dataFormat(data = x, na = na, Z = Z, w = w)
+    if (class(x)[1] != "Exametrika") {
+      tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+    } else {
+      tmp <- x
+    }
+    V2 <- Exametrika::PhiCoefficient(tmp)
+    V3 <- Exametrika::TetrachoricCorrelationMatrix(tmp)
+    tmp$U[tmp$Z == 0] <- NA
     V1 <- stats::cov(tmp$U, use = "pairwise")
-    V2 <- Exametrika::PhiCoefficient(tmp$U)
-    V3 <- Exametrika::TetrachoricCorrelationMatrix(tmp$U)
     omega1 <- calcs(V1)
     omega2 <- calcs(V2)
     omega3 <- calcs(V3)
@@ -144,10 +160,14 @@ OmegaCoefficient <- function(x, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 CTT <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  alphaAll <- AlphaCoefficient(x = tmp$U)
-  omegaAll <- OmegaCoefficient(x = tmp$U)
-  eachAlpha <- AlphaIfDel(x = tmp$U)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
+  alphaAll <- AlphaCoefficient(tmp)
+  omegaAll <- OmegaCoefficient(tmp)
+  eachAlpha <- AlphaIfDel(tmp)
 
   vec1 <- as.vector(unlist(alphaAll))
   vec2 <- as.vector(unlist(omegaAll))
