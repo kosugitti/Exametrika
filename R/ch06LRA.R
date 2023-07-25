@@ -14,7 +14,7 @@
 #'   size increases, it takes time to execute.
 #'  GTM is a batch learning type of SOM, equivalent to applying a gentle
 #'  filter to LCA (Shojima, 2022).
-#' @param maxiter Maximum number of iterations.
+#' @param maxiter Maximum number of iterations. default is 100.
 #' @param BIC.check During estimation with SOM, this parameter determines
 #'  whether to use the change in BIC as the convergence criterion.
 #'  By default, it is FALSE and iteration continues until the maximum
@@ -65,7 +65,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   const <- exp(-testlength)
 
   if (method != "SOM" & method != "GTM") {
-    print(method)
+    stop("The method must be selected as either SOM or GTM.")
   }
 
   if (ncls < 2 | ncls > 20) {
@@ -171,8 +171,8 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     )
   } else {
     # GTM.
-    f0 <- ifelse(ncls < 6, 1.05 - 0.05 * ncls,
-      ifelse(ncls < 11, 1.00 - 0.04 * ncls,
+    f0 <- ifelse(ncls < 5, 1.05 - 0.05 * ncls,
+      ifelse(ncls < 10, 1.00 - 0.04 * ncls,
         0.80 - 0.02 * ncls
       )
     )
