@@ -208,6 +208,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     paste("Membership", 1:ncls), "Estimate",
     "Rank-Up Odds", "Rank-Down Odds"
   )
+  rownames(StudentClass) <- tmp$ID
   ### Item Information
   IRP <- t(fit$classRefMat)
   colnames(IRP) <- paste0("IRP", 1:ncls)
