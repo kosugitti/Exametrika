@@ -63,7 +63,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
       U <- ifelse(Z == 0, -1, U)
     }
     # Check U matrix
-    if (!all(U %in% c(0, 1, -1,NA, na))) {
+    if (!all(U %in% c(0, 1, -1, NA, na))) {
       stop("Data matrix can only contain the values 0, 1, NA, and the specified missing value")
     }
 
@@ -72,7 +72,7 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     # Z is the missing identifier matrix composed solely of 0s and 1s.
     if (!is.null(na)) {
       ## na value specified
-      U <- ifelse(U == na , -1, U)
+      U <- ifelse(U == na, -1, U)
     }
 
     Z <- ifelse(U == -1, 0, 1)

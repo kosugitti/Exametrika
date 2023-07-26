@@ -32,6 +32,7 @@
 #'  \item{RMD}{Rank Membership Distribution.}
 #'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
 #' }
+#' @export
 
 Biclustering <- function(U, ncls = 2, nfld = 2,
                          Z = NULL, w = NULL, na = NULL,
@@ -102,6 +103,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   }
 
 
+  ## Algorithm
   FLG <- TRUE
   while (FLG) {
     if (testell - oldtestell < 1e-4 * abs(oldtestell)) {
@@ -109,8 +111,8 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
       break
     }
     if (emt == maxemt) {
+      message("\nReached ten times the maximum number of iterations.")
       FLG <- FALSE
-      message("max iteration")
     }
     emt <- emt + 1
     oldtestell <- testell
@@ -135,17 +137,19 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     cfr <- t(fldmemb) %*% t(tmp$U) %*% smoothed_memb
     ffr <- t(fldmemb) %*% t(tmp$Z * (1 - tmp$U)) %*% smoothed_memb
     oldPiFR <- PiFR
+    PiFR <- (cfr + beta1 - 1) / (cfr + ffr + beta1 + beta2 - 2)
     if (mic) {
       PiFR <- t(apply(PiFR, 1, sort))
     }
-    PiFR <- (cfr + beta1 - 1) / (cfr + ffr + beta1 + beta2 - 2)
     testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
-    print(paste("iter", emt, " logLik", testell))
+    cat(paste("iter", emt, " logLik", testell,"\r"))
     if (testell - oldtestell <= 0) {
       PiFR <- oldPiFR
       break
     }
   }
+  cat(paste("iter", emt, " logLik", testell,"\n"))
+  #### OUTPUT
 
   cls <- apply(clsmemb, 1, which.max)
   fld <- apply(fldmemb, 1, which.max)
@@ -156,23 +160,33 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   TRP <- colSums(PiFR * flddist)
   StudentRank <- clsmemb
   rownames(StudentRank) <- tmp$ID
-  RU <- ifelse(cls + 1 > ncls, NA, ncls + 1)
-  RD <- ifelse(cls - 1 < 1, NA, ncls - 1)
-  RUO <- StudentRank[cbind(1:nobs, RU)] / StudentRank[cbind(1:nobs, cls)]
-  RDO <- StudentRank[cbind(1:nobs, RD)] / StudentRank[cbind(1:nobs, cls)]
-  StudentRank <- cbind(StudentRank, cls, RUO, RDO)
-  colnames(StudentRank) <- c(
-    paste("Membership", 1:ncls), "Estimate",
-    "Rank-Up Odds", "Rank-Down Odds"
-  )
+  if(model==2){
+    RU <- ifelse(cls + 1 > ncls, NA, cls + 1)
+    RD <- ifelse(cls - 1 < 1, NA, cls - 1)
+    RUO <- StudentRank[cbind(1:nobs, RU)] / StudentRank[cbind(1:nobs, cls)]
+    RDO <- StudentRank[cbind(1:nobs, RD)] / StudentRank[cbind(1:nobs, cls)]
+    StudentRank <- cbind(StudentRank, cls, RUO, RDO)
+    colnames(StudentRank) <- c(
+      paste("Membership", 1:ncls), "Estimate",
+      "Rank-Up Odds", "Rank-Down Odds"
+    )
+  }else{
+    StudentRank <- cbind(StudentRank, cls)
+    colnames(StudentRank) <- c(
+      paste("Membership", 1:ncls), "Estimate")
+  }
 
-  if(model==1){msg1="Class"}else{msg1="Rank"}
+  if (model == 1) {
+    msg1 <- "Class"
+  } else {
+    msg1 <- "Rank"
+  }
   FRP <- PiFR
   colnames(FRP) <- paste0(msg1, 1:ncls)
   rownames(FRP) <- paste0("Field", 1:nfld)
   colnames(fldmemb) <- paste0("Field", 1:nfld)
   rownames(clsmemb) <- tmp$ID
-  colnames(clsmemb) <- paste0(msg1:ncls)
+  colnames(clsmemb) <- paste0(msg1,1:ncls)
 
   # item location index
   Beta <- apply(abs(FRP - 0.5), 1, which.min)
@@ -192,7 +206,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   }
   FRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
   TRPlag <- TRP[2:nfld]
-  SOAC <- sum(TRPlag[2:nfld] - TRP[1:(nfld - 1)] < 0,na.rm = TRUE)
+  SOAC <- sum(TRPlag[2:nfld] - TRP[1:(nfld - 1)] < 0, na.rm = TRUE)
   WOAC <- sum(C)
   if (sum(SOAC) == 0) {
     SOACflg <- TRUE
@@ -210,6 +224,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   if (SOACflg & !WOACflg) {
     message("Weakly ordinal alignment condition was satisfied.")
   }
+
   ### Model Fit
   cfr <- t(fldmemb) %*% t(tmp$U) %*% clsmemb
   ffr <- t(fldmemb) %*% t(tmp$Z * (1 - tmp$U)) %*% clsmemb
@@ -232,6 +247,8 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     TRP = TRP,
     FieldMembership = fldmemb,
     ClassMembership = clsmemb,
+    FieldEstimated = fld,
+    ClassEstimated = cls,
     Students = StudentRank,
     TestFitIndices = FitIndices,
     SOACflg = SOACflg,

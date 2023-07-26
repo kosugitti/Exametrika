@@ -103,8 +103,10 @@ print.Exametrika <- function(x, digits = 3, ...) {
       print(round(y, digits))
     },
     LRA = {
-      cat(paste("estimating method is ",x$method))
-      if(x$mic){cat("\n Monotonic increasing IRP option is TRUE.\n")}
+      cat(paste("estimating method is ", x$method))
+      if (x$mic) {
+        cat("\n Monotonic increasing IRP option is TRUE.\n")
+      }
       cat("Item Reference Profile\n")
       print(x$IRP, digits = digits)
       cat("\nItem Reference Profile Indices\n")
@@ -130,53 +132,57 @@ print.Exametrika <- function(x, digits = 3, ...) {
       colnames(y) <- "value"
       print(round(y, digits))
     },
-    Biclustering ={
-      if(x$model==1){
-        model = "Biclustering"
-        msg1 = "Bicluster"
-        msg2 = "Class"
-      }else{
-        model = "Ranklustering"
-        msg1 = "Rankluster"
-        msg2 = "Rank"
+    Biclustering = {
+      if (x$model == 1) {
+        model <- "Biclustering"
+        msg1 <- "Bicluster"
+        msg2 <- "Class"
+      } else {
+        model <- "Ranklustering"
+        msg1 <- "Rankluster"
+        msg2 <- "Rank"
       }
-      if(x$mic){
-        model = paste(model,"with MIC option.")
+      if (x$mic) {
+        model <- paste(model, "with MIC option.")
       }
-      cat(paste(msg1,"Matrix Profile\n"))
+      cat(paste(msg1, "Matrix Profile\n"))
       print(x$FRP, digits = digits)
-      cat("Field Reference Profile Indices\n")
+
+      cat("\nField Reference Profile Indices\n")
       print(x$FRPIndex, digits = digits)
+      cat("\n")
 
       y <- rbind(x$TRP, x$LRD, colSums(x$ClassMembership))
       rownames(y) <- c(
         "Test Reference Profile",
-        paste("Latent",msg2,"Ditribution"),
-        paste(msg2,"Membership Distribuiton")
+        paste("Latent", msg2, "Ditribution"),
+        paste(msg2, "Membership Distribuiton")
       )
       colnames(y) <- paste(msg2, 1:x$Nclass)
       print(round(y, digits))
 
-      cat("Field Membership Profile\n")
-      print(round(x$FieldMembership,8))
+      if(x$model==2){
+        cat("\nField Membership Profile\n")
+        print(round(x$FieldMembership, 8))
+      }
 
       cat("Latent Field Distribution\n")
-      y <- matrix(x$LFD,byrow=T,nrow=1)
+      y <- matrix(x$LFD, byrow = T, nrow = 1)
       rownames(y) <- "N of Items"
-      colnames(y) <- paste("Field",1:x$Nfield)
+      colnames(y) <- paste("Field", 1:x$Nfield)
       print(round(y, digits))
       cat("\nModel Fit Indices\n")
-      cat(paste("Number of Latent",msg2,":", x$Nclass))
-      cat(paste("Number of Latent Field:", x$Nfield))
+      cat(paste("Number of Latent", msg2, ":", x$Nclass))
+      cat(paste("\nNumber of Latent Field:", x$Nfield))
       cat(paste("\nNumber of EM cycle:", x$N_Cycle, "\n"))
       y <- unclass(x$TestFitIndices)
       y <- t(as.data.frame(y))
       colnames(y) <- "value"
       print(round(y, digits))
-      if(x$SOACflg){
+      if (x$SOACflg) {
         cat("Strongly Ordinal Alignment Condition is Satisfied.\n")
       }
-      if(x$WOACflg){
+      if (x$WOACflg) {
         cat("Weakly Ordinal Alignment Condition is Satisfied.\n")
       }
     },

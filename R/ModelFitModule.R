@@ -136,12 +136,12 @@ ItemFit <- function(U, Z, ell_A, nparam) {
 #' }
 #' @export
 
-TestFit <- function(U, Z, ell_A, nparam){
-  nres = colSums(Z)
-  nitem = NCOL(U)
-  nobs = NROW(U)
-  crr = colSums(U)/nres
-  const = exp(-nitem)
+TestFit <- function(U, Z, ell_A, nparam) {
+  nres <- colSums(Z)
+  nitem <- NCOL(U)
+  nobs <- NROW(U)
+  crr <- colSums(U) / nres
+  const <- exp(-nitem)
   # Benchmark model
   total <- rowSums(U)
   totalList <- sort(unique(total))
@@ -158,18 +158,18 @@ TestFit <- function(U, Z, ell_A, nparam){
   U0gj <- t(MsG) %*% (Z * (1 - U))
   ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
   ell_B <- sum(ell_B)
-  bench_nparm = ntotal * nitem
+  bench_nparm <- ntotal * nitem
   # Null model
   ell_N <- nobs * crr * log(crr + const) + nobs * (1 - crr) * log(1 - crr + const)
   ell_N <- sum(ell_N)
   null_nparam <- nitem
   df_B <- bench_nparm - null_nparam
-  chi_B <- 2 *(ell_B - ell_N)
+  chi_B <- 2 * (ell_B - ell_N)
   # Analysis model
   chi_A <- 2 * (ell_B - ell_A)
   df_A <- bench_nparm - nparam
 
-  indices <- calcFitIndices(chi_A,chi_B,df_A,df_B,nobs)
+  indices <- calcFitIndices(chi_A, chi_B, df_A, df_B, nobs)
   TestFitIndices <- structure(
     c(list(
       model_log_like = ell_A,
@@ -182,7 +182,6 @@ TestFit <- function(U, Z, ell_A, nparam){
     ), indices),
     class = c("Exametrika", "ModelFit")
   )
-
 }
 
 

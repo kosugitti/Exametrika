@@ -3,6 +3,7 @@
 S3method(plot,Exametrika)
 S3method(print,Exametrika)
 export(AlphaCoefficient)
+export(Biclustering)
 export(Biserial_Correlation)
 export(CCRR)
 export(CTT)

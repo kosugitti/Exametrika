@@ -124,4 +124,3 @@ test_that("LCA Students", {
   result <- model$Students[, 8:9] |> as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)
 })
-
