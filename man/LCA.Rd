@@ -34,8 +34,8 @@ class membership profile of Student s, namely the posterior probability distribu
 belonging to the respective latent classes. The last column indicates the latent class estimate.}
 \item{IRP}{Item Reference Profile matrix.The IRP of item j is the j-th row vector in the class reference matrix,
 \eqn{\hat{\pi}_c}}
-\item{ItemFitIndices}{Fit index for each item.See also \link{ModelFit}}
-\item{TestFitIndices}{Overall fit index for the test.See also \link{ModelFit}}
+\item{ItemFitIndices}{Fit index for each item.See also \link{ItemFit}}
+\item{TestFitIndices}{Overall fit index for the test.See also \link{TestFit}}
 }
 }
 \description{

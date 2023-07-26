@@ -22,8 +22,8 @@
 #' belonging to the respective latent classes. The last column indicates the latent class estimate.}
 #'  \item{IRP}{Item Reference Profile matrix.The IRP of item j is the j-th row vector in the class reference matrix,
 #' \eqn{\hat{\pi}_c}}
-#'  \item{ItemFitIndices}{Fit index for each item.See also [ModelFit]}
-#'  \item{TestFitIndices}{Overall fit index for the test.See also [ModelFit]}
+#'  \item{ItemFitIndices}{Fit index for each item.See also [ItemFit]}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
 #' }
 #' @export
 #'
@@ -63,7 +63,7 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL, maxiter = 100) {
   ### Model Fit
   # each Items
   ell_A <- itemEll(tmp$U, tmp$Z, fit$postDist, fit$classRefMat)
-  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, ncls)
+  FitIndices <- ItemFit(tmp$U, tmp$Z, ell_A, ncls)
 
   ret <- structure(list(
     testlength = testlength <- NCOL(tmp$U),

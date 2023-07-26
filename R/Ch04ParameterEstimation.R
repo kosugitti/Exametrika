@@ -153,8 +153,8 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 #' \item{params}{Matrix containing the estimated item parameters}
 #' \item{itemPSD}{Posterior standard deviation of the item parameters}
 #' \item{ability}{Estimated parameters of students ability}
-#' \item{ItemFitIndices}{Fit index for each item.See also \code{\link{ModelFit}}}
-#' \item{TestFitIndices}{Overall fit index for the test.See also \code{\link{ModelFit}}}
+#' \item{ItemFitIndices}{Fit index for each item.See also \code{\link{ItemFit}}}
+#' \item{TestFitIndices}{Overall fit index for the test.See also \code{\link{TestFit}}}
 #' }
 #' @export
 #'
@@ -321,7 +321,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
 
   ### Model fit
   ell_A <- item_model_loglike
-  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, model)
+  FitIndices <- ItemFit(tmp$U, tmp$Z, ell_A, model)
 
 
   ## Formatting

@@ -38,7 +38,7 @@ filter to LCA (Shojima, 2022).}
 
 \item{mic}{Monotonic increasing IRP option. The default is FALSE.}
 
-\item{maxiter}{Maximum number of iterations.}
+\item{maxiter}{Maximum number of iterations. default is 100.}
 
 \item{BIC.check}{During estimation with SOM, this parameter determines
 whether to use the change in BIC as the convergence criterion.
@@ -68,8 +68,8 @@ as well as the rank-up odds and rank-down odds.}
 \eqn{\hat{\pi}_c}}
 \item{IRPIndex}{The IRP information includes the item location parameters B and Beta,
 the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
-\item{ItemFitIndices}{Fit index for each item.See also \link{ModelFit}}
-\item{TestFitIndices}{Overall fit index for the test.See also \link{ModelFit}}
+\item{ItemFitIndices}{Fit index for each item.See also \link{ItemFit}}
+\item{TestFitIndices}{Overall fit index for the test.See also \link{TestFit}}
 }
 }
 \description{

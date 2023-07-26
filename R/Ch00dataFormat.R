@@ -30,11 +30,11 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     class(data)
   }
   if (value != "examData") {
+    data <- as.data.frame(unclass(data))
     # Check if U is either a matrix or a dataframe, otherwise stop the execution
     if (!is.matrix(data) && !is.data.frame(data)) {
       stop("Data must be matrix or data.frame")
     }
-
     # get ID vector
     if (is.null(rownames(data))) {
       ID <- rownames(data)

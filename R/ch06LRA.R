@@ -41,8 +41,8 @@
 #' \eqn{\hat{\pi}_c}}
 #'  \item{IRPIndex}{The IRP information includes the item location parameters B and Beta,
 #'  the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
-#'  \item{ItemFitIndices}{Fit index for each item.See also [ModelFit]}
-#'  \item{TestFitIndices}{Overall fit index for the test.See also [ModelFit]}
+#'  \item{ItemFitIndices}{Fit index for each item.See also [ItemFit]}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
 #' }
 #' @export
 #'
@@ -148,7 +148,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
           FLG <- FALSE
           break
         }
-        FI <- ModelFit(tmp$U, tmp$Z, item_ell, ncls)
+        FI <- ItemFit(tmp$U, tmp$Z, item_ell, ncls)
         diff <- abs(oldBIC - FI$test$BIC)
         oldsBIC <- FI$test$BIC
         if (diff < 1e-4) {
@@ -241,9 +241,11 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   } else {
     nparam <- ncls
   }
-  FitIndices <- ModelFit(tmp$U, tmp$Z, ell_A, nparam)
+  FitIndices <- ItemFit(tmp$U, tmp$Z, ell_A, nparam)
 
   ret <- structure(list(
+    method = method,
+    mic = mic,
     testlength = testlength,
     nobs = nobs,
     Nclass = ncls,

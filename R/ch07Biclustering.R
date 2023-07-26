@@ -10,6 +10,7 @@
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
 #' @param mic Monotonic increasing IRP option. The default is FALSE.
 #' @param method Specify either "B"iclustering or "R"unklustering.
+#' @param maxiter Maximum number of iterations. default is 100.
 #' #' @param maxiter Maximum number of iterations. default is 100.
 #' @return
 #' \describe{
@@ -29,15 +30,14 @@
 #'  \item{LRD}{Latent Rank Distribution. see also [plot.Exametrika]}
 #'  \item{LFD}{Latent Field Distribuiton. see also [plot.Exametrika]}
 #'  \item{RMD}{Rank Membership Distribution.}
-#'  \item{ItemFitIndices}{Fit index for each item.See also [ModelFit]}
-#'  \item{TestFitIndices}{Overall fit index for the test.See also [ModelFit]}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
 #' }
 
 Biclustering <- function(U, ncls = 2, nfld = 2,
                          Z = NULL, w = NULL, na = NULL,
                          method = "B",
                          mic = FALSE,
-                         maxiter = 100){
+                         maxiter = 100) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -52,10 +52,10 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   if (method == "B" | method == "Biclustering") {
     print("Biclustering is chosen.")
     model <- 1
-  }else if(method = "R" | method == "Ranklustering"){
+  } else if (method == "R" | method == "Ranklustering") {
     print("Ranklustering is chosen.")
     model <- 2
-  }else{
+  } else {
     stop("The method must be selected as either Biclustering or Ranklustering.")
   }
 
@@ -72,7 +72,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   maxemt <- 100
 
   fld0 <- ceiling(1:testlength / (testlength / nfld))
-  crr_order <- order(crr(dat), decreasing = TRUE)
+  crr_order <- order(crr(tmp), decreasing = TRUE)
   fld <- fld0[match(1:testlength, crr_order)]
   fldmemb <- matrix(0, nrow = testlength, ncol = nfld)
   for (i in 1:testlength) {
@@ -86,13 +86,13 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     }
   }
 
-  if(model==1){
+  if (model == 1) {
     Fil <- diag(rep(1, ncls))
-  }else{
+  } else {
     f0 <- ifelse(ncls < 5, 1.05 - 0.05 * ncls,
-                 ifelse(ncls < 10, 1.00 - 0.04 * ncls,
-                        0.80 - 0.02 * ncls
-                 )
+      ifelse(ncls < 10, 1.00 - 0.04 * ncls,
+        0.80 - 0.02 * ncls
+      )
     )
     f1 <- diag(0, ncls)
     f1[row(f1) == col(f1) - 1] <- (1 - f0) / 2
@@ -127,7 +127,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     fjr <- t(tmp$Z * (1 - tmp$U)) %*% smoothed_memb
     lljf <- cjr %*% log(t(PiFR) + const) + fjr %*% log(t(1 - PiFR) + const)
 
-    max_log_lljf <- apply(lljf,1,max)
+    max_log_lljf <- apply(lljf, 1, max)
     log_lljf_adj <- lljf - max_log_lljf
     log_fldmemb <- log_lljf_adj - log(rowSums(exp(log_lljf_adj)))
     fldmemb <- exp(log_fldmemb)
@@ -135,7 +135,9 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     cfr <- t(fldmemb) %*% t(tmp$U) %*% smoothed_memb
     ffr <- t(fldmemb) %*% t(tmp$Z * (1 - tmp$U)) %*% smoothed_memb
     oldPiFR <- PiFR
-    if(mic){PiFR <- t(apply(PiFR,1,sort))}
+    if (mic) {
+      PiFR <- t(apply(PiFR, 1, sort))
+    }
     PiFR <- (cfr + beta1 - 1) / (cfr + ffr + beta1 + beta2 - 2)
     testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
     print(paste("iter", emt, " logLik", testell))
@@ -147,15 +149,15 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
 
   cls <- apply(clsmemb, 1, which.max)
   fld <- apply(fldmemb, 1, which.max)
-  fldmemb01 <- sign(fldmemb - apply(fldmemb,1,max))+1
+  fldmemb01 <- sign(fldmemb - apply(fldmemb, 1, max)) + 1
   flddist <- colSums(fldmemb01)
-  clsmemb01 <- sign(clsmemb - apply(clsmemb,1,max))+1
+  clsmemb01 <- sign(clsmemb - apply(clsmemb, 1, max)) + 1
   clsdist <- colSums(clsmemb01)
   TRP <- colSums(PiFR * flddist)
   StudentRank <- clsmemb
   rownames(StudentRank) <- tmp$ID
-  RU <- ifelse(cls + 1 > ncls, NA, cls + 1)
-  RD <- ifelse(cls - 1 < 1, NA, cls - 1)
+  RU <- ifelse(cls + 1 > ncls, NA, ncls + 1)
+  RD <- ifelse(cls - 1 < 1, NA, ncls - 1)
   RUO <- StudentRank[cbind(1:nobs, RU)] / StudentRank[cbind(1:nobs, cls)]
   RDO <- StudentRank[cbind(1:nobs, RD)] / StudentRank[cbind(1:nobs, cls)]
   StudentRank <- cbind(StudentRank, cls, RUO, RDO)
@@ -164,12 +166,17 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     "Rank-Up Odds", "Rank-Down Odds"
   )
 
-  FRP = PiFR
-  colnames(FRP) <- paste0("Rank",1:ncls)
-  rownames(FRP) <- paste0("Field",1:nfld)
+  if(model==1){msg1="Class"}else{msg1="Rank"}
+  FRP <- PiFR
+  colnames(FRP) <- paste0(msg1, 1:ncls)
+  rownames(FRP) <- paste0("Field", 1:nfld)
+  colnames(fldmemb) <- paste0("Field", 1:nfld)
+  rownames(clsmemb) <- tmp$ID
+  colnames(clsmemb) <- paste0(msg1:ncls)
+
   # item location index
   Beta <- apply(abs(FRP - 0.5), 1, which.min)
-  B <- FRP[cbind(1:nfld,Beta)]
+  B <- FRP[cbind(1:nfld, Beta)]
   # item slope index and item monotonicity index
   A <- Alpha <- rep(NA, nfld)
   C <- Gamma <- rep(0, nfld)
@@ -185,37 +192,49 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   }
   FRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
   TRPlag <- TRP[2:nfld]
-  SOAC <- sum(TRPlag - TRP[1:(nfld-1)]<0)
+  SOAC <- sum(TRPlag[2:nfld] - TRP[1:(nfld - 1)] < 0,na.rm = TRUE)
   WOAC <- sum(C)
-  if (SOAC ==0 & WOAC ==0) {
+  if (sum(SOAC) == 0) {
+    SOACflg <- TRUE
+  } else {
+    SOACflg <- FALSE
+  }
+  if (WOAC == 0) {
+    WOACflg <- TRUE
+  } else {
+    WOACflg <- FALSE
+  }
+  if (SOACflg & WOACflg) {
     message("Strongly ordinal alignment condition was satisfied.")
   }
-  if(SOAC ==0 * WPAC !=0){
+  if (SOACflg & !WOACflg) {
     message("Weakly ordinal alignment condition was satisfied.")
   }
   ### Model Fit
   cfr <- t(fldmemb) %*% t(tmp$U) %*% clsmemb
-  ffr <- t(fldmemb) %*% t(tmp$Z * (1-tmp$U)) %*% clsmemb
-  testell <-  sum(cfr * log(PiFR+const) + ffr * log(1-PiFR+const))
-  nparam <- ifelse(model==1,ncls*nfld,sum(diag(Fil))*nfld)
-  FitIndices <- ModelFit(tmp$U,tmp$Z,testell,nparam)
-
+  ffr <- t(fldmemb) %*% t(tmp$Z * (1 - tmp$U)) %*% clsmemb
+  testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
+  nparam <- ifelse(model == 1, ncls * nfld, sum(diag(Fil)) * nfld)
+  FitIndices <- TestFit(tmp$U, tmp$Z, testell, nparam)
 
   ret <- structure(list(
+    model = model,
+    mic = mic,
     testlength = testlength,
     nobs = nobs,
     Nclass = ncls,
+    Nfield = nfld,
     N_Cycle = emt,
-    BRM = PiFR,
     LFD = flddist,
     LRD = clsdist,
     FRP = FRP,
     FRPIndex = FRPIndex,
     TRP = TRP,
-    FMP = fldmemb,
+    FieldMembership = fldmemb,
+    ClassMembership = clsmemb,
     Students = StudentRank,
-    ItemFitIndices = FitIndices$item,
-    TestFitIndices = FitIndices$test
-  ), class = c("Exametrika", "LRA"))
-
+    TestFitIndices = FitIndices,
+    SOACflg = SOACflg,
+    WOACflg = WOACflg
+  ), class = c("Exametrika", "Biclustering"))
 }

@@ -1,4 +1,4 @@
-#' @title Model Fit Functions
+#' @title Model Fit Functions for Items
 #' @description
 #' A general function that returns the model fit indices.
 #' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
@@ -27,7 +27,7 @@
 #' }
 #' @export
 
-ModelFit <- function(U, Z, ell_A, nparam) {
+ItemFit <- function(U, Z, ell_A, nparam) {
   ## Item Fit Indices
   testlength <- ncol(U)
   nobs <- NROW(U)
@@ -105,6 +105,84 @@ ModelFit <- function(U, Z, ell_A, nparam) {
     test = TestFitIndices
   )
   return(ret)
+}
+
+#' @title Model Fit Functions for test whole
+#' @description
+#' A general function that returns the model fit indices.
+#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
+#' it is converted to the Exametrika class with the [dataFormat] function.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param ell_A log likelihood of this model
+#' @param nparam number of parameters for this model
+#' @return
+#' \describe{
+#' \item{model_log_like}{log likelihood of analysis model}
+#' \item{bench_log_like}{log likelihood of benchmark model}
+#' \item{null_log_like}{log likelihood of null model}
+#' \item{model_Chi_sq}{Chi-Square statistics for analysis model}
+#' \item{null_Chi_sq}{Chi-Square statistics for null model}
+#' \item{model_df}{degrees of freedom of analysis model}
+#' \item{null_df}{degrees of freedom of null model}
+#' \item{NFI}{Normed Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{RFI}{Relative Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{IFI}{Incremental Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{TLI}{Tucker-Lewis Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{CFI}{Comparative Fit Inderx. Lager values closer to 1.0 indicate a better fit.}
+#' \item{RMSEA}{Root Mean Square Error of Approximation. Smaller values closer to 0.0 indicate a better fit.}
+#' \item{AIC}{Akaike Information Criterion. A lower value indicates a better fit.}
+#' \item{CAIC}{Consistent AIC.A lower value indicates a better fit.}
+#' \item{BIC}{Bayesian Information Criterion. A lower value indicates a better fit.}
+#' }
+#' @export
+
+TestFit <- function(U, Z, ell_A, nparam){
+  nres = colSums(Z)
+  nitem = NCOL(U)
+  nobs = NROW(U)
+  crr = colSums(U)/nres
+  const = exp(-nitem)
+  # Benchmark model
+  total <- rowSums(U)
+  totalList <- sort(unique(total))
+  totalDist <- as.vector(table(total))
+  ntotal <- length(totalList)
+  ## Group Membership Profile Matrix
+  MsG <- matrix(0, ncol = ntotal, nrow = nobs)
+  for (i in 1:nobs) {
+    MsG[i, which(totalList == total[i])] <- 1
+  }
+  ## PjG
+  PjG <- t(MsG) %*% (Z * U) / t(MsG) %*% Z
+  U1gj <- t(MsG) %*% (Z * U)
+  U0gj <- t(MsG) %*% (Z * (1 - U))
+  ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
+  ell_B <- sum(ell_B)
+  bench_nparm = ntotal * nitem
+  # Null model
+  ell_N <- nobs * crr * log(crr + const) + nobs * (1 - crr) * log(1 - crr + const)
+  ell_N <- sum(ell_N)
+  null_nparam <- nitem
+  df_B <- bench_nparm - null_nparam
+  chi_B <- 2 *(ell_B - ell_N)
+  # Analysis model
+  chi_A <- 2 * (ell_B - ell_A)
+  df_A <- bench_nparm - nparam
+
+  indices <- calcFitIndices(chi_A,chi_B,df_A,df_B,nobs)
+  TestFitIndices <- structure(
+    c(list(
+      model_log_like = ell_A,
+      bench_log_like = ell_B,
+      null_log_like = ell_N,
+      model_Chi_sq = chi_A,
+      null_Chi_sq = chi_B,
+      model_df = df_A,
+      null_df = df_B
+    ), indices),
+    class = c("Exametrika", "ModelFit")
+  )
+
 }
 
 

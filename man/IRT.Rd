@@ -27,8 +27,8 @@ estimated in the logistic model. It is limited to values 2, 3, or 4.}
 \item{params}{Matrix containing the estimated item parameters}
 \item{itemPSD}{Posterior standard deviation of the item parameters}
 \item{ability}{Estimated parameters of students ability}
-\item{ItemFitIndices}{Fit index for each item.See also \code{\link{ModelFit}}}
-\item{TestFitIndices}{Overall fit index for the test.See also \code{\link{ModelFit}}}
+\item{ItemFitIndices}{Fit index for each item.See also \code{\link{ItemFit}}}
+\item{TestFitIndices}{Overall fit index for the test.See also \code{\link{TestFit}}}
 }
 }
 \description{
