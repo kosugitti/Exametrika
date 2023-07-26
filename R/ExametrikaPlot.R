@@ -6,7 +6,12 @@
 #' @param type Plot type.Specify one of the following: "IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP".
 #' "IIC", "ICC", "TIC" plot the results of [IRT] (Item Response Theory),
 #' while "IRP", "TRP", "LCD", "CMP" plot the results of [LCA] (Latent Class Analysis) and
-#' [LRA](Latent Rank Analysis)"
+#' [LRA](Latent Rank Analysis)."
+#' In biclustering and rankclustering, it is possible to output "TRP" and "LCD" of LCA and select
+#' "FRP" (Field Reference Profile) plots such as "IRP". Also, by selecting "Array", plots before
+#' and after clustering can be obtained for comparison. This array plot shows black cells as the
+#' correct answers and white cells as the incorrect answers. After clustering, it can be seen that
+#' the data is sorted by cluster, similar to how a computer's defragmentation rearranges data.
 #' @param items Specify the items you want to plot as a vector. If not specifically designated,
 #' all items will be included.When the type is IIC, if the specified item is 0, it returns a TIC
 #' representing the entire test.
@@ -31,13 +36,14 @@
 #'
 #' @importFrom graphics curve
 #' @importFrom utils tail
-#' @importFrom graphics axis barplot mtext par text
+#' @importFrom graphics axis barplot mtext par text lines rect
 #' @export
 
 plot.Exametrika <- function(x,
                             type = c(
                               "IIC", "ICC", "TIC",
-                              "IRP", "TRP", "LCD", "CMP"
+                              "IRP", "TRP", "LCD", "CMP",
+                              "FRP","Array"
                             ),
                             items = NULL,
                             students = NULL,
@@ -70,7 +76,7 @@ plot.Exametrika <- function(x,
     1:nobs
   }
 
-  LCA_LRA_common <- function() {
+  graph_common <- function() {
     if (type == "IRP") {
       # Item Reference Profile ----------------------------------------
       params <- x$IRP[plotItemID, ]
@@ -89,14 +95,19 @@ plot.Exametrika <- function(x,
       # Test Reference Profile ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      bp <- barplot(x$LCD,
+      if(value == "LCA" | value=="LRA"){
+        target <- x$LCD
+      }else if(value=="Biclustering"){
+        target <- x$LRD
+      }
+      bp <- barplot(target,
         names.arg = 1:x$Nclass,
-        ylim = c(0, max(x$LCD) + 10),
+        ylim = c(0, max(target) + 10),
         xlim = c(0, x$Nclass + 1),
         xlab = "Latent Class",
         ylab = "Number of Students"
       )
-      text(x = bp, y = x$LCD, label = x$LCD, pos = 1, cex = 1.2)
+      text(x = bp, y = target, label = target, pos = 1, cex = 1.2)
       par(new = TRUE)
       plot(bp, x$TRP,
         type = "b", pch = 19, lty = 1,
@@ -113,23 +124,28 @@ plot.Exametrika <- function(x,
       # Latent Class Distribution ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      bp <- barplot(x$LCD,
+      if(value == "LCA" | value=="LRA"){
+        target <- x$LCD
+      }else if(value=="Biclustering"){
+        target <- x$LRD
+      }
+      bp <- barplot(target,
         names.arg = 1:x$Nclass,
-        ylim = c(0, max(x$LCD) + 10),
+        ylim = c(0, max(target) + 10),
         xlim = c(0, x$Nclass + 1),
         xlab = "Latent Class",
         ylab = "Number of Students"
       )
-      text(x = bp, y = x$LCD, label = x$LCD, pos = 1, cex = 1.2)
+      text(x = bp, y = target, label = target, pos = 1, cex = 1.2)
       par(new = TRUE)
       plot(bp, x$CMD,
         type = "b", pch = 19, lty = 1,
         axes = FALSE, xaxt = "n", xlab = "", ylab = "",
         bty = "n",
-        ylim = c(0, max(x$LCD) + 10),
+        ylim = c(0, max(target) + 10),
         xlim = c(0, x$Nclass + 1),
       )
-      axis(4, at = pretty(range(0, max(x$LCD) + 10)))
+      axis(4, at = pretty(range(0, max(target) + 10)))
       mtext("Frequency", side = 4, line = 3)
       par(old_par)
     }
@@ -147,6 +163,21 @@ plot.Exametrika <- function(x,
         )
       }
     }
+    if (type == "FRP") {
+      # Item Reference Profile ----------------------------------------
+      params <- x$FRP
+      for (i in 1:nrow(params)) {
+        y <- params[i, ]
+        plot(y,
+             type = "b",
+             ylab = "Correct Response Rate",
+             xlab = "Latent Class",
+             ylim = c(0, 1),
+             main = paste("Item", i)
+        )
+      }
+    }
+
   }
 
 
@@ -205,10 +236,68 @@ plot.Exametrika <- function(x,
       }
     },
     LCA = {
-      LCA_LRA_common()
+      graph_common()
     },
     LRA = {
-      LCA_LRA_common()
+      graph_common()
+    },
+    Biclustering = {
+      if(type =="Array"){
+        par(mfrow = c(1, 2))
+        stepx <- 300 / x$testlength
+        stepy <- 600 / x$nobs
+        ## Original Data
+        plot(0, 0,
+             type = "n", xlim = c(0, 300), ylim = c(0, 600),
+             xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+             frame.plot = TRUE,
+             main = "Original Data"
+        )
+
+        for (i in 1:x$nobs) {
+          for (j in 1:x$testlength) {
+            x1 <- (j - 1) * stepx
+            y1 <- (i - 1) * stepy
+            x2 <- j * stepx
+            y2 <- i * stepy
+            if (x$U[i, j] == 1) {
+              rect(x1, y1, x2, y2, col = "black")
+            }
+          }
+        }
+
+        ## Clusterd Plot
+        plot(0, 0,
+             type = "n", xlim = c(0, 300), ylim = c(0, 600),
+             xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+             frame.plot = TRUE,
+             main = "Clusterd Plot"
+        )
+        sorted <- x$U[, order(x$FieldEstimated, decreasing = FALSE)]
+        sorted <- sorted[order(x$ClassEstimated, decreasing = TRUE), ]
+        for (i in 1:nobs) {
+          for (j in 1:testlength) {
+            x1 <- (j - 1) * stepx
+            y1 <- (i - 1) * stepy
+            x2 <- j * stepx
+            y2 <- i * stepy
+            if (sorted[i, j] == 1) {
+              rect(x1, y1, x2, y2, col = "black")
+            }
+          }
+        }
+
+        vl <- cumsum(table(sort(x$FieldEstimated)))
+        for (i in 1:(x$Nfield - 1)) {
+          lines(x = c(vl[i] * stepx, vl[i] * stepx), y = c(0, 600), col = "red")
+        }
+        hl <- nobs - cumsum(table(sort(x$ClassEstimated)))
+        for (j in 1:(x$Nclass- 1)) {
+          lines(x = c(0, 300), y = c(hl[j] * stepy, hl[j] * stepy), col = "red")
+        }
+      }else{
+        graph_common()
+      }
     },
     none = {
       cat("Sorry, this is not an object that can be plotted.")

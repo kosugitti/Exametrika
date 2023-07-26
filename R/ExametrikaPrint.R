@@ -152,7 +152,7 @@ print.Exametrika <- function(x, digits = 3, ...) {
       print(x$FRPIndex, digits = digits)
       cat("\n")
 
-      y <- rbind(x$TRP, x$LRD, colSums(x$ClassMembership))
+      y <- rbind(x$TRP, x$LRD, x$CMD)
       rownames(y) <- c(
         "Test Reference Profile",
         paste("Latent", msg2, "Ditribution"),

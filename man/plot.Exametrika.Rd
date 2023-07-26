@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{Exametrika}(
   x,
-  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP"),
+  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP", "FRP", "Array"),
   items = NULL,
   students = NULL,
   nc = 1,
@@ -20,7 +20,12 @@
 \item{type}{Plot type.Specify one of the following: "IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP".
 "IIC", "ICC", "TIC" plot the results of \link{IRT} (Item Response Theory),
 while "IRP", "TRP", "LCD", "CMP" plot the results of \link{LCA} (Latent Class Analysis) and
-\link{LRA}(Latent Rank Analysis)"}
+\link{LRA}(Latent Rank Analysis)."
+In biclustering and rankclustering, it is possible to output "TRP" and "LCD" of LCA and select
+"FRP" (Field Reference Profile) plots such as "IRP". Also, by selecting "Array", plots before
+and after clustering can be obtained for comparison. This array plot shows black cells as the
+correct answers and white cells as the incorrect answers. After clustering, it can be seen that
+the data is sorted by cluster, similar to how a computer's defragmentation rearranges data.}
 
 \item{items}{Specify the items you want to plot as a vector. If not specifically designated,
 all items will be included.When the type is IIC, if the specified item is 0, it returns a TIC
