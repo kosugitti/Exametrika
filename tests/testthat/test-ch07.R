@@ -11,7 +11,7 @@ student <- read_excel("../../develop/Chapter07Biclustering.xlsx", sheet = "Stude
 ### Target
 dat <- J35S515
 tmp <- dataFormat(dat)
-Bic <- Biclustering(tmp, ncls = 6, nfld = 5, method = "B", mic = T)
+Bic <- Biclustering(tmp, ncls = 6, nfld = 5, method = "R", mic = T)
 Bic
 ### test
 test_that("LCA Test Info", {
@@ -19,8 +19,8 @@ test_that("LCA Test Info", {
     unlist() %>%
     unname() %>%
     as.numeric()
-  expect <- expect[c(5,1,2,6,3,7,4,8:16)]
-  result <- Bic$TestFitIndices%>% as.numeric()
+  expect <- expect[c(5, 1, 2, 6, 3, 7, 4, 8:16)]
+  result <- Bic$TestFitIndices %>% as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
 })
 
@@ -31,7 +31,9 @@ test_that("LCA Class Info", {
     unlist() |>
     unname() |>
     as.vector()
-  result <- Bic$FRP |> unname() |> as.vector()
+  result <- Bic$FRP |>
+    unname() |>
+    as.vector()
   expect_equal(result, expect, tolerance = 1e-4)
   ## TRP
   expect <- Bicluster[6, 2:7] |>
@@ -52,7 +54,9 @@ test_that("LCA Class Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- Bic$ClassMembership |> colSums() |> as.vector()
+  result <- Bic$ClassMembership |>
+    colSums() |>
+    as.vector()
   expect_equal(result, expect, tolerance = 1e-4)
 })
 
@@ -63,11 +67,13 @@ test_that("LCA Item Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- Bic$FieldMembership |> unlist() |> unname() |>
+  result <- Bic$FieldMembership |>
+    unlist() |>
+    unname() |>
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
   ## Estimated
-  expect <- items[,11] |>
+  expect <- items[, 11] |>
     unlist() |>
     unname() |>
     as.numeric()
@@ -81,7 +87,7 @@ test_that("LCA Students", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- Bic$Students[,1:6] |>
+  result <- Bic$Students[, 1:6] |>
     unlist() |>
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
@@ -107,8 +113,8 @@ test_that("LCA Test Info", {
     unlist() %>%
     unname() %>%
     as.numeric()
-  expect <- expect[c(5,1,2,6,3,7,4,8:16)]
-  result <- Bic$TestFitIndices%>% as.numeric()
+  expect <- expect[c(5, 1, 2, 6, 3, 7, 4, 8:16)]
+  result <- Bic$TestFitIndices %>% as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
 })
 
@@ -119,7 +125,9 @@ test_that("LCA Class Info", {
     unlist() |>
     unname() |>
     as.vector()
-  result <- Bic$FRP |> unname() |> as.vector()
+  result <- Bic$FRP |>
+    unname() |>
+    as.vector()
   expect_equal(result, expect, tolerance = 1e-4)
   ## TRP
   expect <- Rankluster[6, 2:7] |>
@@ -140,14 +148,18 @@ test_that("LCA Class Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- Bic$ClassMembership |> colSums() |> as.vector()
+  result <- Bic$ClassMembership |>
+    colSums() |>
+    as.vector()
   expect_equal(result, expect, tolerance = 1e-4)
   ## Index
   expect <- Rankluster[1:5, 9:14] |>
     unlist() |>
     unname() |>
     as.vector()
-  result <- Bic$FRPIndex |> unname() |> as.vector()
+  result <- Bic$FRPIndex |>
+    unname() |>
+    as.vector()
   expect_equal(result, expect, tolerance = 1e-4)
 })
 
@@ -157,11 +169,13 @@ test_that("LCA Item Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- Bic$FieldMembership |> unlist() |> unname() |>
+  result <- Bic$FieldMembership |>
+    unlist() |>
+    unname() |>
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
   ## Estimated
-  expect <- items[,11] |>
+  expect <- items[, 11] |>
     unlist() |>
     unname() |>
     as.numeric()
@@ -175,10 +189,8 @@ test_that("LCA Students", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- Bic$Students[,1:9] |>
+  result <- Bic$Students[, 1:9] |>
     unlist() |>
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
 })
-
-

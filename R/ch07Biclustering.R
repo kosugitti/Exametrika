@@ -142,13 +142,13 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
       PiFR <- t(apply(PiFR, 1, sort))
     }
     testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
-    cat(paste("iter", emt, " logLik", testell,"\r"))
+    cat(paste("iter", emt, " logLik", testell, "\r"))
     if (testell - oldtestell <= 0) {
       PiFR <- oldPiFR
       break
     }
   }
-  cat(paste("iter", emt, " logLik", testell,"\n"))
+  cat(paste("iter", emt, " logLik", testell, "\n"))
   #### OUTPUT
 
   cls <- apply(clsmemb, 1, which.max)
@@ -160,7 +160,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   TRP <- colSums(PiFR * flddist)
   StudentRank <- clsmemb
   rownames(StudentRank) <- tmp$ID
-  if(model==2){
+  if (model == 2) {
     RU <- ifelse(cls + 1 > ncls, NA, cls + 1)
     RD <- ifelse(cls - 1 < 1, NA, cls - 1)
     RUO <- StudentRank[cbind(1:nobs, RU)] / StudentRank[cbind(1:nobs, cls)]
@@ -170,10 +170,11 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
       paste("Membership", 1:ncls), "Estimate",
       "Rank-Up Odds", "Rank-Down Odds"
     )
-  }else{
+  } else {
     StudentRank <- cbind(StudentRank, cls)
     colnames(StudentRank) <- c(
-      paste("Membership", 1:ncls), "Estimate")
+      paste("Membership", 1:ncls), "Estimate"
+    )
   }
 
   if (model == 1) {
@@ -186,7 +187,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   rownames(FRP) <- paste0("Field", 1:nfld)
   colnames(fldmemb) <- paste0("Field", 1:nfld)
   rownames(clsmemb) <- tmp$ID
-  colnames(clsmemb) <- paste0(msg1,1:ncls)
+  colnames(clsmemb) <- paste0(msg1, 1:ncls)
 
   # item location index
   Beta <- apply(abs(FRP - 0.5), 1, which.min)
@@ -256,4 +257,40 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     SOACflg = SOACflg,
     WOACflg = WOACflg
   ), class = c("Exametrika", "Biclustering"))
+}
+
+
+
+#' @title Field Analysis
+#' @description
+#' output for Field Analysis
+#' @param x Biclustering Objects yielded by Biclustering Function
+#' @param digits printed digits
+#' @export
+#'
+
+FieldAnalysis <- function(x, digits = 4){
+  # data format
+  if (class(x)[1] != "Exametrika") {
+    stop("Field Analysis needs Exametrika Output.")
+  }
+  if(class(x)[2] != "Biclustering"){
+    stop("Field Analysis needs Biclustering Output.")
+  }
+  y <- x$FieldMembership
+  crr <- crr(x$U)
+  yy <- as.data.frame(y)
+  yy <- cbind(crr,x$FieldEstimated,yy)
+  colnames(yy) <- c("CRR","LFE",paste0("Field",1:x$Nfield))
+  yy <- yy[order(yy$CRR,decreasing = TRUE),]
+  yy <- yy[order(yy$LFE),]
+  nr <- NROW(yy)
+  nc <- NCOL(yy)
+  rownames_tmp <- rownames(yy)
+  yy <- matrix(as.numeric(as.matrix(yy)),ncol=nc,nrow=nr)
+  colnames(yy) <- c("CRR","LFE",paste0("Field",1:x$Nfield))
+  rownames(yy) <- rownames_tmp
+  return(structure(list(
+    FieldAnalysisMatrix = yy
+  ),class = c("Exametrika", "Biclustering","FieldAnalysis")))
 }

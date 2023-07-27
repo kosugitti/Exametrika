@@ -161,9 +161,12 @@ print.Exametrika <- function(x, digits = 3, ...) {
       colnames(y) <- paste(msg2, 1:x$Nclass)
       print(round(y, digits))
 
-      if(x$model==2){
+      if (x$model == 2) {
         cat("\nField Membership Profile\n")
-        print(round(x$FieldMembership, 8))
+        y <- format(
+          round(as.data.frame(x$FieldMembership),digits)
+          ,nsmall=digits)
+        print(y)
       }
 
       cat("Latent Field Distribution\n")
@@ -186,6 +189,19 @@ print.Exametrika <- function(x, digits = 3, ...) {
         cat("Weakly Ordinal Alignment Condition is Satisfied.\n")
       }
     },
+    FieldAnalysis = {
+      cat("Field Analysis Matrix\n")
+      nr <- NROW(x$FieldAnalysisMatrix)
+      nc <- NCOL(x$FieldAnalysisMatrix)
+      rnames <- rownames(x$FieldAnalysisMatrix)
+      cnames <- colnames(x$FieldAnalysisMatrix)
+      yy <- x$FieldAnalysisMatrix
+      crr <- round(yy[,1],digits)
+      LFE <- yy[,2]
+      Fields <- round(yy[,-(1:2)],digits)
+      y <- cbind(crr,LFE,Fields)
+      print(y)
+    },
     ModelFit = {
       tmp <- data.frame(unclass(x))
       print(tmp)
@@ -200,3 +216,4 @@ print.Exametrika <- function(x, digits = 3, ...) {
     }
   )
 }
+
