@@ -193,7 +193,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     }
 
     testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
-    cat(paste("iter", emt, " logLik", testell, "\n"))
+    cat(paste("iter", emt, " logLik", testell, "\r"))
     if (testell - oldtestell <= 0) {
       PiFR <- oldPiFR
       break
@@ -257,8 +257,8 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     }
   }
   FRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
-  TRPlag <- TRP[2:nfld]
-  TRPmic <- sum(TRPlag[2:nfld] - TRP[1:(nfld - 1)] < 0, na.rm = TRUE)
+  TRPlag <- TRP[2:ncls]
+  TRPmic <- sum(TRPlag[1:(ncls-1)] - TRP[1:(ncls - 1)] < 0, na.rm = TRUE)
   FRPmic <- sum(abs(C))
   SOACflg <- WOACflg <- FALSE
   if(TRPmic == 0){
