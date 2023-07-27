@@ -43,7 +43,7 @@ plot.Exametrika <- function(x,
                             type = c(
                               "IIC", "ICC", "TIC",
                               "IRP", "TRP", "LCD", "CMP",
-                              "FRP", "Array"
+                              "FRP", "RMP", "LRD", "Array"
                             ),
                             items = NULL,
                             students = NULL,
@@ -120,7 +120,7 @@ plot.Exametrika <- function(x,
       mtext("Expected Score", side = 4, line = 3)
       par(old_par)
     }
-    if (type == "LCD") {
+    if (type == "LCD" | type == "LRD") {
       # Latent Class Distribution ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
@@ -149,7 +149,7 @@ plot.Exametrika <- function(x,
       mtext("Frequency", side = 4, line = 3)
       par(old_par)
     }
-    if (type == "CMP") {
+    if (type == "CMP" | type == "RMP") {
       # Class Membership Profile ----------------------------------------
       params <- x$Students[plotStudentID, 1:x$Nclass]
       for (i in 1:NROW(params)) {

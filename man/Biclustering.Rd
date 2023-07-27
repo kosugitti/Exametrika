@@ -12,6 +12,7 @@ Biclustering(
   w = NULL,
   na = NULL,
   method = "B",
+  conf = NULL,
   mic = FALSE,
   maxiter = 100
 )
@@ -32,10 +33,17 @@ it is converted to the Exametrika class with the \link{dataFormat} function.}
 
 \item{method}{Specify either "B"iclustering or "R"unklustering.}
 
+\item{conf}{For the 'conf'irmatory parameter, you can input either a vector with
+items and corresponding fields in sequence, or a field membership profile
+matrix. In the case of the former, the field membership profile matrix will be generated internally.
+When providing a membership profile matrix, it needs to be either matrix or data.frame.
+The number of fields(nfld) will be overwrite to the number of colums of this matrix.
+The default is NULL, and the field membership
+matrix will be estimated according to the specified number of classes(ncls) and fields(nfld)."}
+
 \item{mic}{Monotonic increasing IRP option. The default is FALSE.}
 
-\item{maxiter}{Maximum number of iterations. default is 100.
-#' @param maxiter Maximum number of iterations. default is 100.}
+\item{maxiter}{Maximum number of iterations. default is 100.}
 }
 \value{
 \describe{

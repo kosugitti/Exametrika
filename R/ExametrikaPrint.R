@@ -164,8 +164,9 @@ print.Exametrika <- function(x, digits = 3, ...) {
       if (x$model == 2) {
         cat("\nField Membership Profile\n")
         y <- format(
-          round(as.data.frame(x$FieldMembership),digits)
-          ,nsmall=digits)
+          round(as.data.frame(x$FieldMembership), digits),
+          nsmall = digits
+        )
         print(y)
       }
 
@@ -196,10 +197,10 @@ print.Exametrika <- function(x, digits = 3, ...) {
       rnames <- rownames(x$FieldAnalysisMatrix)
       cnames <- colnames(x$FieldAnalysisMatrix)
       yy <- x$FieldAnalysisMatrix
-      crr <- round(yy[,1],digits)
-      LFE <- yy[,2]
-      Fields <- round(yy[,-(1:2)],digits)
-      y <- cbind(crr,LFE,Fields)
+      crr <- round(yy[, 1], digits)
+      LFE <- yy[, 2]
+      Fields <- round(yy[, -(1:2)], digits)
+      y <- cbind(crr, LFE, Fields)
       print(y)
     },
     ModelFit = {
@@ -216,4 +217,3 @@ print.Exametrika <- function(x, digits = 3, ...) {
     }
   )
 }
-

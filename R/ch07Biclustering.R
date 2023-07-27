@@ -8,10 +8,17 @@
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @param conf For the 'conf'irmatory parameter, you can input either a vector with
+#' items and corresponding fields in sequence, or a field membership profile
+#' matrix. In the case of the former, the field membership profile matrix will be generated internally.
+#' When providing a membership profile matrix, it needs to be either matrix or data.frame.
+#' The number of fields(nfld) will be overwrite to the number of colums of this matrix.
+#' The default is NULL, and the field membership
+#' matrix will be estimated according to the specified number of classes(ncls) and fields(nfld)."
 #' @param mic Monotonic increasing IRP option. The default is FALSE.
 #' @param method Specify either "B"iclustering or "R"unklustering.
 #' @param maxiter Maximum number of iterations. default is 100.
-#' #' @param maxiter Maximum number of iterations. default is 100.
+#'
 #' @return
 #' \describe{
 #'  \item{nobs}{Sample size. The number of rows in the dataset.}
@@ -37,6 +44,7 @@
 Biclustering <- function(U, ncls = 2, nfld = 2,
                          Z = NULL, w = NULL, na = NULL,
                          method = "B",
+                         conf = NULL,
                          mic = FALSE,
                          maxiter = 100) {
   # data format
@@ -60,6 +68,37 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     stop("The method must be selected as either Biclustering or Ranklustering.")
   }
 
+  # set conf_mat for confirmatory clustering
+  if(!is.null(conf)){
+    print("Confirmatory Clustering is chosen.")
+    if(is.vector(conf)){
+      # check size
+      if(length(conf)!=NCOL(U)){
+        stop("conf vector size does NOT match with data.")
+      }
+      conf_mat <- matrix(0,nrow=NCOL(U),ncol=max(conf))
+      for(i in 1:NROW(conf_mat)){
+        conf_mat[i,conf[i]] <- 1
+      }
+    }else if(is.matrix(conf)|is.data.frame(conf)){
+      if(NROW(conf)!=NCOL(U)){
+        stop("conf matrix size does NOT match with data.")
+      }
+      if(any(!conf %in% c(0, 1))) {
+        stop("The conf matrix should only contain 0s and 1s.")
+      }
+      if(any(rowSums(conf)>1)){
+        stop("The row sums of the conf matrix must be equal to 1.")
+      }
+    }else{
+      stop("conf matrix is not set properly.")
+    }
+    ###
+    nfld <- NCOL(conf_mat)
+  }else{
+    conf_mat <- NULL
+  }
+
   if (ncls < 2 | ncls > 20) {
     stop("Please set the number of classes to a number between 2 and less than 20.")
   }
@@ -78,6 +117,10 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   fldmemb <- matrix(0, nrow = testlength, ncol = nfld)
   for (i in 1:testlength) {
     fldmemb[i, fld[i]] <- 1
+  }
+
+  if(!any(is.null(conf_mat))){
+    fldmemb = conf_mat
   }
 
   PiFR <- matrix(NA, nrow = nfld, ncol = ncls)
@@ -134,6 +177,9 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     log_fldmemb <- log_lljf_adj - log(rowSums(exp(log_lljf_adj)))
     fldmemb <- exp(log_fldmemb)
 
+    if(!any(is.null(conf_mat))){
+      fldmemb <- conf_mat
+    }
     cfr <- t(fldmemb) %*% t(tmp$U) %*% smoothed_memb
     ffr <- t(fldmemb) %*% t(tmp$Z * (1 - tmp$U)) %*% smoothed_memb
     oldPiFR <- PiFR
@@ -141,8 +187,13 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     if (mic) {
       PiFR <- t(apply(PiFR, 1, sort))
     }
+
+    if (any(is.nan(cfr))) {
+      stop("The calculation diverged during the process. Please adjust your settings appropriately")
+    }
+
     testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
-    cat(paste("iter", emt, " logLik", testell, "\r"))
+    cat(paste("iter", emt, " logLik", testell, "\n"))
     if (testell - oldtestell <= 0) {
       PiFR <- oldPiFR
       break
@@ -207,22 +258,19 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   }
   FRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
   TRPlag <- TRP[2:nfld]
-  SOAC <- sum(TRPlag[2:nfld] - TRP[1:(nfld - 1)] < 0, na.rm = TRUE)
-  WOAC <- sum(C)
-  if (sum(SOAC) == 0) {
-    SOACflg <- TRUE
-  } else {
-    SOACflg <- FALSE
-  }
-  if (WOAC == 0) {
+  TRPmic <- sum(TRPlag[2:nfld] - TRP[1:(nfld - 1)] < 0, na.rm = TRUE)
+  FRPmic <- sum(abs(C))
+  SOACflg <- WOACflg <- FALSE
+  if(TRPmic == 0){
     WOACflg <- TRUE
-  } else {
-    WOACflg <- FALSE
+    if(FRPmic == 0){
+      SOACflg <- TRUE
+    }
   }
   if (SOACflg & WOACflg) {
     message("Strongly ordinal alignment condition was satisfied.")
   }
-  if (SOACflg & !WOACflg) {
+  if (!SOACflg & WOACflg) {
     message("Weakly ordinal alignment condition was satisfied.")
   }
 
@@ -269,28 +317,28 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
 #' @export
 #'
 
-FieldAnalysis <- function(x, digits = 4){
+FieldAnalysis <- function(x, digits = 4) {
   # data format
   if (class(x)[1] != "Exametrika") {
     stop("Field Analysis needs Exametrika Output.")
   }
-  if(class(x)[2] != "Biclustering"){
+  if (class(x)[2] != "Biclustering") {
     stop("Field Analysis needs Biclustering Output.")
   }
   y <- x$FieldMembership
   crr <- crr(x$U)
   yy <- as.data.frame(y)
-  yy <- cbind(crr,x$FieldEstimated,yy)
-  colnames(yy) <- c("CRR","LFE",paste0("Field",1:x$Nfield))
-  yy <- yy[order(yy$CRR,decreasing = TRUE),]
-  yy <- yy[order(yy$LFE),]
+  yy <- cbind(crr, x$FieldEstimated, yy)
+  colnames(yy) <- c("CRR", "LFE", paste0("Field", 1:x$Nfield))
+  yy <- yy[order(yy$CRR, decreasing = TRUE), ]
+  yy <- yy[order(yy$LFE), ]
   nr <- NROW(yy)
   nc <- NCOL(yy)
   rownames_tmp <- rownames(yy)
-  yy <- matrix(as.numeric(as.matrix(yy)),ncol=nc,nrow=nr)
-  colnames(yy) <- c("CRR","LFE",paste0("Field",1:x$Nfield))
+  yy <- matrix(as.numeric(as.matrix(yy)), ncol = nc, nrow = nr)
+  colnames(yy) <- c("CRR", "LFE", paste0("Field", 1:x$Nfield))
   rownames(yy) <- rownames_tmp
   return(structure(list(
     FieldAnalysisMatrix = yy
-  ),class = c("Exametrika", "Biclustering","FieldAnalysis")))
+  ), class = c("Exametrika", "Biclustering", "FieldAnalysis")))
 }

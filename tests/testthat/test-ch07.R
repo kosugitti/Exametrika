@@ -11,10 +11,10 @@ student <- read_excel("../../develop/Chapter07Biclustering.xlsx", sheet = "Stude
 ### Target
 dat <- J35S515
 tmp <- dataFormat(dat)
-Bic <- Biclustering(tmp, ncls = 6, nfld = 5, method = "R", mic = T)
+Bic <- Biclustering(tmp, ncls = 6, nfld = 5, method = "B", mic = T)
 Bic
 ### test
-test_that("LCA Test Info", {
+test_that("LRA Test Info", {
   expect <- test[15:30, 2] %>%
     unlist() %>%
     unname() %>%

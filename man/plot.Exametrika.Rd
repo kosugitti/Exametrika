@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{Exametrika}(
   x,
-  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP", "FRP", "Array"),
+  type = c("IIC", "ICC", "TIC", "IRP", "TRP", "LCD", "CMP", "FRP", "RMP", "LRD", "Array"),
   items = NULL,
   students = NULL,
   nc = 1,
