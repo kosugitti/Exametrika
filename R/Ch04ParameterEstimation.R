@@ -173,6 +173,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
 
   # initialize
   testlength <- NCOL(U)
+  nobs <- NROW(U)
   slope <- 2 * rho
   loc <- 2 * tau
   if (model >= 3) {
