@@ -305,6 +305,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     SOACflg = SOACflg,
     WOACflg = WOACflg
   ), class = c("Exametrika", "Biclustering"))
+  return(ret)
 }
 
 

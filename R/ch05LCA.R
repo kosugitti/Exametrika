@@ -78,4 +78,5 @@ LCA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL, maxiter = 100) {
     ItemFitIndices = FitIndices$item,
     TestFitIndices = FitIndices$test
   ), class = c("Exametrika", "LCA"))
+  return(ret)
 }

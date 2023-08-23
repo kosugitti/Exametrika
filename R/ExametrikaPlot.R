@@ -77,6 +77,12 @@ plot.Exametrika <- function(x,
   }
 
   graph_common <- function() {
+
+    valid_types <- c('IRP', 'TRP', 'LCD', 'LRD', 'CMP', 'RMP', 'FRP')
+    if (!(type %in% valid_types)) {
+      stop('That type of output is not defined.')
+    }
+
     if (type == "IRP") {
       # Item Reference Profile ----------------------------------------
       params <- x$IRP[plotItemID, ]
@@ -173,7 +179,7 @@ plot.Exametrika <- function(x,
           ylab = "Correct Response Rate",
           xlab = "Latent Class",
           ylim = c(0, 1),
-          main = paste("Item", i)
+          main = paste("Field", i)
         )
       }
     }
@@ -184,6 +190,10 @@ plot.Exametrika <- function(x,
 
   switch(value,
     IRT = {
+      valid_types <- c('ICC', 'IIC', 'TIC')
+      if (!(type %in% valid_types)) {
+        stop('That type of output is not defined.')
+      }
       if ((type %in% c("IIC", "TIC") && any(plotItemID == 0)) ||
         (type == "ICC" && all(plotItemID == 0))) {
         type <- "TIC"
@@ -241,6 +251,10 @@ plot.Exametrika <- function(x,
       graph_common()
     },
     Biclustering = {
+      valid_types <- c('IRP', 'TRP', 'LCD', 'LRD', 'CMP', 'RMP', 'FRP',"Array")
+      if (!(type %in% valid_types)) {
+        stop('That type of output is not defined.')
+      }
       if (type == "Array") {
         par(mfrow = c(1, 2))
         stepx <- 300 / x$testlength

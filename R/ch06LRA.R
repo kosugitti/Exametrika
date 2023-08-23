@@ -259,4 +259,5 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
     ItemFitIndices = FitIndices$item,
     TestFitIndices = FitIndices$test
   ), class = c("Exametrika", "LRA"))
+  return(ret)
 }
