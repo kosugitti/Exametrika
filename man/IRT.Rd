@@ -25,6 +25,7 @@ estimated in the logistic model. It is limited to values 2, 3, or 4.}
 \item{testlength}{Length of the test. The number of items included in the test.}
 \item{nobs}{Sample size. The number of rows in the dataset.}
 \item{params}{Matrix containing the estimated item parameters}
+\item{Q3mat}{Q3-matrix developed by Yen(1984)}
 \item{itemPSD}{Posterior standard deviation of the item parameters}
 \item{ability}{Estimated parameters of students ability}
 \item{ItemFitIndices}{Fit index for each item.See also \code{\link{ItemFit}}}
@@ -44,4 +45,7 @@ adjust the logistic curve.
 and \eqn{d_j} is the upper asymptote paramter.
 The model includes lower models, and among the 4PL models, the case where \eqn{d=1} is the 3PL model,
 and among the 3PL models, the case where \eqn{c=0} is the 2PL model.
+}
+\references{
+Yen, W. M. (1984) Applied Psychological Measurement, 8, 125-145.
 }

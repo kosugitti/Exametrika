@@ -151,11 +151,13 @@ PSD_item_params <- function(model, Lambda, quadrature, marginal_posttheta) {
 #' \item{testlength}{Length of the test. The number of items included in the test.}
 #' \item{nobs}{Sample size. The number of rows in the dataset.}
 #' \item{params}{Matrix containing the estimated item parameters}
+#' \item{Q3mat}{Q3-matrix developed by Yen(1984)}
 #' \item{itemPSD}{Posterior standard deviation of the item parameters}
 #' \item{ability}{Estimated parameters of students ability}
 #' \item{ItemFitIndices}{Fit index for each item.See also \code{\link{ItemFit}}}
 #' \item{TestFitIndices}{Overall fit index for the test.See also \code{\link{TestFit}}}
 #' }
+#' @references Yen, W. M. (1984) Applied Psychological Measurement, 8, 125-145.
 #' @export
 #'
 
@@ -324,6 +326,24 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   ell_A <- item_model_loglike
   FitIndices <- ItemFit(tmp$U, tmp$Z, ell_A, model)
 
+  ### Q3mat
+  pij <- matrix(nrow=nobs,ncol=testlength)
+  for(j in 1:testlength){
+    pij[,j] =
+      LogisticModel(a= paramset[j,1],
+                    b= paramset[j,2],
+                    c= paramset[j,3],
+                    d= paramset[j,4],
+                    theta = EAP)
+  }
+  eij = tmp$Z * (tmp$U - pij)
+  eij_mean <- colSums(eij) / colSums(tmp$Z)
+  eij_dev <- tmp$Z * (eij-eij_mean)
+  eij_var <- colSums(eij_dev^2) / colSums(tmp$Z)
+  eij_sd <- sqrt(eij_var)
+  eij_cov <- t(eij_dev) %*% eij_dev / JointSampleSize(tmp)
+  Q3mat <- eij_cov / (eij_sd %*% t(eij_sd))
+
 
   ## Formatting
   paramset <- as.data.frame(paramset)[1:model]
@@ -343,6 +363,7 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
     nobs = nobs,
     params = paramset,
     itemPSD = itemPSD,
+    Q3mat = Q3mat,
     ability = theta,
     ItemFitIndices = FitIndices$item,
     TestFitIndices = FitIndices$test
