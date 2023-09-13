@@ -134,7 +134,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333794 iter 2 LogLik -3938.35086449265 iter 3 LogLik -3931.82428278692 iter 4 LogLik -3928.6800415667 iter 5 LogLik -3926.99365983678 iter 6 LogLik -3926.04841496956 iter 7 LogLik -3925.50643848954 iter 8 LogLik -3925.19182682021 iter 9 LogLik -3925.00733976593 iter 10 LogLik -3924.89879405313 iter 11 LogLik -3924.83508650313 iter 12 LogLik -3924.79710161833 iter 13 LogLik -3924.77461894773 
+    ## iter 1 LogLik -3960.28101333628 iter 2 LogLik -3938.35086736882 iter 3 LogLik -3931.82436537639 iter 4 LogLik -3928.68004959547 iter 5 LogLik -3926.99367183067 iter 6 LogLik -3926.04854319623 iter 7 LogLik -3925.50662251913 iter 8 LogLik -3925.19173732338 iter 9 LogLik -3925.00745415202 iter 10 LogLik -3924.89911538964 iter 11 LogLik -3924.83509169792 iter 12 LogLik -3924.79717589739 iter 13 LogLik -3924.77466638581 
 
 ``` r
 result.IRT
@@ -163,15 +163,15 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
-    ## Item05       -232.135       -206.537      -247.403       51.197      81.732
+    ## Item04       -204.884       -192.072      -265.962       25.624     147.780
+    ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -179,15 +179,15 @@ result.IRT
     ## Item01       11      13 0.472 0.376 0.541 0.443 0.528 0.079 23.578 -22.805
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
-    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
-    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.197 -17.186
+    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.624 -42.759
+    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
     ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -225,7 +225,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.883
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -234,12 +234,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526894 0.5805703
-    ## 2 Student002 -0.17398771 0.5473604
-    ## 3 Student003  0.01382271 0.5530501
-    ## 4 Student004  0.57628102 0.5749107
-    ## 5 Student005 -0.97449525 0.5915603
-    ## 6 Student006  0.85233094 0.5820547
+    ## 1 Student001 -0.75525807 0.5805688
+    ## 2 Student002 -0.17398783 0.5473608
+    ## 3 Student003  0.01382293 0.5530506
+    ## 4 Student004  0.57628031 0.5749116
+    ## 5 Student005 -0.97449576 0.5915603
+    ## 6 Student006  0.85233232 0.5820540
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -611,7 +611,7 @@ Biclustering(J35S515, nfld = 5, ncls = 6, method = "B")
 ```
 
     ## [1] "Biclustering is chosen."
-    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687047 iter 4  logLik -7151.01420978008 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434517 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997202 iter 31  logLik -6885.67287118413 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
+    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687048 iter 4  logLik -7151.01420978007 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434517 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997203 iter 31  logLik -6885.67287118413 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
 
     ## Bicluster Matrix Profile
     ##        Class1 Class2 Class3 Class4 Class5 Class6
@@ -691,5 +691,4 @@ plot(result.Ranklusteing, type = "LRD")
 
 Shojima, Kojiro (2022) Test Data Engineering: Latent Rank Analysis,
 Biclustering, and Bayesian Network (Behaviormetrics: Quantitative
-Approaches to Human Behavior,
-13),Springer,(<https://amzn.to/42eNArd>)\[<https://amzn.to/42eNArd>\]
+Approaches to Human Behavior, 13),Springer, <https://amzn.to/42eNArd>
