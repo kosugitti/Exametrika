@@ -8,6 +8,7 @@ library(readxl)
 pl2Test <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Test")
 pl2Item <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Item")
 pl2Student <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Student")
+pl2Q3mat <- read_excel("../../develop/Chapter04IRT2pl.xlsx", sheet = "Q3")
 
 dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
   mutate(Student = as.factor(Student))
@@ -107,6 +108,16 @@ test_that("2PL model Students", {
     unlist() %>%
     as.numeric()
   expect_equal(result, expect, tolerance = 1e-3)
+})
+
+test_that("2PL Q3mat", {
+  expect <- pl2Q3mat[,-1] %>%
+    unlist() %>%
+    as.numeric()
+  result <- result2$Q3mat %>%
+    unlist() %>%
+    as.numeric()
+  expect_equal(result, expect, tolerance = 1e-2)
 })
 
 

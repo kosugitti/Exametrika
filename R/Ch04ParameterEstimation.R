@@ -339,9 +339,9 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   eij = tmp$Z * (tmp$U - pij)
   eij_mean <- colSums(eij) / colSums(tmp$Z)
   eij_dev <- tmp$Z * (eij-eij_mean)
-  eij_var <- colSums(eij_dev^2) / colSums(tmp$Z)
+  eij_var <- colSums(eij_dev^2) / (colSums(tmp$Z)-1)
   eij_sd <- sqrt(eij_var)
-  eij_cov <- t(eij_dev) %*% eij_dev / JointSampleSize(tmp)
+  eij_cov <- t(eij_dev) %*% eij_dev / (JointSampleSize(tmp)-1)
   Q3mat <- eij_cov / (eij_sd %*% t(eij_sd))
 
 
