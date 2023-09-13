@@ -2,7 +2,9 @@ Package: Exametrika
 Type: Package
 Title: Exametrika
 Version: 0.6.1
-Authors@R: person("Koji Kosugi",role=c("aut","cre"),email="kosugitti@gmail.com")
+Authors@R: person("Koji Kosugi",role=c("aut","cre"),
+                  email="kosugitti@gmail.com",
+                  comment = c(ORCID = "0000-0001-5816-0099"))
 Description: This package is for Test Data Engineering and 
     allows for various analyses such as 1PL, 2PL, 3PL, 4PL-IRT, 
     Latent Rank Analysis, Biclustering, and Bayesian Network.
