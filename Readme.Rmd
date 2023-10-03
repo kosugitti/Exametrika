@@ -160,8 +160,8 @@ plot(result.Ranklusteing, type = "LRD")
 
 To find the optimal number of classes and the optimal number of fields, the Infinite Relational Model is available.
 
-```{r}
-result.IRM <- IRM(J35S515,gamma_c=0,gamma_f=0,vaebose=TRUE)
+```{r eval=FALSE}
+result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
 ```
 
 ## Reference

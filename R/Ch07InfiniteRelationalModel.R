@@ -128,7 +128,7 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
     cls01 <- cls01[, sort_list2]
     colnames(cls01) <- paste("Class", 1:ncls)
     cls <- cls01 %*% (1:ncls)
-    return(list(Pcf = Pcf, cls01 = cls01, fld01 = fld01, cls, field))
+    return(list(Pcf = Pcf, cls01 = cls01, fld01 = fld01, cls = cls, field = field))
   }
 
   ### Initial value for parameter set and the model fit
@@ -267,7 +267,7 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
           Ncf <- Ccf + Fcf
         }
 
-        # クラス数，正答数などをアップデート
+        # Update Number of Correct/Incorrect response
         Nc <- colSums(cls01)
         Ccf[cls[target], ] <- Ccf[cls[target], ] + Cif[target, ]
         Fcf[cls[target], ] <- Fcf[cls[target], ] + Fif[target, ]
@@ -409,11 +409,8 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
   # Reorganizing small-sized classses -------------------------------
   zero_position <- which(rowSums(tmp$Z * tmp$U, na.rm = T) == 0)
   full_position <- which(rowSums(tmp$Z * tmp$U, na.rm = T) == testlength)
-
   delt <- 0
   delrep <- ncls
-  EM_iter <- 20
-  const <- 1e-100
 
   DelRepFLG <- TRUE
   while (DelRepFLG) {
@@ -494,7 +491,7 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
         EMrepFLG <- FALSE
         break
       }
-      if (EMt >= EM_iter) {
+      if (EMt >= EM_limit) {
         stop("The EM algorithm has reached its limit. It may not have converged.")
       }
     }

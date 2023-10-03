@@ -8,10 +8,11 @@ and respondent ranking. This analysis includes the following test theory
 models.
 
 - Classical Test Theory
-- Item response theory: 2PL, 3PL, 4PL moddel
+- Item response theory: 2PL, 3PL, 4PL model
 - Latent Class Analysis
 - Latent Rnak Analysis
 - Biclustering and Ranklustering
+- Infinite Relational Model for optimal number of classes and fields
 
 The estimation of the optimal number of ranks using the Chinese
 Restaurant Process algorithm has not yet been implemented. Additionally,
@@ -134,7 +135,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333412 iter 2 LogLik -3938.35095578362 iter 3 LogLik -3931.8245145703 iter 4 LogLik -3928.68009759538 iter 5 LogLik -3926.99360201761 iter 6 LogLik -3926.04837997798 iter 7 LogLik -3925.50640692011 iter 8 LogLik -3925.19163834587 iter 9 LogLik -3925.00738282845 iter 10 LogLik -3924.89904596928 iter 11 LogLik -3924.83510537779 iter 12 LogLik -3924.79721118988 iter 13 LogLik -3924.77463816327 
+    ## iter 1 LogLik -3960.28101333847 iter 2 LogLik -3938.35091567659 iter 3 LogLik -3931.82433938442 iter 4 LogLik -3928.68006548914 iter 5 LogLik -3926.99355594011 iter 6 LogLik -3926.04850352776 iter 7 LogLik -3925.50654129706 iter 8 LogLik -3925.19172748701 iter 9 LogLik -3925.0073516091 iter 10 LogLik -3924.89908912117 iter 11 LogLik -3924.83503744946 iter 12 LogLik -3924.79710491519 iter 13 LogLik -3924.77461264446 
 
 ``` r
 result.IRT
@@ -186,8 +187,8 @@ result.IRT
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -202,8 +203,8 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.713
-    ## Item12 -20.201
+    ## Item11 -19.714
+    ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -225,7 +226,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.882
+    ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
 
@@ -234,12 +235,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526673 0.5805699
-    ## 2 Student002 -0.17398735 0.5473604
-    ## 3 Student003  0.01382325 0.5530502
-    ## 4 Student004  0.57628279 0.5749113
-    ## 5 Student005 -0.97449484 0.5915603
-    ## 6 Student006  0.85232889 0.5820542
+    ## 1 Student001 -0.75526793 0.5805703
+    ## 2 Student002 -0.17398722 0.5473604
+    ## 3 Student003  0.01382331 0.5530500
+    ## 4 Student004  0.57628139 0.5749109
+    ## 5 Student005 -0.97449494 0.5915605
+    ## 6 Student006  0.85233014 0.5820542
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -611,7 +612,7 @@ Biclustering(J35S515, nfld = 5, ncls = 6, method = "B")
 ```
 
     ## [1] "Biclustering is chosen."
-    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687048 iter 4  logLik -7151.01420978007 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434517 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997203 iter 31  logLik -6885.67287118413 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
+    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687047 iter 4  logLik -7151.01420978008 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434517 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997202 iter 31  logLik -6885.67287118413 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
 
     ## Bicluster Matrix Profile
     ##        Class1 Class2 Class3 Class4 Class5 Class6
@@ -686,6 +687,13 @@ plot(result.Ranklusteing, type = "LRD")
 ```
 
 ![](Readme_files/figure-gfm/unnamed-chunk-12-4.png)<!-- -->
+
+To find the optimal number of classes and the optimal number of fields,
+the Infinite Relational Model is available.
+
+``` r
+result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
+```
 
 ## Reference
 
