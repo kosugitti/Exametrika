@@ -11,6 +11,7 @@ The Exametrika package is designed for test data engineering and corresponds to 
 + Latent Class Analysis
 + Latent Rnak Analysis
 + Biclustering and Ranklustering
++ Infinite Relational Model for optimal number of classes and fields
 
 The estimation of the optimal number of ranks using the Chinese Restaurant Process algorithm has not yet been implemented. Additionally, the following models are also planned to be implemented, but are not yet available.
 
@@ -155,6 +156,12 @@ plot(result.Ranklusteing, type = "Array")
 plot(result.Ranklusteing, type = "FRP", nc = 2, nr = 3)
 plot(result.Ranklusteing, type = "RMP", students = 1:9, nc = 3, nr = 3)
 plot(result.Ranklusteing, type = "LRD")
+```
+
+To find the optimal number of classes and the optimal number of fields, the Infinite Relational Model is available.
+
+```{r}
+result.IRM <- IRM(J35S515,gamma_c=0,gamma_f=0,vaebose=TRUE)
 ```
 
 ## Reference

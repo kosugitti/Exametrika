@@ -1,7 +1,7 @@
 Package: Exametrika
 Type: Package
 Title: Exametrika
-Version: 0.6.1
+Version: 0.7.0
 Authors@R: person("Koji Kosugi",role=c("aut","cre"),
                   email="kosugitti@gmail.com",
                   comment = c(ORCID = "0000-0001-5816-0099"))
@@ -16,4 +16,5 @@ RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Depends: mvtnorm
+Depends: R (>= 3.5.0),
+          mvtnorm
