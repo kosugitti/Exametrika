@@ -5,6 +5,7 @@
 #' @param digits printed digits
 #' @param ... othre options
 #' @importFrom utils tail
+#' @importFrom igraph plot.igraph
 #' @export
 
 print.Exametrika <- function(x, digits = 3, ...) {
@@ -229,6 +230,34 @@ print.Exametrika <- function(x, digits = 3, ...) {
       y <- t(as.data.frame(y))
       colnames(y) <- "value"
       print(round(y, digits))
+    },
+    BNM ={
+      cat("Adjacency Matrix\n")
+      print(x$adj)
+      if(x$acyclicFLG==1){
+        print("Your graph is an acyclic graph.")
+      }
+      if(x$connectedFLG ==1 ){
+        print("Your graph is connected DAG.")
+      }
+
+      plot.igraph(x$g)
+
+      cat("\nParameter Learning\n")
+      p_table <- x$param
+      rownames(p_table) <- x$ItemLabel
+      colnames(p_table) <- paste("PIRP",1:ncol(p_table))
+      print(p_table, na.print="",digits=digits)
+
+      cat("\nConditional Correct Response Rate\n")
+      print(x$CCRR_table)
+
+      cat("\nModel Fit Indices\n")
+      y <- unclass(x$TestFitIndices)
+      y <- t(as.data.frame(y))
+      colnames(y) <- "value"
+      print(round(y, digits))
+
     },
     ModelFit = {
       tmp <- data.frame(unclass(x))

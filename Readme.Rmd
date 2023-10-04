@@ -12,10 +12,11 @@ The Exametrika package is designed for test data engineering and corresponds to 
 + Latent Rnak Analysis
 + Biclustering and Ranklustering
 + Infinite Relational Model for optimal number of classes and fields
++ Bayesian Network Analysis
 
 The estimation of the optimal number of ranks using the Chinese Restaurant Process algorithm has not yet been implemented. Additionally, the following models are also planned to be implemented, but are not yet available.
 
-+ Bayesian Network Analysis
++ Structure Learning for Bayesian Network Analysis
 + Local Dependence Latent Rank Analysis
 + Local Dependence Biclustering
 + Biclister Network Model
@@ -163,10 +164,39 @@ To find the optimal number of classes and the optimal number of fields, the Infi
 ```{r}
 result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
 plot(result.IRM, type = "Array")
-plot(result.IRM, type = "FRP", nc = 3)
+plot(result.IRM, type = "FRP", nc = 2)
 plot(result.IRM, type = "TRP")
 plot(result.IRM, type = "LCD")
 ```
+
+## Bayesian Network Model
+The Bayesian network model is a model that represents the conditional probabilities between items in a network format based on the pass rates of the items. By providing a Directed Acyclic Graph (DAG) between items externally, it calculates the conditional probabilities based on the specified graph. The igraph package is used for the analysis and representation of the network.
+
+For example, by using igraph package, you can create DAG object as follows:
+
+```{r igraph}
+library(igraph)
+DAG <-
+  matrix(
+    c(
+      "Item01", "Item02",
+      "Item02", "Item03",
+      "Item02", "Item04",
+      "Item03", "Item05",
+      "Item04", "Item05"
+    ),
+    ncol = 2, byrow = T
+  )
+g <- igraph::graph_from_data_frame(DAG)
+```
+
+It is also possible to provide the graph in a CSV file. The labels attached to the nodes of the graph must be included in the item labels of the dataset.
+
+```{r BNM}
+result.BNM <- BNM(J5S10, DAG = g)
+result.BNM
+```
+
 
 ## Reference
 

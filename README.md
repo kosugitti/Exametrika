@@ -13,13 +13,14 @@ models.
 - Latent Rnak Analysis
 - Biclustering and Ranklustering
 - Infinite Relational Model for optimal number of classes and fields
+- Bayesian Network Analysis
 
 The estimation of the optimal number of ranks using the Chinese
 Restaurant Process algorithm has not yet been implemented. Additionally,
 the following models are also planned to be implemented, but are not yet
 available.
 
-- Bayesian Network Analysis
+- Structure Learning for Bayesian Network Analysis
 - Local Dependence Latent Rank Analysis
 - Local Dependence Biclustering
 - Biclister Network Model
@@ -94,6 +95,19 @@ library(Exametrika)
 
     ## Loading required package: mvtnorm
 
+    ## Loading required package: igraph
+
+    ## 
+    ## Attaching package: 'igraph'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     decompose, spectrum
+
+    ## The following object is masked from 'package:base':
+    ## 
+    ##     union
+
 ``` r
 CTT(J15S500)
 ```
@@ -135,7 +149,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101331187 iter 2 LogLik -3938.350865089 iter 3 LogLik -3931.82417454001 iter 4 LogLik -3928.67992005286 iter 5 LogLik -3926.99337688974 iter 6 LogLik -3926.04823688458 iter 7 LogLik -3925.5064056333 iter 8 LogLik -3925.19146964552 iter 9 LogLik -3925.0075575818 iter 10 LogLik -3924.89924274665 iter 11 LogLik -3924.83523989509 iter 12 LogLik -3924.79751178974 iter 13 LogLik -3924.77495191061 
+    ## iter 1 LogLik -3960.28101333472 iter 2 LogLik -3938.35083545226 iter 3 LogLik -3931.82412662175 iter 4 LogLik -3928.67952666072 iter 5 LogLik -3926.99335361872 iter 6 LogLik -3926.04824522672 iter 7 LogLik -3925.50635639298 iter 8 LogLik -3925.19191064308 iter 9 LogLik -3925.00749412998 iter 10 LogLik -3924.89898890608 iter 11 LogLik -3924.83503922381 iter 12 LogLik -3924.79710730773 iter 13 LogLik -3924.77480338094 
 
 ``` r
 result.IRT
@@ -167,11 +181,11 @@ result.IRT
     ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
-    ## Item11       -248.409       -224.085      -299.265       48.648     150.360
+    ## Item11       -248.409       -224.085      -299.265       48.647     150.360
     ## Item12       -238.877       -214.797      -293.598       48.161     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
@@ -183,11 +197,11 @@ result.IRT
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.648 -19.735
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
     ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
@@ -214,7 +228,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.529
+    ## model_Chi_sq     641.528
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -224,8 +238,8 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.529
-    ## CAIC            -384.211
+    ## AIC              311.528
+    ## CAIC            -384.212
     ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
@@ -235,12 +249,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75525823 0.5805675
-    ## 2 Student002 -0.17398809 0.5473610
-    ## 3 Student003  0.01382292 0.5530510
-    ## 4 Student004  0.57628240 0.5749126
-    ## 5 Student005 -0.97449649 0.5915605
-    ## 6 Student006  0.85232849 0.5820543
+    ## 1 Student001 -0.75526884 0.5805699
+    ## 2 Student002 -0.17398815 0.5473605
+    ## 3 Student003  0.01382252 0.5530503
+    ## 4 Student004  0.57628021 0.5749105
+    ## 5 Student005 -0.97449604 0.5915605
+    ## 6 Student006  0.85232982 0.5820551
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -724,22 +738,113 @@ plot(result.IRM, type = "Array")
 ![](Readme_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
-plot(result.IRM, type = "FRP", nc = 3, nr = 2)
+plot(result.IRM, type = "FRP", nc = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-3.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-3.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-4.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-5.png)<!-- -->
 
 ``` r
 plot(result.IRM, type = "TRP")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-13-4.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-13-6.png)<!-- -->
 
 ``` r
 plot(result.IRM, type = "LCD")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-13-5.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-13-7.png)<!-- -->
+
+## Bayesian Network Model
+
+The Bayesian network model is a model that represents the conditional
+probabilities between items in a network format based on the pass rates
+of the items. By providing a Directed Acyclic Graph (DAG) between items
+externally, it calculates the conditional probabilities based on the
+specified graph. The igraph package is used for the analysis and
+representation of the network.
+
+For example, by using igraph package, you can create DAG object as
+follows:
+
+``` r
+library(igraph)
+DAG <-
+  matrix(
+    c(
+      "Item01", "Item02",
+      "Item02", "Item03",
+      "Item02", "Item04",
+      "Item03", "Item05",
+      "Item04", "Item05"
+    ),
+    ncol = 2, byrow = T
+  )
+g <- igraph::graph_from_data_frame(DAG)
+```
+
+It is also possible to provide the graph in a CSV file. The labels
+attached to the nodes of the graph must be included in the item labels
+of the dataset.
+
+``` r
+result.BNM <- BNM(J5S10, DAG = g)
+result.BNM
+```
+
+    ## Adjacency Matrix
+    ##        Item01 Item02 Item03 Item04 Item05
+    ## Item01      0      1      0      0      0
+    ## Item02      0      0      1      1      0
+    ## Item03      0      0      0      0      1
+    ## Item04      0      0      0      0      1
+    ## Item05      0      0      0      0      0
+    ## [1] "Your graph is an acyclic graph."
+    ## [1] "Your graph is connected DAG."
+
+![](Readme_files/figure-gfm/BNM-1.png)<!-- -->
+
+    ## 
+    ## Parameter Learning
+    ##        PIRP 1 PIRP 2 PIRP 3 PIRP 4
+    ## Item01  0.600                     
+    ## Item02  0.250    0.5              
+    ## Item03  0.833    1.0              
+    ## Item04  0.167    0.5              
+    ## Item05  0.000    NaN  0.333  0.667
+    ## 
+    ## Conditional Correct Response Rate
+    ##    Child Item N of Parents   Parent Items       PIRP Conditional CRR
+    ## 1      Item01            0     No Parents No Pattern       0.6000000
+    ## 2      Item02            1         Item01          0       0.2500000
+    ## 3      Item02            1         Item01          1       0.5000000
+    ## 4      Item03            1         Item02          0       0.8333333
+    ## 5      Item03            1         Item02          1       1.0000000
+    ## 6      Item04            1         Item02          0       0.1666667
+    ## 7      Item04            1         Item02          1       0.5000000
+    ## 8      Item05            2 Item03, Item04         00       0.0000000
+    ## 9      Item05            2 Item03, Item04         01        NaN(0/0)
+    ## 10     Item05            2 Item03, Item04         10       0.3333333
+    ## 11     Item05            2 Item03, Item04         11       0.6666667
+    ## 
+    ## Model Fit Indices
+    ##                  value
+    ## model_log_like -26.411
+    ## bench_log_like  -8.935
+    ## null_log_like  -28.882
+    ## model_Chi_sq    34.953
+    ## null_Chi_sq     39.894
+    ## model_df        20.000
+    ## null_df         25.000
+    ## NFI              0.124
+    ## RFI              0.000
+    ## IFI              0.248
+    ## TLI              0.000
+    ## CFI              0.000
+    ## RMSEA            0.274
+    ## AIC             -5.047
+    ## CAIC           -13.005
+    ## BIC            -11.099
 
 ## Reference
 
