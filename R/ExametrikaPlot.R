@@ -77,10 +77,9 @@ plot.Exametrika <- function(x,
   }
 
   graph_common <- function() {
-
-    valid_types <- c('IRP', 'TRP', 'LCD', 'LRD', 'CMP', 'RMP', 'FRP')
+    valid_types <- c("IRP", "TRP", "LCD", "LRD", "CMP", "RMP", "FRP")
     if (!(type %in% valid_types)) {
-      stop('That type of output is not defined.')
+      stop("That type of output is not defined.")
     }
 
     if (type == "IRP") {
@@ -101,7 +100,7 @@ plot.Exametrika <- function(x,
       # Test Reference Profile ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      if (value == "LCA" | value == "LRA") {
+      if (value == "LCA" | value == "LRA" | value == "IRM") {
         target <- x$LCD
       } else if (value == "Biclustering") {
         target <- x$LRD
@@ -130,7 +129,7 @@ plot.Exametrika <- function(x,
       # Latent Class Distribution ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      if (value == "LCA" | value == "LRA") {
+      if (value == "LCA" | value == "LRA"| value == "IRM") {
         target <- x$LCD
       } else if (value == "Biclustering") {
         target <- x$LRD
@@ -185,14 +184,69 @@ plot.Exametrika <- function(x,
     }
   }
 
+  array_plot <- function() {
+    par(mfrow = c(1, 2))
+    stepx <- 300 / x$testlength
+    stepy <- 600 / x$nobs
+    ## Original Data
+    plot(0, 0,
+      type = "n", xlim = c(0, 300), ylim = c(0, 600),
+      xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+      frame.plot = TRUE,
+      main = "Original Data"
+    )
+
+    for (i in 1:x$nobs) {
+      for (j in 1:x$testlength) {
+        x1 <- (j - 1) * stepx
+        y1 <- (i - 1) * stepy
+        x2 <- j * stepx
+        y2 <- i * stepy
+        if (x$U[i, j] == 1) {
+          rect(x1, y1, x2, y2, col = "black")
+        }
+      }
+    }
+
+    ## Clusterd Plot
+    plot(0, 0,
+      type = "n", xlim = c(0, 300), ylim = c(0, 600),
+      xlab = "", ylab = "", xaxt = "n", yaxt = "n",
+      frame.plot = TRUE,
+      main = "Clusterd Plot"
+    )
+    sorted <- x$U[, order(x$FieldEstimated, decreasing = FALSE)]
+    sorted <- sorted[order(x$ClassEstimated, decreasing = TRUE), ]
+    for (i in 1:nobs) {
+      for (j in 1:testlength) {
+        x1 <- (j - 1) * stepx
+        y1 <- (i - 1) * stepy
+        x2 <- j * stepx
+        y2 <- i * stepy
+        if (sorted[i, j] == 1) {
+          rect(x1, y1, x2, y2, col = "black")
+        }
+      }
+    }
+
+    vl <- cumsum(table(sort(x$FieldEstimated)))
+    for (i in 1:(x$Nfield - 1)) {
+      lines(x = c(vl[i] * stepx, vl[i] * stepx), y = c(0, 600), col = "red")
+    }
+    hl <- nobs - cumsum(table(sort(x$ClassEstimated)))
+    for (j in 1:(x$Nclass - 1)) {
+      lines(x = c(0, 300), y = c(hl[j] * stepy, hl[j] * stepy), col = "red")
+    }
+  }
+
 
   # Switching function (main) ----------------------------------------
 
   switch(value,
     IRT = {
-      valid_types <- c('ICC', 'IIC', 'TIC')
+      valid_types <- c("ICC", "IIC", "TIC")
       if (!(type %in% valid_types)) {
-        stop('That type of output is not defined.')
+        stop("That type of output is not defined.")
       }
       if ((type %in% c("IIC", "TIC") && any(plotItemID == 0)) ||
         (type == "ICC" && all(plotItemID == 0))) {
@@ -251,63 +305,23 @@ plot.Exametrika <- function(x,
       graph_common()
     },
     Biclustering = {
-      valid_types <- c('IRP', 'TRP', 'LCD', 'LRD', 'CMP', 'RMP', 'FRP',"Array")
+      valid_types <- c("IRP", "TRP", "LCD", "LRD", "CMP", "RMP", "FRP", "Array")
       if (!(type %in% valid_types)) {
-        stop('That type of output is not defined.')
+        stop("That type of output is not defined.")
       }
       if (type == "Array") {
-        par(mfrow = c(1, 2))
-        stepx <- 300 / x$testlength
-        stepy <- 600 / x$nobs
-        ## Original Data
-        plot(0, 0,
-          type = "n", xlim = c(0, 300), ylim = c(0, 600),
-          xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-          frame.plot = TRUE,
-          main = "Original Data"
-        )
-
-        for (i in 1:x$nobs) {
-          for (j in 1:x$testlength) {
-            x1 <- (j - 1) * stepx
-            y1 <- (i - 1) * stepy
-            x2 <- j * stepx
-            y2 <- i * stepy
-            if (x$U[i, j] == 1) {
-              rect(x1, y1, x2, y2, col = "black")
-            }
-          }
-        }
-
-        ## Clusterd Plot
-        plot(0, 0,
-          type = "n", xlim = c(0, 300), ylim = c(0, 600),
-          xlab = "", ylab = "", xaxt = "n", yaxt = "n",
-          frame.plot = TRUE,
-          main = "Clusterd Plot"
-        )
-        sorted <- x$U[, order(x$FieldEstimated, decreasing = FALSE)]
-        sorted <- sorted[order(x$ClassEstimated, decreasing = TRUE), ]
-        for (i in 1:nobs) {
-          for (j in 1:testlength) {
-            x1 <- (j - 1) * stepx
-            y1 <- (i - 1) * stepy
-            x2 <- j * stepx
-            y2 <- i * stepy
-            if (sorted[i, j] == 1) {
-              rect(x1, y1, x2, y2, col = "black")
-            }
-          }
-        }
-
-        vl <- cumsum(table(sort(x$FieldEstimated)))
-        for (i in 1:(x$Nfield - 1)) {
-          lines(x = c(vl[i] * stepx, vl[i] * stepx), y = c(0, 600), col = "red")
-        }
-        hl <- nobs - cumsum(table(sort(x$ClassEstimated)))
-        for (j in 1:(x$Nclass - 1)) {
-          lines(x = c(0, 300), y = c(hl[j] * stepy, hl[j] * stepy), col = "red")
-        }
+        array_plot()
+      } else {
+        graph_common()
+      }
+    },
+    IRM = {
+      valid_types <- c("TRP", "LCD", "FRP", "Array")
+      if (!(type %in% valid_types)) {
+        stop("That type of output is not defined.")
+      }
+      if (type == "Array") {
+        array_plot()
       } else {
         graph_common()
       }

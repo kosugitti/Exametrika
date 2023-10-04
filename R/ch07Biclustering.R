@@ -69,33 +69,33 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   }
 
   # set conf_mat for confirmatory clustering
-  if(!is.null(conf)){
+  if (!is.null(conf)) {
     print("Confirmatory Clustering is chosen.")
-    if(is.vector(conf)){
+    if (is.vector(conf)) {
       # check size
-      if(length(conf)!=NCOL(U)){
+      if (length(conf) != NCOL(U)) {
         stop("conf vector size does NOT match with data.")
       }
-      conf_mat <- matrix(0,nrow=NCOL(U),ncol=max(conf))
-      for(i in 1:NROW(conf_mat)){
-        conf_mat[i,conf[i]] <- 1
+      conf_mat <- matrix(0, nrow = NCOL(U), ncol = max(conf))
+      for (i in 1:NROW(conf_mat)) {
+        conf_mat[i, conf[i]] <- 1
       }
-    }else if(is.matrix(conf)|is.data.frame(conf)){
-      if(NROW(conf)!=NCOL(U)){
+    } else if (is.matrix(conf) | is.data.frame(conf)) {
+      if (NROW(conf) != NCOL(U)) {
         stop("conf matrix size does NOT match with data.")
       }
-      if(any(!conf %in% c(0, 1))) {
+      if (any(!conf %in% c(0, 1))) {
         stop("The conf matrix should only contain 0s and 1s.")
       }
-      if(any(rowSums(conf)>1)){
+      if (any(rowSums(conf) > 1)) {
         stop("The row sums of the conf matrix must be equal to 1.")
       }
-    }else{
+    } else {
       stop("conf matrix is not set properly.")
     }
     ###
     nfld <- NCOL(conf_mat)
-  }else{
+  } else {
     conf_mat <- NULL
   }
 
@@ -119,8 +119,8 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     fldmemb[i, fld[i]] <- 1
   }
 
-  if(!any(is.null(conf_mat))){
-    fldmemb = conf_mat
+  if (!any(is.null(conf_mat))) {
+    fldmemb <- conf_mat
   }
 
   PiFR <- matrix(NA, nrow = nfld, ncol = ncls)
@@ -177,7 +177,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     log_fldmemb <- log_lljf_adj - log(rowSums(exp(log_lljf_adj)))
     fldmemb <- exp(log_fldmemb)
 
-    if(!any(is.null(conf_mat))){
+    if (!any(is.null(conf_mat))) {
       fldmemb <- conf_mat
     }
     cfr <- t(fldmemb) %*% t(tmp$U) %*% smoothed_memb
@@ -258,12 +258,12 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   }
   FRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
   TRPlag <- TRP[2:ncls]
-  TRPmic <- sum(TRPlag[1:(ncls-1)] - TRP[1:(ncls - 1)] < 0, na.rm = TRUE)
+  TRPmic <- sum(TRPlag[1:(ncls - 1)] - TRP[1:(ncls - 1)] < 0, na.rm = TRUE)
   FRPmic <- sum(abs(C))
   SOACflg <- WOACflg <- FALSE
-  if(TRPmic == 0){
+  if (TRPmic == 0) {
     WOACflg <- TRUE
-    if(FRPmic == 0){
+    if (FRPmic == 0) {
       SOACflg <- TRUE
     }
   }

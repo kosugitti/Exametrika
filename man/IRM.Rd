@@ -15,7 +15,8 @@ IRM(
   stable_limit = 5,
   minSize = 20,
   EM_limit = 20,
-  verbose = FALSE
+  seed = 123,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -50,7 +51,9 @@ under limit of size is not used for either all correct or all incorrect class.}
 This process using EM algorithm,\code{EM_limit} is the maximum number of iteration with
 default of 20.}
 
-\item{verbose}{verbose output Flag. default is FALSE.}
+\item{seed}{seed value for random numbers.}
+
+\item{verbose}{verbose output Flag. default is TRUE}
 }
 \value{
 \describe{

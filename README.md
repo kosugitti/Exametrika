@@ -135,7 +135,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333847 iter 2 LogLik -3938.35091567659 iter 3 LogLik -3931.82433938442 iter 4 LogLik -3928.68006548914 iter 5 LogLik -3926.99355594011 iter 6 LogLik -3926.04850352776 iter 7 LogLik -3925.50654129706 iter 8 LogLik -3925.19172748701 iter 9 LogLik -3925.0073516091 iter 10 LogLik -3924.89908912117 iter 11 LogLik -3924.83503744946 iter 12 LogLik -3924.79710491519 iter 13 LogLik -3924.77461264446 
+    ## iter 1 LogLik -3960.28101331187 iter 2 LogLik -3938.350865089 iter 3 LogLik -3931.82417454001 iter 4 LogLik -3928.67992005286 iter 5 LogLik -3926.99337688974 iter 6 LogLik -3926.04823688458 iter 7 LogLik -3925.5064056333 iter 8 LogLik -3925.19146964552 iter 9 LogLik -3925.0075575818 iter 10 LogLik -3924.89924274665 iter 11 LogLik -3924.83523989509 iter 12 LogLik -3924.79751178974 iter 13 LogLik -3924.77495191061 
 
 ``` r
 result.IRT
@@ -167,12 +167,12 @@ result.IRT
     ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
-    ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
+    ## Item11       -248.409       -224.085      -299.265       48.648     150.360
+    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -183,12 +183,12 @@ result.IRT
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.648 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -203,7 +203,7 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.714
+    ## Item11 -19.713
     ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
@@ -214,7 +214,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.528
+    ## model_Chi_sq     641.529
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -224,9 +224,9 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.528
-    ## CAIC            -384.212
-    ## BIC             -383.883
+    ## AIC              311.529
+    ## CAIC            -384.211
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -235,12 +235,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526793 0.5805703
-    ## 2 Student002 -0.17398722 0.5473604
-    ## 3 Student003  0.01382331 0.5530500
-    ## 4 Student004  0.57628139 0.5749109
-    ## 5 Student005 -0.97449494 0.5915605
-    ## 6 Student006  0.85233014 0.5820542
+    ## 1 Student001 -0.75525823 0.5805675
+    ## 2 Student002 -0.17398809 0.5473610
+    ## 3 Student003  0.01382292 0.5530510
+    ## 4 Student004  0.57628240 0.5749126
+    ## 5 Student005 -0.97449649 0.5915605
+    ## 6 Student006  0.85232849 0.5820543
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -694,6 +694,52 @@ the Infinite Relational Model is available.
 ``` r
 result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
 ```
+
+    ## [1] "iter 1 Exact match count of field elements. 0 nfld 15 ncls 30"
+    ## [1] "iter 2 Exact match count of field elements. 0 nfld 12 ncls 27"
+    ## [1] "iter 3 Exact match count of field elements. 1 nfld 12 ncls 24"
+    ## [1] "iter 4 Exact match count of field elements. 2 nfld 12 ncls 23"
+    ## [1] "iter 5 Exact match count of field elements. 3 nfld 12 ncls 23"
+    ## [1] "iter 6 Exact match count of field elements. 0 nfld 12 ncls 23"
+    ## [1] "iter 7 Exact match count of field elements. 1 nfld 12 ncls 23"
+    ## [1] "iter 8 Exact match count of field elements. 2 nfld 12 ncls 23"
+    ## [1] "iter 9 Exact match count of field elements. 3 nfld 12 ncls 21"
+    ## [1] "iter 10 Exact match count of field elements. 4 nfld 12 ncls 21"
+    ## [1] "iter 11 Exact match count of field elements. 5 nfld 12 ncls 21"
+    ## [1] "The minimum class member count is under the setting value."
+    ## [1] "bic -99592.45876564 nclass 21"
+    ## [1] "The minimum class member count is under the setting value."
+    ## [1] "bic -99980.427297907 nclass 20"
+    ## [1] "The minimum class member count is under the setting value."
+    ## [1] "bic -99959.6519185989 nclass 19"
+    ## [1] "The minimum class member count is under the setting value."
+    ## [1] "bic -99988.3449139464 nclass 18"
+    ## [1] "The minimum class member count is under the setting value."
+    ## [1] "bic -100001.30198745 nclass 17"
+
+``` r
+plot(result.IRM, type = "Array")
+```
+
+![](Readme_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+plot(result.IRM, type = "FRP", nc = 3, nr = 2)
+```
+
+![](Readme_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-3.png)<!-- -->
+
+``` r
+plot(result.IRM, type = "TRP")
+```
+
+![](Readme_files/figure-gfm/unnamed-chunk-13-4.png)<!-- -->
+
+``` r
+plot(result.IRM, type = "LCD")
+```
+
+![](Readme_files/figure-gfm/unnamed-chunk-13-5.png)<!-- -->
 
 ## Reference
 

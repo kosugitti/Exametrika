@@ -327,21 +327,23 @@ IRT <- function(U, model = 2, na = NULL, Z = NULL, w = NULL) {
   FitIndices <- ItemFit(tmp$U, tmp$Z, ell_A, model)
 
   ### Q3mat
-  pij <- matrix(nrow=nobs,ncol=testlength)
-  for(j in 1:testlength){
-    pij[,j] =
-      LogisticModel(a= paramset[j,1],
-                    b= paramset[j,2],
-                    c= paramset[j,3],
-                    d= paramset[j,4],
-                    theta = EAP)
+  pij <- matrix(nrow = nobs, ncol = testlength)
+  for (j in 1:testlength) {
+    pij[, j] <-
+      LogisticModel(
+        a = paramset[j, 1],
+        b = paramset[j, 2],
+        c = paramset[j, 3],
+        d = paramset[j, 4],
+        theta = EAP
+      )
   }
-  eij = tmp$Z * (tmp$U - pij)
+  eij <- tmp$Z * (tmp$U - pij)
   eij_mean <- colSums(eij) / colSums(tmp$Z)
-  eij_dev <- tmp$Z * (eij-eij_mean)
-  eij_var <- colSums(eij_dev^2) / (colSums(tmp$Z)-1)
+  eij_dev <- tmp$Z * (eij - eij_mean)
+  eij_var <- colSums(eij_dev^2) / (colSums(tmp$Z) - 1)
   eij_sd <- sqrt(eij_var)
-  eij_cov <- t(eij_dev) %*% eij_dev / (JointSampleSize(tmp)-1)
+  eij_cov <- t(eij_dev) %*% eij_dev / (JointSampleSize(tmp) - 1)
   Q3mat <- eij_cov / (eij_sd %*% t(eij_sd))
 
 

@@ -203,6 +203,33 @@ print.Exametrika <- function(x, digits = 3, ...) {
       y <- cbind(crr, LFE, Fields)
       print(y)
     },
+    IRM = {
+      cat(paste("Bicluster Reference Matrix\n"))
+      print(x$FRP, digits = digits)
+
+      y <- rbind(x$TRP, x$LCD)
+      rownames(y) <- c(
+        "Test Reference Profile",
+        "Latent class Ditribution"
+      )
+      colnames(y) <- paste("class", 1:x$Nclass)
+      print(round(y, digits))
+
+      cat("Latent Field Distribution\n")
+      y <- matrix(x$LFD, byrow = T, nrow = 1)
+      rownames(y) <- "N of Items"
+      colnames(y) <- paste("Field", 1:x$Nfield)
+      print(round(y, digits))
+
+      cat("\nModel Fit Indices\n")
+      cat(paste("Number of Latent Class :", x$Nclass))
+      cat(paste("\nNumber of Latent Field:", x$Nfield))
+      cat(paste("\nNumber of EM cycle:", x$N_Cycle, "\n"))
+      y <- unclass(x$TestFitIndices)
+      y <- t(as.data.frame(y))
+      colnames(y) <- "value"
+      print(round(y, digits))
+    },
     ModelFit = {
       tmp <- data.frame(unclass(x))
       print(tmp)
@@ -214,6 +241,6 @@ print.Exametrika <- function(x, digits = 3, ...) {
     all = {
       class(x) <- "list"
       print(x, digits = digits)
-    }
+    },
   )
 }

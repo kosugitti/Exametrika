@@ -27,7 +27,8 @@
 #' @param EM_limit After IRM process, resizing the number of classes process will starts.
 #' This process using EM algorithm,\code{EM_limit} is the maximum number of iteration with
 #' default of 20.
-#' @param verbose verbose output Flag. default is FALSE.
+#' @param seed seed value for random numbers.
+#' @param verbose verbose output Flag. default is TRUE
 #' @return
 #' \describe{
 #'  \item{nobs}{Sample size. The number of rows in the dataset.}
@@ -54,7 +55,7 @@
 IRM <- function(U, Z = NULL, w = NULL, na = NULL,
                 gamma_c = 1, gamma_f = 1,
                 max_iter = 100, stable_limit = 5, minSize = 20, EM_limit = 20,
-                verbose = FALSE) {
+                seed = 123, verbose = TRUE) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -68,6 +69,7 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
   gamp <- 1
 
   # Initialize
+  set.seed(seed)
   limit_count <- 0
   iter <- 1
   pattern <- sort(unique(nrs(tmp)))
@@ -533,6 +535,12 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
   field <- ret$field
 
 
+  # Output ---------------------------------------------------------
+  pifr <- t(Pcf)
+  flddist <- colSums(fld01)
+  clsdist <- colSums(cls01)
+  TRP <- colSums(pifr * flddist)
+
   ret <- structure(list(
     U = U,
     testlength = testlength,
@@ -540,18 +548,13 @@ IRM <- function(U, Z = NULL, w = NULL, na = NULL,
     Nclass = ncls,
     Nfield = nfld,
     EM_Cycle = EMt,
-    # LFD = flddist,
-    # LRD = clsdist,
-    # FRP = FRP,
-    # FRPIndex = FRPIndex,
-    # TRP = TRP,
-    # CMD = colSums(clsmemb),
-    # FieldMembership = fldmemb,
-    # ClassMembership = clsmemb,
-    # FieldEstimated = fld,
-    # ClassEstimated = cls,
-    # Students = StudentRank,
+    LFD = flddist,
+    LCD = clsdist,
+    FRP = pifr,
+    TRP = TRP,
+    FieldEstimated = field,
+    ClassEstimated = cls,
     TestFitIndices = FitIndices
-  ), class = c("Exametrika", "InfiniteRelationalModel"))
+  ), class = c("Exametrika", "IRM"))
   return(ret)
 }

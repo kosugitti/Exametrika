@@ -111,7 +111,7 @@ test_that("2PL model Students", {
 })
 
 test_that("2PL Q3mat", {
-  expect <- pl2Q3mat[,-1] %>%
+  expect <- pl2Q3mat[, -1] %>%
     unlist() %>%
     as.numeric()
   result <- result2$Q3mat %>%
