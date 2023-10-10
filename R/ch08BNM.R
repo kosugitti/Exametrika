@@ -30,7 +30,7 @@
 #' }
 #' @export
 
-BNM <- function(U, Z = NULL, w = NULL, na = NULL,DAG = NULL,DAG_file=NULL){
+BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -42,21 +42,21 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL,DAG = NULL,DAG_file=NULL){
   nobs <- NROW(tmp$U)
 
   # graph check
-  if(is.null(DAG) && is.null(DAG_file)){
+  if (is.null(DAG) && is.null(DAG_file)) {
     stop("You need to provide either a graph object or a CSV file.")
   }
-  if(!is.null(DAG)){
+  if (!is.null(DAG)) {
     value <- class(DAG)
-    if(value != "igraph"){
+    if (value != "igraph") {
       stop("The provided graph is not compatible with the igraph class.")
-    }else{
+    } else {
       g <- DAG
     }
-  }else{
-    g <-graph_from_data_frame(read.csv(DAG_file, header = FALSE))
+  } else {
+    g <- graph_from_data_frame(read.csv(DAG_file, header = FALSE))
   }
   graph_label <- V(g)$name
-  if(!any(graph_label %in% tmp$ItemLabel)){
+  if (!any(graph_label %in% tmp$ItemLabel)) {
     stop("Some labels in the graph do not align with the item labels.")
   }
 
@@ -107,51 +107,51 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL,DAG = NULL,DAG_file=NULL){
   }
 
   item_pattern_max <- 2^max(npa)
-  PIRP_array <- array(0,dim=c(nobs,testlength,item_pattern_max))
-  for(s in 1:nobs){
-    for(j in 1:testlength){
-      PIRP_array[s,j,PIRP_mat[s,j]] <- 1
+  PIRP_array <- array(0, dim = c(nobs, testlength, item_pattern_max))
+  for (s in 1:nobs) {
+    for (j in 1:testlength) {
+      PIRP_array[s, j, PIRP_mat[s, j]] <- 1
     }
   }
 
-  n_PIRP_1 <- matrix(nrow=testlength,ncol=item_pattern_max)
-  n_PIRP_0 <- matrix(nrow=testlength,ncol=item_pattern_max)
-  for(i in 1:item_pattern_max){
-    n_PIRP_1[,i] <- colSums(tmp$U * PIRP_array[,,i])
-    n_PIRP_0[,i] <- colSums(tmp$Z * (1-tmp$U) * PIRP_array[,,i])
+  n_PIRP_1 <- matrix(nrow = testlength, ncol = item_pattern_max)
+  n_PIRP_0 <- matrix(nrow = testlength, ncol = item_pattern_max)
+  for (i in 1:item_pattern_max) {
+    n_PIRP_1[, i] <- colSums(tmp$U * PIRP_array[, , i])
+    n_PIRP_0[, i] <- colSums(tmp$Z * (1 - tmp$U) * PIRP_array[, , i])
   }
 
-  deno <- n_PIRP_0 + n_PIRP_1 + beta0 + beta1 -2
+  deno <- n_PIRP_0 + n_PIRP_1 + beta0 + beta1 - 2
   denom0 <- sign(n_PIRP_1 + n_PIRP_0)
 
-  param <- (n_PIRP_1 + beta1 - 1)/deno
+  param <- (n_PIRP_1 + beta1 - 1) / deno
   rownames(param) <- tmp$ItemLabel
-  colnames(param) <- paste("PIRP",1:ncol(param))
+  colnames(param) <- paste("PIRP", 1:ncol(param))
 
   # Model Fit
   const <- exp(-testlength)
-  model_loglike <- sum(n_PIRP_1 * log(param*denom0+const) + n_PIRP_0 * log(1-param*denom0+const),na.rm=T)
+  model_loglike <- sum(n_PIRP_1 * log(param * denom0 + const) + n_PIRP_0 * log(1 - param * denom0 + const), na.rm = T)
   model_nparam <- sum(denom0)
-  FitIndices <- TestFit(tmp$U,tmp$Z,model_loglike,model_nparam)
+  FitIndices <- TestFit(tmp$U, tmp$Z, model_loglike, model_nparam)
 
   ## for output
   item_ptn <- 2^colSums(adj)
-  for(j in 1:testlength){
-    for(i in 1:item_pattern_max){
-      if(i > item_ptn[j]){
-        param[j,i] <- NA
+  for (j in 1:testlength) {
+    for (i in 1:item_pattern_max) {
+      if (i > item_ptn[j]) {
+        param[j, i] <- NA
       }
     }
   }
 
-  CCRR_table <- as.data.frame(matrix(NA,nrow = sum(item_ptn),ncol=5))
-  colnames(CCRR_table) <- c("Child Item","N of Parents","Parent Items","PIRP","Conditional CRR")
-  CCRR_table[,1] <- rep(tmp$ItemLabel,item_ptn)
-  CCRR_table[,2] <- rep(colSums(adj),item_ptn)
+  CCRR_table <- as.data.frame(matrix(NA, nrow = sum(item_ptn), ncol = 5))
+  colnames(CCRR_table) <- c("Child Item", "N of Parents", "Parent Items", "PIRP", "Conditional CRR")
+  CCRR_table[, 1] <- rep(tmp$ItemLabel, item_ptn)
+  CCRR_table[, 2] <- rep(colSums(adj), item_ptn)
   parent_items <- lapply(pir, function(mat) {
     paste(colnames(mat), collapse = ", ")
   })
-  CCRR_table[,3] <- rep(unlist(parent_items),item_ptn)
+  CCRR_table[, 3] <- rep(unlist(parent_items), item_ptn)
   ### Inner function to make Bit Pattern
   BitRespPtn <- function(n) {
     if (n == 0) {
@@ -164,18 +164,20 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL,DAG = NULL,DAG_file=NULL){
     }
     return(ptn)
   }
-  CCRR_table[,4] <- unlist(sapply(colSums(adj),BitRespPtn))
+  CCRR_table[, 4] <- unlist(sapply(colSums(adj), BitRespPtn))
 
   vec <- numeric(sum(item_ptn))
   cnt <- 0
-  for(j in 1:testlength){
-    for(i in 1:item_ptn[j]){
-      cnt <- cnt +1
-      vec[cnt] <- sprintf("%.7f", as.numeric(param[j,i]))
-      if(is.nan(param[j,i])){vec[cnt] <- "NaN(0/0)"}
+  for (j in 1:testlength) {
+    for (i in 1:item_ptn[j]) {
+      cnt <- cnt + 1
+      vec[cnt] <- sprintf("%.7f", as.numeric(param[j, i]))
+      if (is.nan(param[j, i])) {
+        vec[cnt] <- "NaN(0/0)"
+      }
     }
   }
-  CCRR_table[,5] <- vec
+  CCRR_table[, 5] <- vec
 
   ret <- structure(list(
     U = U,

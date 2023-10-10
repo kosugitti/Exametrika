@@ -200,12 +200,23 @@ result.BNM
 
 The function searches for a DAG suitable for the data using a genetic algorithm. A best DAG is not necessarily identified. Instead of exploring all combinations of nodes and edges, only the space topologically sorted by the pass rate, namely the upper triangular matrix of the adjacency matrix, is explored. For interpretability, the number of parent nodes should be limited. A null model is not proposed. Utilize the content of the items and the experience of the questioner to aid in interpreting the results. For more details, please refer to Section 8.5 of the text(Shojima,2022).
 
+Please note that the GA may take a considerable amount of time, depending on the number of items and the size of the population.
+
 ```{r GAsimple}
-StrLearningGA(J5S10,population=20,Rs=0.5,Rm=0.002,maxParents = 2,
-              maxGeneration=100,crossover=2,elitism=2)
+StrLearningGA(J5S10,
+  population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
+  maxGeneration = 100, crossover = 2, elitism = 2
+)
 ```
 
+The method of Population-based incremental learning proposed by Fukuda (2014) can also be used for learning. This method has several variations for estimating the optimal adjacency matrix at the end, which can be specified as options. See help or text Section 8.5.2.
 
+```{r PBIL}
+StrLearningPBIL(J5S10,
+  population = 20, Rs = 0.5, Rm = 0.005, maxParents = 2,
+  alpha = 0.05, estimate = 4
+)
+```
 
 
 ## Reference

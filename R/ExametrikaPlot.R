@@ -130,7 +130,7 @@ plot.Exametrika <- function(x,
       # Latent Class Distribution ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      if (value == "LCA" | value == "LRA"| value == "IRM") {
+      if (value == "LCA" | value == "LRA" | value == "IRM") {
         target <- x$LCD
       } else if (value == "Biclustering") {
         target <- x$LRD

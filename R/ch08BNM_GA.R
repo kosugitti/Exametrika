@@ -42,7 +42,7 @@
 #'  \item{testlength}{Length of the test. The number of items included in the test.}
 #'  \item{crr}{correct response ratio}
 #'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
-#'  \item{adj}{Adjacency matrix}\
+#'  \item{adj}{Adjacency matrix}
 #'  \item{param}{Learned Parameters}
 #'  \item{CCRR_table}{Correct Response Rate tables}
 #' }
@@ -54,7 +54,7 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
                           maxParents = 2, maxGeneration = 100,
                           successiveLimit = 5, crossover = 0,
                           elitism = 0, filename = "NULL",
-                          verbose = TRUE){
+                          verbose = TRUE) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -66,7 +66,7 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
   nobs <- NROW(tmp$U)
 
   # crossover type
-  if( crossover <0 || crossover > 2){
+  if (crossover < 0 || crossover > 2) {
     stop("Check the crossover type. It should be set as 0, 1 or 2.")
   }
 
@@ -81,14 +81,14 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
 
 
   # Initialize ------------------------------------------------------
-  RsI  <- round(population * Rs)
+  RsI <- round(population * Rs)
 
   adj <- matrix(0, ncol = testlength, nrow = testlength)
   colnames(adj) <- rownames(adj) <- tmp$ItemLabel[sort_list]
   gene_list <- matrix(0, nrow = population, ncol = gene_length)
   for (j in 1:population) {
-    adj_gene <- rbinom(gene_length,1,0.5)
-    gene_list[j, ] <- maxParents_penalty(adj_gene,testlength,maxParents)
+    adj_gene <- rbinom(gene_length, 1, 0.5)
+    gene_list[j, ] <- maxParents_penalty(adj_gene, testlength, maxParents)
   }
   # Elitism check
   if (elitism < 0) {
@@ -107,7 +107,7 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
 
   while (GA_FLG) {
     generation <- generation + 1
-    if(verbose){
+    if (verbose) {
       print(paste("gen.", generation, "best BIC", bestfit, "limit count", limit_count))
     }
     fitness <- numeric(population)
@@ -122,7 +122,7 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
 
     # Termination check
     if (generation > maxGeneration) {
-      if(verbose){
+      if (verbose) {
         print("The maximum generation has been reached")
       }
       GA_FLG <- FALSE
@@ -134,7 +134,7 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
       bestfit <- sort(fitness)[1]
     }
     if (limit_count >= successiveLimit) {
-      if(verbose){
+      if (verbose) {
         print(paste("The BIC has not changed for", successiveLimit, " times."))
       }
       GA_FLG <- FALSE
@@ -187,12 +187,12 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
       child <- (1 - Bm) * child + Bm * (1 - child)
 
       # Omit Null Model
-      if(sum(child)==0){
-        pos <- sample(1:gene_length,1)
+      if (sum(child) == 0) {
+        pos <- sample(1:gene_length, 1)
         child[pos] <- 1
       }
 
-      child <- maxParents_penalty(child,testlength,maxParents)
+      child <- maxParents_penalty(child, testlength, maxParents)
 
       ## new_gene
       new_gene_list[i, ] <- child
@@ -205,15 +205,16 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
   adj[upper.tri(adj)] <- adj_best
   GA_g <- graph_from_adjacency_matrix(adj)
 
-    ret <- BNM(tmp$U, DAG = GA_g)
+  ret <- BNM(tmp$U, DAG = GA_g)
 
-  if(!is.null(filename)){
+  if (!is.null(filename)) {
     write.table(igraph::as_data_frame(GA_g),
-                sep=",",
-              row.names = FALSE,
-              col.names = FALSE,
-              quote = FALSE,
-              file=filename)
+      sep = ",",
+      row.names = FALSE,
+      col.names = FALSE,
+      quote = FALSE,
+      file = filename
+    )
   }
 
   return(ret)
@@ -222,3 +223,203 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
 
 
 
+#' @title Structure Learning fot BNM by PBIL
+#' @description
+#' Genearging a DAG from data using a Population-Based Incremental Learning
+#' @details
+#' This function performs structural learning using the Population-Based
+#' Incremental Learning model(PBIL) proposed by Fukuda et al.(2014) within
+#' the genetic algorithm framework. Instead of learning the adjacency matrix
+#' itself, the 'genes of genes' that generate the adjacency matrix are updated
+#' with each generation. For more details, please refer to Fukuda(2014) and Section
+#' 8.5.2 of the text(Shojima,2022).
+#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
+#' it is converted to the Exametrika class with the [dataFormat] function.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param w w is item weight vector
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @param seed seed for random.
+#' @param population Population size. The default is 20
+#' @param Rs Survival Rate. The default is 0.5
+#' @param Rm Mutation Rate. The default is 0.002
+#' @param maxParents Maximum number of edges emanating from a single node. The default is 2.
+#' @param maxGeneration Maximum number of generations.
+#' @param successiveLimit Termination conditions. If the optimal individual does not change
+#' for this number of generations, it is considered to have converged.
+#' @param elitism Number of elites that remain without crossover when transitioning to
+#' the next generation.
+#' @param alpha Learning rate. The default is 0.05
+#' @param estimate In PBIL for estimating the adjacency matrix, specify by number from the
+#' following four methods: 1. Optimal adjacency matrix, 2. Rounded average of individuals in
+#' the last generation, 3. Rounded average of survivors in the last generation, 4. Rounded
+#' ggenerational gene of the last generation. The default is 1.
+#' @param filename Specify the filename when saving the generated adjacency matrix in CSV format.
+#' The default is null, and no output is written to the file.
+#' @param verbose verbose output Flag. default is TRUE
+#' @importFrom igraph get.adjacency
+#' @importFrom igraph graph_from_adjacency_matrix
+#' @importFrom igraph as_data_frame
+#' @importFrom utils write.table
+#' @importFrom utils combn
+#' @return
+#' \describe{
+#'  \item{adj}{Optimal adjacency matrix}
+#'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
+#'  \item{nobs}{Sample size. The number of rows in the dataset.}
+#'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{crr}{correct response ratio}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
+#'  \item{adj}{Adjacency matrix}
+#'  \item{param}{Learned Parameters}
+#'  \item{CCRR_table}{Correct Response Rate tables}
+#' }
+#' @references Fukuda, S., Yamanaka, Y., & Yoshihiro, T. (2014). A Probability-based evolutionary
+#'  algorithm with mutations to learn Bayesian networks. International Journal of Artificial
+#'  Intelligence and Interactive Multimedia, 3, 7–13. DOI: 10.9781/ijimai.2014.311
+#' @export
+
+StrLearningPBIL <- function(U, Z = NULL, w = NULL, na = NULL,
+                            seed = 123,
+                            population = 20, Rs = 0.5, Rm = 0.002,
+                            maxParents = 2, maxGeneration = 100,
+                            successiveLimit = 5, elitism = 0,
+                            alpha = 0.05, estimate = 1,
+                            filename = "NULL",
+                            verbose = TRUE) {
+  # data format
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
+  U <- tmp$U * tmp$Z
+  testlength <- NCOL(tmp$U)
+  nobs <- NROW(tmp$U)
+
+  # estimate type
+  if (estimate < 1 || estimate > 4) {
+    stop("Check the estimate type. It should be set between 1 to 4.")
+  }
+
+  RsI <- round(population * Rs)
+  # Elitism check
+  if (RsI < 0) {
+    RsI <- 0
+  } else if (RsI > population * Rs * 0.5) {
+    RsI <- round(population * Rs * 0.5)
+    print(paste("Too many elites. Limit to ", RsI))
+  }
+  # Initialize ------------------------------------------------------
+
+  set.seed(seed)
+  crr <- crr(tmp)
+  sort_list <- order(crr, decreasing = TRUE)
+  adj_sort <- data.frame(item = tmp$ItemLabel, crr = crr)
+  adj <- matrix(0, ncol = testlength, nrow = testlength)
+  adj[upper.tri(adj)] <- 1
+  colnames(adj) <- rownames(adj) <- tmp$ItemLabel[sort_list]
+  gene_length <- sum(upper.tri(adj))
+
+  gene <- rep(0.5, gene_length)
+  adj_gene <- matrix(0, ncol = testlength, nrow = testlength)
+  adj_gene[upper.tri(adj_gene)] <- gene
+  adj_t <- matrix(0, nrow = population, ncol = gene_length)
+
+  bestfit <- 1e+100
+  limit_count <- 0
+
+  GA_FLG <- TRUE
+  generation <- 0
+  for (i in 1:population) {
+    adj_t[i, ] <- rbinom(gene_length, 1, prob = gene)
+  }
+  best_individual <- adj_t[1, ]
+
+
+  # PBIL GA ---------------------------------------------------------
+  while (GA_FLG) {
+    generation <- generation + 1
+    if (verbose) {
+      print(paste("gen.", generation, "best BIC", bestfit, "limit count", limit_count))
+    }
+    fitness <- numeric(population)
+    for (i in 1:population) {
+      # out of elite
+      if (i > elitism) {
+        vec <- rbinom(gene_length, 1, prob = gene)
+        # Omit Null Model
+        if (sum(vec) == 0) {
+          pos <- sample(1:gene_length, 1)
+          vec[pos] <- 1
+        }
+        adj_t[i, ] <- maxParents_penalty(vec, testlength, maxParents)
+      }
+      adj[upper.tri(adj)] <- adj_t[i, ]
+      # make adj from genes
+      g <- graph_from_adjacency_matrix(adj)
+      # Fitness
+      ret <- BNM(tmp, DAG = g)
+      fitness[i] <- ret$TestFitIndices$BIC
+    }
+    sort_list <- order(fitness)
+    adj_t <- adj_t[sort_list, ]
+
+    ### Update Gne
+    ar <- round(colMeans(adj_t[1:RsI, ]))
+    gene <- gene + (alpha * (ar - gene))
+
+    ### mutation
+    u <- runif(gene_length, min = 0, max = 1)
+    Bm <- rbinom(gene_length, 1, Rm)
+    gene <- (1 - Bm) * gene + Bm * (gene + u) / 2
+
+    # Termination check
+    if (generation > maxGeneration) {
+      if (verbose) {
+        print("The maximum generation has been reached")
+      }
+      GA_FLG <- FALSE
+    }
+    if (all(best_individual == adj_t[1, ])) {
+      limit_count <- limit_count + 1
+    } else {
+      bestfit <- sort(fitness)[1]
+      limit_count <- 0
+      best_individual <- adj_t[1, ]
+    }
+    if (limit_count >= successiveLimit) {
+      if (verbose) {
+        print(paste("The BIC has not changed for", successiveLimit, " times."))
+      }
+      GA_FLG <- FALSE
+    }
+  }
+
+  # Estimate --------------------------------------------------------
+  if (estimate == 1) {
+    adj[upper.tri(adj)] <- adj_t[1, ]
+  } else if (estimate == 2) {
+    adj[upper.tri(adj)] <- round(colMeans(adj_t))
+  } else if (estimate == 3) {
+    adj[upper.tri(adj)] <- round(colMeans(adj_t[1:RsI, ]))
+  } else {
+    adj[upper.tri(adj)] <- round(gene)
+  }
+
+  GA_g <- graph_from_adjacency_matrix(adj)
+
+  ret <- BNM(tmp$U, DAG = GA_g)
+
+  if (!is.null(filename)) {
+    write.table(igraph::as_data_frame(GA_g),
+      sep = ",",
+      row.names = FALSE,
+      col.names = FALSE,
+      quote = FALSE,
+      file = filename
+    )
+  }
+
+  return(ret)
+}

@@ -12,16 +12,16 @@
 #' @param testlength test length. In this context it means a number of nodes.
 #' @param maxParents Upper limit of number of nodes.
 
-maxParents_penalty <- function(vec,testlength,maxParents){
+maxParents_penalty <- function(vec, testlength, maxParents) {
   adj_check <- matrix(0, ncol = testlength, nrow = testlength)
   adj_check[upper.tri(adj_check)] <- vec
-  for(i in 2:testlength){
-    vec <- adj_check[,i]
-    if(sum(vec)>maxParents){
-      ones_index <- which(vec==1)
-      selection <- sample(ones_index,maxParents)
+  for (i in 2:testlength) {
+    vec <- adj_check[, i]
+    if (sum(vec) > maxParents) {
+      ones_index <- which(vec == 1)
+      selection <- sample(ones_index, maxParents)
       vec[-selection] <- 0
-      adj_check[,i] <- vec
+      adj_check[, i] <- vec
     }
   }
   vec <- adj_check[upper.tri(adj_check)]

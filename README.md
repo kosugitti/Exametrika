@@ -149,7 +149,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333553 iter 2 LogLik -3938.35088122159 iter 3 LogLik -3931.82380538126 iter 4 LogLik -3928.67976884079 iter 5 LogLik -3926.99339857271 iter 6 LogLik -3926.04824639127 iter 7 LogLik -3925.50635849413 iter 8 LogLik -3925.19164801785 iter 9 LogLik -3925.00750851094 iter 10 LogLik -3924.89907316761 iter 11 LogLik -3924.83505251795 iter 12 LogLik -3924.79715801564 iter 13 LogLik -3924.7744316563 
+    ## iter 1 LogLik -3960.28101331407 iter 2 LogLik -3938.35095932659 iter 3 LogLik -3931.82438835432 iter 4 LogLik -3928.68010278706 iter 5 LogLik -3926.9940050095 iter 6 LogLik -3926.04844671693 iter 7 LogLik -3925.50644807416 iter 8 LogLik -3925.19166146767 iter 9 LogLik -3925.00755919833 iter 10 LogLik -3924.89900687171 iter 11 LogLik -3924.8350040869 iter 12 LogLik -3924.79713550198 iter 13 LogLik -3924.77497043007 
 
 ``` r
 result.IRT
@@ -178,15 +178,15 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
-    ## Item05       -232.135       -206.537      -247.403       51.197      81.732
+    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
+    ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -195,14 +195,14 @@ result.IRT
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
-    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.197 -17.186
+    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -217,8 +217,8 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.714
-    ## Item12 -20.201
+    ## Item11 -19.713
+    ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -228,7 +228,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.528
+    ## model_Chi_sq     641.529
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -238,9 +238,9 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.528
-    ## CAIC            -384.212
-    ## BIC             -383.883
+    ## AIC              311.529
+    ## CAIC            -384.211
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -249,12 +249,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526807 0.5805699
-    ## 2 Student002 -0.17398834 0.5473601
-    ## 3 Student003  0.01382204 0.5530498
-    ## 4 Student004  0.57628304 0.5749104
-    ## 5 Student005 -0.97449540 0.5915605
-    ## 6 Student006  0.85232779 0.5820538
+    ## 1 Student001 -0.75526589 0.5805698
+    ## 2 Student002 -0.17398646 0.5473612
+    ## 3 Student003  0.01382442 0.5530511
+    ## 4 Student004  0.57628054 0.5749115
+    ## 5 Student005 -0.97449523 0.5915605
+    ## 6 Student006  0.85233389 0.5820558
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -858,6 +858,9 @@ Utilize the content of the items and the experience of the questioner to
 aid in interpreting the results. For more details, please refer to
 Section 8.5 of the text(Shojima,2022).
 
+Please note that the GA may take a considerable amount of time,
+depending on the number of items and the size of the population.
+
 ``` r
 StrLearningGA(J5S10,population=20,Rs=0.5,Rm=0.002,maxParents = 2,
               maxGeneration=100,crossover=2,elitism=2)
@@ -922,6 +925,99 @@ StrLearningGA(J5S10,population=20,Rs=0.5,Rm=0.002,maxParents = 2,
     ## AIC            -11.952
     ## CAIC           -21.502
     ## BIC            -19.214
+
+The method of Population-based incremental learning proposed by Fukuda
+(2014) can also be used for learning. This method has several variations
+for estimating the optimal adjacency matrix at the end, which can be
+specified as options. See help or text Section 8.5.2.
+
+``` r
+StrLearningPBIL(J5S10,population = 20, Rs=0.5,Rm=0.005,maxParents = 2,
+                alpha=0.05,estimate=4)
+```
+
+    ## [1] "Too many elites. Limit to  5"
+    ## [1] "gen. 1 best BIC 1e+100 limit count 0"
+    ## [1] "gen. 2 best BIC -17.5552606067782 limit count 0"
+    ## [1] "gen. 3 best BIC -15.0546566011451 limit count 0"
+    ## [1] "gen. 4 best BIC -17.9932729188895 limit count 0"
+    ## [1] "gen. 5 best BIC -18.6650052682731 limit count 0"
+    ## [1] "gen. 6 best BIC -17.1784207586285 limit count 0"
+    ## [1] "gen. 7 best BIC -18.6650052682731 limit count 0"
+    ## [1] "gen. 8 best BIC -17.9554069419335 limit count 0"
+    ## [1] "gen. 9 best BIC -18.6650052682731 limit count 0"
+    ## [1] "gen. 10 best BIC -17.7998996732573 limit count 0"
+    ## [1] "gen. 11 best BIC -17.7998996732573 limit count 1"
+    ## [1] "gen. 12 best BIC -18.2881654201235 limit count 0"
+    ## [1] "gen. 13 best BIC -16.8116226676533 limit count 0"
+    ## [1] "gen. 14 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 15 best BIC -17.9554069419335 limit count 0"
+    ## [1] "gen. 16 best BIC -18.6650052682731 limit count 0"
+    ## [1] "gen. 17 best BIC -18.6650052682731 limit count 1"
+    ## [1] "gen. 18 best BIC -18.8373805810655 limit count 0"
+    ## [1] "gen. 19 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 20 best BIC -18.6650052682731 limit count 0"
+    ## [1] "gen. 21 best BIC -18.1767395214069 limit count 0"
+    ## [1] "gen. 22 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 23 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 24 best BIC -19.2142204292151 limit count 2"
+    ## [1] "gen. 25 best BIC -18.6650052682731 limit count 0"
+    ## [1] "gen. 26 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 27 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 28 best BIC -19.2142204292151 limit count 2"
+    ## [1] "gen. 29 best BIC -19.2142204292151 limit count 3"
+    ## [1] "gen. 30 best BIC -19.2142204292151 limit count 4"
+    ## [1] "The BIC has not changed for 5  times."
+
+    ## Adjacency Matrix
+    ##        Item03 Item01 Item02 Item05 Item04
+    ## Item03      0      0      0      1      0
+    ## Item01      0      0      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item05      0      0      0      0      1
+    ## Item04      0      0      0      0      0
+    ## [1] "Your graph is an acyclic graph."
+    ## [1] "Your graph is connected DAG."
+
+![](Readme_files/figure-gfm/PBIL-1.png)<!-- -->
+
+    ## 
+    ## Parameter Learning
+    ##        PIRP 1 PIRP 2
+    ## Item01  0.600       
+    ## Item02  0.400       
+    ## Item03  0.900       
+    ## Item04  0.000  0.500
+    ## Item05  0.286  0.667
+    ## 
+    ## Conditional Correct Response Rate
+    ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
+    ## 1     Item01            0   No Parents No Pattern       0.6000000
+    ## 2     Item02            0   No Parents No Pattern       0.4000000
+    ## 3     Item03            0   No Parents No Pattern       0.9000000
+    ## 4     Item04            1       Item01          0       0.0000000
+    ## 5     Item04            1       Item01          1       0.5000000
+    ## 6     Item05            1       Item04          0       0.2857143
+    ## 7     Item05            1       Item04          1       0.6666667
+    ## 
+    ## Model Fit Indices
+    ##                  value
+    ## model_log_like -26.327
+    ## bench_log_like  -8.935
+    ## null_log_like  -28.882
+    ## model_Chi_sq    34.783
+    ## null_Chi_sq     39.894
+    ## model_df        23.000
+    ## null_df         25.000
+    ## NFI              0.128
+    ## RFI              0.052
+    ## IFI              0.303
+    ## TLI              0.140
+    ## CFI              0.209
+    ## RMSEA            0.227
+    ## AIC            -11.217
+    ## CAIC           -20.369
+    ## BIC            -18.177
 
 ## Reference
 

@@ -231,24 +231,24 @@ print.Exametrika <- function(x, digits = 3, ...) {
       colnames(y) <- "value"
       print(round(y, digits))
     },
-    BNM ={
+    BNM = {
       cat("Adjacency Matrix\n")
       print(x$adj)
-      if(x$acyclicFLG==1){
+      if (x$acyclicFLG == 1) {
         print("Your graph is an acyclic graph.")
       }
-      if(x$connectedFLG ==1 ){
+      if (x$connectedFLG == 1) {
         print("Your graph is connected DAG.")
       }
-      y_coords <- x$crr[order(x$crr,decreasing = TRUE)]
+      y_coords <- x$crr[order(x$crr, decreasing = TRUE)]
       x_coords <- runif(length(V(x$g)))
-      plot.igraph(x$g,layout=cbind(x_coords,y_coords))
+      plot.igraph(x$g, layout = cbind(x_coords, y_coords))
 
       cat("\nParameter Learning\n")
       p_table <- x$param
       rownames(p_table) <- x$ItemLabel
-      colnames(p_table) <- paste("PIRP",1:ncol(p_table))
-      print(p_table, na.print="",digits=digits)
+      colnames(p_table) <- paste("PIRP", 1:ncol(p_table))
+      print(p_table, na.print = "", digits = digits)
 
       cat("\nConditional Correct Response Rate\n")
       print(x$CCRR_table)
@@ -258,7 +258,6 @@ print.Exametrika <- function(x, digits = 3, ...) {
       y <- t(as.data.frame(y))
       colnames(y) <- "value"
       print(round(y, digits))
-
     },
     ModelFit = {
       tmp <- data.frame(unclass(x))
