@@ -164,7 +164,7 @@ To find the optimal number of classes and the optimal number of fields, the Infi
 ```{r}
 result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
 plot(result.IRM, type = "Array")
-plot(result.IRM, type = "FRP", nc = 2)
+plot(result.IRM, type = "FRP", nc = 3)
 plot(result.IRM, type = "TRP")
 plot(result.IRM, type = "LCD")
 ```
