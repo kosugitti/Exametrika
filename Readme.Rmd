@@ -13,10 +13,10 @@ The Exametrika package is designed for test data engineering and corresponds to 
 + Biclustering and Ranklustering
 + Infinite Relational Model for optimal number of classes and fields
 + Bayesian Network Analysis
++ Structure Learning for Bayesian Network Analysis by Genetic Algorithm
 
 The estimation of the optimal number of ranks using the Chinese Restaurant Process algorithm has not yet been implemented. Additionally, the following models are also planned to be implemented, but are not yet available.
 
-+ Structure Learning for Bayesian Network Analysis
 + Local Dependence Latent Rank Analysis
 + Local Dependence Biclustering
 + Biclister Network Model
@@ -196,6 +196,16 @@ It is also possible to provide the graph in a CSV file. The labels attached to t
 result.BNM <- BNM(J5S10, DAG = g)
 result.BNM
 ```
+### Structure Larning for Bayesian network with GA
+
+The function searches for a DAG suitable for the data using a genetic algorithm. A best DAG is not necessarily identified. Instead of exploring all combinations of nodes and edges, only the space topologically sorted by the pass rate, namely the upper triangular matrix of the adjacency matrix, is explored. For interpretability, the number of parent nodes should be limited. A null model is not proposed. Utilize the content of the items and the experience of the questioner to aid in interpreting the results. For more details, please refer to Section 8.5 of the text(Shojima,2022).
+
+```{r GAsimple}
+StrLearningGA(J5S10,population=20,Rs=0.5,Rm=0.002,maxParents = 2,
+              maxGeneration=100,crossover=2,elitism=2)
+```
+
+
 
 
 ## Reference

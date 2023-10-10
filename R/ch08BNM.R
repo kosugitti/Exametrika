@@ -22,7 +22,11 @@
 #' \describe{
 #'  \item{nobs}{Sample size. The number of rows in the dataset.}
 #'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{crr}{correct response ratio}
 #'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
+#'  \item{adj}{Adjacency matrix}\
+#'  \item{param}{Learned Parameters}
+#'  \item{CCRR_table}{Correct Response Rate tables}
 #' }
 #' @export
 
@@ -177,6 +181,7 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL,DAG = NULL,DAG_file=NULL){
     U = U,
     testlength = testlength,
     nobs = nobs,
+    crr = crr(U),
     ItemLabel = tmp$ItemLabel,
     adj = adj,
     g = g,

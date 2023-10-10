@@ -240,8 +240,9 @@ print.Exametrika <- function(x, digits = 3, ...) {
       if(x$connectedFLG ==1 ){
         print("Your graph is connected DAG.")
       }
-
-      plot.igraph(x$g)
+      y_coords <- x$crr[order(x$crr,decreasing = TRUE)]
+      x_coords <- runif(length(V(x$g)))
+      plot.igraph(x$g,layout=cbind(x_coords,y_coords))
 
       cat("\nParameter Learning\n")
       p_table <- x$param
