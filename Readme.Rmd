@@ -34,6 +34,12 @@ You can install the development version of Exametrika from [GitHub](https://gith
 devtools::install_github("kosugitti/Exametrika")
 ```
 
+## Usage
+
+```{r library}
+library(Exametrika)
+```
+
 ## Example and Sample Data
 
 This package includes the same sample data that is distributed on the original site. The number of test-takers is represented by \( S \), and the number of test items is represented by \( J \). The data is named in a format like JxxSxxx.
@@ -69,7 +75,6 @@ Before any analysis, the dataFormat function decomposes the provided data into a
 ## CTT Example
 
 ```{r}
-library(Exametrika)
 CTT(J15S500)
 ```
 
