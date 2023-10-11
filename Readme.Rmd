@@ -1,5 +1,4 @@
 ---
-title: Exametrika
 output: github_document
 ---
 
@@ -39,30 +38,30 @@ devtools::install_github("kosugitti/Exametrika")
 
 This package includes the same sample data that is distributed on the original site. The number of test-takers is represented by \( S \), and the number of test items is represented by \( J \). The data is named in a format like JxxSxxx.
 
-### Exametrika Data Format
+#### Exametrika Data Format
 
 Exametrika conducts analysis on data matrices composed solely of 0 or 1. In this matrix, 0 represents an incorrect answer, and 1 indicates a correct answer.For more details, refer to Shojima (2022) regarding the format.
 
-### Data Matrix Format
+#### Data Matrix Format
 
 - The data matrix must be in a matrix or data frame format.
 - It's permissible to include NA as missing values.
 - Specific values (for instance, -99) can be designated as missing values.
 - Along with the data, you may also provide a missing value index matrix that discerns the presence or absence of missing values.
 
-### Examinee ID Column
+#### Examinee ID Column
 
 It is possible to incorporate a column of examinee IDs into the data matrix you provide. By default, the first column is presumed to be the examinee ID column.
 
-### Item Weight Vector
+#### Item Weight Vector
 
 Item weights can be specified by the item weight vector, w. If not given, all elements' weights are set to 1.
 
-### Item label Vector
+#### Item label Vector
 
 Data column names (colnames) are available as item labels. If not specified, a sequential number is assigned.
 
-### Data Formatting Function
+#### Data Formatting Function
 
 Before any analysis, the dataFormat function decomposes the provided data into an ID vector,Item label vector, data matrix U, missing value index matrix Z, and item weight vector w.
 
