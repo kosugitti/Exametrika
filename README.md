@@ -1,7 +1,3 @@
-Exametrika
-================
-
-# Exametrika
 
 The Exametrika package is designed for test data engineering and
 corresponds to the text by Shojima (2022). Test data engineering
@@ -51,14 +47,14 @@ original site. The number of test-takers is represented by $S$, and the
 number of test items is represented by $J$. The data is named in a
 format like JxxSxxx.
 
-### Exametrika Data Format
+#### Exametrika Data Format
 
 Exametrika conducts analysis on data matrices composed solely of 0 or 1.
 In this matrix, 0 represents an incorrect answer, and 1 indicates a
 correct answer.For more details, refer to Shojima (2022) regarding the
 format.
 
-### Data Matrix Format
+#### Data Matrix Format
 
 - The data matrix must be in a matrix or data frame format.
 - It’s permissible to include NA as missing values.
@@ -67,23 +63,23 @@ format.
 - Along with the data, you may also provide a missing value index matrix
   that discerns the presence or absence of missing values.
 
-### Examinee ID Column
+#### Examinee ID Column
 
 It is possible to incorporate a column of examinee IDs into the data
 matrix you provide. By default, the first column is presumed to be the
 examinee ID column.
 
-### Item Weight Vector
+#### Item Weight Vector
 
 Item weights can be specified by the item weight vector, w. If not
 given, all elements’ weights are set to 1.
 
-### Item label Vector
+#### Item label Vector
 
 Data column names (colnames) are available as item labels. If not
 specified, a sequential number is assigned.
 
-### Data Formatting Function
+#### Data Formatting Function
 
 Before any analysis, the dataFormat function decomposes the provided
 data into an ID vector,Item label vector, data matrix U, missing value
@@ -151,7 +147,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333771 iter 2 LogLik -3938.35084800322 iter 3 LogLik -3931.82446617312 iter 4 LogLik -3928.68018301179 iter 5 LogLik -3926.99383235351 iter 6 LogLik -3926.048935578 iter 7 LogLik -3925.50720338306 iter 8 LogLik -3925.19221783786 iter 9 LogLik -3925.00772361267 iter 10 LogLik -3924.89917205635 iter 11 LogLik -3924.83507721266 iter 12 LogLik -3924.79732110601 iter 13 LogLik -3924.77475759838 
+    ## iter 1 LogLik -3960.28101333583 iter 2 LogLik -3938.35090900259 iter 3 LogLik -3931.82423771863 iter 4 LogLik -3928.68000685451 iter 5 LogLik -3926.99370692835 iter 6 LogLik -3926.04847722576 iter 7 LogLik -3925.5064831894 iter 8 LogLik -3925.19167621048 iter 9 LogLik -3925.00700701629 iter 10 LogLik -3924.89885333391 iter 11 LogLik -3924.83516748916 iter 12 LogLik -3924.79713888662 iter 13 LogLik -3924.77466902424 
 
 ``` r
 result.IRT
@@ -183,7 +179,7 @@ result.IRT
     ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
@@ -199,11 +195,11 @@ result.IRT
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
     ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
@@ -219,7 +215,7 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.713
+    ## Item11 -19.714
     ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
@@ -251,12 +247,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526830 0.5805704
-    ## 2 Student002 -0.17398682 0.5473607
-    ## 3 Student003  0.01382385 0.5530504
-    ## 4 Student004  0.57628045 0.5749109
-    ## 5 Student005 -0.97449488 0.5915604
-    ## 6 Student006  0.85233274 0.5820551
+    ## 1 Student001 -0.75526793 0.5805706
+    ## 2 Student002 -0.17398680 0.5473605
+    ## 3 Student003  0.01382373 0.5530502
+    ## 4 Student004  0.57628090 0.5749107
+    ## 5 Student005 -0.97449477 0.5915604
+    ## 6 Student006  0.85233222 0.5820547
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
