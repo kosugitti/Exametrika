@@ -1,4 +1,6 @@
 
+# Exametrika
+
 The Exametrika package is designed for test data engineering and
 corresponds to the text by Shojima (2022). Test data engineering
 involves analyzing test response patterns to classify item difficulty
@@ -39,6 +41,27 @@ You can install the development version of Exametrika from
 # install.packages("devtools")
 devtools::install_github("kosugitti/Exametrika")
 ```
+
+## Usage
+
+``` r
+library(Exametrika)
+```
+
+    ## Loading required package: mvtnorm
+
+    ## Loading required package: igraph
+
+    ## 
+    ## Attaching package: 'igraph'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     decompose, spectrum
+
+    ## The following object is masked from 'package:base':
+    ## 
+    ##     union
 
 ## Example and Sample Data
 
@@ -88,25 +111,6 @@ index matrix Z, and item weight vector w.
 ## CTT Example
 
 ``` r
-library(Exametrika)
-```
-
-    ## Loading required package: mvtnorm
-
-    ## Loading required package: igraph
-
-    ## 
-    ## Attaching package: 'igraph'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     decompose, spectrum
-
-    ## The following object is masked from 'package:base':
-    ## 
-    ##     union
-
-``` r
 CTT(J15S500)
 ```
 
@@ -147,7 +151,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333583 iter 2 LogLik -3938.35090900259 iter 3 LogLik -3931.82423771863 iter 4 LogLik -3928.68000685451 iter 5 LogLik -3926.99370692835 iter 6 LogLik -3926.04847722576 iter 7 LogLik -3925.5064831894 iter 8 LogLik -3925.19167621048 iter 9 LogLik -3925.00700701629 iter 10 LogLik -3924.89885333391 iter 11 LogLik -3924.83516748916 iter 12 LogLik -3924.79713888662 iter 13 LogLik -3924.77466902424 
+    ## iter 1 LogLik -3960.28101333819 iter 2 LogLik -3938.35085656199 iter 3 LogLik -3931.82437617074 iter 4 LogLik -3928.67984529804 iter 5 LogLik -3926.99349572416 iter 6 LogLik -3926.04832783792 iter 7 LogLik -3925.50637514155 iter 8 LogLik -3925.19174640543 iter 9 LogLik -3925.0074857496 iter 10 LogLik -3924.89903219029 iter 11 LogLik -3924.83502418462 iter 12 LogLik -3924.79700125703 iter 13 LogLik -3924.77454206353 
 
 ``` r
 result.IRT
@@ -184,7 +188,7 @@ result.IRT
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -199,8 +203,8 @@ result.IRT
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -238,7 +242,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.882
+    ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
 
@@ -247,12 +251,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526793 0.5805706
-    ## 2 Student002 -0.17398680 0.5473605
-    ## 3 Student003  0.01382373 0.5530502
-    ## 4 Student004  0.57628090 0.5749107
-    ## 5 Student005 -0.97449477 0.5915604
-    ## 6 Student006  0.85233222 0.5820547
+    ## 1 Student001 -0.75526856 0.5805703
+    ## 2 Student002 -0.17398773 0.5473602
+    ## 3 Student003  0.01382255 0.5530499
+    ## 4 Student004  0.57628141 0.5749106
+    ## 5 Student005 -0.97449498 0.5915604
+    ## 6 Student006  0.85232875 0.5820538
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
