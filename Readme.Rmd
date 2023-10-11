@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+# Exametrika
+
 The Exametrika package is designed for test data engineering and corresponds to the text by Shojima (2022). Test data engineering involves analyzing test response patterns to classify item difficulty and respondent ranking. This analysis includes the following test theory models.
 
 + Classical Test Theory
