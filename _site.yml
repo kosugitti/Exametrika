@@ -1,0 +1,27 @@
+name: "JSSP2018夏のチュートリアル"
+navbar: 
+  title: "JSSP2018夏のチュートリアル"
+  left:
+    - text: "ホーム"
+      href: index.html
+    - text: "Lesson1"
+      href: jssp01.html
+    - text: "Lesson2"
+      href: jssp02.html
+    - text: "Lesson3"
+      href: jssp03.html
+    - text: "Lesson4"
+      href: jssp04.html      
+    - text: "Lesson5"
+      href: jssp05.html
+
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    toc: true
+    toc_float:
+      collapse: false
+    df_print: "kable"
+    css: site_style.css
+output_dir: "docs"

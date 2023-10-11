@@ -1,4 +1,5 @@
 ---
+title: Exametrika
 output: github_document
 ---
 
@@ -191,6 +192,22 @@ g <- igraph::graph_from_data_frame(DAG)
 ```
 
 It is also possible to provide the graph in a CSV file. The labels attached to the nodes of the graph must be included in the item labels of the dataset.
+
+A CSV file with the same information as the graph above in the following format. The first line contains column names (headers) and will not be read as data.
+
+
+```{r echo=FALSE}
+file_path <- "develop/EdgesBNM_R.csv"
+
+lines <- readLines(file_path)
+for (line in lines) {
+  print(line)
+}
+```
+
+
+
+An example of executing BNM by providing a graph structure (DAG) is as follows:
 
 ```{r BNM}
 result.BNM <- BNM(J5S10, DAG = g)
