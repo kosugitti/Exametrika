@@ -268,8 +268,8 @@ print.Exametrika <- function(x, digits = 3, ...) {
       cat("Adjacency Matrix\n")
       print(x$adj_list)
       y_coords <- x$crr[order(x$crr, decreasing = TRUE)]
+      x_coords <- runif(length(V(x$g_list[[1]])))
       for (i in 1:x$Nclass) {
-        x_coords <- runif(length(V(x$g_list[[i]])))
         plot.igraph(x$g_list[[i]], layout = cbind(x_coords, y_coords),
                     main = paste("Graph of ",msg,i))
       }
@@ -306,14 +306,17 @@ print.Exametrika <- function(x, digits = 3, ...) {
       colnames(y) <- "value"
       print(round(y, digits))
     },
+
     ModelFit = {
       tmp <- data.frame(unclass(x))
       print(tmp)
     },
+
     matrix = {
       class(x) <- "matrix"
       print(x, digits = digits)
     },
+
     all = {
       class(x) <- "list"
       print(x, digits = digits)

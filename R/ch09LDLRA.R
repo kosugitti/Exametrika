@@ -18,6 +18,7 @@
 #' class model is set to "C", latent rank model is set "R". The default is "R".
 #' @param DAG_file specify the CSV files that describe the graph structure for each rank.
 #' @importFrom igraph get.adjacency
+#' @importFrom igraph graph_from_data_frame
 #' @importFrom utils read.csv
 #' @importFrom igraph V
 #' @return
@@ -75,7 +76,8 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
   adj_list <- list()
   for (i in 1:ncls) {
     adj_R <- g_csv[g_csv$Rank == i, 1:2]
-    adj_list[[i]] <- fill_adj(adj_R, tmp$ItemLabel)
+    g_tmp <- igraph::graph_from_data_frame(adj_R)
+    adj_list[[i]] <- fill_adj(g_tmp, tmp$ItemLabel)
   }
 
 

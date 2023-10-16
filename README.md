@@ -151,7 +151,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333767 iter 2 LogLik -3938.35095172474 iter 3 LogLik -3931.82467168784 iter 4 LogLik -3928.67984026144 iter 5 LogLik -3926.99349941704 iter 6 LogLik -3926.04833709399 iter 7 LogLik -3925.50640708216 iter 8 LogLik -3925.19162089114 iter 9 LogLik -3925.00727292445 iter 10 LogLik -3924.89903551022 iter 11 LogLik -3924.83514300039 iter 12 LogLik -3924.79716556171 iter 13 LogLik -3924.77458739045 
+    ## iter 1 LogLik -3960.28101333941 iter 2 LogLik -3938.35081501225 iter 3 LogLik -3931.82443172246 iter 4 LogLik -3928.68007205093 iter 5 LogLik -3926.99342980968 iter 6 LogLik -3926.04836128105 iter 7 LogLik -3925.50639882898 iter 8 LogLik -3925.1917232116 iter 9 LogLik -3925.00738699352 iter 10 LogLik -3924.89894125135 iter 11 LogLik -3924.83504076896 iter 12 LogLik -3924.7971201232 iter 13 LogLik -3924.77437213333 
 
 ``` r
 result.IRT
@@ -181,7 +181,7 @@ result.IRT
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
     ## Item04       -204.884       -192.072      -265.962       25.623     147.780
-    ## Item05       -232.135       -206.537      -247.403       51.196      81.732
+    ## Item05       -232.135       -206.537      -247.403       51.197      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
@@ -197,14 +197,14 @@ result.IRT
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
-    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
+    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.197 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
     ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -219,7 +219,7 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.713
+    ## Item11 -19.714
     ## Item12 -20.201
     ## Item13  -5.479
     ## Item14 -31.321
@@ -230,7 +230,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.528
+    ## model_Chi_sq     641.527
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -240,9 +240,9 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.528
-    ## CAIC            -384.212
-    ## BIC             -383.882
+    ## AIC              311.527
+    ## CAIC            -384.213
+    ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
 
@@ -251,12 +251,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526780 0.5805702
-    ## 2 Student002 -0.17398743 0.5473604
-    ## 3 Student003  0.01382299 0.5530501
-    ## 4 Student004  0.57628226 0.5749106
-    ## 5 Student005 -0.97449514 0.5915605
-    ## 6 Student006  0.85232934 0.5820541
+    ## 1 Student001 -0.75526093 0.5805689
+    ## 2 Student002 -0.17398871 0.5473603
+    ## 3 Student003  0.01382181 0.5530501
+    ## 4 Student004  0.57628317 0.5749103
+    ## 5 Student005 -0.97449609 0.5915604
+    ## 6 Student006  0.85232891 0.5820534
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -794,12 +794,12 @@ A CSV file with the same information as the graph above in the following
 format. The first line contains column names (headers) and will not be
 read as data.
 
-    ## [1] "From,To"
-    ## [1] "Item01,Item02"
-    ## [1] "Item02,Item03"
-    ## [1] "Item02,Item04"
-    ## [1] "Item03,Item05"
-    ## [1] "Item04,Item05"
+    ## [1] "\"V1\",\"V2\""
+    ## [1] "\"Item01\",\"Item02\""
+    ## [1] "\"Item02\",\"Item03\""
+    ## [1] "\"Item02\",\"Item04\""
+    ## [1] "\"Item03\",\"Item05\""
+    ## [1] "\"Item04\",\"Item05\""
 
 An example of executing BNM by providing a graph structure (DAG) is as
 follows:
@@ -811,50 +811,57 @@ result.BNM
 
     ## Adjacency Matrix
     ##        Item01 Item02 Item03 Item04 Item05
-    ## Item01      0      0      0      0      0
-    ## Item02      0      0      0      0      0
-    ## Item03      0      0      0      0      0
-    ## Item04      0      0      0      0      0
+    ## Item01      0      1      0      0      0
+    ## Item02      0      0      1      1      0
+    ## Item03      0      0      0      0      1
+    ## Item04      0      0      0      0      1
     ## Item05      0      0      0      0      0
     ## [1] "Your graph is an acyclic graph."
+    ## [1] "Your graph is connected DAG."
 
 ![](Readme_files/figure-gfm/BNM-1.png)<!-- -->
 
     ## 
     ## Parameter Learning
-    ##        PIRP 1
-    ## Item01    0.6
-    ## Item02    0.4
-    ## Item03    0.9
-    ## Item04    0.3
-    ## Item05    0.4
+    ##        PIRP 1 PIRP 2 PIRP 3 PIRP 4
+    ## Item01  0.600                     
+    ## Item02  0.250    0.5              
+    ## Item03  0.833    1.0              
+    ## Item04  0.167    0.5              
+    ## Item05  0.000    NaN  0.333  0.667
     ## 
     ## Conditional Correct Response Rate
-    ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
-    ## 1     Item01            0   No Parents No Pattern       0.6000000
-    ## 2     Item02            0   No Parents No Pattern       0.4000000
-    ## 3     Item03            0   No Parents No Pattern       0.9000000
-    ## 4     Item04            0   No Parents No Pattern       0.3000000
-    ## 5     Item05            0   No Parents No Pattern       0.4000000
+    ##    Child Item N of Parents   Parent Items       PIRP Conditional CRR
+    ## 1      Item01            0     No Parents No Pattern       0.6000000
+    ## 2      Item02            1         Item01          0       0.2500000
+    ## 3      Item02            1         Item01          1       0.5000000
+    ## 4      Item03            1         Item02          0       0.8333333
+    ## 5      Item03            1         Item02          1       1.0000000
+    ## 6      Item04            1         Item02          0       0.1666667
+    ## 7      Item04            1         Item02          1       0.5000000
+    ## 8      Item05            2 Item03, Item04         00       0.0000000
+    ## 9      Item05            2 Item03, Item04         01        NaN(0/0)
+    ## 10     Item05            2 Item03, Item04         10       0.3333333
+    ## 11     Item05            2 Item03, Item04         11       0.6666667
     ## 
     ## Model Fit Indices
     ##                  value
-    ## model_log_like -28.882
+    ## model_log_like -26.411
     ## bench_log_like  -8.935
     ## null_log_like  -28.882
-    ## model_Chi_sq    39.894
+    ## model_Chi_sq    34.953
     ## null_Chi_sq     39.894
-    ## model_df        25.000
+    ## model_df        20.000
     ## null_df         25.000
-    ## NFI              0.000
+    ## NFI              0.124
     ## RFI              0.000
-    ## IFI              0.000
+    ## IFI              0.248
     ## TLI              0.000
     ## CFI              0.000
-    ## RMSEA            0.245
-    ## AIC            -10.106
-    ## CAIC           -20.053
-    ## BIC            -17.670
+    ## RMSEA            0.274
+    ## AIC             -5.047
+    ## CAIC           -13.005
+    ## BIC            -11.099
 
 ### Structure Larning for Bayesian network with GA
 
@@ -879,59 +886,64 @@ StrLearningGA(J5S10,
 ```
 
     ## [1] "gen. 1 best BIC 1e+100 limit count 0"
-    ## [1] "gen. 2 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 3 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 4 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 5 best BIC -17.6703144343947 limit count 3"
-    ## [1] "gen. 6 best BIC -17.6703144343947 limit count 4"
+    ## [1] "gen. 2 best BIC -17.680200178634 limit count 0"
+    ## [1] "gen. 3 best BIC -17.680200178634 limit count 1"
+    ## [1] "gen. 4 best BIC -18.9011476889596 limit count 0"
+    ## [1] "gen. 5 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 6 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 7 best BIC -19.2142204292151 limit count 2"
+    ## [1] "gen. 8 best BIC -19.2142204292151 limit count 3"
+    ## [1] "gen. 9 best BIC -19.2142204292151 limit count 4"
     ## [1] "The BIC has not changed for 5  times."
 
     ## Adjacency Matrix
     ##        Item01 Item02 Item03 Item04 Item05
-    ## Item01      0      0      0      0      0
+    ## Item01      0      0      0      1      0
     ## Item02      0      0      0      0      0
     ## Item03      0      0      0      0      0
     ## Item04      0      0      0      0      0
     ## Item05      0      0      0      0      0
     ## [1] "Your graph is an acyclic graph."
+    ## [1] "Your graph is connected DAG."
 
 ![](Readme_files/figure-gfm/GAsimple-1.png)<!-- -->
 
     ## 
     ## Parameter Learning
-    ##        PIRP 1
-    ## Item01    0.6
-    ## Item02    0.4
-    ## Item03    0.9
-    ## Item04    0.3
-    ## Item05    0.4
+    ##        PIRP 1 PIRP 2
+    ## Item01    0.6       
+    ## Item02    0.4       
+    ## Item03    0.9       
+    ## Item04    0.0    0.5
+    ## Item05    0.4       
     ## 
     ## Conditional Correct Response Rate
     ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
     ## 1     Item01            0   No Parents No Pattern       0.6000000
     ## 2     Item02            0   No Parents No Pattern       0.4000000
     ## 3     Item03            0   No Parents No Pattern       0.9000000
-    ## 4     Item04            0   No Parents No Pattern       0.3000000
-    ## 5     Item05            0   No Parents No Pattern       0.4000000
+    ## 4     Item04            1       Item01          0       0.0000000
+    ## 5     Item04            1       Item01          1       0.5000000
+    ## 6     Item05            0   No Parents No Pattern       0.4000000
     ## 
     ## Model Fit Indices
     ##                  value
-    ## model_log_like -28.882
+    ## model_log_like -26.959
     ## bench_log_like  -8.935
     ## null_log_like  -28.882
-    ## model_Chi_sq    39.894
+    ## model_Chi_sq    36.048
     ## null_Chi_sq     39.894
-    ## model_df        25.000
+    ## model_df        24.000
     ## null_df         25.000
-    ## NFI              0.000
-    ## RFI              0.000
-    ## IFI              0.000
-    ## TLI              0.000
-    ## CFI              0.000
-    ## RMSEA            0.245
-    ## AIC            -10.106
-    ## CAIC           -20.053
-    ## BIC            -17.670
+    ## NFI              0.096
+    ## RFI              0.059
+    ## IFI              0.242
+    ## TLI              0.157
+    ## CFI              0.191
+    ## RMSEA            0.225
+    ## AIC            -11.952
+    ## CAIC           -21.502
+    ## BIC            -19.214
 
 The method of Population-based incremental learning proposed by Fukuda
 (2014) can also be used for learning. This method has several variations
@@ -947,154 +959,91 @@ StrLearningPBIL(J5S10,
 
     ## [1] "Too many elites. Limit to  5"
     ## [1] "gen. 1 best BIC 1e+100 limit count 0"
-    ## [1] "gen. 2 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 3 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 4 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 5 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 6 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 7 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 8 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 9 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 10 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 11 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 12 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 13 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 14 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 15 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 16 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 17 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 18 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 19 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 20 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 21 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 22 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 23 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 24 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 25 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 26 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 27 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 28 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 29 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 30 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 31 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 32 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 33 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 34 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 35 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 36 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 37 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 38 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 39 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 40 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 41 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 42 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 43 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 44 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 45 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 46 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 47 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 48 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 49 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 50 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 51 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 52 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 53 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 54 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 55 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 56 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 57 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 58 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 59 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 60 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 61 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 62 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 63 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 64 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 65 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 66 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 67 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 68 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 69 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 70 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 71 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 72 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 73 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 74 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 75 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 76 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 77 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 78 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 79 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 80 best BIC -17.6703144343947 limit count 3"
-    ## [1] "gen. 81 best BIC -17.6703144343947 limit count 4"
-    ## [1] "gen. 82 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 83 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 84 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 85 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 86 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 87 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 88 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 89 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 90 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 91 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 92 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 93 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 94 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 95 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 96 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 97 best BIC -17.6703144343947 limit count 0"
-    ## [1] "gen. 98 best BIC -17.6703144343947 limit count 1"
-    ## [1] "gen. 99 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 100 best BIC -17.6703144343947 limit count 3"
-    ## [1] "gen. 101 best BIC -17.6703144343947 limit count 4"
-    ## [1] "The maximum generation has been reached"
+    ## [1] "gen. 2 best BIC -16.3195294684954 limit count 0"
+    ## [1] "gen. 3 best BIC -18.4012186805156 limit count 0"
+    ## [1] "gen. 4 best BIC -16.3195294684954 limit count 0"
+    ## [1] "gen. 5 best BIC -16.8753897755474 limit count 0"
+    ## [1] "gen. 6 best BIC -17.680200178634 limit count 0"
+    ## [1] "gen. 7 best BIC -18.0881459402601 limit count 0"
+    ## [1] "gen. 8 best BIC -16.7422588580787 limit count 0"
+    ## [1] "gen. 9 best BIC -16.8753897755474 limit count 0"
+    ## [1] "gen. 10 best BIC -18.4012186805156 limit count 0"
+    ## [1] "gen. 11 best BIC -16.8671984299345 limit count 0"
+    ## [1] "gen. 12 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 13 best BIC -17.1884625158029 limit count 0"
+    ## [1] "gen. 14 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 15 best BIC -18.4012186805156 limit count 0"
+    ## [1] "gen. 16 best BIC -18.9011476889596 limit count 0"
+    ## [1] "gen. 17 best BIC -16.8671984299345 limit count 0"
+    ## [1] "gen. 18 best BIC -18.4012186805156 limit count 0"
+    ## [1] "gen. 19 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 20 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 21 best BIC -18.9011476889596 limit count 0"
+    ## [1] "gen. 22 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 23 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 24 best BIC -19.2142204292151 limit count 2"
+    ## [1] "gen. 25 best BIC -19.2142204292151 limit count 3"
+    ## [1] "gen. 26 best BIC -19.2142204292151 limit count 4"
+    ## [1] "gen. 27 best BIC -18.9011476889596 limit count 0"
+    ## [1] "gen. 28 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 29 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 30 best BIC -19.2142204292151 limit count 2"
+    ## [1] "gen. 31 best BIC -18.9011476889596 limit count 0"
+    ## [1] "gen. 32 best BIC -19.2142204292151 limit count 0"
+    ## [1] "gen. 33 best BIC -19.2142204292151 limit count 1"
+    ## [1] "gen. 34 best BIC -19.2142204292151 limit count 2"
+    ## [1] "gen. 35 best BIC -19.2142204292151 limit count 3"
+    ## [1] "gen. 36 best BIC -19.2142204292151 limit count 4"
+    ## [1] "The BIC has not changed for 5  times."
 
     ## Adjacency Matrix
     ##        Item01 Item02 Item03 Item04 Item05
-    ## Item01      0      0      0      0      0
+    ## Item01      0      0      0      1      0
     ## Item02      0      0      0      0      0
     ## Item03      0      0      0      0      0
     ## Item04      0      0      0      0      0
     ## Item05      0      0      0      0      0
     ## [1] "Your graph is an acyclic graph."
+    ## [1] "Your graph is connected DAG."
 
 ![](Readme_files/figure-gfm/PBIL-1.png)<!-- -->
 
     ## 
     ## Parameter Learning
-    ##        PIRP 1
-    ## Item01    0.6
-    ## Item02    0.4
-    ## Item03    0.9
-    ## Item04    0.3
-    ## Item05    0.4
+    ##        PIRP 1 PIRP 2
+    ## Item01    0.6       
+    ## Item02    0.4       
+    ## Item03    0.9       
+    ## Item04    0.0    0.5
+    ## Item05    0.4       
     ## 
     ## Conditional Correct Response Rate
     ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
     ## 1     Item01            0   No Parents No Pattern       0.6000000
     ## 2     Item02            0   No Parents No Pattern       0.4000000
     ## 3     Item03            0   No Parents No Pattern       0.9000000
-    ## 4     Item04            0   No Parents No Pattern       0.3000000
-    ## 5     Item05            0   No Parents No Pattern       0.4000000
+    ## 4     Item04            1       Item01          0       0.0000000
+    ## 5     Item04            1       Item01          1       0.5000000
+    ## 6     Item05            0   No Parents No Pattern       0.4000000
     ## 
     ## Model Fit Indices
     ##                  value
-    ## model_log_like -28.882
+    ## model_log_like -26.959
     ## bench_log_like  -8.935
     ## null_log_like  -28.882
-    ## model_Chi_sq    39.894
+    ## model_Chi_sq    36.048
     ## null_Chi_sq     39.894
-    ## model_df        25.000
+    ## model_df        24.000
     ## null_df         25.000
-    ## NFI              0.000
-    ## RFI              0.000
-    ## IFI              0.000
-    ## TLI              0.000
-    ## CFI              0.000
-    ## RMSEA            0.245
-    ## AIC            -10.106
-    ## CAIC           -20.053
-    ## BIC            -17.670
+    ## NFI              0.096
+    ## RFI              0.059
+    ## IFI              0.242
+    ## TLI              0.157
+    ## CFI              0.191
+    ## RMSEA            0.225
+    ## AIC            -11.952
+    ## CAIC           -21.502
+    ## BIC            -19.214
 
 ## Local Dependent Latent Rank Analysis
 
@@ -1144,14 +1093,15 @@ DAG_dat <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # save csv file
-write.csv(DAG_dat, "DAG_dat.csv", row.names = FALSE, quote = TRUE)
+write.csv(DAG_dat, "develop/DAG_dat.csv", row.names = FALSE, quote = TRUE)
 ```
 
 The example of running the LDLRA function using this CSV file would look
 like this.
 
 ``` r
-result.LDLRA <- LDLRA(J12S5000, ncls = 5, DAG_file = "DAG_dat.csv")
+result.LDLRA <- LDLRA(J12S5000, ncls = 5,
+                      DAG_file = "develop/DAG_dat.csv")
 ```
 
     ## [1] "local dependence latent Rank model is chosen."
@@ -1531,7 +1481,7 @@ result.LDLRA
 Of course, it also supports various types of plots.
 
 ``` r
-plot(result.LDLRA, type = "IRP",nc=4,nr=3)
+plot(result.LDLRA, type = "IRP", nc = 4, nr = 3)
 ```
 
 ![](Readme_files/figure-gfm/LDLRA%20plot-1.png)<!-- -->

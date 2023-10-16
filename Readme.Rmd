@@ -202,9 +202,10 @@ A CSV file with the same information as the graph above in the following format.
 
 
 ```{r echo=FALSE}
-file_path <- "develop/EdgesBNM_R.csv"
+# save csv file
+write.csv(DAG, "develop/DAG_dat1.csv", row.names = FALSE, quote = TRUE)
 
-lines <- readLines(file_path)
+lines <- readLines("develop/DAG_dat1.csv")
 for (line in lines) {
   print(line)
 }
@@ -285,20 +286,21 @@ DAG_dat <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # save csv file
-write.csv(DAG_dat, "DAG_dat.csv", row.names = FALSE, quote = TRUE)
+write.csv(DAG_dat, "develop/DAG_dat.csv", row.names = FALSE, quote = TRUE)
 ```
 
 
 The example of running the LDLRA function using this CSV file would look like this.
 
 ```{r LDLRA}
-result.LDLRA <- LDLRA(J12S5000, ncls = 5, DAG_file = "DAG_dat.csv")
+result.LDLRA <- LDLRA(J12S5000, ncls = 5,
+                      DAG_file = "develop/DAG_dat.csv")
 result.LDLRA
 ```
 
 Of course, it also supports various types of plots.
 ```{r LDLRA plot}
-plot(result.LDLRA, type = "IRP",nc=4,nr=3)
+plot(result.LDLRA, type = "IRP", nc = 4, nr = 3)
 plot(result.LDLRA, type = "TRP")
 plot(result.LDLRA, type = "LRD")
 ```

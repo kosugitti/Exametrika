@@ -4,12 +4,10 @@
 \alias{fill_adj}
 \title{Data Frame DAG to adj}
 \usage{
-fill_adj(DAG, ItemLabel)
+fill_adj(g, ItemLabel)
 }
 \arguments{
-\item{DAG}{A dataframe-type DAG (Directed Acyclic Graph). Descriptions
-for all edges are necessary, but ,of course,information on all nodes
-is not always required.}
+\item{g}{igraph object}
 
 \item{ItemLabel}{Labels for all items. Information should held by the
 Exametrika class data.}

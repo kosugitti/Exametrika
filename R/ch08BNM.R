@@ -1,20 +1,23 @@
 #' @title Data Frame DAG to adj
 #' @description inner function of return full length adj from data.frame
-#' @param DAG A dataframe-type DAG (Directed Acyclic Graph). Descriptions
-#' for all edges are necessary, but ,of course,information on all nodes
-#' is not always required.
+#' @param g igraph object
 #' @param ItemLabel Labels for all items. Information should held by the
 #' Exametrika class data.
+#' @importFrom igraph get.adjacency
 #' @return adjacency matrix
 
-fill_adj <- function(DAG, ItemLabel) {
+fill_adj <- function(g, ItemLabel) {
   testlength <- length(ItemLabel)
+  tmp_adj <- as.matrix(igraph::get.adjacency(g))
   adj <- matrix(0, ncol = testlength, nrow = testlength)
   colnames(adj) <- rownames(adj) <- ItemLabel
-  for (i in 1:NROW(DAG)) {
-    from_i <- DAG[i, 1]
-    to_i <- DAG[i, 2]
-    adj[from_i, to_i] <- 1
+  tmp_col_names <- colnames(tmp_adj)
+  for(col_name in colnames(adj)){
+    if(col_name %in% tmp_col_names){
+      for(tmp_col in tmp_col_names){
+        adj[tmp_col,col_name] <- tmp_adj[tmp_col,col_name]
+      }
+    }
   }
   adj <- adj[sort(rownames(adj)), sort(colnames(adj))]
   return(adj)
@@ -52,7 +55,8 @@ fill_adj <- function(DAG, ItemLabel) {
 #' }
 #' @export
 
-BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
+BNM <- function(U, Z = NULL, w = NULL, na = NULL,
+                DAG = NULL, DAG_file = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -68,7 +72,7 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
     stop("You need to provide either a graph object or a CSV file.")
   }
   if (!is.null(DAG)) {
-    value <- class(DAG)
+    value <- class(DAG)[1]
     if (value != "igraph") {
       stop("The provided graph is not compatible with the igraph class.")
     } else {
