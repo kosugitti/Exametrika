@@ -15,13 +15,13 @@ models.
 - Infinite Relational Model for optimal number of classes and fields
 - Bayesian Network Analysis
 - Structure Learning for Bayesian Network Analysis by Genetic Algorithm
+- Local Dependence Latent Rank Analysis
 
 The estimation of the optimal number of ranks using the Chinese
 Restaurant Process algorithm has not yet been implemented. Additionally,
 the following models are also planned to be implemented, but are not yet
 available.
 
-- Local Dependence Latent Rank Analysis
 - Local Dependence Biclustering
 - Biclister Network Model
 
@@ -151,7 +151,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101330794 iter 2 LogLik -3938.35110199775 iter 3 LogLik -3931.82448694076 iter 4 LogLik -3928.68017513912 iter 5 LogLik -3926.99360391482 iter 6 LogLik -3926.04869122787 iter 7 LogLik -3925.50665451057 iter 8 LogLik -3925.19159278618 iter 9 LogLik -3925.00726516336 iter 10 LogLik -3924.89889270732 iter 11 LogLik -3924.83498118154 iter 12 LogLik -3924.79715820922 iter 13 LogLik -3924.7746587675 
+    ## iter 1 LogLik -3960.28101333767 iter 2 LogLik -3938.35095172474 iter 3 LogLik -3931.82467168784 iter 4 LogLik -3928.67984026144 iter 5 LogLik -3926.99349941704 iter 6 LogLik -3926.04833709399 iter 7 LogLik -3925.50640708216 iter 8 LogLik -3925.19162089114 iter 9 LogLik -3925.00727292445 iter 10 LogLik -3924.89903551022 iter 11 LogLik -3924.83514300039 iter 12 LogLik -3924.79716556171 iter 13 LogLik -3924.77458739045 
 
 ``` r
 result.IRT
@@ -188,7 +188,7 @@ result.IRT
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -203,8 +203,8 @@ result.IRT
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -219,8 +219,8 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.714
-    ## Item12 -20.200
+    ## Item11 -19.713
+    ## Item12 -20.201
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -251,12 +251,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526794 0.5805706
-    ## 2 Student002 -0.17398697 0.5473604
-    ## 3 Student003  0.01382352 0.5530501
-    ## 4 Student004  0.57628080 0.5749109
-    ## 5 Student005 -0.97449491 0.5915606
-    ## 6 Student006  0.85233149 0.5820544
+    ## 1 Student001 -0.75526780 0.5805702
+    ## 2 Student002 -0.17398743 0.5473604
+    ## 3 Student003  0.01382299 0.5530501
+    ## 4 Student004  0.57628226 0.5749106
+    ## 5 Student005 -0.97449514 0.5915605
+    ## 6 Student006  0.85232934 0.5820541
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can

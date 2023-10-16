@@ -135,6 +135,10 @@ plot.Exametrika <- function(x,
       } else if (value == "Biclustering" | value == "LDLRA") {
         target <- x$LRD
       }
+      if( is.null(x$CMD)){
+        x$CMD <- x$RMD
+      }
+
       bp <- barplot(target,
         names.arg = 1:x$Nclass,
         width = .9,
