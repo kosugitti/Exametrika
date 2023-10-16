@@ -284,7 +284,7 @@ DAG_dat <- matrix(c(
   "Item10", "Item12", 5
 ), ncol = 3, byrow = TRUE)
 
-# 行列をCSVファイルとして保存
+# save csv file
 write.csv(DAG_dat, "DAG_dat.csv", row.names = FALSE, quote = TRUE)
 ```
 
@@ -298,7 +298,7 @@ result.LDLRA
 
 Of course, it also supports various types of plots.
 ```{r LDLRA plot}
-plot(result.LDLRA, type = "IRP")
+plot(result.LDLRA, type = "IRP",nc=4,nr=3)
 plot(result.LDLRA, type = "TRP")
 plot(result.LDLRA, type = "LRD")
 ```

@@ -260,12 +260,18 @@ print.Exametrika <- function(x, digits = 3, ...) {
       print(round(y, digits))
     },
     LDLRA = {
+      if (x$model == 1) {
+        msg <- "Class"
+      } else {
+        msg <- "Rank"
+      }
       cat("Adjacency Matrix\n")
       print(x$adj_list)
       y_coords <- x$crr[order(x$crr, decreasing = TRUE)]
-      x_coords <- runif(length(V(x$g_list[[i]])))
       for (i in 1:x$Nclass) {
-        plot.igraph(x$g_list[[i]], layout = cbind(x_coords, y_coords))
+        x_coords <- runif(length(V(x$g_list[[i]])))
+        plot.igraph(x$g_list[[i]], layout = cbind(x_coords, y_coords),
+                    main = paste("Graph of ",msg,i))
       }
 
       cat("\nParameter Learning\n")
@@ -282,11 +288,6 @@ print.Exametrika <- function(x, digits = 3, ...) {
 
       cat("\nTest reference Profile and Latent Rank Distribution\n")
       y <- rbind(x$TRP, x$LRD, x$RMD)
-      if (model == 1) {
-        msg <- "Class"
-      } else {
-        msg <- "Rank"
-      }
       rownames(y) <- c(
         "Test Reference Profile",
         paste("Latent", msg, "Ditribution"),

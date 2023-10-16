@@ -151,7 +151,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333819 iter 2 LogLik -3938.35085656199 iter 3 LogLik -3931.82437617074 iter 4 LogLik -3928.67984529804 iter 5 LogLik -3926.99349572416 iter 6 LogLik -3926.04832783792 iter 7 LogLik -3925.50637514155 iter 8 LogLik -3925.19174640543 iter 9 LogLik -3925.0074857496 iter 10 LogLik -3924.89903219029 iter 11 LogLik -3924.83502418462 iter 12 LogLik -3924.79700125703 iter 13 LogLik -3924.77454206353 
+    ## iter 1 LogLik -3960.28101330794 iter 2 LogLik -3938.35110199775 iter 3 LogLik -3931.82448694076 iter 4 LogLik -3928.68017513912 iter 5 LogLik -3926.99360391482 iter 6 LogLik -3926.04869122787 iter 7 LogLik -3925.50665451057 iter 8 LogLik -3925.19159278618 iter 9 LogLik -3925.00726516336 iter 10 LogLik -3924.89889270732 iter 11 LogLik -3924.83498118154 iter 12 LogLik -3924.79715820922 iter 13 LogLik -3924.7746587675 
 
 ``` r
 result.IRT
@@ -188,7 +188,7 @@ result.IRT
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -203,8 +203,8 @@ result.IRT
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -242,7 +242,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.883
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -251,12 +251,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526856 0.5805703
-    ## 2 Student002 -0.17398773 0.5473602
-    ## 3 Student003  0.01382255 0.5530499
-    ## 4 Student004  0.57628141 0.5749106
-    ## 5 Student005 -0.97449498 0.5915604
-    ## 6 Student006  0.85232875 0.5820538
+    ## 1 Student001 -0.75526794 0.5805706
+    ## 2 Student002 -0.17398697 0.5473604
+    ## 3 Student003  0.01382352 0.5530501
+    ## 4 Student004  0.57628080 0.5749109
+    ## 5 Student005 -0.97449491 0.5915606
+    ## 6 Student006  0.85233149 0.5820544
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -294,6 +294,7 @@ LCA(J15S500, ncls = 5)
 
     ## iter 1 LogLik -3920.05938991817 iter 2 LogLik -3868.37661811019 iter 3 LogLik -3856.56533650371 iter 4 LogLik -3845.74374535885 iter 5 LogLik -3833.37488036104 iter 6 LogLik -3820.22763769163 iter 7 LogLik -3806.72242954504 iter 8 LogLik -3792.97266067684 iter 9 LogLik -3779.19228779869 iter 10 LogLik -3765.86175275679 iter 11 LogLik -3753.64229491417 iter 12 LogLik -3743.11740875918 iter 13 LogLik -3734.55698287939 iter 14 LogLik -3727.87850577009 iter 15 LogLik -3722.77367383051 iter 16 LogLik -3718.86333574826 iter 17 LogLik -3715.79886302873 iter 18 LogLik -3713.30370700684 iter 19 LogLik -3711.17800056923 iter 20 LogLik -3709.2871434378 iter 21 LogLik -3707.54624077186 iter 22 LogLik -3705.9055437362 iter 23 LogLik -3704.3385857789 iter 24 LogLik -3702.83324913391 iter 25 LogLik -3701.38544872111 iter 26 LogLik -3699.99493697585 iter 27 LogLik -3698.66270413262 iter 28 LogLik -3697.38949986492 iter 29 LogLik -3696.17509406942 iter 30 LogLik -3695.01799595627 iter 31 LogLik -3693.91544050945 iter 32 LogLik -3692.86352069041 iter 33 LogLik -3691.85739232407 iter 34 LogLik -3690.8915105805 iter 35 LogLik -3689.95987716842 iter 36 LogLik -3689.05628952239 iter 37 LogLik -3688.17458971934 iter 38 LogLik -3687.30891285716 iter 39 LogLik -3686.4539329118 iter 40 LogLik -3685.6050994199 iter 41 LogLik -3684.75885191584 iter 42 LogLik -3683.9127927315 iter 43 LogLik -3683.06579489228 iter 44 LogLik -3682.21802271694 iter 45 LogLik -3681.37084974863 iter 46 LogLik -3680.52667146122 iter 47 LogLik -3679.68862638019 iter 48 LogLik -3678.86025487609 iter 49 LogLik -3678.04513577125 iter 50 LogLik -3677.24654421759 iter 51 LogLik -3676.46716955478 iter 52 LogLik -3675.7089208471 iter 53 LogLik -3674.97283370103 iter 54 LogLik -3674.25907805439 iter 55 LogLik -3673.56705526261 iter 56 LogLik -3672.89556505061 iter 57 LogLik -3672.24301869492 iter 58 LogLik -3671.60767347594 iter 59 LogLik -3670.98786420649 iter 60 LogLik -3670.38220992904 iter 61 LogLik -3669.7897774075 iter 62 LogLik -3669.21018774092 iter 63 LogLik -3668.64365821443 iter 64 LogLik -3668.09097812537 iter 65 LogLik -3667.55342427127 iter 66 LogLik -3667.03262829751 iter 67 LogLik -3666.53041325237 iter 68 LogLik -3666.04861958528 iter 69 LogLik -3665.58894082747 iter 70 LogLik -3665.15278622792 iter 71 LogLik -3664.741182256 iter 72 LogLik -3664.35471825958 iter 73 LogLik -3663.99353505337 
 
+    ## 
     ## Item Reference Profile
     ##          IRP1   IRP2    IRP3  IRP4  IRP5
     ## Item01 0.5185 0.6996 0.76358 0.856 0.860
@@ -810,57 +811,50 @@ result.BNM
 
     ## Adjacency Matrix
     ##        Item01 Item02 Item03 Item04 Item05
-    ## Item01      0      1      0      0      0
-    ## Item02      0      0      1      1      0
-    ## Item03      0      0      0      0      1
-    ## Item04      0      0      0      0      1
+    ## Item01      0      0      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item03      0      0      0      0      0
+    ## Item04      0      0      0      0      0
     ## Item05      0      0      0      0      0
     ## [1] "Your graph is an acyclic graph."
-    ## [1] "Your graph is connected DAG."
 
 ![](Readme_files/figure-gfm/BNM-1.png)<!-- -->
 
     ## 
     ## Parameter Learning
-    ##        PIRP 1 PIRP 2 PIRP 3 PIRP 4
-    ## Item01  0.600                     
-    ## Item02  0.250    0.5              
-    ## Item03  0.833    1.0              
-    ## Item04  0.167    0.5              
-    ## Item05  0.000    NaN  0.333  0.667
+    ##        PIRP 1
+    ## Item01    0.6
+    ## Item02    0.4
+    ## Item03    0.9
+    ## Item04    0.3
+    ## Item05    0.4
     ## 
     ## Conditional Correct Response Rate
-    ##    Child Item N of Parents   Parent Items       PIRP Conditional CRR
-    ## 1      Item01            0     No Parents No Pattern       0.6000000
-    ## 2      Item02            1         Item01          0       0.2500000
-    ## 3      Item02            1         Item01          1       0.5000000
-    ## 4      Item03            1         Item02          0       0.8333333
-    ## 5      Item03            1         Item02          1       1.0000000
-    ## 6      Item04            1         Item02          0       0.1666667
-    ## 7      Item04            1         Item02          1       0.5000000
-    ## 8      Item05            2 Item03, Item04         00       0.0000000
-    ## 9      Item05            2 Item03, Item04         01        NaN(0/0)
-    ## 10     Item05            2 Item03, Item04         10       0.3333333
-    ## 11     Item05            2 Item03, Item04         11       0.6666667
+    ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
+    ## 1     Item01            0   No Parents No Pattern       0.6000000
+    ## 2     Item02            0   No Parents No Pattern       0.4000000
+    ## 3     Item03            0   No Parents No Pattern       0.9000000
+    ## 4     Item04            0   No Parents No Pattern       0.3000000
+    ## 5     Item05            0   No Parents No Pattern       0.4000000
     ## 
     ## Model Fit Indices
     ##                  value
-    ## model_log_like -26.411
+    ## model_log_like -28.882
     ## bench_log_like  -8.935
     ## null_log_like  -28.882
-    ## model_Chi_sq    34.953
+    ## model_Chi_sq    39.894
     ## null_Chi_sq     39.894
-    ## model_df        20.000
+    ## model_df        25.000
     ## null_df         25.000
-    ## NFI              0.124
+    ## NFI              0.000
     ## RFI              0.000
-    ## IFI              0.248
+    ## IFI              0.000
     ## TLI              0.000
     ## CFI              0.000
-    ## RMSEA            0.274
-    ## AIC             -5.047
-    ## CAIC           -13.005
-    ## BIC            -11.099
+    ## RMSEA            0.245
+    ## AIC            -10.106
+    ## CAIC           -20.053
+    ## BIC            -17.670
 
 ### Structure Larning for Bayesian network with GA
 
@@ -888,61 +882,56 @@ StrLearningGA(J5S10,
     ## [1] "gen. 2 best BIC -17.6703144343947 limit count 0"
     ## [1] "gen. 3 best BIC -17.6703144343947 limit count 1"
     ## [1] "gen. 4 best BIC -17.6703144343947 limit count 2"
-    ## [1] "gen. 5 best BIC -19.2142204292151 limit count 0"
-    ## [1] "gen. 6 best BIC -19.2142204292151 limit count 1"
-    ## [1] "gen. 7 best BIC -19.2142204292151 limit count 2"
-    ## [1] "gen. 8 best BIC -19.2142204292151 limit count 3"
-    ## [1] "gen. 9 best BIC -19.2142204292151 limit count 4"
+    ## [1] "gen. 5 best BIC -17.6703144343947 limit count 3"
+    ## [1] "gen. 6 best BIC -17.6703144343947 limit count 4"
     ## [1] "The BIC has not changed for 5  times."
 
     ## Adjacency Matrix
-    ##        Item03 Item01 Item02 Item05 Item04
-    ## Item03      0      0      0      1      0
+    ##        Item01 Item02 Item03 Item04 Item05
     ## Item01      0      0      0      0      0
     ## Item02      0      0      0      0      0
-    ## Item05      0      0      0      0      0
+    ## Item03      0      0      0      0      0
     ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
     ## [1] "Your graph is an acyclic graph."
-    ## [1] "Your graph is connected DAG."
 
 ![](Readme_files/figure-gfm/GAsimple-1.png)<!-- -->
 
     ## 
     ## Parameter Learning
-    ##        PIRP 1 PIRP 2
-    ## Item01    0.6       
-    ## Item02    0.4       
-    ## Item03    0.9       
-    ## Item04    0.0    0.5
-    ## Item05    0.4       
+    ##        PIRP 1
+    ## Item01    0.6
+    ## Item02    0.4
+    ## Item03    0.9
+    ## Item04    0.3
+    ## Item05    0.4
     ## 
     ## Conditional Correct Response Rate
     ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
     ## 1     Item01            0   No Parents No Pattern       0.6000000
     ## 2     Item02            0   No Parents No Pattern       0.4000000
     ## 3     Item03            0   No Parents No Pattern       0.9000000
-    ## 4     Item04            1       Item01          0       0.0000000
-    ## 5     Item04            1       Item01          1       0.5000000
-    ## 6     Item05            0   No Parents No Pattern       0.4000000
+    ## 4     Item04            0   No Parents No Pattern       0.3000000
+    ## 5     Item05            0   No Parents No Pattern       0.4000000
     ## 
     ## Model Fit Indices
     ##                  value
-    ## model_log_like -26.959
+    ## model_log_like -28.882
     ## bench_log_like  -8.935
     ## null_log_like  -28.882
-    ## model_Chi_sq    36.048
+    ## model_Chi_sq    39.894
     ## null_Chi_sq     39.894
-    ## model_df        24.000
+    ## model_df        25.000
     ## null_df         25.000
-    ## NFI              0.096
-    ## RFI              0.059
-    ## IFI              0.242
-    ## TLI              0.157
-    ## CFI              0.191
-    ## RMSEA            0.225
-    ## AIC            -11.952
-    ## CAIC           -21.502
-    ## BIC            -19.214
+    ## NFI              0.000
+    ## RFI              0.000
+    ## IFI              0.000
+    ## TLI              0.000
+    ## CFI              0.000
+    ## RMSEA            0.245
+    ## AIC            -10.106
+    ## CAIC           -20.053
+    ## BIC            -17.670
 
 The method of Population-based incremental learning proposed by Fukuda
 (2014) can also be used for learning. This method has several variations
@@ -958,86 +947,606 @@ StrLearningPBIL(J5S10,
 
     ## [1] "Too many elites. Limit to  5"
     ## [1] "gen. 1 best BIC 1e+100 limit count 0"
-    ## [1] "gen. 2 best BIC -17.5552606067782 limit count 0"
-    ## [1] "gen. 3 best BIC -15.0546566011451 limit count 0"
-    ## [1] "gen. 4 best BIC -17.9932729188895 limit count 0"
-    ## [1] "gen. 5 best BIC -18.6650052682731 limit count 0"
-    ## [1] "gen. 6 best BIC -17.1784207586285 limit count 0"
-    ## [1] "gen. 7 best BIC -18.6650052682731 limit count 0"
-    ## [1] "gen. 8 best BIC -17.9554069419335 limit count 0"
-    ## [1] "gen. 9 best BIC -18.6650052682731 limit count 0"
-    ## [1] "gen. 10 best BIC -17.7998996732573 limit count 0"
-    ## [1] "gen. 11 best BIC -17.7998996732573 limit count 1"
-    ## [1] "gen. 12 best BIC -18.2881654201235 limit count 0"
-    ## [1] "gen. 13 best BIC -16.8116226676533 limit count 0"
-    ## [1] "gen. 14 best BIC -19.2142204292151 limit count 0"
-    ## [1] "gen. 15 best BIC -17.9554069419335 limit count 0"
-    ## [1] "gen. 16 best BIC -18.6650052682731 limit count 0"
-    ## [1] "gen. 17 best BIC -18.6650052682731 limit count 1"
-    ## [1] "gen. 18 best BIC -18.8373805810655 limit count 0"
-    ## [1] "gen. 19 best BIC -19.2142204292151 limit count 0"
-    ## [1] "gen. 20 best BIC -18.6650052682731 limit count 0"
-    ## [1] "gen. 21 best BIC -18.1767395214069 limit count 0"
-    ## [1] "gen. 22 best BIC -19.2142204292151 limit count 0"
-    ## [1] "gen. 23 best BIC -19.2142204292151 limit count 1"
-    ## [1] "gen. 24 best BIC -19.2142204292151 limit count 2"
-    ## [1] "gen. 25 best BIC -18.6650052682731 limit count 0"
-    ## [1] "gen. 26 best BIC -19.2142204292151 limit count 0"
-    ## [1] "gen. 27 best BIC -19.2142204292151 limit count 1"
-    ## [1] "gen. 28 best BIC -19.2142204292151 limit count 2"
-    ## [1] "gen. 29 best BIC -19.2142204292151 limit count 3"
-    ## [1] "gen. 30 best BIC -19.2142204292151 limit count 4"
-    ## [1] "The BIC has not changed for 5  times."
+    ## [1] "gen. 2 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 3 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 4 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 5 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 6 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 7 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 8 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 9 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 10 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 11 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 12 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 13 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 14 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 15 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 16 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 17 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 18 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 19 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 20 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 21 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 22 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 23 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 24 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 25 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 26 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 27 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 28 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 29 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 30 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 31 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 32 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 33 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 34 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 35 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 36 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 37 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 38 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 39 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 40 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 41 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 42 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 43 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 44 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 45 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 46 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 47 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 48 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 49 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 50 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 51 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 52 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 53 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 54 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 55 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 56 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 57 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 58 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 59 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 60 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 61 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 62 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 63 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 64 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 65 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 66 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 67 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 68 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 69 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 70 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 71 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 72 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 73 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 74 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 75 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 76 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 77 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 78 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 79 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 80 best BIC -17.6703144343947 limit count 3"
+    ## [1] "gen. 81 best BIC -17.6703144343947 limit count 4"
+    ## [1] "gen. 82 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 83 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 84 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 85 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 86 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 87 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 88 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 89 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 90 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 91 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 92 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 93 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 94 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 95 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 96 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 97 best BIC -17.6703144343947 limit count 0"
+    ## [1] "gen. 98 best BIC -17.6703144343947 limit count 1"
+    ## [1] "gen. 99 best BIC -17.6703144343947 limit count 2"
+    ## [1] "gen. 100 best BIC -17.6703144343947 limit count 3"
+    ## [1] "gen. 101 best BIC -17.6703144343947 limit count 4"
+    ## [1] "The maximum generation has been reached"
 
     ## Adjacency Matrix
-    ##        Item03 Item01 Item02 Item05 Item04
-    ## Item03      0      0      0      1      0
+    ##        Item01 Item02 Item03 Item04 Item05
     ## Item01      0      0      0      0      0
     ## Item02      0      0      0      0      0
-    ## Item05      0      0      0      0      1
+    ## Item03      0      0      0      0      0
     ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
     ## [1] "Your graph is an acyclic graph."
-    ## [1] "Your graph is connected DAG."
 
 ![](Readme_files/figure-gfm/PBIL-1.png)<!-- -->
 
     ## 
     ## Parameter Learning
-    ##        PIRP 1 PIRP 2
-    ## Item01  0.600       
-    ## Item02  0.400       
-    ## Item03  0.900       
-    ## Item04  0.000  0.500
-    ## Item05  0.286  0.667
+    ##        PIRP 1
+    ## Item01    0.6
+    ## Item02    0.4
+    ## Item03    0.9
+    ## Item04    0.3
+    ## Item05    0.4
     ## 
     ## Conditional Correct Response Rate
     ##   Child Item N of Parents Parent Items       PIRP Conditional CRR
     ## 1     Item01            0   No Parents No Pattern       0.6000000
     ## 2     Item02            0   No Parents No Pattern       0.4000000
     ## 3     Item03            0   No Parents No Pattern       0.9000000
-    ## 4     Item04            1       Item01          0       0.0000000
-    ## 5     Item04            1       Item01          1       0.5000000
-    ## 6     Item05            1       Item04          0       0.2857143
-    ## 7     Item05            1       Item04          1       0.6666667
+    ## 4     Item04            0   No Parents No Pattern       0.3000000
+    ## 5     Item05            0   No Parents No Pattern       0.4000000
     ## 
     ## Model Fit Indices
     ##                  value
-    ## model_log_like -26.327
+    ## model_log_like -28.882
     ## bench_log_like  -8.935
     ## null_log_like  -28.882
-    ## model_Chi_sq    34.783
+    ## model_Chi_sq    39.894
     ## null_Chi_sq     39.894
-    ## model_df        23.000
+    ## model_df        25.000
     ## null_df         25.000
-    ## NFI              0.128
-    ## RFI              0.052
-    ## IFI              0.303
-    ## TLI              0.140
-    ## CFI              0.209
-    ## RMSEA            0.227
-    ## AIC            -11.217
-    ## CAIC           -20.369
-    ## BIC            -18.177
+    ## NFI              0.000
+    ## RFI              0.000
+    ## IFI              0.000
+    ## TLI              0.000
+    ## CFI              0.000
+    ## RMSEA            0.245
+    ## AIC            -10.106
+    ## CAIC           -20.053
+    ## BIC            -17.670
+
+## Local Dependent Latent Rank Analysis
+
+LD-LRA is an analysis that combines LRA and BNM, and it is used to
+analyze the network structure among items in the latent rank. In this
+function, structural learning is not performed, so you need to provide
+item graphs for each rank as separate files.
+
+The file format for this is plain text CSV that includes edges (From,
+To) and rank numbers.
+
+``` r
+DAG_dat <- matrix(c(
+  "From", "To", "Rank",
+  "Item01", "Item02", 1,
+  "Item04", "Item05", 1,
+  "Item01", "Item02", 2,
+  "Item02", "Item03", 2,
+  "Item04", "Item05", 2,
+  "Item08", "Item09", 2,
+  "Item08", "Item10", 2,
+  "Item09", "Item10", 2,
+  "Item08", "Item11", 2,
+  "Item01", "Item02", 3,
+  "Item02", "Item03", 3,
+  "Item04", "Item05", 3,
+  "Item08", "Item09", 3,
+  "Item08", "Item10", 3,
+  "Item09", "Item10", 3,
+  "Item08", "Item11", 3,
+  "Item02", "Item03", 4,
+  "Item04", "Item06", 4,
+  "Item04", "Item07", 4,
+  "Item05", "Item06", 4,
+  "Item05", "Item07", 4,
+  "Item08", "Item10", 4,
+  "Item08", "Item11", 4,
+  "Item09", "Item11", 4,
+  "Item02", "Item03", 5,
+  "Item04", "Item06", 5,
+  "Item04", "Item07", 5,
+  "Item05", "Item06", 5,
+  "Item05", "Item07", 5,
+  "Item09", "Item11", 5,
+  "Item10", "Item11", 5,
+  "Item10", "Item12", 5
+), ncol = 3, byrow = TRUE)
+
+# save csv file
+write.csv(DAG_dat, "DAG_dat.csv", row.names = FALSE, quote = TRUE)
+```
+
+The example of running the LDLRA function using this CSV file would look
+like this.
+
+``` r
+result.LDLRA <- LDLRA(J12S5000, ncls = 5, DAG_file = "DAG_dat.csv")
+```
+
+    ## [1] "local dependence latent Rank model is chosen."
+    ## iter 1 LogLik -30957.4080625445 iter 2 LogLik -30393.8016983636 iter 3 LogLik -30476.3341343642 
+
+``` r
+result.LDLRA
+```
+
+    ## Adjacency Matrix
+    ## [[1]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      1      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      1      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12
+    ## Item01      0      0
+    ## Item02      0      0
+    ## Item03      0      0
+    ## Item04      0      0
+    ## Item05      0      0
+    ## Item06      0      0
+    ## Item07      0      0
+    ## Item08      0      0
+    ## Item09      0      0
+    ## Item10      0      0
+    ## Item11      0      0
+    ## Item12      0      0
+    ## 
+    ## [[2]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      1      0      0      0      0      0      0      0      0
+    ## Item02      0      0      1      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      1      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      1      1
+    ## Item09      0      0      0      0      0      0      0      0      0      1
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12
+    ## Item01      0      0
+    ## Item02      0      0
+    ## Item03      0      0
+    ## Item04      0      0
+    ## Item05      0      0
+    ## Item06      0      0
+    ## Item07      0      0
+    ## Item08      1      0
+    ## Item09      0      0
+    ## Item10      0      0
+    ## Item11      0      0
+    ## Item12      0      0
+    ## 
+    ## [[3]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      1      0      0      0      0      0      0      0      0
+    ## Item02      0      0      1      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      1      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      1      1
+    ## Item09      0      0      0      0      0      0      0      0      0      1
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12
+    ## Item01      0      0
+    ## Item02      0      0
+    ## Item03      0      0
+    ## Item04      0      0
+    ## Item05      0      0
+    ## Item06      0      0
+    ## Item07      0      0
+    ## Item08      1      0
+    ## Item09      0      0
+    ## Item10      0      0
+    ## Item11      0      0
+    ## Item12      0      0
+    ## 
+    ## [[4]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      1      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      1      1      0      0      0
+    ## Item05      0      0      0      0      0      1      1      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      1
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12
+    ## Item01      0      0
+    ## Item02      0      0
+    ## Item03      0      0
+    ## Item04      0      0
+    ## Item05      0      0
+    ## Item06      0      0
+    ## Item07      0      0
+    ## Item08      1      0
+    ## Item09      1      0
+    ## Item10      0      0
+    ## Item11      0      0
+    ## Item12      0      0
+    ## 
+    ## [[5]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      1      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      1      1      0      0      0
+    ## Item05      0      0      0      0      0      1      1      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12
+    ## Item01      0      0
+    ## Item02      0      0
+    ## Item03      0      0
+    ## Item04      0      0
+    ## Item05      0      0
+    ## Item06      0      0
+    ## Item07      0      0
+    ## Item08      0      0
+    ## Item09      1      0
+    ## Item10      1      1
+    ## Item11      0      0
+    ## Item12      0      0
+
+![](Readme_files/figure-gfm/LDLRA-1.png)<!-- -->![](Readme_files/figure-gfm/LDLRA-2.png)<!-- -->![](Readme_files/figure-gfm/LDLRA-3.png)<!-- -->![](Readme_files/figure-gfm/LDLRA-4.png)<!-- -->![](Readme_files/figure-gfm/LDLRA-5.png)<!-- -->
+
+    ## 
+    ## Parameter Learning
+    ##      Item Rank      RIRP 1     RIRP 2     RIRP 3    RIRP 4
+    ## 1  Item01    1 0.455580630         NA         NA        NA
+    ## 2  Item02    1 0.030251375 0.44393650         NA        NA
+    ## 3  Item03    1 0.082775158         NA         NA        NA
+    ## 4  Item04    1 0.421482873         NA         NA        NA
+    ## 5  Item05    1 0.101273123 0.24025204         NA        NA
+    ## 6  Item06    1 0.024985288         NA         NA        NA
+    ## 7  Item07    1 0.015744019         NA         NA        NA
+    ## 8  Item08    1 0.286421224         NA         NA        NA
+    ## 9  Item09    1 0.326295513         NA         NA        NA
+    ## 10 Item10    1 0.180915216         NA         NA        NA
+    ## 11 Item11    1 0.105749186         NA         NA        NA
+    ## 12 Item12    1 0.055229967         NA         NA        NA
+    ## 13 Item01    2 0.549402484         NA         NA        NA
+    ## 14 Item02    2 0.034708537 0.56820935         NA        NA
+    ## 15 Item03    2 0.020156133 0.45853407         NA        NA
+    ## 16 Item04    2 0.495075716         NA         NA        NA
+    ## 17 Item05    2 0.147711819 0.35073097         NA        NA
+    ## 18 Item06    2 0.066466159         NA         NA        NA
+    ## 19 Item07    2 0.044906795         NA         NA        NA
+    ## 20 Item08    2 0.407208715         NA         NA        NA
+    ## 21 Item09    2 0.264311431 0.73426819         NA        NA
+    ## 22 Item10    2 0.080982567 0.13278948 0.15936924 0.7449946
+    ## 23 Item11    2 0.040943849 0.44456843         NA        NA
+    ## 24 Item12    2 0.085735556         NA         NA        NA
+    ## 25 Item01    3 0.683422741         NA         NA        NA
+    ## 26 Item02    3 0.040195277 0.72757158         NA        NA
+    ## 27 Item03    3 0.031753694 0.61691336         NA        NA
+    ## 28 Item04    3 0.611953304         NA         NA        NA
+    ## 29 Item05    3 0.227047295 0.55587765         NA        NA
+    ## 30 Item06    3 0.204877377         NA         NA        NA
+    ## 31 Item07    3 0.156331108         NA         NA        NA
+    ## 32 Item08    3 0.580647606         NA         NA        NA
+    ## 33 Item09    3 0.329674360 0.84549134         NA        NA
+    ## 34 Item10    3 0.091916009 0.15976663 0.21087014 0.8433045
+    ## 35 Item11    3 0.055805757 0.63597570         NA        NA
+    ## 36 Item12    3 0.151689299         NA         NA        NA
+    ## 37 Item01    4 0.835574070         NA         NA        NA
+    ## 38 Item02    4 0.719501076         NA         NA        NA
+    ## 39 Item03    4 0.058077673 0.71296850         NA        NA
+    ## 40 Item04    4 0.739574856         NA         NA        NA
+    ## 41 Item05    4 0.635260776         NA         NA        NA
+    ## 42 Item06    4 0.008163125 0.10473824 0.02265083 0.6841936
+    ## 43 Item07    4 0.009844724 0.03090820 0.03850312 0.5419530
+    ## 44 Item08    4 0.759756785         NA         NA        NA
+    ## 45 Item09    4 0.804904021         NA         NA        NA
+    ## 46 Item10    4 0.149564305 0.84430449         NA        NA
+    ## 47 Item11    4 0.063763008 0.12383619 0.10494498 0.8245087
+    ## 48 Item12    4 0.226879954         NA         NA        NA
+    ## 49 Item01    5 0.931311130         NA         NA        NA
+    ## 50 Item02    5 0.869230276         NA         NA        NA
+    ## 51 Item03    5 0.098652961 0.78853536         NA        NA
+    ## 52 Item04    5 0.846210938         NA         NA        NA
+    ## 53 Item05    5 0.811182720         NA         NA        NA
+    ## 54 Item06    5 0.014519168 0.12528037 0.03999962 0.7880520
+    ## 55 Item07    5 0.015696011 0.03361097 0.06362582 0.6503899
+    ## 56 Item08    5 0.880278878         NA         NA        NA
+    ## 57 Item09    5 0.912088267         NA         NA        NA
+    ## 58 Item10    5 0.824761337         NA         NA        NA
+    ## 59 Item11    5 0.082480033 0.18950529 0.21590456 0.9146626
+    ## 60 Item12    5 0.153010217 0.34113730         NA        NA
+    ## 
+    ## Conditional Correct Response Rate
+    ##     Child Item Rank N of Parents  Parent Items       PIRP Conditional CRR
+    ## 1       Item01    1            0    No parents No Pattern     0.455580630
+    ## 2       Item02    1            1        Item01          0     0.030251375
+    ## 3       Item02    1            1        Item01          1     0.443936500
+    ## 4       Item03    1            0    No parents No Pattern     0.082775158
+    ## 5       Item04    1            0    No parents No Pattern     0.421482873
+    ## 6       Item05    1            1        Item04          0     0.101273123
+    ## 7       Item05    1            1        Item04          1     0.240252043
+    ## 8       Item06    1            0    No parents No Pattern     0.024985288
+    ## 9       Item07    1            0    No parents No Pattern     0.015744019
+    ## 10      Item08    1            0    No parents No Pattern     0.286421224
+    ## 11      Item09    1            0    No parents No Pattern     0.326295513
+    ## 12      Item10    1            0    No parents No Pattern     0.180915216
+    ## 13      Item11    1            0    No parents No Pattern     0.105749186
+    ## 14      Item12    1            0    No parents No Pattern     0.055229967
+    ## 15      Item01    2            0    No parents No Pattern     0.549402484
+    ## 16      Item02    2            1        Item01          0     0.034708537
+    ## 17      Item02    2            1        Item01          1     0.568209349
+    ## 18      Item03    2            1        Item02          0     0.020156133
+    ## 19      Item03    2            1        Item02          1     0.458534072
+    ## 20      Item04    2            0    No parents No Pattern     0.495075716
+    ## 21      Item05    2            1        Item04          0     0.147711819
+    ## 22      Item05    2            1        Item04          1     0.350730968
+    ## 23      Item06    2            0    No parents No Pattern     0.066466159
+    ## 24      Item07    2            0    No parents No Pattern     0.044906795
+    ## 25      Item08    2            0    No parents No Pattern     0.407208715
+    ## 26      Item09    2            1        Item08          0     0.264311431
+    ## 27      Item09    2            1        Item08          1     0.734268193
+    ## 28      Item10    2            2 Item08,Item09         00     0.080982567
+    ## 29      Item10    2            2 Item08,Item09         01     0.132789481
+    ## 30      Item10    2            2 Item08,Item09         10     0.159369237
+    ## 31      Item10    2            2 Item08,Item09         11     0.744994596
+    ## 32      Item11    2            1        Item08          0     0.040943849
+    ## 33      Item11    2            1        Item08          1     0.444568426
+    ## 34      Item12    2            0    No parents No Pattern     0.085735556
+    ## 35      Item01    3            0    No parents No Pattern     0.683422741
+    ## 36      Item02    3            1        Item01          0     0.040195277
+    ## 37      Item02    3            1        Item01          1     0.727571576
+    ## 38      Item03    3            1        Item02          0     0.031753694
+    ## 39      Item03    3            1        Item02          1     0.616913361
+    ## 40      Item04    3            0    No parents No Pattern     0.611953304
+    ## 41      Item05    3            1        Item04          0     0.227047295
+    ## 42      Item05    3            1        Item04          1     0.555877649
+    ## 43      Item06    3            0    No parents No Pattern     0.204877377
+    ## 44      Item07    3            0    No parents No Pattern     0.156331108
+    ## 45      Item08    3            0    No parents No Pattern     0.580647606
+    ## 46      Item09    3            1        Item08          0     0.329674360
+    ## 47      Item09    3            1        Item08          1     0.845491338
+    ## 48      Item10    3            2 Item08,Item09         00     0.091916009
+    ## 49      Item10    3            2 Item08,Item09         01     0.159766635
+    ## 50      Item10    3            2 Item08,Item09         10     0.210870143
+    ## 51      Item10    3            2 Item08,Item09         11     0.843304533
+    ## 52      Item11    3            1        Item08          0     0.055805757
+    ## 53      Item11    3            1        Item08          1     0.635975697
+    ## 54      Item12    3            0    No parents No Pattern     0.151689299
+    ## 55      Item01    4            0    No parents No Pattern     0.835574070
+    ## 56      Item02    4            0    No parents No Pattern     0.719501076
+    ## 57      Item03    4            1        Item02          0     0.058077673
+    ## 58      Item03    4            1        Item02          1     0.712968498
+    ## 59      Item04    4            0    No parents No Pattern     0.739574856
+    ## 60      Item05    4            0    No parents No Pattern     0.635260776
+    ## 61      Item06    4            2 Item04,Item05         00     0.008163125
+    ## 62      Item06    4            2 Item04,Item05         01     0.104738238
+    ## 63      Item06    4            2 Item04,Item05         10     0.022650829
+    ## 64      Item06    4            2 Item04,Item05         11     0.684193626
+    ## 65      Item07    4            2 Item04,Item05         00     0.009844724
+    ## 66      Item07    4            2 Item04,Item05         01     0.030908199
+    ## 67      Item07    4            2 Item04,Item05         10     0.038503120
+    ## 68      Item07    4            2 Item04,Item05         11     0.541953007
+    ## 69      Item08    4            0    No parents No Pattern     0.759756785
+    ## 70      Item09    4            0    No parents No Pattern     0.804904021
+    ## 71      Item10    4            1        Item08          0     0.149564305
+    ## 72      Item10    4            1        Item08          1     0.844304493
+    ## 73      Item11    4            2 Item08,Item09         00     0.063763008
+    ## 74      Item11    4            2 Item08,Item09         01     0.123836193
+    ## 75      Item11    4            2 Item08,Item09         10     0.104944978
+    ## 76      Item11    4            2 Item08,Item09         11     0.824508688
+    ## 77      Item12    4            0    No parents No Pattern     0.226879954
+    ## 78      Item01    5            0    No parents No Pattern     0.931311130
+    ## 79      Item02    5            0    No parents No Pattern     0.869230276
+    ## 80      Item03    5            1        Item02          0     0.098652961
+    ## 81      Item03    5            1        Item02          1     0.788535365
+    ## 82      Item04    5            0    No parents No Pattern     0.846210938
+    ## 83      Item05    5            0    No parents No Pattern     0.811182720
+    ## 84      Item06    5            2 Item04,Item05         00     0.014519168
+    ## 85      Item06    5            2 Item04,Item05         01     0.125280372
+    ## 86      Item06    5            2 Item04,Item05         10     0.039999624
+    ## 87      Item06    5            2 Item04,Item05         11     0.788052033
+    ## 88      Item07    5            2 Item04,Item05         00     0.015696011
+    ## 89      Item07    5            2 Item04,Item05         01     0.033610973
+    ## 90      Item07    5            2 Item04,Item05         10     0.063625821
+    ## 91      Item07    5            2 Item04,Item05         11     0.650389869
+    ## 92      Item08    5            0    No parents No Pattern     0.880278878
+    ## 93      Item09    5            0    No parents No Pattern     0.912088267
+    ## 94      Item10    5            0    No parents No Pattern     0.824761337
+    ## 95      Item11    5            2 Item09,Item10         00     0.082480033
+    ## 96      Item11    5            2 Item09,Item10         01     0.189505291
+    ## 97      Item11    5            2 Item09,Item10         10     0.215904560
+    ## 98      Item11    5            2 Item09,Item10         11     0.914662590
+    ## 99      Item12    5            1        Item10          0     0.153010217
+    ## 100     Item12    5            1        Item10          1     0.341137297
+    ## 
+    ## Marginal Item Reference Profile
+    ##            Rank 1     Rank 2    Rank 3    Rank 4    Rank 5
+    ## Item01 0.45558063 0.54940248 0.6834227 0.8355741 0.9313111
+    ## Item02 0.20991789 0.29644233 0.4737140 0.7195011 0.8692303
+    ## Item03 0.08277516 0.13974311 0.3163634 0.5544465 0.7410500
+    ## Item04 0.42148287 0.49507572 0.6119533 0.7395749 0.8462109
+    ## Item05 0.15554965 0.23925634 0.4320364 0.6352608 0.8111827
+    ## Item06 0.02498529 0.06646616 0.2048774 0.3851075 0.6310585
+    ## Item07 0.01574402 0.04490679 0.1563311 0.3037706 0.5173874
+    ## Item08 0.28642122 0.40720871 0.5806476 0.7597568 0.8802789
+    ## Item09 0.32629551 0.44089355 0.6240972 0.8049040 0.9120883
+    ## Item10 0.18091522 0.29770685 0.4984108 0.6496168 0.8247613
+    ## Item11 0.10574919 0.19260223 0.3869606 0.5650492 0.8083711
+    ## Item12 0.05522997 0.08573556 0.1516893 0.2268800 0.3173548
+    ## 
+    ## IRP Indices
+    ##        Alpha          A Beta         B Gamma C
+    ## Item01     3 0.15215133    1 0.4555806     0 0
+    ## Item02     3 0.24578705    3 0.4737140     0 0
+    ## Item03     3 0.23808314    4 0.5544465     0 0
+    ## Item04     3 0.12762155    2 0.4950757     0 0
+    ## Item05     3 0.20322441    3 0.4320364     0 0
+    ## Item06     4 0.24595102    4 0.3851075     0 0
+    ## Item07     4 0.21361675    5 0.5173874     0 0
+    ## Item08     3 0.17910918    3 0.5806476     0 0
+    ## Item09     2 0.18320368    2 0.4408936     0 0
+    ## Item10     2 0.20070396    3 0.4984108     0 0
+    ## Item11     4 0.24332189    4 0.5650492     0 0
+    ## Item12     4 0.09047482    5 0.3173548     0 0
+    ## [1] "Strongly ordinal alignment condition was satisfied."
+    ## 
+    ## Test reference Profile and Latent Rank Distribution
+    ##                                Rank 1   Rank 2  Rank 3  Rank 4   Rank 5
+    ## Test Reference Profile          2.321    3.255   5.121   7.179    9.090
+    ## Latent Rank Ditribution      1829.000  593.000 759.000 569.000 1250.000
+    ## Rank Membership Distribuiton 1121.838 1087.855 873.796 835.528 1080.983
+    ## [1] "Weakly ordinal alignment condition was satisfied."
+    ## 
+    ## Model Fit Indices
+    ##                     value
+    ## model_log_like -26657.783
+    ## bench_log_like -21318.465
+    ## null_log_like  -37736.228
+    ## model_Chi_sq    10678.636
+    ## null_Chi_sq     32835.527
+    ## model_df           56.000
+    ## null_df           144.000
+    ## NFI                 0.675
+    ## RFI                 0.164
+    ## IFI                 0.676
+    ## TLI                 0.164
+    ## CFI                 0.675
+    ## RMSEA               0.195
+    ## AIC             10566.636
+    ## CAIC            10201.662
+    ## BIC             10201.673
+
+Of course, it also supports various types of plots.
+
+``` r
+plot(result.LDLRA, type = "IRP",nc=4,nr=3)
+```
+
+![](Readme_files/figure-gfm/LDLRA%20plot-1.png)<!-- -->
+
+``` r
+plot(result.LDLRA, type = "TRP")
+```
+
+![](Readme_files/figure-gfm/LDLRA%20plot-2.png)<!-- -->
+
+``` r
+plot(result.LDLRA, type = "LRD")
+```
+
+![](Readme_files/figure-gfm/LDLRA%20plot-3.png)<!-- -->
 
 ## Reference
 
