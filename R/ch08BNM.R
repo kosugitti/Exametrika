@@ -1,3 +1,25 @@
+#' @title Data Frame DAG to adj
+#' @description inner function of return full length adj from data.frame
+#' @param DAG A dataframe-type DAG (Directed Acyclic Graph). Descriptions
+#' for all edges are necessary, but ,of course,information on all nodes
+#' is not always required.
+#' @param ItemLabel Labels for all items. Information should held by the
+#' Exametrika class data.
+#' @return adjacency matrix
+
+fill_adj <- function(DAG, ItemLabel) {
+  testlength <- length(ItemLabel)
+  adj <- matrix(0, ncol = testlength, nrow = testlength)
+  colnames(adj) <- rownames(adj) <- ItemLabel
+  for (i in 1:NROW(DAG)) {
+    from_i <- DAG[i, 1]
+    to_i <- DAG[i, 2]
+    adj[from_i, to_i] <- 1
+  }
+  adj <- adj[sort(rownames(adj)), sort(colnames(adj))]
+  return(adj)
+}
+
 #' @title Bayesian Network Model
 #' @description
 #' performs Bayseia Network Model with specified graph stracture
@@ -53,7 +75,8 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
       g <- DAG
     }
   } else {
-    g <- graph_from_data_frame(read.csv(DAG_file, header = TRUE))
+    DAG <- read.csv(DAG_file, header = TRUE)
+    g <- igraph::graph_from_data_frame(DAG)
   }
   graph_label <- V(g)$name
   if (!any(graph_label %in% tmp$ItemLabel)) {
@@ -61,7 +84,7 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
   }
 
   # get Adj matrix
-  adj <- as.matrix(get.adjacency(g))
+  adj <- fill_adj(g, tmp$ItemLabel)
 
   ### Adj mat check
   adjU <- adj + t(adj)
@@ -152,18 +175,7 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
     paste(colnames(mat), collapse = ", ")
   })
   CCRR_table[, 3] <- rep(unlist(parent_items), item_ptn)
-  ### Inner function to make Bit Pattern
-  BitRespPtn <- function(n) {
-    if (n == 0) {
-      ptn <- "No Pattern"
-    } else {
-      ptn <- sapply(0:(2^n - 1), function(x) {
-        binary_str <- as.integer(intToBits(x)[1:n])
-        paste0(rev(binary_str), collapse = "")
-      })
-    }
-    return(ptn)
-  }
+
   CCRR_table[, 4] <- unlist(sapply(colSums(adj), BitRespPtn))
 
   vec <- numeric(sum(item_ptn))
@@ -194,4 +206,25 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL) {
     CCRR_table = CCRR_table
   ), class = c("Exametrika", "BNM"))
   return(ret)
+}
+
+#' @title Binary pattern maker
+#' @param n decimal numbers
+#' @return binary patterns
+#' @details
+#' if n <- 1, return 0,1
+#' if n <- 2, return 00,01,10,11
+#' and so on.
+#'
+
+BitRespPtn <- function(n) {
+  if (n == 0) {
+    ptn <- "No Pattern"
+  } else {
+    ptn <- sapply(0:(2^n - 1), function(x) {
+      binary_str <- as.integer(intToBits(x)[1:n])
+      paste0(rev(binary_str), collapse = "")
+    })
+  }
+  return(ptn)
 }

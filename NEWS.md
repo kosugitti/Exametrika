@@ -1,3 +1,5 @@
+# Exametrika 0.9.0 on October 16, 2023.
+
 # Exametrika 0.8.1 on October 10, 2023.
 
 * Structure Leaning for BMN, with simple GA and PBIL model.

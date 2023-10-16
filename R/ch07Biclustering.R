@@ -240,26 +240,11 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   rownames(clsmemb) <- tmp$ID
   colnames(clsmemb) <- paste0(msg1, 1:ncls)
 
-  # item location index
-  Beta <- apply(abs(FRP - 0.5), 1, which.min)
-  B <- FRP[cbind(1:nfld, Beta)]
-  # item slope index and item monotonicity index
-  A <- Alpha <- rep(NA, nfld)
-  C <- Gamma <- rep(0, nfld)
-  for (i in 1:nfld) {
-    vec <- FRP[i, ]
-    lags <- vec - c(NA, vec[1:(ncls - 1)])
-    A[i] <- max(lags, na.rm = T)
-    Alpha[i] <- which.max(lags) - 1
-    C[i] <- sum(lags[lags < 0], na.rm = T)
-    if (C[i] != 0) {
-      Gamma[i] <- (length(lags[lags < 0]) - 1) / (ncls - 1)
-    }
-  }
-  FRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
+  FRPIndex <- IRPindex(FRP)
+
   TRPlag <- TRP[2:ncls]
   TRPmic <- sum(TRPlag[1:(ncls - 1)] - TRP[1:(ncls - 1)] < 0, na.rm = TRUE)
-  FRPmic <- sum(abs(C))
+  FRPmic <- sum(abs(FRPIndex$C))
   SOACflg <- WOACflg <- FALSE
   if (TRPmic == 0) {
     WOACflg <- TRUE

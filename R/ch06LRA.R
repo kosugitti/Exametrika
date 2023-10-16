@@ -212,24 +212,10 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   ### Item Information
   IRP <- t(fit$classRefMat)
   colnames(IRP) <- paste0("IRP", 1:ncls)
-  # item location index
-  Beta <- apply(abs(IRP - 0.5), 1, which.min)
-  B <- IRP[cbind(1:testlength, Beta)]
-  # item slope index and item monotonicity index
-  A <- Alpha <- rep(NA, testlength)
-  C <- Gamma <- rep(0, testlength)
-  for (i in 1:testlength) {
-    vec <- IRP[i, ]
-    lags <- vec - c(NA, vec[1:(ncls - 1)])
-    A[i] <- max(lags, na.rm = T)
-    Alpha[i] <- which.max(lags) - 1
-    C[i] <- sum(lags[lags < 0], na.rm = T)
-    if (C[i] != 0) {
-      Gamma[i] <- (length(lags[lags < 0]) - 1) / (ncls - 1)
-    }
-  }
-  IRPIndex <- cbind(Alpha, A, Beta, B, Gamma, C)
-  if (sum(C) == 0) {
+
+  IRPIndex <- IRPindex(IRP)
+
+  if (sum(IRPIndex$C) == 0) {
     message("Strongly ordinal alignment condition was satisfied.")
   }
 

@@ -80,7 +80,7 @@ print.Exametrika <- function(x, digits = 3, ...) {
       print(round(y, digits))
     },
     LCA = {
-      cat("Item Reference Profile\n")
+      cat("\nItem Reference Profile\n")
       print(x$IRP, digits = digits)
       cat("\nTest Profile\n")
       y <- rbind(x$TRP, x$LCD, x$CMD)
@@ -252,6 +252,52 @@ print.Exametrika <- function(x, digits = 3, ...) {
 
       cat("\nConditional Correct Response Rate\n")
       print(x$CCRR_table)
+
+      cat("\nModel Fit Indices\n")
+      y <- unclass(x$TestFitIndices)
+      y <- t(as.data.frame(y))
+      colnames(y) <- "value"
+      print(round(y, digits))
+    },
+    LDLRA = {
+      cat("Adjacency Matrix\n")
+      print(x$adj_list)
+      y_coords <- x$crr[order(x$crr, decreasing = TRUE)]
+      x_coords <- runif(length(V(x$g_list[[i]])))
+      for (i in 1:x$Nclass) {
+        plot.igraph(x$g_list[[i]], layout = cbind(x_coords, y_coords))
+      }
+
+      cat("\nParameter Learning\n")
+      print(x$Estimation_table)
+      cat("\nConditional Correct Response Rate\n")
+      print(x$CCRR_table)
+      cat("\nMarginal Item Reference Profile\n")
+      print(x$IRP)
+      cat("\nIRP Indices\n")
+      print(x$IRPIndex)
+      if (x$SOACflg) {
+        print("Strongly ordinal alignment condition was satisfied.")
+      }
+
+      cat("\nTest reference Profile and Latent Rank Distribution\n")
+      y <- rbind(x$TRP, x$LRD, x$RMD)
+      if (model == 1) {
+        msg <- "Class"
+      } else {
+        msg <- "Rank"
+      }
+      rownames(y) <- c(
+        "Test Reference Profile",
+        paste("Latent", msg, "Ditribution"),
+        paste(msg, "Membership Distribuiton")
+      )
+      colnames(y) <- paste(msg, 1:x$Nclass)
+      print(round(y, digits))
+
+      if (x$WOACflg) {
+        print("Weakly ordinal alignment condition was satisfied.")
+      }
 
       cat("\nModel Fit Indices\n")
       y <- unclass(x$TestFitIndices)

@@ -175,6 +175,7 @@ plot(result.IRM, type = "LCD")
 ```
 
 ## Bayesian Network Model
+
 The Bayesian network model is a model that represents the conditional probabilities between items in a network format based on the pass rates of the items. By providing a Directed Acyclic Graph (DAG) between items externally, it calculates the conditional probabilities based on the specified graph. The igraph package is used for the analysis and representation of the network.
 
 For example, by using igraph package, you can create DAG object as follows:
@@ -217,6 +218,7 @@ An example of executing BNM by providing a graph structure (DAG) is as follows:
 result.BNM <- BNM(J5S10, DAG = g)
 result.BNM
 ```
+
 ### Structure Larning for Bayesian network with GA
 
 The function searches for a DAG suitable for the data using a genetic algorithm. A best DAG is not necessarily identified. Instead of exploring all combinations of nodes and edges, only the space topologically sorted by the pass rate, namely the upper triangular matrix of the adjacency matrix, is explored. For interpretability, the number of parent nodes should be limited. A null model is not proposed. Utilize the content of the items and the experience of the questioner to aid in interpreting the results. For more details, please refer to Section 8.5 of the text(Shojima,2022).
@@ -239,6 +241,67 @@ StrLearningPBIL(J5S10,
 )
 ```
 
+## Local Dependent Latent Rank Analysis
+
+LD-LRA is an analysis that combines LRA and BNM, and it is used to analyze the network structure among items in the latent rank. In this function, structural learning is not performed, so you need to provide item graphs for each rank as separate files.
+
+The file format for this is plain text CSV that includes edges (From, To) and rank numbers.
+
+```{r read DAG file}
+DAG_dat <- matrix(c(
+  "From", "To", "Rank",
+  "Item01", "Item02", 1,
+  "Item04", "Item05", 1,
+  "Item01", "Item02", 2,
+  "Item02", "Item03", 2,
+  "Item04", "Item05", 2,
+  "Item08", "Item09", 2,
+  "Item08", "Item10", 2,
+  "Item09", "Item10", 2,
+  "Item08", "Item11", 2,
+  "Item01", "Item02", 3,
+  "Item02", "Item03", 3,
+  "Item04", "Item05", 3,
+  "Item08", "Item09", 3,
+  "Item08", "Item10", 3,
+  "Item09", "Item10", 3,
+  "Item08", "Item11", 3,
+  "Item02", "Item03", 4,
+  "Item04", "Item06", 4,
+  "Item04", "Item07", 4,
+  "Item05", "Item06", 4,
+  "Item05", "Item07", 4,
+  "Item08", "Item10", 4,
+  "Item08", "Item11", 4,
+  "Item09", "Item11", 4,
+  "Item02", "Item03", 5,
+  "Item04", "Item06", 5,
+  "Item04", "Item07", 5,
+  "Item05", "Item06", 5,
+  "Item05", "Item07", 5,
+  "Item09", "Item11", 5,
+  "Item10", "Item11", 5,
+  "Item10", "Item12", 5
+), ncol = 3, byrow = TRUE)
+
+# 行列をCSVファイルとして保存
+write.csv(DAG_dat, "DAG_dat.csv", row.names = FALSE, quote = TRUE)
+```
+
+
+The example of running the LDLRA function using this CSV file would look like this.
+
+```{r LDLRA}
+result.LDLRA <- LDLRA(J12S5000, ncls = 5, DAG_file = "DAG_dat.csv")
+result.LDLRA
+```
+
+Of course, it also supports various types of plots.
+```{r LDLRA plot}
+plot(result.LDLRA, type = "IRP")
+plot(result.LDLRA, type = "TRP")
+plot(result.LDLRA, type = "LRD")
+```
 
 ## Reference
 

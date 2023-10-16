@@ -102,7 +102,7 @@ plot.Exametrika <- function(x,
       par(mar = c(5, 4, 4, 4) + 0.1)
       if (value == "LCA" | value == "LRA" | value == "IRM") {
         target <- x$LCD
-      } else if (value == "Biclustering") {
+      } else if (value == "Biclustering" | value == "LDLRA") {
         target <- x$LRD
       }
       bp <- barplot(target,
@@ -132,7 +132,7 @@ plot.Exametrika <- function(x,
       par(mar = c(5, 4, 4, 4) + 0.1)
       if (value == "LCA" | value == "LRA" | value == "IRM") {
         target <- x$LCD
-      } else if (value == "Biclustering") {
+      } else if (value == "Biclustering" | value == "LDLRA") {
         target <- x$LRD
       }
       bp <- barplot(target,
@@ -327,6 +327,13 @@ plot.Exametrika <- function(x,
       } else {
         graph_common()
       }
+    },
+    LDLRA = {
+      valid_types <- c("IRP", "LRD", "TRP")
+      if (!(type %in% valid_types)) {
+        stop("That type of output is not defined.")
+      }
+      graph_common()
     },
     none = {
       cat("Sorry, this is not an object that can be plotted.")
