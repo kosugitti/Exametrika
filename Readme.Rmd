@@ -207,7 +207,8 @@ write.csv(DAG, "develop/DAG_dat1.csv", row.names = FALSE, quote = TRUE)
 
 lines <- readLines("develop/DAG_dat1.csv")
 for (line in lines) {
-  print(line)
+  cat(line)
+  cat("\n")
 }
 ```
 
