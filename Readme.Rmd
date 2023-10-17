@@ -178,7 +178,9 @@ plot(result.IRM, type = "LCD")
 
 The Bayesian network model is a model that represents the conditional probabilities between items in a network format based on the pass rates of the items. By providing a Directed Acyclic Graph (DAG) between items externally, it calculates the conditional probabilities based on the specified graph. The igraph package is used for the analysis and representation of the network.
 
-For example, by using igraph package, you can create DAG object as follows:
+There are three ways to specify the graph. You can either pass a matrix-type DAG to the argument adj_matrix, pass a DAG described in a CSV file to the argument adj_file, or pass a graph-type object g used in the igraph package to the argument g.
+
+The methods to create the matrix-type adj_matrix and the graph object g are as follows:
 
 ```{r igraph}
 library(igraph)
@@ -193,31 +195,33 @@ DAG <-
     ),
     ncol = 2, byrow = T
   )
+## graph object
 g <- igraph::graph_from_data_frame(DAG)
+g
+## Adj mmatrix
+adj_mat <- as.matrix(igraph::get.adjacency(g))
+adj_mat
 ```
-
-It is also possible to provide the graph in a CSV file. The labels attached to the nodes of the graph must be included in the item labels of the dataset.
 
 A CSV file with the same information as the graph above in the following format. The first line contains column names (headers) and will not be read as data.
 
-
 ```{r echo=FALSE}
 # save csv file
-write.csv(DAG, "develop/DAG_dat1.csv", row.names = FALSE, quote = TRUE)
+write.csv(DAG, "develop/DAG_file.csv", row.names = FALSE, quote = TRUE)
 
-lines <- readLines("develop/DAG_dat1.csv")
+lines <- readLines("develop/DAG_file.csv")
 for (line in lines) {
   cat(line)
   cat("\n")
 }
 ```
 
-
+While only one specification is sufficient, if multiple specifications are provided, they will be prioritized in the order of file, matrix, and graph object.
 
 An example of executing BNM by providing a graph structure (DAG) is as follows:
 
 ```{r BNM}
-result.BNM <- BNM(J5S10, DAG = g)
+result.BNM <- BNM(J5S10, adj_matrix = adj_mat)
 result.BNM
 ```
 
@@ -228,7 +232,7 @@ The function searches for a DAG suitable for the data using a genetic algorithm.
 Please note that the GA may take a considerable amount of time, depending on the number of items and the size of the population.
 
 ```{r GAsimple}
-StrLearningGA(J5S10,
+StrLearningGA_BNM(J5S10,
   population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
   maxGeneration = 100, crossover = 2, elitism = 2
 )
@@ -237,7 +241,7 @@ StrLearningGA(J5S10,
 The method of Population-based incremental learning proposed by Fukuda (2014) can also be used for learning. This method has several variations for estimating the optimal adjacency matrix at the end, which can be specified as options. See help or text Section 8.5.2.
 
 ```{r PBIL}
-StrLearningPBIL(J5S10,
+StrLearningPBIL_BNM(J5S10,
   population = 20, Rs = 0.5, Rm = 0.005, maxParents = 2,
   alpha = 0.05, estimate = 4
 )
@@ -247,7 +251,7 @@ StrLearningPBIL(J5S10,
 
 LD-LRA is an analysis that combines LRA and BNM, and it is used to analyze the network structure among items in the latent rank. In this function, structural learning is not performed, so you need to provide item graphs for each rank as separate files.
 
-The file format for this is plain text CSV that includes edges (From, To) and rank numbers.
+For each class, it is necessary to specify a graph, and there are three ways to do so. You can either pass a matrix-type DAG for each class or a list of graph-type objects used in the igraph package to the arguments adj_list or g_list, respectively, or you can provide a DAG described in a CSV file. The way to specify it in a CSV file is as follows.
 
 ```{r read DAG file}
 DAG_dat <- matrix(c(
@@ -287,15 +291,38 @@ DAG_dat <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # save csv file
-write.csv(DAG_dat, "develop/DAG_dat.csv", row.names = FALSE, quote = TRUE)
+write.csv(DAG_dat, "develop/DAG_file.csv", row.names = FALSE, quote = TRUE)
 ```
 
+Here, it is shown an example of specifying with matrix-type and graph objects using the aforementioned CSV file. While only one specification is sufficient, if multiple specifications are provided, they will be prioritized in the order of file, matrix, and graph object.
+
+```{r convert_style}
+g_csv <- read.csv("develop/DAG_file.csv")
+colnames(g_csv) <- c("From", "To", "Rank")
+adj_list <- list()
+g_list <- list()
+for (i in 1:5) {
+  adj_R <- g_csv[g_csv$Rank == i, 1:2]
+  g_tmp <- igraph::graph_from_data_frame(adj_R)
+  adj_tmp <- igraph::get.adjacency(g_tmp)
+  g_list[[i]] <- g_tmp
+  adj_list[[i]] <- adj_tmp
+}
+## Example of graph list
+g_list
+```
+```{r example of adj list}
+### Example of adj list
+adj_list
+```
 
 The example of running the LDLRA function using this CSV file would look like this.
 
 ```{r LDLRA}
-result.LDLRA <- LDLRA(J12S5000, ncls = 5,
-                      DAG_file = "develop/DAG_dat.csv")
+result.LDLRA <- LDLRA(J12S5000,
+  ncls = 5,
+  adj_file = "develop/DAG_file.csv"
+)
 result.LDLRA
 ```
 

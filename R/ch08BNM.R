@@ -12,10 +12,10 @@ fill_adj <- function(g, ItemLabel) {
   adj <- matrix(0, ncol = testlength, nrow = testlength)
   colnames(adj) <- rownames(adj) <- ItemLabel
   tmp_col_names <- colnames(tmp_adj)
-  for(col_name in colnames(adj)){
-    if(col_name %in% tmp_col_names){
-      for(tmp_col in tmp_col_names){
-        adj[tmp_col,col_name] <- tmp_adj[tmp_col,col_name]
+  for (col_name in colnames(adj)) {
+    if (col_name %in% tmp_col_names) {
+      for (tmp_col in tmp_col_names) {
+        adj[tmp_col, col_name] <- tmp_adj[tmp_col, col_name]
       }
     }
   }
@@ -37,8 +37,9 @@ fill_adj <- function(g, ItemLabel) {
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @param DAG Specify a graph object suitable for the igraph class.
-#' @param DAG_file specify CSV file where the graph structure is specified.
+#' @param g Specify a graph object suitable for the igraph class.
+#' @param adj_file specify CSV file where the graph structure is specified.
+#' @param adj_matrix specify adjacency matrix.
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom igraph get.adjacency
 #' @importFrom utils read.csv
@@ -56,7 +57,7 @@ fill_adj <- function(g, ItemLabel) {
 #' @export
 
 BNM <- function(U, Z = NULL, w = NULL, na = NULL,
-                DAG = NULL, DAG_file = NULL) {
+                g = NULL, adj_file = NULL, adj_matrix = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -68,20 +69,23 @@ BNM <- function(U, Z = NULL, w = NULL, na = NULL,
   nobs <- NROW(tmp$U)
 
   # graph check
-  if (is.null(DAG) && is.null(DAG_file)) {
-    stop("You need to provide either a graph object or a CSV file.")
+  if (is.null(g) && is.null(adj_file) && is.null(adj_matrix)) {
+    stop("Specify the graph in either matrix form, CSV file, or as a graph object.")
   }
-  if (!is.null(DAG)) {
-    value <- class(DAG)[1]
+  if (!is.null(g)) {
+    value <- class(g)[1]
     if (value != "igraph") {
       stop("The provided graph is not compatible with the igraph class.")
-    } else {
-      g <- DAG
     }
-  } else {
-    DAG <- read.csv(DAG_file, header = TRUE)
+  }
+  if (!is.null(adj_matrix)) {
+    g <- igraph::graph_from_adjacency_matrix(adj_matrix)
+  }
+  if (!is.null(adj_file)) {
+    DAG <- read.csv(adj_file, header = TRUE)
     g <- igraph::graph_from_data_frame(DAG)
   }
+
   graph_label <- V(g)$name
   if (!any(graph_label %in% tmp$ItemLabel)) {
     stop("Some labels in the graph do not align with the item labels.")

@@ -151,7 +151,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101332884 iter 2 LogLik -3938.35076432137 iter 3 LogLik -3931.82445112948 iter 4 LogLik -3928.67999080241 iter 5 LogLik -3926.99362052863 iter 6 LogLik -3926.04824507294 iter 7 LogLik -3925.50634751571 iter 8 LogLik -3925.19146097483 iter 9 LogLik -3925.00751370921 iter 10 LogLik -3924.89887294977 iter 11 LogLik -3924.83493536749 iter 12 LogLik -3924.79702553384 iter 13 LogLik -3924.77453951348 
+    ## iter 1 LogLik -3960.28101333783 iter 2 LogLik -3938.35088569275 iter 3 LogLik -3931.82448587434 iter 4 LogLik -3928.67998134055 iter 5 LogLik -3926.9935508108 iter 6 LogLik -3926.04835387259 iter 7 LogLik -3925.50637379084 iter 8 LogLik -3925.19163884657 iter 9 LogLik -3925.00737930414 iter 10 LogLik -3924.89896666698 iter 11 LogLik -3924.83462601588 iter 12 LogLik -3924.79706118958 iter 13 LogLik -3924.77460411327 
 
 ``` r
 result.IRT
@@ -180,10 +180,10 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
-    ## Item05       -232.135       -206.537      -247.403       51.196      81.732
+    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
+    ## Item05       -232.135       -206.537      -247.403       51.197      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
@@ -197,14 +197,14 @@ result.IRT
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
-    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
+    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.197 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
     ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -220,7 +220,7 @@ result.IRT
     ## Item09 -25.505
     ## Item10 -26.121
     ## Item11 -19.714
-    ## Item12 -20.201
+    ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -230,7 +230,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.527
+    ## model_Chi_sq     641.528
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -240,8 +240,8 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.527
-    ## CAIC            -384.213
+    ## AIC              311.528
+    ## CAIC            -384.212
     ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
@@ -251,12 +251,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526806 0.5805704
-    ## 2 Student002 -0.17398726 0.5473603
-    ## 3 Student003  0.01382312 0.5530500
-    ## 4 Student004  0.57628145 0.5749104
-    ## 5 Student005 -0.97449503 0.5915605
-    ## 6 Student006  0.85233066 0.5820542
+    ## 1 Student001 -0.75526946 0.5805701
+    ## 2 Student002 -0.17398819 0.5473604
+    ## 3 Student003  0.01382222 0.5530501
+    ## 4 Student004  0.57628142 0.5749099
+    ## 5 Student005 -0.97449539 0.5915604
+    ## 6 Student006  0.85233073 0.5820549
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -767,8 +767,13 @@ externally, it calculates the conditional probabilities based on the
 specified graph. The igraph package is used for the analysis and
 representation of the network.
 
-For example, by using igraph package, you can create DAG object as
-follows:
+There are three ways to specify the graph. You can either pass a
+matrix-type DAG to the argument adj_matrix, pass a DAG described in a
+CSV file to the argument adj_file, or pass a graph-type object g used in
+the igraph package to the argument g.
+
+The methods to create the matrix-type adj_matrix and the graph object g
+are as follows:
 
 ``` r
 library(igraph)
@@ -783,12 +788,28 @@ DAG <-
     ),
     ncol = 2, byrow = T
   )
+## graph object
 g <- igraph::graph_from_data_frame(DAG)
+g
 ```
 
-It is also possible to provide the graph in a CSV file. The labels
-attached to the nodes of the graph must be included in the item labels
-of the dataset.
+    ## IGRAPH 83be728 DN-- 5 5 -- 
+    ## + attr: name (v/c)
+    ## + edges from 83be728 (vertex names):
+    ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
+
+``` r
+## Adj mmatrix
+adj_mat <- as.matrix(igraph::get.adjacency(g))
+adj_mat
+```
+
+    ##        Item01 Item02 Item03 Item04 Item05
+    ## Item01      0      1      0      0      0
+    ## Item02      0      0      1      1      0
+    ## Item03      0      0      0      0      1
+    ## Item04      0      0      0      0      1
+    ## Item05      0      0      0      0      0
 
 A CSV file with the same information as the graph above in the following
 format. The first line contains column names (headers) and will not be
@@ -801,11 +822,15 @@ read as data.
     ## "Item03","Item05"
     ## "Item04","Item05"
 
+While only one specification is sufficient, if multiple specifications
+are provided, they will be prioritized in the order of file, matrix, and
+graph object.
+
 An example of executing BNM by providing a graph structure (DAG) is as
 follows:
 
 ``` r
-result.BNM <- BNM(J5S10, DAG = g)
+result.BNM <- BNM(J5S10, adj_matrix = adj_mat)
 result.BNM
 ```
 
@@ -879,7 +904,7 @@ Please note that the GA may take a considerable amount of time,
 depending on the number of items and the size of the population.
 
 ``` r
-StrLearningGA(J5S10,
+StrLearningGA_BNM(J5S10,
   population = 20, Rs = 0.5, Rm = 0.002, maxParents = 2,
   maxGeneration = 100, crossover = 2, elitism = 2
 )
@@ -951,13 +976,13 @@ for estimating the optimal adjacency matrix at the end, which can be
 specified as options. See help or text Section 8.5.2.
 
 ``` r
-StrLearningPBIL(J5S10,
+StrLearningPBIL_BNM(J5S10,
   population = 20, Rs = 0.5, Rm = 0.005, maxParents = 2,
   alpha = 0.05, estimate = 4
 )
 ```
 
-    ## [1] "Too many elites. Limit to  5"
+    ## [1] "Too many survivers. Limit to  5"
     ## [1] "gen. 1 best BIC 1e+100 limit count 0"
     ## [1] "gen. 2 best BIC -16.3195294684954 limit count 0"
     ## [1] "gen. 3 best BIC -18.4012186805156 limit count 0"
@@ -1052,8 +1077,11 @@ analyze the network structure among items in the latent rank. In this
 function, structural learning is not performed, so you need to provide
 item graphs for each rank as separate files.
 
-The file format for this is plain text CSV that includes edges (From,
-To) and rank numbers.
+For each class, it is necessary to specify a graph, and there are three
+ways to do so. You can either pass a matrix-type DAG for each class or a
+list of graph-type objects used in the igraph package to the arguments
+adj_list or g_list, respectively, or you can provide a DAG described in
+a CSV file. The way to specify it in a CSV file is as follows.
 
 ``` r
 DAG_dat <- matrix(c(
@@ -1093,15 +1121,145 @@ DAG_dat <- matrix(c(
 ), ncol = 3, byrow = TRUE)
 
 # save csv file
-write.csv(DAG_dat, "develop/DAG_dat.csv", row.names = FALSE, quote = TRUE)
+write.csv(DAG_dat, "develop/DAG_file.csv", row.names = FALSE, quote = TRUE)
 ```
+
+Here, it is shown an example of specifying with matrix-type and graph
+objects using the aforementioned CSV file. While only one specification
+is sufficient, if multiple specifications are provided, they will be
+prioritized in the order of file, matrix, and graph object.
+
+``` r
+g_csv <- read.csv("develop/DAG_file.csv")
+colnames(g_csv) <- c("From", "To", "Rank")
+adj_list <- list()
+g_list <- list()
+for (i in 1:5) {
+  adj_R <- g_csv[g_csv$Rank == i, 1:2]
+  g_tmp <- igraph::graph_from_data_frame(adj_R)
+  adj_tmp <- igraph::get.adjacency(g_tmp)
+  g_list[[i]] <- g_tmp
+  adj_list[[i]] <- adj_tmp
+}
+## Example of graph list
+g_list
+```
+
+    ## [[1]]
+    ## IGRAPH 38ad383 DN-- 4 2 -- 
+    ## + attr: name (v/c)
+    ## + edges from 38ad383 (vertex names):
+    ## [1] Item01->Item02 Item04->Item05
+    ## 
+    ## [[2]]
+    ## IGRAPH 1731297 DN-- 9 7 -- 
+    ## + attr: name (v/c)
+    ## + edges from 1731297 (vertex names):
+    ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
+    ## [6] Item09->Item10 Item08->Item11
+    ## 
+    ## [[3]]
+    ## IGRAPH 9e680f1 DN-- 9 7 -- 
+    ## + attr: name (v/c)
+    ## + edges from 9e680f1 (vertex names):
+    ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
+    ## [6] Item09->Item10 Item08->Item11
+    ## 
+    ## [[4]]
+    ## IGRAPH f2ff356 DN-- 10 8 -- 
+    ## + attr: name (v/c)
+    ## + edges from f2ff356 (vertex names):
+    ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
+    ## [6] Item08->Item10 Item08->Item11 Item09->Item11
+    ## 
+    ## [[5]]
+    ## IGRAPH af70799 DN-- 10 8 -- 
+    ## + attr: name (v/c)
+    ## + edges from af70799 (vertex names):
+    ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
+    ## [6] Item09->Item11 Item10->Item11 Item10->Item12
+
+``` r
+### Example of adj list
+adj_list
+```
+
+    ## [[1]]
+    ## 4 x 4 sparse Matrix of class "dgCMatrix"
+    ##        Item01 Item04 Item02 Item05
+    ## Item01      .      .      1      .
+    ## Item04      .      .      .      1
+    ## Item02      .      .      .      .
+    ## Item05      .      .      .      .
+    ## 
+    ## [[2]]
+    ## 9 x 9 sparse Matrix of class "dgCMatrix"
+    ##        Item01 Item02 Item04 Item08 Item09 Item03 Item05 Item10 Item11
+    ## Item01      .      1      .      .      .      .      .      .      .
+    ## Item02      .      .      .      .      .      1      .      .      .
+    ## Item04      .      .      .      .      .      .      1      .      .
+    ## Item08      .      .      .      .      1      .      .      1      1
+    ## Item09      .      .      .      .      .      .      .      1      .
+    ## Item03      .      .      .      .      .      .      .      .      .
+    ## Item05      .      .      .      .      .      .      .      .      .
+    ## Item10      .      .      .      .      .      .      .      .      .
+    ## Item11      .      .      .      .      .      .      .      .      .
+    ## 
+    ## [[3]]
+    ## 9 x 9 sparse Matrix of class "dgCMatrix"
+    ##        Item01 Item02 Item04 Item08 Item09 Item03 Item05 Item10 Item11
+    ## Item01      .      1      .      .      .      .      .      .      .
+    ## Item02      .      .      .      .      .      1      .      .      .
+    ## Item04      .      .      .      .      .      .      1      .      .
+    ## Item08      .      .      .      .      1      .      .      1      1
+    ## Item09      .      .      .      .      .      .      .      1      .
+    ## Item03      .      .      .      .      .      .      .      .      .
+    ## Item05      .      .      .      .      .      .      .      .      .
+    ## Item10      .      .      .      .      .      .      .      .      .
+    ## Item11      .      .      .      .      .      .      .      .      .
+    ## 
+    ## [[4]]
+    ## 10 x 10 sparse Matrix of class "dgCMatrix"
+
+    ##   [[ suppressing 10 column names 'Item02', 'Item04', 'Item05' ... ]]
+
+    ##                           
+    ## Item02 . . . . . 1 . . . .
+    ## Item04 . . . . . . 1 1 . .
+    ## Item05 . . . . . . 1 1 . .
+    ## Item08 . . . . . . . . 1 1
+    ## Item09 . . . . . . . . . 1
+    ## Item03 . . . . . . . . . .
+    ## Item06 . . . . . . . . . .
+    ## Item07 . . . . . . . . . .
+    ## Item10 . . . . . . . . . .
+    ## Item11 . . . . . . . . . .
+    ## 
+    ## [[5]]
+    ## 10 x 10 sparse Matrix of class "dgCMatrix"
+
+    ##   [[ suppressing 10 column names 'Item02', 'Item04', 'Item05' ... ]]
+
+    ##                           
+    ## Item02 . . . . . 1 . . . .
+    ## Item04 . . . . . . 1 1 . .
+    ## Item05 . . . . . . 1 1 . .
+    ## Item09 . . . . . . . . 1 .
+    ## Item10 . . . . . . . . 1 1
+    ## Item03 . . . . . . . . . .
+    ## Item06 . . . . . . . . . .
+    ## Item07 . . . . . . . . . .
+    ## Item11 . . . . . . . . . .
+    ## Item12 . . . . . . . . . .
 
 The example of running the LDLRA function using this CSV file would look
 like this.
 
 ``` r
-result.LDLRA <- LDLRA(J12S5000, ncls = 5,
-                      DAG_file = "develop/DAG_dat.csv")
+result.LDLRA <- LDLRA(J12S5000,
+  ncls = 5,
+  adj_file = "develop/DAG_file.csv"
+)
 ```
 
     ## [1] "local dependence latent Rank model is chosen."
@@ -1256,67 +1414,67 @@ result.LDLRA
 
     ## 
     ## Parameter Learning
-    ##      Item Rank  RIRP 1 RIRP 2 RIRP 3 RIRP 4
-    ## 1  Item01    1 0.45558     NA     NA     NA
-    ## 2  Item02    1 0.03025 0.4439     NA     NA
-    ## 3  Item03    1 0.08278     NA     NA     NA
-    ## 4  Item04    1 0.42148     NA     NA     NA
-    ## 5  Item05    1 0.10127 0.2403     NA     NA
-    ## 6  Item06    1 0.02499     NA     NA     NA
-    ## 7  Item07    1 0.01574     NA     NA     NA
-    ## 8  Item08    1 0.28642     NA     NA     NA
-    ## 9  Item09    1 0.32630     NA     NA     NA
-    ## 10 Item10    1 0.18092     NA     NA     NA
-    ## 11 Item11    1 0.10575     NA     NA     NA
-    ## 12 Item12    1 0.05523     NA     NA     NA
-    ## 13 Item01    2 0.54940     NA     NA     NA
-    ## 14 Item02    2 0.03471 0.5682     NA     NA
-    ## 15 Item03    2 0.02016 0.4585     NA     NA
-    ## 16 Item04    2 0.49508     NA     NA     NA
-    ## 17 Item05    2 0.14771 0.3507     NA     NA
-    ## 18 Item06    2 0.06647     NA     NA     NA
-    ## 19 Item07    2 0.04491     NA     NA     NA
-    ## 20 Item08    2 0.40721     NA     NA     NA
-    ## 21 Item09    2 0.26431 0.7343     NA     NA
-    ## 22 Item10    2 0.08098 0.1328 0.1594  0.745
-    ## 23 Item11    2 0.04094 0.4446     NA     NA
-    ## 24 Item12    2 0.08574     NA     NA     NA
-    ## 25 Item01    3 0.68342     NA     NA     NA
-    ## 26 Item02    3 0.04020 0.7276     NA     NA
-    ## 27 Item03    3 0.03175 0.6169     NA     NA
-    ## 28 Item04    3 0.61195     NA     NA     NA
-    ## 29 Item05    3 0.22705 0.5559     NA     NA
-    ## 30 Item06    3 0.20488     NA     NA     NA
-    ## 31 Item07    3 0.15633     NA     NA     NA
-    ## 32 Item08    3 0.58065     NA     NA     NA
-    ## 33 Item09    3 0.32967 0.8455     NA     NA
-    ## 34 Item10    3 0.09192 0.1598 0.2109  0.843
-    ## 35 Item11    3 0.05581 0.6360     NA     NA
-    ## 36 Item12    3 0.15169     NA     NA     NA
-    ## 37 Item01    4 0.83557     NA     NA     NA
-    ## 38 Item02    4 0.71950     NA     NA     NA
-    ## 39 Item03    4 0.05808 0.7130     NA     NA
-    ## 40 Item04    4 0.73957     NA     NA     NA
-    ## 41 Item05    4 0.63526     NA     NA     NA
-    ## 42 Item06    4 0.00816 0.1047 0.0227  0.684
-    ## 43 Item07    4 0.00984 0.0309 0.0385  0.542
-    ## 44 Item08    4 0.75976     NA     NA     NA
-    ## 45 Item09    4 0.80490     NA     NA     NA
-    ## 46 Item10    4 0.14956 0.8443     NA     NA
-    ## 47 Item11    4 0.06376 0.1238 0.1049  0.825
-    ## 48 Item12    4 0.22688     NA     NA     NA
-    ## 49 Item01    5 0.93131     NA     NA     NA
-    ## 50 Item02    5 0.86923     NA     NA     NA
-    ## 51 Item03    5 0.09865 0.7885     NA     NA
-    ## 52 Item04    5 0.84621     NA     NA     NA
-    ## 53 Item05    5 0.81118     NA     NA     NA
-    ## 54 Item06    5 0.01452 0.1253 0.0400  0.788
-    ## 55 Item07    5 0.01570 0.0336 0.0636  0.650
-    ## 56 Item08    5 0.88028     NA     NA     NA
-    ## 57 Item09    5 0.91209     NA     NA     NA
-    ## 58 Item10    5 0.82476     NA     NA     NA
-    ## 59 Item11    5 0.08248 0.1895 0.2159  0.915
-    ## 60 Item12    5 0.15301 0.3411     NA     NA
+    ##      Item Rank RIRP 1 RIRP 2 RIRP 3 RIRP 4
+    ## 1  Item01    1  0.456                     
+    ## 2  Item02    1  0.030  0.444              
+    ## 3  Item03    1  0.083                     
+    ## 4  Item04    1  0.421                     
+    ## 5  Item05    1  0.101  0.240              
+    ## 6  Item06    1  0.025                     
+    ## 7  Item07    1  0.016                     
+    ## 8  Item08    1  0.286                     
+    ## 9  Item09    1  0.326                     
+    ## 10 Item10    1  0.181                     
+    ## 11 Item11    1  0.106                     
+    ## 12 Item12    1  0.055                     
+    ## 13 Item01    2  0.549                     
+    ## 14 Item02    2  0.035  0.568              
+    ## 15 Item03    2  0.020  0.459              
+    ## 16 Item04    2  0.495                     
+    ## 17 Item05    2  0.148  0.351              
+    ## 18 Item06    2  0.066                     
+    ## 19 Item07    2  0.045                     
+    ## 20 Item08    2  0.407                     
+    ## 21 Item09    2  0.264  0.734              
+    ## 22 Item10    2  0.081  0.133  0.159  0.745
+    ## 23 Item11    2  0.041  0.445              
+    ## 24 Item12    2  0.086                     
+    ## 25 Item01    3  0.683                     
+    ## 26 Item02    3  0.040  0.728              
+    ## 27 Item03    3  0.032  0.617              
+    ## 28 Item04    3  0.612                     
+    ## 29 Item05    3  0.227  0.556              
+    ## 30 Item06    3  0.205                     
+    ## 31 Item07    3  0.156                     
+    ## 32 Item08    3  0.581                     
+    ## 33 Item09    3  0.330  0.845              
+    ## 34 Item10    3  0.092  0.160  0.211  0.843
+    ## 35 Item11    3  0.056  0.636              
+    ## 36 Item12    3  0.152                     
+    ## 37 Item01    4  0.836                     
+    ## 38 Item02    4  0.720                     
+    ## 39 Item03    4  0.058  0.713              
+    ## 40 Item04    4  0.740                     
+    ## 41 Item05    4  0.635                     
+    ## 42 Item06    4  0.008  0.105  0.023  0.684
+    ## 43 Item07    4  0.010  0.031  0.039  0.542
+    ## 44 Item08    4  0.760                     
+    ## 45 Item09    4  0.805                     
+    ## 46 Item10    4  0.150  0.844              
+    ## 47 Item11    4  0.064  0.124  0.105  0.825
+    ## 48 Item12    4  0.227                     
+    ## 49 Item01    5  0.931                     
+    ## 50 Item02    5  0.869                     
+    ## 51 Item03    5  0.099  0.789              
+    ## 52 Item04    5  0.846                     
+    ## 53 Item05    5  0.811                     
+    ## 54 Item06    5  0.015  0.125  0.040  0.788
+    ## 55 Item07    5  0.016  0.034  0.064  0.650
+    ## 56 Item08    5  0.880                     
+    ## 57 Item09    5  0.912                     
+    ## 58 Item10    5  0.825                     
+    ## 59 Item11    5  0.082  0.190  0.216  0.915
+    ## 60 Item12    5  0.153  0.341              
     ## 
     ## Conditional Correct Response Rate
     ##     Child Item Rank N of Parents  Parent Items       PIRP Conditional CRR

@@ -48,13 +48,13 @@
 #' }
 #' @export
 
-StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
-                          seed = 123,
-                          population = 20, Rs = 0.5, Rm = 0.005,
-                          maxParents = 2, maxGeneration = 100,
-                          successiveLimit = 5, crossover = 0,
-                          elitism = 0, filename = "NULL",
-                          verbose = TRUE) {
+StrLearningGA_BNM <- function(U, Z = NULL, w = NULL, na = NULL,
+                              seed = 123,
+                              population = 20, Rs = 0.5, Rm = 0.005,
+                              maxParents = 2, maxGeneration = 100,
+                              successiveLimit = 5, crossover = 0,
+                              elitism = 0, filename = "NULL",
+                              verbose = TRUE) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -114,9 +114,8 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
     for (i in 1:population) {
       # make adj from genes
       adj[upper.tri(adj)] <- gene_list[i, ]
-      g <- graph_from_adjacency_matrix(adj)
       # Fitness
-      ret <- BNM(tmp, DAG = g)
+      ret <- BNM(tmp, adj_matrix = adj)
       fitness[i] <- ret$TestFitIndices$BIC
     }
 
@@ -205,7 +204,7 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
   adj[upper.tri(adj)] <- adj_best
   GA_g <- graph_from_adjacency_matrix(adj)
 
-  ret <- BNM(tmp$U, DAG = GA_g)
+  ret <- BNM(tmp$U, g = GA_g)
 
   if (!is.null(filename)) {
     write.table(igraph::as_data_frame(GA_g),
@@ -279,14 +278,14 @@ StrLearningGA <- function(U, Z = NULL, w = NULL, na = NULL,
 #'  Intelligence and Interactive Multimedia, 3, 7–13. DOI: 10.9781/ijimai.2014.311
 #' @export
 
-StrLearningPBIL <- function(U, Z = NULL, w = NULL, na = NULL,
-                            seed = 123,
-                            population = 20, Rs = 0.5, Rm = 0.002,
-                            maxParents = 2, maxGeneration = 100,
-                            successiveLimit = 5, elitism = 0,
-                            alpha = 0.05, estimate = 1,
-                            filename = "NULL",
-                            verbose = TRUE) {
+StrLearningPBIL_BNM <- function(U, Z = NULL, w = NULL, na = NULL,
+                                seed = 123,
+                                population = 20, Rs = 0.5, Rm = 0.002,
+                                maxParents = 2, maxGeneration = 100,
+                                successiveLimit = 5, elitism = 0,
+                                alpha = 0.05, estimate = 1,
+                                filename = "NULL",
+                                verbose = TRUE) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -308,8 +307,17 @@ StrLearningPBIL <- function(U, Z = NULL, w = NULL, na = NULL,
     RsI <- 0
   } else if (RsI > population * Rs * 0.5) {
     RsI <- round(population * Rs * 0.5)
-    print(paste("Too many elites. Limit to ", RsI))
+    print(paste("Too many survivers. Limit to ", RsI))
   }
+
+  # Elitism check
+  if (elitism < 0) {
+    elitism <- 0
+  } else if (elitism > population * Rs * 0.5) {
+    elitism <- round(population * Rs * 0.5)
+    print(paste("Too many elites. Limit to ", elitism))
+  }
+
   # Initialize ------------------------------------------------------
 
   set.seed(seed)
@@ -356,10 +364,8 @@ StrLearningPBIL <- function(U, Z = NULL, w = NULL, na = NULL,
         adj_t[i, ] <- maxParents_penalty(vec, testlength, maxParents)
       }
       adj[upper.tri(adj)] <- adj_t[i, ]
-      # make adj from genes
-      g <- graph_from_adjacency_matrix(adj)
       # Fitness
-      ret <- BNM(tmp, DAG = g)
+      ret <- BNM(tmp, adj_matrix = adj)
       fitness[i] <- ret$TestFitIndices$BIC
     }
     sort_list <- order(fitness)
@@ -409,7 +415,7 @@ StrLearningPBIL <- function(U, Z = NULL, w = NULL, na = NULL,
 
   GA_g <- graph_from_adjacency_matrix(adj)
 
-  ret <- BNM(tmp$U, DAG = GA_g)
+  ret <- BNM(tmp$U, g = GA_g)
 
   if (!is.null(filename)) {
     write.table(igraph::as_data_frame(GA_g),

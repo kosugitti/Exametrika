@@ -13,12 +13,16 @@
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @param ncls number of latent class(rank)
+#' @param ncls number of latent class(rank). The default is 2.
 #' @param method specify the model to analyze the data.Lcal dependence latent
 #' class model is set to "C", latent rank model is set "R". The default is "R".
-#' @param DAG_file specify the CSV files that describe the graph structure for each rank.
+#' @param g_list A list compiling graph-type objects for each rank/class.
+#' @param adj_list A list compiling matrix-type adjacency matrices for each rank/class.
+#' @param adj_file A file detailing the relationships of the graph for each rank/class,
+#' listed in the order of starting point, ending point, and rank(class).
 #' @importFrom igraph get.adjacency
 #' @importFrom igraph graph_from_data_frame
+#' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom utils read.csv
 #' @importFrom igraph V
 #' @return
@@ -44,9 +48,11 @@
 #'
 
 LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
-                  ncls = ncls,
+                  ncls = 2,
                   method = "R",
-                  DAG_file = NULL) {
+                  g_list = NULL,
+                  adj_list = NULL,
+                  adj_file = NULL) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -71,15 +77,46 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
     stop("The method must be selected as either LD-LCA or LD-LRA.")
   }
 
-  g_csv <- read.csv(DAG_file)
-  colnames(g_csv) <- c("From", "To", "Rank")
-  adj_list <- list()
-  for (i in 1:ncls) {
-    adj_R <- g_csv[g_csv$Rank == i, 1:2]
-    g_tmp <- igraph::graph_from_data_frame(adj_R)
-    adj_list[[i]] <- fill_adj(g_tmp, tmp$ItemLabel)
+  # graph check
+  if (is.null(g_list) && is.null(adj_list) && is.null(adj_file)) {
+    stop("Specify the graph in either matrix form, CSV file, or as a graph object.")
   }
-
+  # g_list check
+  if (!is.null(g_list)) {
+    if (length(g_list) != ncls) {
+      stop("The number of classes does not match the length of the list.
+           Please specify a graph for all classes.")
+    }
+    adj_list <- list()
+    for (j in 1:ncls) {
+      if (!inherits(g_list[[1]],"igraph")) {
+        stop("Some items in g_list are not recognized as graph objects.")
+      }
+      adj_list[[j]] <- fill_adj(g_list[[j]], tmp$ItemLabel)
+    }
+  }
+  # adj_list check
+  if (!is.null(adj_list)) {
+    if (length(g_list) != ncls) {
+      stop("The number of classes does not match the length of the list.
+           Please specify a graph for all classes.")
+    }
+    for (j in 1:ncls) {
+      g <- igraph::graph_from_adjacency_matrix(adj_list[[j]])
+      adj_list[[j]] <- fill_adj(g, tmp$ItemLabel)
+    }
+  }
+  # adj_file check
+  if (!is.null(adj_file)) {
+    g_csv <- read.csv(adj_file)
+    colnames(g_csv) <- c("From", "To", "Rank")
+    adj_list <- list()
+    for (i in 1:ncls) {
+      adj_R <- g_csv[g_csv$Rank == i, 1:2]
+      g_tmp <- igraph::graph_from_data_frame(adj_R)
+      adj_list[[i]] <- fill_adj(g_tmp, tmp$ItemLabel)
+    }
+  }
 
   # Set filter --------------------------------------------------------------
   if (model == 1) {

@@ -9,9 +9,11 @@ LDLRA(
   Z = NULL,
   w = NULL,
   na = NULL,
-  ncls = ncls,
+  ncls = 2,
   method = "R",
-  DAG_file = NULL
+  g_list = NULL,
+  adj_list = NULL,
+  adj_file = NULL
 )
 }
 \arguments{
@@ -24,12 +26,17 @@ it is converted to the Exametrika class with the \link{dataFormat} function.}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
-\item{ncls}{number of latent class(rank)}
+\item{ncls}{number of latent class(rank). The default is 2.}
 
 \item{method}{specify the model to analyze the data.Lcal dependence latent
 class model is set to "C", latent rank model is set "R". The default is "R".}
 
-\item{DAG_file}{specify the CSV files that describe the graph structure for each rank.}
+\item{g_list}{A list compiling graph-type objects for each rank/class.}
+
+\item{adj_list}{A list compiling matrix-type adjacency matrices for each rank/class.}
+
+\item{adj_file}{A file detailing the relationships of the graph for each rank/class,
+listed in the order of starting point, ending point, and rank(class).}
 }
 \value{
 \describe{

@@ -4,7 +4,15 @@
 \alias{BNM}
 \title{Bayesian Network Model}
 \usage{
-BNM(U, Z = NULL, w = NULL, na = NULL, DAG = NULL, DAG_file = NULL)
+BNM(
+  U,
+  Z = NULL,
+  w = NULL,
+  na = NULL,
+  g = NULL,
+  adj_file = NULL,
+  adj_matrix = NULL
+)
 }
 \arguments{
 \item{U}{U is either a data class of Exametrika, or raw data. When raw data is given,
@@ -16,9 +24,11 @@ it is converted to the Exametrika class with the \link{dataFormat} function.}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
-\item{DAG}{Specify a graph object suitable for the igraph class.}
+\item{g}{Specify a graph object suitable for the igraph class.}
 
-\item{DAG_file}{specify CSV file where the graph structure is specified.}
+\item{adj_file}{specify CSV file where the graph structure is specified.}
+
+\item{adj_matrix}{specify adjacency matrix.}
 }
 \value{
 \describe{

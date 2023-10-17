@@ -291,7 +291,8 @@ print.Exametrika <- function(x, digits = 3, ...) {
       numeric_cols <- which(sapply(y[, 3:NCOL(y)], is.numeric))
       for (j in numeric_cols) {
         y[, j + 2] <- ifelse(is.na(y[, j + 2]), "",
-                             sprintf(paste0("%.", digits, "f"), y[, j + 2]))
+          sprintf(paste0("%.", digits, "f"), y[, j + 2])
+        )
       }
       print(y)
 

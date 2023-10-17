@@ -135,7 +135,7 @@ plot.Exametrika <- function(x,
       } else if (value == "Biclustering" | value == "LDLRA") {
         target <- x$LRD
       }
-      if( is.null(x$CMD)){
+      if (is.null(x$CMD)) {
         x$CMD <- x$RMD
       }
 
