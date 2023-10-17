@@ -4,7 +4,17 @@
 \alias{emclus}
 \title{emclus funciton}
 \usage{
-emclus(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE)
+emclus(
+  U,
+  Z,
+  ncls,
+  Fil,
+  beta1,
+  beta2,
+  maxiter = 100,
+  mic = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{U}{response matrix U of the examData class.}
@@ -22,6 +32,8 @@ emclus(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE)
 \item{maxiter}{Maximum number of iterations.}
 
 \item{mic}{Monotonic increasing IRP option}
+
+\item{verbose}{verbose output Flag. default is FALSE}
 }
 \description{
 This function is used for both LCA (Latent Class Analysis) and

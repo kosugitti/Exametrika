@@ -6,6 +6,7 @@
 #' @param ... othre options
 #' @importFrom utils tail
 #' @importFrom igraph plot.igraph
+#' @importFrom igraph layout_on_grid
 #' @export
 
 print.Exametrika <- function(x, digits = 3, ...) {
@@ -240,9 +241,13 @@ print.Exametrika <- function(x, digits = 3, ...) {
       if (x$connectedFLG == 1) {
         print("Your graph is connected DAG.")
       }
-      y_coords <- x$crr[order(x$crr, decreasing = TRUE)]
-      x_coords <- runif(length(V(x$g)))
-      plot.igraph(x$g, layout = cbind(x_coords, y_coords))
+      lay.tree <- layout_on_grid(x$g)
+      xcoord <- lay.tree[,1]
+      ycoord <- lay.tree[,2]
+      xcoord <- xcoord[order(rowSums(x$adj))]
+      ycoord <- ycoord[order(x$crr,decreasing = TRUE)]
+
+      plot.igraph(x$g, layout = cbind(xcoord,ycoord))
 
       cat("\nParameter Learning\n")
       p_table <- x$param
@@ -277,11 +282,14 @@ print.Exametrika <- function(x, digits = 3, ...) {
       }
       cat("Adjacency Matrix\n")
       print(x$adj_list)
-      y_coords <- x$crr[order(x$crr, decreasing = TRUE)]
-      x_coords <- runif(length(V(x$g_list[[1]])))
+      lay.tree <- layout_on_grid(x$g_list[[1]])
+      xcoord <- lay.tree[,1]
+      ycoord <- lay.tree[,2]
+      xcoord <- xcoord[order(rowSums(x$adj_list[[1]]))]
+      ycoord <- ycoord[order(x$crr,decreasing = TRUE)]
       for (i in 1:x$Nclass) {
         plot.igraph(x$g_list[[i]],
-          layout = cbind(x_coords, y_coords),
+          layout = cbind(xcoord,ycoord),
           main = paste("Graph of ", msg, i)
         )
       }

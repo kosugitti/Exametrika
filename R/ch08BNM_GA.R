@@ -269,7 +269,6 @@ StrLearningGA_BNM <- function(U, Z = NULL, w = NULL, na = NULL,
 #'  \item{testlength}{Length of the test. The number of items included in the test.}
 #'  \item{crr}{correct response ratio}
 #'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
-#'  \item{adj}{Adjacency matrix}
 #'  \item{param}{Learned Parameters}
 #'  \item{CCRR_table}{Correct Response Rate tables}
 #' }
@@ -330,8 +329,6 @@ StrLearningPBIL_BNM <- function(U, Z = NULL, w = NULL, na = NULL,
   gene_length <- sum(upper.tri(adj))
 
   gene <- rep(0.5, gene_length)
-  adj_gene <- matrix(0, ncol = testlength, nrow = testlength)
-  adj_gene[upper.tri(adj_gene)] <- gene
   adj_t <- matrix(0, nrow = population, ncol = gene_length)
 
   bestfit <- 1e+100
@@ -390,9 +387,10 @@ StrLearningPBIL_BNM <- function(U, Z = NULL, w = NULL, na = NULL,
     if (all(best_individual == adj_t[1, ])) {
       limit_count <- limit_count + 1
     } else {
-      bestfit <- sort(fitness)[1]
-      limit_count <- 0
+      fitness <- sort(fitness)
+      bestfit <- fitness[1]
       best_individual <- adj_t[1, ]
+      limit_count <- 0
     }
     if (limit_count >= successiveLimit) {
       if (verbose) {

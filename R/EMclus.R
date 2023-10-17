@@ -13,9 +13,10 @@
 #' @param beta2 beta distribution parameter2 as prior density of rank reference matrix
 #' @param maxiter Maximum number of iterations.
 #' @param mic Monotonic increasing IRP option
+#' @param verbose verbose output Flag. default is FALSE
 #'
 
-emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE) {
+emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE, verbose = FALSE) {
   # Initialize
   testlength <- NCOL(U)
   const <- exp(-testlength)
@@ -48,7 +49,9 @@ emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE) {
 
     itemEll <- colSums(correct_cls * log(classRefMat + const) + incorrect_cls * log(1 - classRefMat + const))
     testEll <- sum(itemEll)
-    cat(paste("iter", emt, "LogLik", testEll, "\r"))
+    if(verbose){
+      cat(paste("iter", emt, "LogLik", testEll, "\r"))
+    }
     if (testEll - oldtestEll <= 0) {
       classRefMat <- old_classRefMat
       FLG <- FALSE

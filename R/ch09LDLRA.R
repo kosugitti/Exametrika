@@ -1,139 +1,17 @@
-#' @title Local Dependence Latent Rank Analysis
+#' @title LDparam set
 #' @description
-#' performs local dependence latent lank analysis(LD_LRA) by Shojima(2011)
-#' @details
-#' This function is intended to perform LD-LRA. LD-LRA is an analysis that
-#' combines LRA and BNM, and it is used to analyze the network structure among
-#' items in the latent rank. In this function, structural learning is not
-#' performed, so you need to provide item graphs for each rank as separate files.
-#' The file format for this is plain text CSV that includes edges (From, To) and
-#' rank numbers.
-#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
-#' it is converted to the Exametrika class with the [dataFormat] function.
-#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
-#' @param w w is item weight vector
-#' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @param ncls number of latent class(rank). The default is 2.
-#' @param method specify the model to analyze the data.Lcal dependence latent
-#' class model is set to "C", latent rank model is set "R". The default is "R".
-#' @param g_list A list compiling graph-type objects for each rank/class.
-#' @param adj_list A list compiling matrix-type adjacency matrices for each rank/class.
-#' @param adj_file A file detailing the relationships of the graph for each rank/class,
-#' listed in the order of starting point, ending point, and rank(class).
-#' @importFrom igraph get.adjacency
-#' @importFrom igraph graph_from_data_frame
-#' @importFrom igraph graph_from_adjacency_matrix
-#' @importFrom utils read.csv
-#' @importFrom igraph V
-#' @return
-#' \describe{
-#'  \item{nobs}{Sample size. The number of rows in the dataset.}
-#'  \item{testlength}{Length of the test. The number of items included in the test.}
-#'  \item{crr}{correct response ratio}
-#'  \item{adj_list}{adjacency matrix list}
-#'  \item{g_list}{graph list}
-#'  \item{referenceMatrix}{Learned Parameters.A three-dimensional array of patterns where
-#'  item x rank x pattern.}
-#'  \item{IRP}{Marginal Item Reference Matrix}
-#'  \item{IRPIndex}{IRP Indices which include Alpha, Beta, Gamma.}
-#'  \item{TRP}{Test Reference Profile matrix.}
-#'  \item{LRD}{latent Rank/Class Distribution}
-#'  \item{RMD}{Rank/Class Membersip Distribution}
-#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
-#'  \item{Estimation_table}{Esitated parameters tables.}
-#'  \item{CCRR_table}{Correct Response Rate tables}
-#'  \item{Studens}{}
-#' }
-#' @export
+#' A function that extracts only the estimation of graph parameters
+#' after the rank estimation is completed.
+#' @param tmp tmp
+#' @param adj_list adj_list
+#' @param classRefMat values returned from emclus
+#' @param ncls ncls
+#' @param smoothpost smoothpost
 #'
-
-LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
-                  ncls = 2,
-                  method = "R",
-                  g_list = NULL,
-                  adj_list = NULL,
-                  adj_file = NULL) {
-  # data format
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+LD_param_est <- function(tmp, adj_list, classRefMat, ncls, smoothpost) {
   U <- tmp$U * tmp$Z
   testlength <- NCOL(tmp$U)
   nobs <- NROW(tmp$U)
-
-  if (ncls < 2 | ncls > 20) {
-    stop("Please set the number of classes to a number between 2 and less than 20.")
-  }
-
-  if (method == "C" | method == "Class") {
-    print("local dependence latent Class model is chosen.")
-    model <- 1
-  } else if (method == "R" | method == "Rank") {
-    print("local dependence latent Rank model is chosen.")
-    model <- 2
-  } else {
-    stop("The method must be selected as either LD-LCA or LD-LRA.")
-  }
-
-  # graph check
-  if (is.null(g_list) && is.null(adj_list) && is.null(adj_file)) {
-    stop("Specify the graph in either matrix form, CSV file, or as a graph object.")
-  }
-  # g_list check
-  if (!is.null(g_list)) {
-    if (length(g_list) != ncls) {
-      stop("The number of classes does not match the length of the list.
-           Please specify a graph for all classes.")
-    }
-    adj_list <- list()
-    for (j in 1:ncls) {
-      if (!inherits(g_list[[1]],"igraph")) {
-        stop("Some items in g_list are not recognized as graph objects.")
-      }
-      adj_list[[j]] <- fill_adj(g_list[[j]], tmp$ItemLabel)
-    }
-  }
-  # adj_list check
-  if (!is.null(adj_list)) {
-    if (length(g_list) != ncls) {
-      stop("The number of classes does not match the length of the list.
-           Please specify a graph for all classes.")
-    }
-    for (j in 1:ncls) {
-      g <- igraph::graph_from_adjacency_matrix(adj_list[[j]])
-      adj_list[[j]] <- fill_adj(g, tmp$ItemLabel)
-    }
-  }
-  # adj_file check
-  if (!is.null(adj_file)) {
-    g_csv <- read.csv(adj_file)
-    colnames(g_csv) <- c("From", "To", "Rank")
-    adj_list <- list()
-    for (i in 1:ncls) {
-      adj_R <- g_csv[g_csv$Rank == i, 1:2]
-      g_tmp <- igraph::graph_from_data_frame(adj_R)
-      adj_list[[i]] <- fill_adj(g_tmp, tmp$ItemLabel)
-    }
-  }
-
-  # Set filter --------------------------------------------------------------
-  if (model == 1) {
-    filmat <- diag(1, ncol = ncls, nrow = ncls)
-  } else {
-    fil0 <- (1 / 3 - 0.4) / 5 * (ncls - 5) + 0.4
-    fil1 <- (1 / 3 - 0.2) / 5 * (ncls - 5) + 0.2
-    fil2 <- (1 - fil0 - 2 * fil1) / 2
-    filmat0 <- diag(fil0, ncls)
-    filmat1 <- diag(fil1, (ncls + 1))[2:(ncls + 1), 1:ncls]
-    filmat2 <- diag(fil2, (ncls + 2))[3:(ncls + 2), 1:ncls]
-    filmat <- filmat0 + filmat1 + filmat2 + t(filmat1) + t(filmat2)
-    filmat <- filmat / (rep(1, ncls) %*% t(rep(1, ncls)) %*% filmat)
-  }
-
-  ret.emclus <- emclus(tmp$U, tmp$Z, ncls, Fil = filmat, beta1 = 2, beta2 = 2)
-  smoothpost <- ret.emclus$postDist %*% filmat
 
   maxnpa <- 4
   parent <- list()
@@ -164,9 +42,9 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
   #### JxRxPattern
   refmat <- array(NA, dim = c(testlength, ncls, npapat))
   for (i in 1:npapat) {
-    refmat[, , i] <- ret.emclus$classRefMat
+    refmat[, , i] <- classRefMat
   }
-  refmat <- array(replicate(npapat, ret.emclus$classRefMat), dim = c(testlength, ncls, npapat))
+  refmat <- array(replicate(npapat, classRefMat), dim = c(testlength, ncls, npapat))
 
   ### SxJxRxPattern
   pat01 <- array(0, dim = c(nobs, testlength, ncls, npapat))
@@ -174,7 +52,7 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
     for (j in 1:testlength) {
       for (cls in 1:ncls) {
         if (parent[[cls]][[j]][[1]] == "") {
-          # 親不在
+          # No parents
           pos <- 1
         } else {
           pos.tmp <- tmp$U[s, parent[[cls]][[j]]]
@@ -236,6 +114,164 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
 
   model_nparam <- sum(apply(sign(n_correct + n_incorrect), 1:2, sum))
   FitIndices <- TestFit(tmp$U, tmp$Z, test_ell, model_nparam)
+
+  return(list(
+    irp = irp,
+    parent = parent,
+    FitIndices = FitIndices,
+    npapat = npapat,
+    postdist = postdist,
+    refmat = refmat
+  ))
+}
+
+#' @title Local Dependence Latent Rank Analysis
+#' @description
+#' performs local dependence latent lank analysis(LD_LRA) by Shojima(2011)
+#' @details
+#' This function is intended to perform LD-LRA. LD-LRA is an analysis that
+#' combines LRA and BNM, and it is used to analyze the network structure among
+#' items in the latent rank. In this function, structural learning is not
+#' performed, so you need to provide item graphs for each rank as separate files.
+#' The file format for this is plain text CSV that includes edges (From, To) and
+#' rank numbers.
+#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
+#' it is converted to the Exametrika class with the [dataFormat] function.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param w w is item weight vector
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @param ncls number of latent class(rank). The default is 2.
+#' @param method specify the model to analyze the data.Lcal dependence latent
+#' class model is set to "C", latent rank model is set "R". The default is "R".
+#' @param g_list A list compiling graph-type objects for each rank/class.
+#' @param adj_list A list compiling matrix-type adjacency matrices for each rank/class.
+#' @param adj_file A file detailing the relationships of the graph for each rank/class,
+#' listed in the order of starting point, ending point, and rank(class).
+#' @param verbose verbose output Flag. default is TRUE
+#' @importFrom igraph get.adjacency
+#' @importFrom igraph graph_from_data_frame
+#' @importFrom igraph graph_from_adjacency_matrix
+#' @importFrom utils read.csv
+#' @importFrom igraph V
+#' @return
+#' \describe{
+#'  \item{nobs}{Sample size. The number of rows in the dataset.}
+#'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{crr}{correct response ratio}
+#'  \item{adj_list}{adjacency matrix list}
+#'  \item{g_list}{graph list}
+#'  \item{referenceMatrix}{Learned Parameters.A three-dimensional array of patterns where
+#'  item x rank x pattern.}
+#'  \item{IRP}{Marginal Item Reference Matrix}
+#'  \item{IRPIndex}{IRP Indices which include Alpha, Beta, Gamma.}
+#'  \item{TRP}{Test Reference Profile matrix.}
+#'  \item{LRD}{latent Rank/Class Distribution}
+#'  \item{RMD}{Rank/Class Membersip Distribution}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
+#'  \item{Estimation_table}{Esitated parameters tables.}
+#'  \item{CCRR_table}{Correct Response Rate tables}
+#'  \item{Studens}{Student information. It includes estimated class
+#'  membership, probability of class membership, RUO, and RDO.}
+#' }
+#' @export
+#'
+
+LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
+                  ncls = 2, method = "R",
+                  g_list = NULL, adj_list = NULL, adj_file = NULL,
+                  verbose = FALSE) {
+  # data format
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
+  U <- tmp$U * tmp$Z
+  testlength <- NCOL(tmp$U)
+  nobs <- NROW(tmp$U)
+
+  if (ncls < 2 | ncls > 20) {
+    stop("Please set the number of classes to a number between 2 and less than 20.")
+  }
+
+  if (method == "C" | method == "Class") {
+    if (verbose) {
+      print("local dependence latent Class model is chosen.")
+    }
+    model <- 1
+  } else if (method == "R" | method == "Rank") {
+    if (verbose) {
+      print("local dependence latent Rank model is chosen.")
+    }
+    model <- 2
+  } else {
+    stop("The method must be selected as either LD-LCA or LD-LRA.")
+  }
+
+  # graph check
+  if (is.null(g_list) && is.null(adj_list) && is.null(adj_file)) {
+    stop("Specify the graph in either matrix form, CSV file, or as a graph object.")
+  }
+  # g_list check
+  if (!is.null(g_list)) {
+    if (length(g_list) != ncls) {
+      stop("The number of classes does not match the length of the list.
+           Please specify a graph for all classes.")
+    }
+    adj_list <- list()
+    for (j in 1:ncls) {
+      if (!inherits(g_list[[1]], "igraph")) {
+        stop("Some items in g_list are not recognized as graph objects.")
+      }
+      adj_list[[j]] <- fill_adj(g_list[[j]], tmp$ItemLabel)
+    }
+  }
+  # adj_list check
+  if (!is.null(adj_list)) {
+    if (length(adj_list) != ncls) {
+      stop("The number of classes does not match the length of the list.
+           Please specify a graph for all classes.")
+    }
+    for (j in 1:ncls) {
+      g <- igraph::graph_from_adjacency_matrix(adj_list[[j]])
+      adj_list[[j]] <- fill_adj(g, tmp$ItemLabel)
+    }
+  }
+  # adj_file check
+  if (!is.null(adj_file)) {
+    g_csv <- read.csv(adj_file)
+    colnames(g_csv) <- c("From", "To", "Rank")
+    adj_list <- list()
+    for (i in 1:ncls) {
+      adj_R <- g_csv[g_csv$Rank == i, 1:2]
+      g_tmp <- igraph::graph_from_data_frame(adj_R)
+      adj_list[[i]] <- fill_adj(g_tmp, tmp$ItemLabel)
+    }
+  }
+
+  # Set filter --------------------------------------------------------------
+  if (model == 1) {
+    filmat <- diag(1, ncol = ncls, nrow = ncls)
+  } else {
+    fil0 <- (1 / 3 - 0.4) / 5 * (ncls - 5) + 0.4
+    fil1 <- (1 / 3 - 0.2) / 5 * (ncls - 5) + 0.2
+    fil2 <- (1 - fil0 - 2 * fil1) / 2
+    filmat0 <- diag(fil0, ncls)
+    filmat1 <- diag(fil1, (ncls + 1))[2:(ncls + 1), 1:ncls]
+    filmat2 <- diag(fil2, (ncls + 2))[3:(ncls + 2), 1:ncls]
+    filmat <- filmat0 + filmat1 + filmat2 + t(filmat1) + t(filmat2)
+    filmat <- filmat / (rep(1, ncls) %*% t(rep(1, ncls)) %*% filmat)
+  }
+
+  ret.emclus <- emclus(tmp$U, tmp$Z, ncls, Fil = filmat, beta1 = 2, beta2 = 2)
+  smoothpost <- ret.emclus$postDist %*% filmat
+  ret.LDparam <- LD_param_est(tmp, adj_list, ret.emclus$classRefMat, ncls, smoothpost)
+  irp <- ret.LDparam$irp
+  npapat <- ret.LDparam$npapat
+  FitIndices <- ret.LDparam$FitIndices
+  postdist <- ret.LDparam$postdist
+  refmat <- ret.LDparam$refmat
+  parent <- ret.LDparam$parent
 
   # output ----------------------------------------------------------
 

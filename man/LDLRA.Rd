@@ -13,7 +13,8 @@ LDLRA(
   method = "R",
   g_list = NULL,
   adj_list = NULL,
-  adj_file = NULL
+  adj_file = NULL,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ class model is set to "C", latent rank model is set "R". The default is "R".}
 
 \item{adj_file}{A file detailing the relationships of the graph for each rank/class,
 listed in the order of starting point, ending point, and rank(class).}
+
+\item{verbose}{verbose output Flag. default is TRUE}
 }
 \value{
 \describe{
@@ -55,7 +58,8 @@ item x rank x pattern.}
 \item{TestFitIndices}{Overall fit index for the test.See also \link{TestFit}}
 \item{Estimation_table}{Esitated parameters tables.}
 \item{CCRR_table}{Correct Response Rate tables}
-\item{Studens}{}
+\item{Studens}{Student information. It includes estimated class
+membership, probability of class membership, RUO, and RDO.}
 }
 }
 \description{

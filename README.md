@@ -151,7 +151,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333783 iter 2 LogLik -3938.35088569275 iter 3 LogLik -3931.82448587434 iter 4 LogLik -3928.67998134055 iter 5 LogLik -3926.9935508108 iter 6 LogLik -3926.04835387259 iter 7 LogLik -3925.50637379084 iter 8 LogLik -3925.19163884657 iter 9 LogLik -3925.00737930414 iter 10 LogLik -3924.89896666698 iter 11 LogLik -3924.83462601588 iter 12 LogLik -3924.79706118958 iter 13 LogLik -3924.77460411327 
+    ## iter 1 LogLik -3960.28101331792 iter 2 LogLik -3938.35108056598 iter 3 LogLik -3931.82429409613 iter 4 LogLik -3928.68006942706 iter 5 LogLik -3926.99358104471 iter 6 LogLik -3926.04829330269 iter 7 LogLik -3925.50638097837 iter 8 LogLik -3925.1916192137 iter 9 LogLik -3925.00730896664 iter 10 LogLik -3924.8988982229 iter 11 LogLik -3924.83491340128 iter 12 LogLik -3924.79718413947 iter 13 LogLik -3924.77461022171 
 
 ``` r
 result.IRT
@@ -181,9 +181,9 @@ result.IRT
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
     ## Item04       -204.883       -192.072      -265.962       25.623     147.780
-    ## Item05       -232.135       -206.537      -247.403       51.197      81.732
+    ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
@@ -197,14 +197,14 @@ result.IRT
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
-    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.197 -17.186
+    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -219,8 +219,8 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.714
-    ## Item12 -20.200
+    ## Item11 -19.713
+    ## Item12 -20.201
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -251,12 +251,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526946 0.5805701
-    ## 2 Student002 -0.17398819 0.5473604
-    ## 3 Student003  0.01382222 0.5530501
-    ## 4 Student004  0.57628142 0.5749099
-    ## 5 Student005 -0.97449539 0.5915604
-    ## 6 Student006  0.85233073 0.5820549
+    ## 1 Student001 -0.75526732 0.5805699
+    ## 2 Student002 -0.17398711 0.5473605
+    ## 3 Student003  0.01382337 0.5530502
+    ## 4 Student004  0.57628370 0.5749109
+    ## 5 Student005 -0.97449475 0.5915604
+    ## 6 Student006  0.85232870 0.5820542
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -793,9 +793,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH 83be728 DN-- 5 5 -- 
+    ## IGRAPH d68d50d DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from 83be728 (vertex names):
+    ## + edges from d68d50d (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -1146,36 +1146,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH 38ad383 DN-- 4 2 -- 
+    ## IGRAPH 11bb138 DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from 38ad383 (vertex names):
+    ## + edges from 11bb138 (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 1731297 DN-- 9 7 -- 
+    ## IGRAPH 516f0fe DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 1731297 (vertex names):
+    ## + edges from 516f0fe (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 9e680f1 DN-- 9 7 -- 
+    ## IGRAPH faa2fbd DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 9e680f1 (vertex names):
+    ## + edges from faa2fbd (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH f2ff356 DN-- 10 8 -- 
+    ## IGRAPH 12db627 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from f2ff356 (vertex names):
+    ## + edges from 12db627 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH af70799 DN-- 10 8 -- 
+    ## IGRAPH 1495694 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from af70799 (vertex names):
+    ## + edges from 1495694 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -1262,7 +1262,6 @@ result.LDLRA <- LDLRA(J12S5000,
 )
 ```
 
-    ## [1] "local dependence latent Rank model is chosen."
     ## iter 1 LogLik -30957.4080625445 iter 2 LogLik -30393.8016983636 iter 3 LogLik -30476.3341343642 
 
 ``` r

@@ -333,6 +333,21 @@ plot(result.LDLRA, type = "TRP")
 plot(result.LDLRA, type = "LRD")
 ```
 
+
+### Structure Larning for LDLRA with GA(PBIL)
+
+You can learn item-interaction graphs for each rank using the PBIL algorithm. In addition to various options, the learning process requires a very long computation time. It's also important to note that the result is merely one of the feasible solutions, and it's not necessarily the optimal solution.
+
+```{r LDLRA_PBIL}
+result.LDLRA.PBIL <- StrLearningPBIL_LDLRA(J35S515,
+                                           seed = 123,
+                                           ncls = 5,
+                                           method = "R",
+                                           elitism = 1,
+                                           successiveLimit = 15)
+result.LDLRA.PBIL
+```
+
 ## Reference
 
 Shojima, Kojiro (2022) Test Data Engineering: Latent Rank Analysis, Biclustering, and Bayesian Network (Behaviormetrics: Quantitative Approaches to Human Behavior, 13),Springer, [https://amzn.to/42eNArd](https://amzn.to/42eNArd)
