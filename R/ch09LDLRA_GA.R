@@ -279,4 +279,8 @@ StrLearningPBIL_LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
       file = filename
     )
   }
+
+
+  ret <- LDLRA(U = U, ncls = ncls, adj_list = adj_list)
+  return(ret)
 }

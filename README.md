@@ -16,6 +16,7 @@ models.
 - Bayesian Network Analysis
 - Structure Learning for Bayesian Network Analysis by Genetic Algorithm
 - Local Dependence Latent Rank Analysis
+- Structure Learning for LDLRA by PBIL
 
 The estimation of the optimal number of ranks using the Chinese
 Restaurant Process algorithm has not yet been implemented. Additionally,
@@ -151,7 +152,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101331792 iter 2 LogLik -3938.35108056598 iter 3 LogLik -3931.82429409613 iter 4 LogLik -3928.68006942706 iter 5 LogLik -3926.99358104471 iter 6 LogLik -3926.04829330269 iter 7 LogLik -3925.50638097837 iter 8 LogLik -3925.1916192137 iter 9 LogLik -3925.00730896664 iter 10 LogLik -3924.8988982229 iter 11 LogLik -3924.83491340128 iter 12 LogLik -3924.79718413947 iter 13 LogLik -3924.77461022171 
+    ## iter 1 LogLik -3960.28101332373 iter 2 LogLik -3938.35116100808 iter 3 LogLik -3931.82446461276 iter 4 LogLik -3928.6800380476 iter 5 LogLik -3926.99336167255 iter 6 LogLik -3926.0480317866 iter 7 LogLik -3925.50627056095 iter 8 LogLik -3925.19155136224 iter 9 LogLik -3925.00750269435 iter 10 LogLik -3924.8991272117 iter 11 LogLik -3924.83512236951 iter 12 LogLik -3924.79720050943 iter 13 LogLik -3924.77443504456 
 
 ``` r
 result.IRT
@@ -180,15 +181,15 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
+    ## Item04       -204.884       -192.072      -265.962       25.624     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
-    ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
+    ## Item11       -248.409       -224.085      -299.265       48.646     150.360
+    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -196,15 +197,15 @@ result.IRT
     ## Item01       11      13 0.472 0.376 0.541 0.443 0.528 0.079 23.578 -22.805
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
-    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
+    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.624 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
     ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.646 -19.736
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -219,8 +220,8 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.713
-    ## Item12 -20.201
+    ## Item11 -19.714
+    ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -251,12 +252,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526732 0.5805699
-    ## 2 Student002 -0.17398711 0.5473605
-    ## 3 Student003  0.01382337 0.5530502
-    ## 4 Student004  0.57628370 0.5749109
-    ## 5 Student005 -0.97449475 0.5915604
-    ## 6 Student006  0.85232870 0.5820542
+    ## 1 Student001 -0.75526242 0.5805703
+    ## 2 Student002 -0.17398782 0.5473602
+    ## 3 Student003  0.01382245 0.5530499
+    ## 4 Student004  0.57627923 0.5749106
+    ## 5 Student005 -0.97449556 0.5915605
+    ## 6 Student006  0.85233195 0.5820533
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -291,8 +292,6 @@ classes.
 ``` r
 LCA(J15S500, ncls = 5)
 ```
-
-    ## iter 1 LogLik -3920.05938991817 iter 2 LogLik -3868.37661811019 iter 3 LogLik -3856.56533650371 iter 4 LogLik -3845.74374535885 iter 5 LogLik -3833.37488036104 iter 6 LogLik -3820.22763769163 iter 7 LogLik -3806.72242954504 iter 8 LogLik -3792.97266067684 iter 9 LogLik -3779.19228779869 iter 10 LogLik -3765.86175275679 iter 11 LogLik -3753.64229491417 iter 12 LogLik -3743.11740875918 iter 13 LogLik -3734.55698287939 iter 14 LogLik -3727.87850577009 iter 15 LogLik -3722.77367383051 iter 16 LogLik -3718.86333574826 iter 17 LogLik -3715.79886302873 iter 18 LogLik -3713.30370700684 iter 19 LogLik -3711.17800056923 iter 20 LogLik -3709.2871434378 iter 21 LogLik -3707.54624077186 iter 22 LogLik -3705.9055437362 iter 23 LogLik -3704.3385857789 iter 24 LogLik -3702.83324913391 iter 25 LogLik -3701.38544872111 iter 26 LogLik -3699.99493697585 iter 27 LogLik -3698.66270413262 iter 28 LogLik -3697.38949986492 iter 29 LogLik -3696.17509406942 iter 30 LogLik -3695.01799595627 iter 31 LogLik -3693.91544050945 iter 32 LogLik -3692.86352069041 iter 33 LogLik -3691.85739232407 iter 34 LogLik -3690.8915105805 iter 35 LogLik -3689.95987716842 iter 36 LogLik -3689.05628952239 iter 37 LogLik -3688.17458971934 iter 38 LogLik -3687.30891285716 iter 39 LogLik -3686.4539329118 iter 40 LogLik -3685.6050994199 iter 41 LogLik -3684.75885191584 iter 42 LogLik -3683.9127927315 iter 43 LogLik -3683.06579489228 iter 44 LogLik -3682.21802271694 iter 45 LogLik -3681.37084974863 iter 46 LogLik -3680.52667146122 iter 47 LogLik -3679.68862638019 iter 48 LogLik -3678.86025487609 iter 49 LogLik -3678.04513577125 iter 50 LogLik -3677.24654421759 iter 51 LogLik -3676.46716955478 iter 52 LogLik -3675.7089208471 iter 53 LogLik -3674.97283370103 iter 54 LogLik -3674.25907805439 iter 55 LogLik -3673.56705526261 iter 56 LogLik -3672.89556505061 iter 57 LogLik -3672.24301869492 iter 58 LogLik -3671.60767347594 iter 59 LogLik -3670.98786420649 iter 60 LogLik -3670.38220992904 iter 61 LogLik -3669.7897774075 iter 62 LogLik -3669.21018774092 iter 63 LogLik -3668.64365821443 iter 64 LogLik -3668.09097812537 iter 65 LogLik -3667.55342427127 iter 66 LogLik -3667.03262829751 iter 67 LogLik -3666.53041325237 iter 68 LogLik -3666.04861958528 iter 69 LogLik -3665.58894082747 iter 70 LogLik -3665.15278622792 iter 71 LogLik -3664.741182256 iter 72 LogLik -3664.35471825958 iter 73 LogLik -3663.99353505337 
 
     ## 
     ## Item Reference Profile
@@ -396,11 +395,6 @@ includes the one with the highest membership probability.
 
 ``` r
 result.LCA <- LCA(J15S500, ncls = 5)
-```
-
-    ## iter 1 LogLik -3920.05938991817 iter 2 LogLik -3868.37661811019 iter 3 LogLik -3856.56533650371 iter 4 LogLik -3845.74374535885 iter 5 LogLik -3833.37488036104 iter 6 LogLik -3820.22763769163 iter 7 LogLik -3806.72242954504 iter 8 LogLik -3792.97266067684 iter 9 LogLik -3779.19228779869 iter 10 LogLik -3765.86175275679 iter 11 LogLik -3753.64229491417 iter 12 LogLik -3743.11740875918 iter 13 LogLik -3734.55698287939 iter 14 LogLik -3727.87850577009 iter 15 LogLik -3722.77367383051 iter 16 LogLik -3718.86333574826 iter 17 LogLik -3715.79886302873 iter 18 LogLik -3713.30370700684 iter 19 LogLik -3711.17800056923 iter 20 LogLik -3709.2871434378 iter 21 LogLik -3707.54624077186 iter 22 LogLik -3705.9055437362 iter 23 LogLik -3704.3385857789 iter 24 LogLik -3702.83324913391 iter 25 LogLik -3701.38544872111 iter 26 LogLik -3699.99493697585 iter 27 LogLik -3698.66270413262 iter 28 LogLik -3697.38949986492 iter 29 LogLik -3696.17509406942 iter 30 LogLik -3695.01799595627 iter 31 LogLik -3693.91544050945 iter 32 LogLik -3692.86352069041 iter 33 LogLik -3691.85739232407 iter 34 LogLik -3690.8915105805 iter 35 LogLik -3689.95987716842 iter 36 LogLik -3689.05628952239 iter 37 LogLik -3688.17458971934 iter 38 LogLik -3687.30891285716 iter 39 LogLik -3686.4539329118 iter 40 LogLik -3685.6050994199 iter 41 LogLik -3684.75885191584 iter 42 LogLik -3683.9127927315 iter 43 LogLik -3683.06579489228 iter 44 LogLik -3682.21802271694 iter 45 LogLik -3681.37084974863 iter 46 LogLik -3680.52667146122 iter 47 LogLik -3679.68862638019 iter 48 LogLik -3678.86025487609 iter 49 LogLik -3678.04513577125 iter 50 LogLik -3677.24654421759 iter 51 LogLik -3676.46716955478 iter 52 LogLik -3675.7089208471 iter 53 LogLik -3674.97283370103 iter 54 LogLik -3674.25907805439 iter 55 LogLik -3673.56705526261 iter 56 LogLik -3672.89556505061 iter 57 LogLik -3672.24301869492 iter 58 LogLik -3671.60767347594 iter 59 LogLik -3670.98786420649 iter 60 LogLik -3670.38220992904 iter 61 LogLik -3669.7897774075 iter 62 LogLik -3669.21018774092 iter 63 LogLik -3668.64365821443 iter 64 LogLik -3668.09097812537 iter 65 LogLik -3667.55342427127 iter 66 LogLik -3667.03262829751 iter 67 LogLik -3666.53041325237 iter 68 LogLik -3666.04861958528 iter 69 LogLik -3665.58894082747 iter 70 LogLik -3665.15278622792 iter 71 LogLik -3664.741182256 iter 72 LogLik -3664.35471825958 iter 73 LogLik -3663.99353505337 
-
-``` r
 head(result.LCA$Students)
 ```
 
@@ -447,8 +441,6 @@ classes.
 ``` r
 LRA(J15S500, ncls = 6)
 ```
-
-    ## iter 1 LogLik -3982.27445335889 iter 2 LogLik -3927.07005774656 iter 3 LogLik -3922.40197135815 iter 4 LogLik -3919.69903968516 iter 5 LogLik -3916.42810796353 iter 6 LogLik -3913.27494697435 iter 7 LogLik -3910.59202177173 iter 8 LogLik -3908.42026389217 iter 9 LogLik -3906.68968631657 iter 10 LogLik -3905.31196507895 iter 11 LogLik -3904.20944005701 iter 12 LogLik -3903.32045938675 iter 13 LogLik -3902.59778018107 iter 14 LogLik -3902.00559129333 iter 15 LogLik -3901.51674838724 iter 16 LogLik -3901.11056353708 iter 17 LogLik -3900.77113361626 
 
     ## estimating method is  GTMItem Reference Profile
     ##          IRP1   IRP2  IRP3  IRP4  IRP5  IRP6
@@ -570,11 +562,6 @@ calculated.
 
 ``` r
 result.LRA <- LRA(J15S500, ncls = 6)
-```
-
-    ## iter 1 LogLik -3982.27445335889 iter 2 LogLik -3927.07005774656 iter 3 LogLik -3922.40197135815 iter 4 LogLik -3919.69903968516 iter 5 LogLik -3916.42810796353 iter 6 LogLik -3913.27494697435 iter 7 LogLik -3910.59202177173 iter 8 LogLik -3908.42026389217 iter 9 LogLik -3906.68968631657 iter 10 LogLik -3905.31196507895 iter 11 LogLik -3904.20944005701 iter 12 LogLik -3903.32045938675 iter 13 LogLik -3902.59778018107 iter 14 LogLik -3902.00559129333 iter 15 LogLik -3901.51674838724 iter 16 LogLik -3901.11056353708 iter 17 LogLik -3900.77113361626 
-
-``` r
 head(result.LRA$Students)
 ```
 
@@ -793,9 +780,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH d68d50d DN-- 5 5 -- 
+    ## IGRAPH fc7d510 DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from d68d50d (vertex names):
+    ## + edges from fc7d510 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -1146,36 +1133,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH 11bb138 DN-- 4 2 -- 
+    ## IGRAPH 80bff77 DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from 11bb138 (vertex names):
+    ## + edges from 80bff77 (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 516f0fe DN-- 9 7 -- 
+    ## IGRAPH 585baba DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 516f0fe (vertex names):
+    ## + edges from 585baba (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH faa2fbd DN-- 9 7 -- 
+    ## IGRAPH 3cfafa4 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from faa2fbd (vertex names):
+    ## + edges from 3cfafa4 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH 12db627 DN-- 10 8 -- 
+    ## IGRAPH 8c9bd31 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 12db627 (vertex names):
+    ## + edges from 8c9bd31 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH 1495694 DN-- 10 8 -- 
+    ## IGRAPH 83e38a6 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 1495694 (vertex names):
+    ## + edges from 83e38a6 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -1260,11 +1247,6 @@ result.LDLRA <- LDLRA(J12S5000,
   ncls = 5,
   adj_file = "develop/DAG_file.csv"
 )
-```
-
-    ## iter 1 LogLik -30957.4080625445 iter 2 LogLik -30393.8016983636 iter 3 LogLik -30476.3341343642 
-
-``` r
 result.LDLRA
 ```
 
@@ -1654,6 +1636,1317 @@ plot(result.LDLRA, type = "LRD")
 ```
 
 ![](Readme_files/figure-gfm/LDLRA%20plot-3.png)<!-- -->
+
+### Structure Larning for LDLRA with GA(PBIL)
+
+You can learn item-interaction graphs for each rank using the PBIL
+algorithm. In addition to various options, the learning process requires
+a very long computation time. It’s also important to note that the
+result is merely one of the feasible solutions, and it’s not necessarily
+the optimal solution.
+
+``` r
+result.LDLRA.PBIL <- StrLearningPBIL_LDLRA(J35S515,
+                                           seed = 123,
+                                           ncls = 5,
+                                           method = "R",
+                                           elitism = 1,
+                                           successiveLimit = 15)
+```
+
+    ## [1] "local dependence latent Rank model is chosen."
+    ## [1] "Too many survivers. Limit to  5"
+    ## Gen 1 ID. 2 BIC -422.327 BEST -709.604 limit count 0 Gen 1 ID. 3 BIC -526.255 BEST -709.604 limit count 0 Gen 1 ID. 4 BIC -419.884 BEST -709.604 limit count 0 Gen 1 ID. 5 BIC -427.353 BEST -709.604 limit count 0 Gen 1 ID. 6 BIC -545.166 BEST -709.604 limit count 0 Gen 1 ID. 7 BIC -569.055 BEST -709.604 limit count 0 Gen 1 ID. 8 BIC -320.897 BEST -709.604 limit count 0 Gen 1 ID. 9 BIC -468.407 BEST -709.604 limit count 0 Gen 1 ID. 10 BIC -273.71 BEST -709.604 limit count 0 Gen 1 ID. 11 BIC -520.677 BEST -709.604 limit count 0 Gen 1 ID. 12 BIC -277.125 BEST -709.604 limit count 0 Gen 1 ID. 13 BIC -449.793 BEST -709.604 limit count 0 Gen 1 ID. 14 BIC -513.19 BEST -709.604 limit count 0 Gen 1 ID. 15 BIC -316.163 BEST -709.604 limit count 0 Gen 1 ID. 16 BIC -455.311 BEST -709.604 limit count 0 Gen 1 ID. 17 BIC -308.502 BEST -709.604 limit count 0 Gen 1 ID. 18 BIC -302.723 BEST -709.604 limit count 0 Gen 1 ID. 19 BIC -377.327 BEST -709.604 limit count 0 Gen 1 ID. 20 BIC -656.913 BEST -709.604 limit count 0 Gen 2 ID. 2 BIC -453.639 BEST -709.604 limit count 1 Gen 2 ID. 3 BIC -515.942 BEST -709.604 limit count 1 Gen 2 ID. 4 BIC -640.801 BEST -709.604 limit count 1 Gen 2 ID. 5 BIC -523.601 BEST -709.604 limit count 1 Gen 2 ID. 6 BIC -546.148 BEST -709.604 limit count 1 Gen 2 ID. 7 BIC -467.266 BEST -709.604 limit count 1 Gen 2 ID. 8 BIC -717.15 BEST -709.604 limit count 1 Gen 2 ID. 9 BIC -306.418 BEST -709.604 limit count 1 Gen 2 ID. 10 BIC -468.441 BEST -709.604 limit count 1 Gen 2 ID. 11 BIC -673.189 BEST -709.604 limit count 1 Gen 2 ID. 12 BIC -321.404 BEST -709.604 limit count 1 Gen 2 ID. 13 BIC -495.686 BEST -709.604 limit count 1 Gen 2 ID. 14 BIC -600.35 BEST -709.604 limit count 1 Gen 2 ID. 15 BIC -364.983 BEST -709.604 limit count 1 Gen 2 ID. 16 BIC -343.162 BEST -709.604 limit count 1 Gen 2 ID. 17 BIC -386.411 BEST -709.604 limit count 1 Gen 2 ID. 18 BIC -449.807 BEST -709.604 limit count 1 Gen 2 ID. 19 BIC -452.18 BEST -709.604 limit count 1 Gen 2 ID. 20 BIC -467.237 BEST -709.604 limit count 1 Gen 3 ID. 2 BIC -414.726 BEST -717.15 limit count 0 Gen 3 ID. 3 BIC -434.751 BEST -717.15 limit count 0 Gen 3 ID. 4 BIC -524.95 BEST -717.15 limit count 0 Gen 3 ID. 5 BIC -502.991 BEST -717.15 limit count 0 Gen 3 ID. 6 BIC -539.057 BEST -717.15 limit count 0 Gen 3 ID. 7 BIC -302.488 BEST -717.15 limit count 0 Gen 3 ID. 8 BIC -280.548 BEST -717.15 limit count 0 Gen 3 ID. 9 BIC -560.465 BEST -717.15 limit count 0 Gen 3 ID. 10 BIC -513.876 BEST -717.15 limit count 0 Gen 3 ID. 11 BIC -486.99 BEST -717.15 limit count 0 Gen 3 ID. 12 BIC -405.836 BEST -717.15 limit count 0 Gen 3 ID. 13 BIC -411.44 BEST -717.15 limit count 0 Gen 3 ID. 14 BIC -540.975 BEST -717.15 limit count 0 Gen 3 ID. 15 BIC -400.949 BEST -717.15 limit count 0 Gen 3 ID. 16 BIC -567.635 BEST -717.15 limit count 0 Gen 3 ID. 17 BIC -456.976 BEST -717.15 limit count 0 Gen 3 ID. 18 BIC -256.588 BEST -717.15 limit count 0 Gen 3 ID. 19 BIC -500.122 BEST -717.15 limit count 0 Gen 3 ID. 20 BIC -570.932 BEST -717.15 limit count 0 Gen 4 ID. 2 BIC -547.669 BEST -717.15 limit count 1 Gen 4 ID. 3 BIC -356.111 BEST -717.15 limit count 1 Gen 4 ID. 4 BIC -423.911 BEST -717.15 limit count 1 Gen 4 ID. 5 BIC -484.318 BEST -717.15 limit count 1 Gen 4 ID. 6 BIC -501.737 BEST -717.15 limit count 1 Gen 4 ID. 7 BIC -418.426 BEST -717.15 limit count 1 Gen 4 ID. 8 BIC -661.804 BEST -717.15 limit count 1 Gen 4 ID. 9 BIC -408.163 BEST -717.15 limit count 1 Gen 4 ID. 10 BIC -392.889 BEST -717.15 limit count 1 Gen 4 ID. 11 BIC -272.223 BEST -717.15 limit count 1 Gen 4 ID. 12 BIC -370.923 BEST -717.15 limit count 1 Gen 4 ID. 13 BIC -391.89 BEST -717.15 limit count 1 Gen 4 ID. 14 BIC -306.415 BEST -717.15 limit count 1 Gen 4 ID. 15 BIC -589.41 BEST -717.15 limit count 1 Gen 4 ID. 16 BIC -328.944 BEST -717.15 limit count 1 Gen 4 ID. 17 BIC -449.927 BEST -717.15 limit count 1 Gen 4 ID. 18 BIC -307.293 BEST -717.15 limit count 1 Gen 4 ID. 19 BIC -383.285 BEST -717.15 limit count 1 Gen 4 ID. 20 BIC -501.448 BEST -717.15 limit count 1 Gen 5 ID. 2 BIC -483.929 BEST -717.15 limit count 2 Gen 5 ID. 3 BIC -486.842 BEST -717.15 limit count 2 Gen 5 ID. 4 BIC -461.94 BEST -717.15 limit count 2 Gen 5 ID. 5 BIC -363.225 BEST -717.15 limit count 2 Gen 5 ID. 6 BIC -458.415 BEST -717.15 limit count 2 Gen 5 ID. 7 BIC -401.02 BEST -717.15 limit count 2 Gen 5 ID. 8 BIC -384.352 BEST -717.15 limit count 2 Gen 5 ID. 9 BIC -425.682 BEST -717.15 limit count 2 Gen 5 ID. 10 BIC -420.133 BEST -717.15 limit count 2 Gen 5 ID. 11 BIC -524.994 BEST -717.15 limit count 2 Gen 5 ID. 12 BIC -563.555 BEST -717.15 limit count 2 Gen 5 ID. 13 BIC -509.63 BEST -717.15 limit count 2 Gen 5 ID. 14 BIC -506.36 BEST -717.15 limit count 2 Gen 5 ID. 15 BIC -486.6 BEST -717.15 limit count 2 Gen 5 ID. 16 BIC -385.122 BEST -717.15 limit count 2 Gen 5 ID. 17 BIC -340.111 BEST -717.15 limit count 2 Gen 5 ID. 18 BIC -497.859 BEST -717.15 limit count 2 Gen 5 ID. 19 BIC -485.895 BEST -717.15 limit count 2 Gen 5 ID. 20 BIC -535.386 BEST -717.15 limit count 2 Gen 6 ID. 2 BIC -397.522 BEST -717.15 limit count 3 Gen 6 ID. 3 BIC -327.956 BEST -717.15 limit count 3 Gen 6 ID. 4 BIC -515.616 BEST -717.15 limit count 3 Gen 6 ID. 5 BIC -580.154 BEST -717.15 limit count 3 Gen 6 ID. 6 BIC -406.641 BEST -717.15 limit count 3 Gen 6 ID. 7 BIC -420.194 BEST -717.15 limit count 3 Gen 6 ID. 8 BIC -333.668 BEST -717.15 limit count 3 Gen 6 ID. 9 BIC -519.661 BEST -717.15 limit count 3 Gen 6 ID. 10 BIC -609.741 BEST -717.15 limit count 3 Gen 6 ID. 11 BIC -417.211 BEST -717.15 limit count 3 Gen 6 ID. 12 BIC -513.47 BEST -717.15 limit count 3 Gen 6 ID. 13 BIC -490.287 BEST -717.15 limit count 3 Gen 6 ID. 14 BIC -481.605 BEST -717.15 limit count 3 Gen 6 ID. 15 BIC -549.045 BEST -717.15 limit count 3 Gen 6 ID. 16 BIC -445.122 BEST -717.15 limit count 3 Gen 6 ID. 17 BIC -469.131 BEST -717.15 limit count 3 Gen 6 ID. 18 BIC -360.529 BEST -717.15 limit count 3 Gen 6 ID. 19 BIC -487.935 BEST -717.15 limit count 3 Gen 6 ID. 20 BIC -413.372 BEST -717.15 limit count 3 Gen 7 ID. 2 BIC -566.711 BEST -717.15 limit count 4 Gen 7 ID. 3 BIC -501.363 BEST -717.15 limit count 4 Gen 7 ID. 4 BIC -491.278 BEST -717.15 limit count 4 Gen 7 ID. 5 BIC -519.399 BEST -717.15 limit count 4 Gen 7 ID. 6 BIC -679.15 BEST -717.15 limit count 4 Gen 7 ID. 7 BIC -472.54 BEST -717.15 limit count 4 Gen 7 ID. 8 BIC -364.919 BEST -717.15 limit count 4 Gen 7 ID. 9 BIC -646.398 BEST -717.15 limit count 4 Gen 7 ID. 10 BIC -552.374 BEST -717.15 limit count 4 Gen 7 ID. 11 BIC -577.703 BEST -717.15 limit count 4 Gen 7 ID. 12 BIC -544.654 BEST -717.15 limit count 4 Gen 7 ID. 13 BIC -465.313 BEST -717.15 limit count 4 Gen 7 ID. 14 BIC -414.232 BEST -717.15 limit count 4 Gen 7 ID. 15 BIC -478.8 BEST -717.15 limit count 4 Gen 7 ID. 16 BIC -560.269 BEST -717.15 limit count 4 Gen 7 ID. 17 BIC -336.031 BEST -717.15 limit count 4 Gen 7 ID. 18 BIC -336.339 BEST -717.15 limit count 4 Gen 7 ID. 19 BIC -340.626 BEST -717.15 limit count 4 Gen 7 ID. 20 BIC -522.17 BEST -717.15 limit count 4 Gen 8 ID. 2 BIC -603.689 BEST -717.15 limit count 5 Gen 8 ID. 3 BIC -359.055 BEST -717.15 limit count 5 Gen 8 ID. 4 BIC -791.319 BEST -717.15 limit count 5 Gen 8 ID. 5 BIC -480.978 BEST -717.15 limit count 5 Gen 8 ID. 6 BIC -491.674 BEST -717.15 limit count 5 Gen 8 ID. 7 BIC -622.546 BEST -717.15 limit count 5 Gen 8 ID. 8 BIC -567.817 BEST -717.15 limit count 5 Gen 8 ID. 9 BIC -646.625 BEST -717.15 limit count 5 Gen 8 ID. 10 BIC -350.987 BEST -717.15 limit count 5 Gen 8 ID. 11 BIC -554.654 BEST -717.15 limit count 5 Gen 8 ID. 12 BIC -551.042 BEST -717.15 limit count 5 Gen 8 ID. 13 BIC -417.637 BEST -717.15 limit count 5 Gen 8 ID. 14 BIC -341.436 BEST -717.15 limit count 5 Gen 8 ID. 15 BIC -387.708 BEST -717.15 limit count 5 Gen 8 ID. 16 BIC -543.029 BEST -717.15 limit count 5 Gen 8 ID. 17 BIC -363.872 BEST -717.15 limit count 5 Gen 8 ID. 18 BIC -544.05 BEST -717.15 limit count 5 Gen 8 ID. 19 BIC -512.891 BEST -717.15 limit count 5 Gen 8 ID. 20 BIC -615.26 BEST -717.15 limit count 5 Gen 9 ID. 2 BIC -585.402 BEST -791.319 limit count 0 Gen 9 ID. 3 BIC -388.29 BEST -791.319 limit count 0 Gen 9 ID. 4 BIC -487.699 BEST -791.319 limit count 0 Gen 9 ID. 5 BIC -492.375 BEST -791.319 limit count 0 Gen 9 ID. 6 BIC -503.756 BEST -791.319 limit count 0 Gen 9 ID. 7 BIC -540.984 BEST -791.319 limit count 0 Gen 9 ID. 8 BIC -553.193 BEST -791.319 limit count 0 Gen 9 ID. 9 BIC -409.575 BEST -791.319 limit count 0 Gen 9 ID. 10 BIC -415.866 BEST -791.319 limit count 0 Gen 9 ID. 11 BIC -737.831 BEST -791.319 limit count 0 Gen 9 ID. 12 BIC -627.219 BEST -791.319 limit count 0 Gen 9 ID. 13 BIC -440.463 BEST -791.319 limit count 0 Gen 9 ID. 14 BIC -505.03 BEST -791.319 limit count 0 Gen 9 ID. 15 BIC -312.347 BEST -791.319 limit count 0 Gen 9 ID. 16 BIC -569.392 BEST -791.319 limit count 0 Gen 9 ID. 17 BIC -561.062 BEST -791.319 limit count 0 Gen 9 ID. 18 BIC -539.849 BEST -791.319 limit count 0 Gen 9 ID. 19 BIC -534.001 BEST -791.319 limit count 0 Gen 9 ID. 20 BIC -380.962 BEST -791.319 limit count 0 Gen 10 ID. 2 BIC -527.606 BEST -791.319 limit count 1 Gen 10 ID. 3 BIC -531.567 BEST -791.319 limit count 1 Gen 10 ID. 4 BIC -606.66 BEST -791.319 limit count 1 Gen 10 ID. 5 BIC -468.857 BEST -791.319 limit count 1 Gen 10 ID. 6 BIC -616.972 BEST -791.319 limit count 1 Gen 10 ID. 7 BIC -399.066 BEST -791.319 limit count 1 Gen 10 ID. 8 BIC -498.71 BEST -791.319 limit count 1 Gen 10 ID. 9 BIC -418.221 BEST -791.319 limit count 1 Gen 10 ID. 10 BIC -493.903 BEST -791.319 limit count 1 Gen 10 ID. 11 BIC -536.07 BEST -791.319 limit count 1 Gen 10 ID. 12 BIC -599.931 BEST -791.319 limit count 1 Gen 10 ID. 13 BIC -539.202 BEST -791.319 limit count 1 Gen 10 ID. 14 BIC -750.54 BEST -791.319 limit count 1 Gen 10 ID. 15 BIC -572.636 BEST -791.319 limit count 1 Gen 10 ID. 16 BIC -666.334 BEST -791.319 limit count 1 Gen 10 ID. 17 BIC -417.831 BEST -791.319 limit count 1 Gen 10 ID. 18 BIC -635.378 BEST -791.319 limit count 1 Gen 10 ID. 19 BIC -438.893 BEST -791.319 limit count 1 Gen 10 ID. 20 BIC -573.246 BEST -791.319 limit count 1 Gen 11 ID. 2 BIC -680.05 BEST -791.319 limit count 2 Gen 11 ID. 3 BIC -471.66 BEST -791.319 limit count 2 Gen 11 ID. 4 BIC -577.087 BEST -791.319 limit count 2 Gen 11 ID. 5 BIC -484.611 BEST -791.319 limit count 2 Gen 11 ID. 6 BIC -699.088 BEST -791.319 limit count 2 Gen 11 ID. 7 BIC -582.781 BEST -791.319 limit count 2 Gen 11 ID. 8 BIC -586.223 BEST -791.319 limit count 2 Gen 11 ID. 9 BIC -485.876 BEST -791.319 limit count 2 Gen 11 ID. 10 BIC -547.534 BEST -791.319 limit count 2 Gen 11 ID. 11 BIC -676.029 BEST -791.319 limit count 2 Gen 11 ID. 12 BIC -511.559 BEST -791.319 limit count 2 Gen 11 ID. 13 BIC -336.848 BEST -791.319 limit count 2 Gen 11 ID. 14 BIC -748.717 BEST -791.319 limit count 2 Gen 11 ID. 15 BIC -479.641 BEST -791.319 limit count 2 Gen 11 ID. 16 BIC -423.676 BEST -791.319 limit count 2 Gen 11 ID. 17 BIC -648.916 BEST -791.319 limit count 2 Gen 11 ID. 18 BIC -413.484 BEST -791.319 limit count 2 Gen 11 ID. 19 BIC -689.508 BEST -791.319 limit count 2 Gen 11 ID. 20 BIC -508.428 BEST -791.319 limit count 2 Gen 12 ID. 2 BIC -634.978 BEST -791.319 limit count 3 Gen 12 ID. 3 BIC -399.791 BEST -791.319 limit count 3 Gen 12 ID. 4 BIC -742.214 BEST -791.319 limit count 3 Gen 12 ID. 5 BIC -296.273 BEST -791.319 limit count 3 Gen 12 ID. 6 BIC -567.452 BEST -791.319 limit count 3 Gen 12 ID. 7 BIC -572.303 BEST -791.319 limit count 3 Gen 12 ID. 8 BIC -593.997 BEST -791.319 limit count 3 Gen 12 ID. 9 BIC -589.065 BEST -791.319 limit count 3 Gen 12 ID. 10 BIC -554.985 BEST -791.319 limit count 3 Gen 12 ID. 11 BIC -505.07 BEST -791.319 limit count 3 Gen 12 ID. 12 BIC -599.957 BEST -791.319 limit count 3 Gen 12 ID. 13 BIC -754.162 BEST -791.319 limit count 3 Gen 12 ID. 14 BIC -529.429 BEST -791.319 limit count 3 Gen 12 ID. 15 BIC -621.358 BEST -791.319 limit count 3 Gen 12 ID. 16 BIC -607.939 BEST -791.319 limit count 3 Gen 12 ID. 17 BIC -586.798 BEST -791.319 limit count 3 Gen 12 ID. 18 BIC -409.612 BEST -791.319 limit count 3 Gen 12 ID. 19 BIC -614.762 BEST -791.319 limit count 3 Gen 12 ID. 20 BIC -695.502 BEST -791.319 limit count 3 Gen 13 ID. 2 BIC -635.803 BEST -791.319 limit count 4 Gen 13 ID. 3 BIC -688.672 BEST -791.319 limit count 4 Gen 13 ID. 4 BIC -672.651 BEST -791.319 limit count 4 Gen 13 ID. 5 BIC -502.724 BEST -791.319 limit count 4 Gen 13 ID. 6 BIC -548.378 BEST -791.319 limit count 4 Gen 13 ID. 7 BIC -547.811 BEST -791.319 limit count 4 Gen 13 ID. 8 BIC -617.041 BEST -791.319 limit count 4 Gen 13 ID. 9 BIC -490.47 BEST -791.319 limit count 4 Gen 13 ID. 10 BIC -715.729 BEST -791.319 limit count 4 Gen 13 ID. 11 BIC -484.722 BEST -791.319 limit count 4 Gen 13 ID. 12 BIC -728.693 BEST -791.319 limit count 4 Gen 13 ID. 13 BIC -514.145 BEST -791.319 limit count 4 Gen 13 ID. 14 BIC -504.417 BEST -791.319 limit count 4 Gen 13 ID. 15 BIC -536.827 BEST -791.319 limit count 4 Gen 13 ID. 16 BIC -811.147 BEST -791.319 limit count 4 Gen 13 ID. 17 BIC -513.856 BEST -791.319 limit count 4 Gen 13 ID. 18 BIC -525.488 BEST -791.319 limit count 4 Gen 13 ID. 19 BIC -619.262 BEST -791.319 limit count 4 Gen 13 ID. 20 BIC -421.671 BEST -791.319 limit count 4 Gen 14 ID. 2 BIC -517.205 BEST -811.147 limit count 0 Gen 14 ID. 3 BIC -446.875 BEST -811.147 limit count 0 Gen 14 ID. 4 BIC -391.234 BEST -811.147 limit count 0 Gen 14 ID. 5 BIC -375.261 BEST -811.147 limit count 0 Gen 14 ID. 6 BIC -603.806 BEST -811.147 limit count 0 Gen 14 ID. 7 BIC -657.485 BEST -811.147 limit count 0 Gen 14 ID. 8 BIC -683.424 BEST -811.147 limit count 0 Gen 14 ID. 9 BIC -631.798 BEST -811.147 limit count 0 Gen 14 ID. 10 BIC -610.271 BEST -811.147 limit count 0 Gen 14 ID. 11 BIC -660.944 BEST -811.147 limit count 0 Gen 14 ID. 12 BIC -738.687 BEST -811.147 limit count 0 Gen 14 ID. 13 BIC -542.679 BEST -811.147 limit count 0 Gen 14 ID. 14 BIC -561.182 BEST -811.147 limit count 0 Gen 14 ID. 15 BIC -558.305 BEST -811.147 limit count 0 Gen 14 ID. 16 BIC -360.92 BEST -811.147 limit count 0 Gen 14 ID. 17 BIC -559.663 BEST -811.147 limit count 0 Gen 14 ID. 18 BIC -691.172 BEST -811.147 limit count 0 Gen 14 ID. 19 BIC -551.429 BEST -811.147 limit count 0 Gen 14 ID. 20 BIC -498.203 BEST -811.147 limit count 0 Gen 15 ID. 2 BIC -531.69 BEST -811.147 limit count 1 Gen 15 ID. 3 BIC -754.25 BEST -811.147 limit count 1 Gen 15 ID. 4 BIC -602.007 BEST -811.147 limit count 1 Gen 15 ID. 5 BIC -599.412 BEST -811.147 limit count 1 Gen 15 ID. 6 BIC -478.864 BEST -811.147 limit count 1 Gen 15 ID. 7 BIC -855.036 BEST -811.147 limit count 1 Gen 15 ID. 8 BIC -523.51 BEST -811.147 limit count 1 Gen 15 ID. 9 BIC -747.695 BEST -811.147 limit count 1 Gen 15 ID. 10 BIC -429.679 BEST -811.147 limit count 1 Gen 15 ID. 11 BIC -665.982 BEST -811.147 limit count 1 Gen 15 ID. 12 BIC -626.547 BEST -811.147 limit count 1 Gen 15 ID. 13 BIC -742.088 BEST -811.147 limit count 1 Gen 15 ID. 14 BIC -584.289 BEST -811.147 limit count 1 Gen 15 ID. 15 BIC -631.808 BEST -811.147 limit count 1 Gen 15 ID. 16 BIC -764.853 BEST -811.147 limit count 1 Gen 15 ID. 17 BIC -763.076 BEST -811.147 limit count 1 Gen 15 ID. 18 BIC -633.844 BEST -811.147 limit count 1 Gen 15 ID. 19 BIC -750.059 BEST -811.147 limit count 1 Gen 15 ID. 20 BIC -444.145 BEST -811.147 limit count 1 Gen 16 ID. 2 BIC -396.811 BEST -855.036 limit count 0 Gen 16 ID. 3 BIC -475.69 BEST -855.036 limit count 0 Gen 16 ID. 4 BIC -675.527 BEST -855.036 limit count 0 Gen 16 ID. 5 BIC -399.749 BEST -855.036 limit count 0 Gen 16 ID. 6 BIC -795.372 BEST -855.036 limit count 0 Gen 16 ID. 7 BIC -707.393 BEST -855.036 limit count 0 Gen 16 ID. 8 BIC -667.346 BEST -855.036 limit count 0 Gen 16 ID. 9 BIC -749.95 BEST -855.036 limit count 0 Gen 16 ID. 10 BIC -698.221 BEST -855.036 limit count 0 Gen 16 ID. 11 BIC -675.865 BEST -855.036 limit count 0 Gen 16 ID. 12 BIC -846.804 BEST -855.036 limit count 0 Gen 16 ID. 13 BIC -668.895 BEST -855.036 limit count 0 Gen 16 ID. 14 BIC -626.075 BEST -855.036 limit count 0 Gen 16 ID. 15 BIC -696.82 BEST -855.036 limit count 0 Gen 16 ID. 16 BIC -725.656 BEST -855.036 limit count 0 Gen 16 ID. 17 BIC -516.365 BEST -855.036 limit count 0 Gen 16 ID. 18 BIC -771.068 BEST -855.036 limit count 0 Gen 16 ID. 19 BIC -712.341 BEST -855.036 limit count 0 Gen 16 ID. 20 BIC -662.414 BEST -855.036 limit count 0 Gen 17 ID. 2 BIC -813.237 BEST -855.036 limit count 1 Gen 17 ID. 3 BIC -691.449 BEST -855.036 limit count 1 Gen 17 ID. 4 BIC -561.346 BEST -855.036 limit count 1 Gen 17 ID. 5 BIC -595.04 BEST -855.036 limit count 1 Gen 17 ID. 6 BIC -627.216 BEST -855.036 limit count 1 Gen 17 ID. 7 BIC -704.647 BEST -855.036 limit count 1 Gen 17 ID. 8 BIC -587.129 BEST -855.036 limit count 1 Gen 17 ID. 9 BIC -413.237 BEST -855.036 limit count 1 Gen 17 ID. 10 BIC -698.303 BEST -855.036 limit count 1 Gen 17 ID. 11 BIC -548.741 BEST -855.036 limit count 1 Gen 17 ID. 12 BIC -768.248 BEST -855.036 limit count 1 Gen 17 ID. 13 BIC -828.141 BEST -855.036 limit count 1 Gen 17 ID. 14 BIC -704.156 BEST -855.036 limit count 1 Gen 17 ID. 15 BIC -663.274 BEST -855.036 limit count 1 Gen 17 ID. 16 BIC -823.496 BEST -855.036 limit count 1 Gen 17 ID. 17 BIC -652.165 BEST -855.036 limit count 1 Gen 17 ID. 18 BIC -481.921 BEST -855.036 limit count 1 Gen 17 ID. 19 BIC -404.878 BEST -855.036 limit count 1 Gen 17 ID. 20 BIC -530.107 BEST -855.036 limit count 1 Gen 18 ID. 2 BIC -697.561 BEST -855.036 limit count 2 Gen 18 ID. 3 BIC -932.439 BEST -855.036 limit count 2 Gen 18 ID. 4 BIC -566.65 BEST -855.036 limit count 2 Gen 18 ID. 5 BIC -953.004 BEST -855.036 limit count 2 Gen 18 ID. 6 BIC -580.613 BEST -855.036 limit count 2 Gen 18 ID. 7 BIC -820.425 BEST -855.036 limit count 2 Gen 18 ID. 8 BIC -649.396 BEST -855.036 limit count 2 Gen 18 ID. 9 BIC -852.783 BEST -855.036 limit count 2 Gen 18 ID. 10 BIC -758.75 BEST -855.036 limit count 2 Gen 18 ID. 11 BIC -859.122 BEST -855.036 limit count 2 Gen 18 ID. 12 BIC -687.683 BEST -855.036 limit count 2 Gen 18 ID. 13 BIC -578.023 BEST -855.036 limit count 2 Gen 18 ID. 14 BIC -618.668 BEST -855.036 limit count 2 Gen 18 ID. 15 BIC -555.641 BEST -855.036 limit count 2 Gen 18 ID. 16 BIC -762.615 BEST -855.036 limit count 2 Gen 18 ID. 17 BIC -730.032 BEST -855.036 limit count 2 Gen 18 ID. 18 BIC -550.511 BEST -855.036 limit count 2 Gen 18 ID. 19 BIC -959.991 BEST -855.036 limit count 2 Gen 18 ID. 20 BIC -697.818 BEST -855.036 limit count 2 Gen 19 ID. 2 BIC -758.281 BEST -959.991 limit count 0 Gen 19 ID. 3 BIC -660.355 BEST -959.991 limit count 0 Gen 19 ID. 4 BIC -625.872 BEST -959.991 limit count 0 Gen 19 ID. 5 BIC -800.308 BEST -959.991 limit count 0 Gen 19 ID. 6 BIC -828.535 BEST -959.991 limit count 0 Gen 19 ID. 7 BIC -878.831 BEST -959.991 limit count 0 Gen 19 ID. 8 BIC -856.072 BEST -959.991 limit count 0 Gen 19 ID. 9 BIC -934.222 BEST -959.991 limit count 0 Gen 19 ID. 10 BIC -860.554 BEST -959.991 limit count 0 Gen 19 ID. 11 BIC -771.637 BEST -959.991 limit count 0 Gen 19 ID. 12 BIC -679.179 BEST -959.991 limit count 0 Gen 19 ID. 13 BIC -662.066 BEST -959.991 limit count 0 Gen 19 ID. 14 BIC -499.492 BEST -959.991 limit count 0 Gen 19 ID. 15 BIC -868.18 BEST -959.991 limit count 0 Gen 19 ID. 16 BIC -746.647 BEST -959.991 limit count 0 Gen 19 ID. 17 BIC -719.196 BEST -959.991 limit count 0 Gen 19 ID. 18 BIC -841.59 BEST -959.991 limit count 0 Gen 19 ID. 19 BIC -848.719 BEST -959.991 limit count 0 Gen 19 ID. 20 BIC -683.884 BEST -959.991 limit count 0 Gen 20 ID. 2 BIC -678.255 BEST -959.991 limit count 1 Gen 20 ID. 3 BIC -663.376 BEST -959.991 limit count 1 Gen 20 ID. 4 BIC -748.168 BEST -959.991 limit count 1 Gen 20 ID. 5 BIC -614.595 BEST -959.991 limit count 1 Gen 20 ID. 6 BIC -645.509 BEST -959.991 limit count 1 Gen 20 ID. 7 BIC -599.641 BEST -959.991 limit count 1 Gen 20 ID. 8 BIC -868.819 BEST -959.991 limit count 1 Gen 20 ID. 9 BIC -754.962 BEST -959.991 limit count 1 Gen 20 ID. 10 BIC -789.992 BEST -959.991 limit count 1 Gen 20 ID. 11 BIC -796.33 BEST -959.991 limit count 1 Gen 20 ID. 12 BIC -886.372 BEST -959.991 limit count 1 Gen 20 ID. 13 BIC -945.449 BEST -959.991 limit count 1 Gen 20 ID. 14 BIC -654.094 BEST -959.991 limit count 1 Gen 20 ID. 15 BIC -729.479 BEST -959.991 limit count 1 Gen 20 ID. 16 BIC -852.284 BEST -959.991 limit count 1 Gen 20 ID. 17 BIC -974.591 BEST -959.991 limit count 1 Gen 20 ID. 18 BIC -631.397 BEST -959.991 limit count 1 Gen 20 ID. 19 BIC -809.847 BEST -959.991 limit count 1 Gen 20 ID. 20 BIC -714.881 BEST -959.991 limit count 1 Gen 21 ID. 2 BIC -754.747 BEST -974.591 limit count 0 Gen 21 ID. 3 BIC -834.363 BEST -974.591 limit count 0 Gen 21 ID. 4 BIC -717.471 BEST -974.591 limit count 0 Gen 21 ID. 5 BIC -842.304 BEST -974.591 limit count 0 Gen 21 ID. 6 BIC -883.475 BEST -974.591 limit count 0 Gen 21 ID. 7 BIC -742.722 BEST -974.591 limit count 0 Gen 21 ID. 8 BIC -777.411 BEST -974.591 limit count 0 Gen 21 ID. 9 BIC -573.074 BEST -974.591 limit count 0 Gen 21 ID. 10 BIC -710.503 BEST -974.591 limit count 0 Gen 21 ID. 11 BIC -852.444 BEST -974.591 limit count 0 Gen 21 ID. 12 BIC -797.08 BEST -974.591 limit count 0 Gen 21 ID. 13 BIC -815.935 BEST -974.591 limit count 0 Gen 21 ID. 14 BIC -806.012 BEST -974.591 limit count 0 Gen 21 ID. 15 BIC -746.641 BEST -974.591 limit count 0 Gen 21 ID. 16 BIC -845.458 BEST -974.591 limit count 0 Gen 21 ID. 17 BIC -871.516 BEST -974.591 limit count 0 Gen 21 ID. 18 BIC -944.187 BEST -974.591 limit count 0 Gen 21 ID. 19 BIC -761.484 BEST -974.591 limit count 0 Gen 21 ID. 20 BIC -779.28 BEST -974.591 limit count 0 Gen 22 ID. 2 BIC -1027.738 BEST -974.591 limit count 1 Gen 22 ID. 3 BIC -844.163 BEST -974.591 limit count 1 Gen 22 ID. 4 BIC -743.165 BEST -974.591 limit count 1 Gen 22 ID. 5 BIC -722.036 BEST -974.591 limit count 1 Gen 22 ID. 6 BIC -760.296 BEST -974.591 limit count 1 Gen 22 ID. 7 BIC -749.797 BEST -974.591 limit count 1 Gen 22 ID. 8 BIC -848.563 BEST -974.591 limit count 1 Gen 22 ID. 9 BIC -688.508 BEST -974.591 limit count 1 Gen 22 ID. 10 BIC -868.265 BEST -974.591 limit count 1 Gen 22 ID. 11 BIC -763.648 BEST -974.591 limit count 1 Gen 22 ID. 12 BIC -785.285 BEST -974.591 limit count 1 Gen 22 ID. 13 BIC -879.818 BEST -974.591 limit count 1 Gen 22 ID. 14 BIC -823.899 BEST -974.591 limit count 1 Gen 22 ID. 15 BIC -847.929 BEST -974.591 limit count 1 Gen 22 ID. 16 BIC -893.906 BEST -974.591 limit count 1 Gen 22 ID. 17 BIC -1046.196 BEST -974.591 limit count 1 Gen 22 ID. 18 BIC -666.322 BEST -974.591 limit count 1 Gen 22 ID. 19 BIC -680.968 BEST -974.591 limit count 1 Gen 22 ID. 20 BIC -867.099 BEST -974.591 limit count 1 Gen 23 ID. 2 BIC -686.347 BEST -1046.196 limit count 0 Gen 23 ID. 3 BIC -1017.388 BEST -1046.196 limit count 0 Gen 23 ID. 4 BIC -876.867 BEST -1046.196 limit count 0 Gen 23 ID. 5 BIC -749.398 BEST -1046.196 limit count 0 Gen 23 ID. 6 BIC -821.809 BEST -1046.196 limit count 0 Gen 23 ID. 7 BIC -705.038 BEST -1046.196 limit count 0 Gen 23 ID. 8 BIC -716.229 BEST -1046.196 limit count 0 Gen 23 ID. 9 BIC -791.412 BEST -1046.196 limit count 0 Gen 23 ID. 10 BIC -758.85 BEST -1046.196 limit count 0 Gen 23 ID. 11 BIC -1036.851 BEST -1046.196 limit count 0 Gen 23 ID. 12 BIC -933.819 BEST -1046.196 limit count 0 Gen 23 ID. 13 BIC -739.814 BEST -1046.196 limit count 0 Gen 23 ID. 14 BIC -624.921 BEST -1046.196 limit count 0 Gen 23 ID. 15 BIC -764.504 BEST -1046.196 limit count 0 Gen 23 ID. 16 BIC -825.806 BEST -1046.196 limit count 0 Gen 23 ID. 17 BIC -648.045 BEST -1046.196 limit count 0 Gen 23 ID. 18 BIC -938.418 BEST -1046.196 limit count 0 Gen 23 ID. 19 BIC -908.432 BEST -1046.196 limit count 0 Gen 23 ID. 20 BIC -741.291 BEST -1046.196 limit count 0 Gen 24 ID. 2 BIC -984.64 BEST -1046.196 limit count 1 Gen 24 ID. 3 BIC -743.363 BEST -1046.196 limit count 1 Gen 24 ID. 4 BIC -830.575 BEST -1046.196 limit count 1 Gen 24 ID. 5 BIC -752.586 BEST -1046.196 limit count 1 Gen 24 ID. 6 BIC -982.313 BEST -1046.196 limit count 1 Gen 24 ID. 7 BIC -942.016 BEST -1046.196 limit count 1 Gen 24 ID. 8 BIC -951.003 BEST -1046.196 limit count 1 Gen 24 ID. 9 BIC -886.368 BEST -1046.196 limit count 1 Gen 24 ID. 10 BIC -914.285 BEST -1046.196 limit count 1 Gen 24 ID. 11 BIC -837.85 BEST -1046.196 limit count 1 Gen 24 ID. 12 BIC -763.092 BEST -1046.196 limit count 1 Gen 24 ID. 13 BIC -793.741 BEST -1046.196 limit count 1 Gen 24 ID. 14 BIC -871.094 BEST -1046.196 limit count 1 Gen 24 ID. 15 BIC -837.045 BEST -1046.196 limit count 1 Gen 24 ID. 16 BIC -799.801 BEST -1046.196 limit count 1 Gen 24 ID. 17 BIC -724.095 BEST -1046.196 limit count 1 Gen 24 ID. 18 BIC -848.329 BEST -1046.196 limit count 1 Gen 24 ID. 19 BIC -973.091 BEST -1046.196 limit count 1 Gen 24 ID. 20 BIC -835.365 BEST -1046.196 limit count 1 Gen 25 ID. 2 BIC -1146.781 BEST -1046.196 limit count 2 Gen 25 ID. 3 BIC -954.167 BEST -1046.196 limit count 2 Gen 25 ID. 4 BIC -786.994 BEST -1046.196 limit count 2 Gen 25 ID. 5 BIC -693.702 BEST -1046.196 limit count 2 Gen 25 ID. 6 BIC -1066.311 BEST -1046.196 limit count 2 Gen 25 ID. 7 BIC -944.653 BEST -1046.196 limit count 2 Gen 25 ID. 8 BIC -771.417 BEST -1046.196 limit count 2 Gen 25 ID. 9 BIC -957.87 BEST -1046.196 limit count 2 Gen 25 ID. 10 BIC -715.959 BEST -1046.196 limit count 2 Gen 25 ID. 11 BIC -971.452 BEST -1046.196 limit count 2 Gen 25 ID. 12 BIC -875.428 BEST -1046.196 limit count 2 Gen 25 ID. 13 BIC -927.14 BEST -1046.196 limit count 2 Gen 25 ID. 14 BIC -1099.664 BEST -1046.196 limit count 2 Gen 25 ID. 15 BIC -908.564 BEST -1046.196 limit count 2 Gen 25 ID. 16 BIC -913.207 BEST -1046.196 limit count 2 Gen 25 ID. 17 BIC -797.793 BEST -1046.196 limit count 2 Gen 25 ID. 18 BIC -910.829 BEST -1046.196 limit count 2 Gen 25 ID. 19 BIC -1019.377 BEST -1046.196 limit count 2 Gen 25 ID. 20 BIC -974.232 BEST -1046.196 limit count 2 Gen 26 ID. 2 BIC -926.647 BEST -1146.781 limit count 0 Gen 26 ID. 3 BIC -832.264 BEST -1146.781 limit count 0 Gen 26 ID. 4 BIC -818.631 BEST -1146.781 limit count 0 Gen 26 ID. 5 BIC -951.296 BEST -1146.781 limit count 0 Gen 26 ID. 6 BIC -956.265 BEST -1146.781 limit count 0 Gen 26 ID. 7 BIC -933.397 BEST -1146.781 limit count 0 Gen 26 ID. 8 BIC -826.109 BEST -1146.781 limit count 0 Gen 26 ID. 9 BIC -934.695 BEST -1146.781 limit count 0 Gen 26 ID. 10 BIC -886.4 BEST -1146.781 limit count 0 Gen 26 ID. 11 BIC -1075.806 BEST -1146.781 limit count 0 Gen 26 ID. 12 BIC -959.082 BEST -1146.781 limit count 0 Gen 26 ID. 13 BIC -1004.601 BEST -1146.781 limit count 0 Gen 26 ID. 14 BIC -827.902 BEST -1146.781 limit count 0 Gen 26 ID. 15 BIC -892.6 BEST -1146.781 limit count 0 Gen 26 ID. 16 BIC -922.077 BEST -1146.781 limit count 0 Gen 26 ID. 17 BIC -882.298 BEST -1146.781 limit count 0 Gen 26 ID. 18 BIC -880.607 BEST -1146.781 limit count 0 Gen 26 ID. 19 BIC -848.924 BEST -1146.781 limit count 0 Gen 26 ID. 20 BIC -845.087 BEST -1146.781 limit count 0 Gen 27 ID. 2 BIC -850.376 BEST -1146.781 limit count 1 Gen 27 ID. 3 BIC -1126.236 BEST -1146.781 limit count 1 Gen 27 ID. 4 BIC -996.916 BEST -1146.781 limit count 1 Gen 27 ID. 5 BIC -1022.846 BEST -1146.781 limit count 1 Gen 27 ID. 6 BIC -919.344 BEST -1146.781 limit count 1 Gen 27 ID. 7 BIC -866.81 BEST -1146.781 limit count 1 Gen 27 ID. 8 BIC -927.093 BEST -1146.781 limit count 1 Gen 27 ID. 9 BIC -988.973 BEST -1146.781 limit count 1 Gen 27 ID. 10 BIC -1096.763 BEST -1146.781 limit count 1 Gen 27 ID. 11 BIC -899.461 BEST -1146.781 limit count 1 Gen 27 ID. 12 BIC -955.526 BEST -1146.781 limit count 1 Gen 27 ID. 13 BIC -1035.918 BEST -1146.781 limit count 1 Gen 27 ID. 14 BIC -1000.749 BEST -1146.781 limit count 1 Gen 27 ID. 15 BIC -950.363 BEST -1146.781 limit count 1 Gen 27 ID. 16 BIC -987.148 BEST -1146.781 limit count 1 Gen 27 ID. 17 BIC -920.04 BEST -1146.781 limit count 1 Gen 27 ID. 18 BIC -1029.413 BEST -1146.781 limit count 1 Gen 27 ID. 19 BIC -848.78 BEST -1146.781 limit count 1 Gen 27 ID. 20 BIC -1045.821 BEST -1146.781 limit count 1 Gen 28 ID. 2 BIC -1085.881 BEST -1146.781 limit count 2 Gen 28 ID. 3 BIC -1000.231 BEST -1146.781 limit count 2 Gen 28 ID. 4 BIC -1205.941 BEST -1146.781 limit count 2 Gen 28 ID. 5 BIC -1164.856 BEST -1146.781 limit count 2 Gen 28 ID. 6 BIC -1088.029 BEST -1146.781 limit count 2 Gen 28 ID. 7 BIC -1037.557 BEST -1146.781 limit count 2 Gen 28 ID. 8 BIC -915.426 BEST -1146.781 limit count 2 Gen 28 ID. 9 BIC -946.647 BEST -1146.781 limit count 2 Gen 28 ID. 10 BIC -919.997 BEST -1146.781 limit count 2 Gen 28 ID. 11 BIC -1104.113 BEST -1146.781 limit count 2 Gen 28 ID. 12 BIC -892.34 BEST -1146.781 limit count 2 Gen 28 ID. 13 BIC -1020.489 BEST -1146.781 limit count 2 Gen 28 ID. 14 BIC -763.7 BEST -1146.781 limit count 2 Gen 28 ID. 15 BIC -925.516 BEST -1146.781 limit count 2 Gen 28 ID. 16 BIC -811.135 BEST -1146.781 limit count 2 Gen 28 ID. 17 BIC -963.152 BEST -1146.781 limit count 2 Gen 28 ID. 18 BIC -1040.894 BEST -1146.781 limit count 2 Gen 28 ID. 19 BIC -956.598 BEST -1146.781 limit count 2 Gen 28 ID. 20 BIC -913.679 BEST -1146.781 limit count 2 Gen 29 ID. 2 BIC -968.841 BEST -1205.941 limit count 0 Gen 29 ID. 3 BIC -950.207 BEST -1205.941 limit count 0 Gen 29 ID. 4 BIC -1029.306 BEST -1205.941 limit count 0 Gen 29 ID. 5 BIC -1054.749 BEST -1205.941 limit count 0 Gen 29 ID. 6 BIC -963.24 BEST -1205.941 limit count 0 Gen 29 ID. 7 BIC -944.779 BEST -1205.941 limit count 0 Gen 29 ID. 8 BIC -868.149 BEST -1205.941 limit count 0 Gen 29 ID. 9 BIC -1009.553 BEST -1205.941 limit count 0 Gen 29 ID. 10 BIC -1142.782 BEST -1205.941 limit count 0 Gen 29 ID. 11 BIC -972.865 BEST -1205.941 limit count 0 Gen 29 ID. 12 BIC -1032.174 BEST -1205.941 limit count 0 Gen 29 ID. 13 BIC -856.445 BEST -1205.941 limit count 0 Gen 29 ID. 14 BIC -1017.436 BEST -1205.941 limit count 0 Gen 29 ID. 15 BIC -1076.298 BEST -1205.941 limit count 0 Gen 29 ID. 16 BIC -1052.168 BEST -1205.941 limit count 0 Gen 29 ID. 17 BIC -1132.639 BEST -1205.941 limit count 0 Gen 29 ID. 18 BIC -1239.166 BEST -1205.941 limit count 0 Gen 29 ID. 19 BIC -1013.021 BEST -1205.941 limit count 0 Gen 29 ID. 20 BIC -1043.828 BEST -1205.941 limit count 0 Gen 30 ID. 2 BIC -927.135 BEST -1239.166 limit count 0 Gen 30 ID. 3 BIC -1011.755 BEST -1239.166 limit count 0 Gen 30 ID. 4 BIC -1244.542 BEST -1239.166 limit count 0 Gen 30 ID. 5 BIC -968.675 BEST -1239.166 limit count 0 Gen 30 ID. 6 BIC -1185.506 BEST -1239.166 limit count 0 Gen 30 ID. 7 BIC -1135.825 BEST -1239.166 limit count 0 Gen 30 ID. 8 BIC -836.521 BEST -1239.166 limit count 0 Gen 30 ID. 9 BIC -1087.01 BEST -1239.166 limit count 0 Gen 30 ID. 10 BIC -1073.588 BEST -1239.166 limit count 0 Gen 30 ID. 11 BIC -1210.185 BEST -1239.166 limit count 0 Gen 30 ID. 12 BIC -1013.658 BEST -1239.166 limit count 0 Gen 30 ID. 13 BIC -1292.141 BEST -1239.166 limit count 0 Gen 30 ID. 14 BIC -1062.173 BEST -1239.166 limit count 0 Gen 30 ID. 15 BIC -1068.675 BEST -1239.166 limit count 0 Gen 30 ID. 16 BIC -1144.608 BEST -1239.166 limit count 0 Gen 30 ID. 17 BIC -976.637 BEST -1239.166 limit count 0 Gen 30 ID. 18 BIC -959.611 BEST -1239.166 limit count 0 Gen 30 ID. 19 BIC -1299.094 BEST -1239.166 limit count 0 Gen 30 ID. 20 BIC -1271.408 BEST -1239.166 limit count 0 Gen 31 ID. 2 BIC -1121.316 BEST -1299.094 limit count 0 Gen 31 ID. 3 BIC -1134.335 BEST -1299.094 limit count 0 Gen 31 ID. 4 BIC -1271.762 BEST -1299.094 limit count 0 Gen 31 ID. 5 BIC -982.057 BEST -1299.094 limit count 0 Gen 31 ID. 6 BIC -1118.493 BEST -1299.094 limit count 0 Gen 31 ID. 7 BIC -1204.017 BEST -1299.094 limit count 0 Gen 31 ID. 8 BIC -1047.79 BEST -1299.094 limit count 0 Gen 31 ID. 9 BIC -1189.186 BEST -1299.094 limit count 0 Gen 31 ID. 10 BIC -1090.046 BEST -1299.094 limit count 0 Gen 31 ID. 11 BIC -901.452 BEST -1299.094 limit count 0 Gen 31 ID. 12 BIC -1318.305 BEST -1299.094 limit count 0 Gen 31 ID. 13 BIC -1214.856 BEST -1299.094 limit count 0 Gen 31 ID. 14 BIC -1227.759 BEST -1299.094 limit count 0 Gen 31 ID. 15 BIC -1174.387 BEST -1299.094 limit count 0 Gen 31 ID. 16 BIC -1121.721 BEST -1299.094 limit count 0 Gen 31 ID. 17 BIC -1241.455 BEST -1299.094 limit count 0 Gen 31 ID. 18 BIC -983.879 BEST -1299.094 limit count 0 Gen 31 ID. 19 BIC -945.565 BEST -1299.094 limit count 0 Gen 31 ID. 20 BIC -1139.37 BEST -1299.094 limit count 0 Gen 32 ID. 2 BIC -1142.675 BEST -1318.305 limit count 0 Gen 32 ID. 3 BIC -1267.957 BEST -1318.305 limit count 0 Gen 32 ID. 4 BIC -1233.821 BEST -1318.305 limit count 0 Gen 32 ID. 5 BIC -1370.147 BEST -1318.305 limit count 0 Gen 32 ID. 6 BIC -1350.352 BEST -1318.305 limit count 0 Gen 32 ID. 7 BIC -1029.628 BEST -1318.305 limit count 0 Gen 32 ID. 8 BIC -1062.301 BEST -1318.305 limit count 0 Gen 32 ID. 9 BIC -1141.826 BEST -1318.305 limit count 0 Gen 32 ID. 10 BIC -1098.918 BEST -1318.305 limit count 0 Gen 32 ID. 11 BIC -1052.798 BEST -1318.305 limit count 0 Gen 32 ID. 12 BIC -1139.035 BEST -1318.305 limit count 0 Gen 32 ID. 13 BIC -1240.613 BEST -1318.305 limit count 0 Gen 32 ID. 14 BIC -1405.288 BEST -1318.305 limit count 0 Gen 32 ID. 15 BIC -1173.483 BEST -1318.305 limit count 0 Gen 32 ID. 16 BIC -1160.475 BEST -1318.305 limit count 0 Gen 32 ID. 17 BIC -1175.911 BEST -1318.305 limit count 0 Gen 32 ID. 18 BIC -1190.831 BEST -1318.305 limit count 0 Gen 32 ID. 19 BIC -1085.919 BEST -1318.305 limit count 0 Gen 32 ID. 20 BIC -1209.605 BEST -1318.305 limit count 0 Gen 33 ID. 2 BIC -1179.185 BEST -1405.288 limit count 0 Gen 33 ID. 3 BIC -1155.209 BEST -1405.288 limit count 0 Gen 33 ID. 4 BIC -1341.507 BEST -1405.288 limit count 0 Gen 33 ID. 5 BIC -1249.88 BEST -1405.288 limit count 0 Gen 33 ID. 6 BIC -1210.632 BEST -1405.288 limit count 0 Gen 33 ID. 7 BIC -1190.01 BEST -1405.288 limit count 0 Gen 33 ID. 8 BIC -1109.183 BEST -1405.288 limit count 0 Gen 33 ID. 9 BIC -1261.032 BEST -1405.288 limit count 0 Gen 33 ID. 10 BIC -1510.187 BEST -1405.288 limit count 0 Gen 33 ID. 11 BIC -1080.091 BEST -1405.288 limit count 0 Gen 33 ID. 12 BIC -1130.34 BEST -1405.288 limit count 0 Gen 33 ID. 13 BIC -1052.414 BEST -1405.288 limit count 0 Gen 33 ID. 14 BIC -1104.637 BEST -1405.288 limit count 0 Gen 33 ID. 15 BIC -1300.057 BEST -1405.288 limit count 0 Gen 33 ID. 16 BIC -1277.819 BEST -1405.288 limit count 0 Gen 33 ID. 17 BIC -1346.627 BEST -1405.288 limit count 0 Gen 33 ID. 18 BIC -1141.034 BEST -1405.288 limit count 0 Gen 33 ID. 19 BIC -1348.548 BEST -1405.288 limit count 0 Gen 33 ID. 20 BIC -1264.105 BEST -1405.288 limit count 0 Gen 34 ID. 2 BIC -1373.778 BEST -1510.187 limit count 0 Gen 34 ID. 3 BIC -1394.589 BEST -1510.187 limit count 0 Gen 34 ID. 4 BIC -1495.901 BEST -1510.187 limit count 0 Gen 34 ID. 5 BIC -1127.366 BEST -1510.187 limit count 0 Gen 34 ID. 6 BIC -1051.119 BEST -1510.187 limit count 0 Gen 34 ID. 7 BIC -1312.42 BEST -1510.187 limit count 0 Gen 34 ID. 8 BIC -1219.791 BEST -1510.187 limit count 0 Gen 34 ID. 9 BIC -1065.134 BEST -1510.187 limit count 0 Gen 34 ID. 10 BIC -1279.683 BEST -1510.187 limit count 0 Gen 34 ID. 11 BIC -1303.259 BEST -1510.187 limit count 0 Gen 34 ID. 12 BIC -1214.946 BEST -1510.187 limit count 0 Gen 34 ID. 13 BIC -1296.674 BEST -1510.187 limit count 0 Gen 34 ID. 14 BIC -1251.141 BEST -1510.187 limit count 0 Gen 34 ID. 15 BIC -1230.356 BEST -1510.187 limit count 0 Gen 34 ID. 16 BIC -1144.459 BEST -1510.187 limit count 0 Gen 34 ID. 17 BIC -1110.882 BEST -1510.187 limit count 0 Gen 34 ID. 18 BIC -1133.889 BEST -1510.187 limit count 0 Gen 34 ID. 19 BIC -1129.36 BEST -1510.187 limit count 0 Gen 34 ID. 20 BIC -1130.542 BEST -1510.187 limit count 0 Gen 35 ID. 2 BIC -1436.35 BEST -1510.187 limit count 1 Gen 35 ID. 3 BIC -1174.159 BEST -1510.187 limit count 1 Gen 35 ID. 4 BIC -1335.802 BEST -1510.187 limit count 1 Gen 35 ID. 5 BIC -1233.438 BEST -1510.187 limit count 1 Gen 35 ID. 6 BIC -1378.122 BEST -1510.187 limit count 1 Gen 35 ID. 7 BIC -1097.845 BEST -1510.187 limit count 1 Gen 35 ID. 8 BIC -1268.12 BEST -1510.187 limit count 1 Gen 35 ID. 9 BIC -1332.38 BEST -1510.187 limit count 1 Gen 35 ID. 10 BIC -1288.417 BEST -1510.187 limit count 1 Gen 35 ID. 11 BIC -1147.321 BEST -1510.187 limit count 1 Gen 35 ID. 12 BIC -1262.396 BEST -1510.187 limit count 1 Gen 35 ID. 13 BIC -1304.111 BEST -1510.187 limit count 1 Gen 35 ID. 14 BIC -1353.961 BEST -1510.187 limit count 1 Gen 35 ID. 15 BIC -1269.111 BEST -1510.187 limit count 1 Gen 35 ID. 16 BIC -1517.864 BEST -1510.187 limit count 1 Gen 35 ID. 17 BIC -1278.215 BEST -1510.187 limit count 1 Gen 35 ID. 18 BIC -1263.489 BEST -1510.187 limit count 1 Gen 35 ID. 19 BIC -1292.547 BEST -1510.187 limit count 1 Gen 35 ID. 20 BIC -1364.012 BEST -1510.187 limit count 1 Gen 36 ID. 2 BIC -1269.626 BEST -1517.864 limit count 0 Gen 36 ID. 3 BIC -1212.401 BEST -1517.864 limit count 0 Gen 36 ID. 4 BIC -1175.988 BEST -1517.864 limit count 0 Gen 36 ID. 5 BIC -1289.232 BEST -1517.864 limit count 0 Gen 36 ID. 6 BIC -1311.85 BEST -1517.864 limit count 0 Gen 36 ID. 7 BIC -1247.698 BEST -1517.864 limit count 0 Gen 36 ID. 8 BIC -1453.253 BEST -1517.864 limit count 0 Gen 36 ID. 9 BIC -1092.053 BEST -1517.864 limit count 0 Gen 36 ID. 10 BIC -1361.589 BEST -1517.864 limit count 0 Gen 36 ID. 11 BIC -999.16 BEST -1517.864 limit count 0 Gen 36 ID. 12 BIC -1331.972 BEST -1517.864 limit count 0 Gen 36 ID. 13 BIC -1296.632 BEST -1517.864 limit count 0 Gen 36 ID. 14 BIC -1377.184 BEST -1517.864 limit count 0 Gen 36 ID. 15 BIC -1386.896 BEST -1517.864 limit count 0 Gen 36 ID. 16 BIC -1284.097 BEST -1517.864 limit count 0 Gen 36 ID. 17 BIC -1271.539 BEST -1517.864 limit count 0 Gen 36 ID. 18 BIC -1396.507 BEST -1517.864 limit count 0 Gen 36 ID. 19 BIC -1397.204 BEST -1517.864 limit count 0 Gen 36 ID. 20 BIC -1147.389 BEST -1517.864 limit count 0 Gen 37 ID. 2 BIC -1436.891 BEST -1517.864 limit count 1 Gen 37 ID. 3 BIC -1532.545 BEST -1517.864 limit count 1 Gen 37 ID. 4 BIC -1188.982 BEST -1517.864 limit count 1 Gen 37 ID. 5 BIC -1372.223 BEST -1517.864 limit count 1 Gen 37 ID. 6 BIC -1428.643 BEST -1517.864 limit count 1 Gen 37 ID. 7 BIC -1358.546 BEST -1517.864 limit count 1 Gen 37 ID. 8 BIC -1347.375 BEST -1517.864 limit count 1 Gen 37 ID. 9 BIC -1477.38 BEST -1517.864 limit count 1 Gen 37 ID. 10 BIC -1488.783 BEST -1517.864 limit count 1 Gen 37 ID. 11 BIC -1497.971 BEST -1517.864 limit count 1 Gen 37 ID. 12 BIC -1445.612 BEST -1517.864 limit count 1 Gen 37 ID. 13 BIC -1565.979 BEST -1517.864 limit count 1 Gen 37 ID. 14 BIC -1330.851 BEST -1517.864 limit count 1 Gen 37 ID. 15 BIC -1301.548 BEST -1517.864 limit count 1 Gen 37 ID. 16 BIC -1167.874 BEST -1517.864 limit count 1 Gen 37 ID. 17 BIC -1401.968 BEST -1517.864 limit count 1 Gen 37 ID. 18 BIC -1251.086 BEST -1517.864 limit count 1 Gen 37 ID. 19 BIC -1439.202 BEST -1517.864 limit count 1 Gen 37 ID. 20 BIC -1195.115 BEST -1517.864 limit count 1 Gen 38 ID. 2 BIC -1396.896 BEST -1565.979 limit count 0 Gen 38 ID. 3 BIC -1381.64 BEST -1565.979 limit count 0 Gen 38 ID. 4 BIC -1400.694 BEST -1565.979 limit count 0 Gen 38 ID. 5 BIC -1405.328 BEST -1565.979 limit count 0 Gen 38 ID. 6 BIC -1391.804 BEST -1565.979 limit count 0 Gen 38 ID. 7 BIC -1346.247 BEST -1565.979 limit count 0 Gen 38 ID. 8 BIC -1411.205 BEST -1565.979 limit count 0 Gen 38 ID. 9 BIC -1428.848 BEST -1565.979 limit count 0 Gen 38 ID. 10 BIC -1546.58 BEST -1565.979 limit count 0 Gen 38 ID. 11 BIC -1627.196 BEST -1565.979 limit count 0 Gen 38 ID. 12 BIC -1439.433 BEST -1565.979 limit count 0 Gen 38 ID. 13 BIC -1233.595 BEST -1565.979 limit count 0 Gen 38 ID. 14 BIC -1448.331 BEST -1565.979 limit count 0 Gen 38 ID. 15 BIC -1615.163 BEST -1565.979 limit count 0 Gen 38 ID. 16 BIC -1542.725 BEST -1565.979 limit count 0 Gen 38 ID. 17 BIC -1269.936 BEST -1565.979 limit count 0 Gen 38 ID. 18 BIC -1397.194 BEST -1565.979 limit count 0 Gen 38 ID. 19 BIC -1366.157 BEST -1565.979 limit count 0 Gen 38 ID. 20 BIC -1406.455 BEST -1565.979 limit count 0 Gen 39 ID. 2 BIC -1630.724 BEST -1627.196 limit count 0 Gen 39 ID. 3 BIC -1490.999 BEST -1627.196 limit count 0 Gen 39 ID. 4 BIC -1351.784 BEST -1627.196 limit count 0 Gen 39 ID. 5 BIC -1505.014 BEST -1627.196 limit count 0 Gen 39 ID. 6 BIC -1425.131 BEST -1627.196 limit count 0 Gen 39 ID. 7 BIC -1249.684 BEST -1627.196 limit count 0 Gen 39 ID. 8 BIC -1339.448 BEST -1627.196 limit count 0 Gen 39 ID. 9 BIC -1699.921 BEST -1627.196 limit count 0 Gen 39 ID. 10 BIC -1736.088 BEST -1627.196 limit count 0 Gen 39 ID. 11 BIC -1507.628 BEST -1627.196 limit count 0 Gen 39 ID. 12 BIC -1435.276 BEST -1627.196 limit count 0 Gen 39 ID. 13 BIC -1520.674 BEST -1627.196 limit count 0 Gen 39 ID. 14 BIC -1180.707 BEST -1627.196 limit count 0 Gen 39 ID. 15 BIC -1358.875 BEST -1627.196 limit count 0 Gen 39 ID. 16 BIC -1403.002 BEST -1627.196 limit count 0 Gen 39 ID. 17 BIC -1373.778 BEST -1627.196 limit count 0 Gen 39 ID. 18 BIC -1622.75 BEST -1627.196 limit count 0 Gen 39 ID. 19 BIC -1485.47 BEST -1627.196 limit count 0 Gen 39 ID. 20 BIC -1706.048 BEST -1627.196 limit count 0 Gen 40 ID. 2 BIC -1534.102 BEST -1736.088 limit count 0 Gen 40 ID. 3 BIC -1402.161 BEST -1736.088 limit count 0 Gen 40 ID. 4 BIC -1544.015 BEST -1736.088 limit count 0 Gen 40 ID. 5 BIC -1669.274 BEST -1736.088 limit count 0 Gen 40 ID. 6 BIC -1205.71 BEST -1736.088 limit count 0 Gen 40 ID. 7 BIC -1333.328 BEST -1736.088 limit count 0 Gen 40 ID. 8 BIC -1541.047 BEST -1736.088 limit count 0 Gen 40 ID. 9 BIC -1523.685 BEST -1736.088 limit count 0 Gen 40 ID. 10 BIC -1609.725 BEST -1736.088 limit count 0 Gen 40 ID. 11 BIC -1511.164 BEST -1736.088 limit count 0 Gen 40 ID. 12 BIC -1347.487 BEST -1736.088 limit count 0 Gen 40 ID. 13 BIC -1656.071 BEST -1736.088 limit count 0 Gen 40 ID. 14 BIC -1629.054 BEST -1736.088 limit count 0 Gen 40 ID. 15 BIC -1604.929 BEST -1736.088 limit count 0 Gen 40 ID. 16 BIC -1610.577 BEST -1736.088 limit count 0 Gen 40 ID. 17 BIC -1494.751 BEST -1736.088 limit count 0 Gen 40 ID. 18 BIC -1552.802 BEST -1736.088 limit count 0 Gen 40 ID. 19 BIC -1571.184 BEST -1736.088 limit count 0 Gen 40 ID. 20 BIC -1270.033 BEST -1736.088 limit count 0 Gen 41 ID. 2 BIC -1461.685 BEST -1736.088 limit count 1 Gen 41 ID. 3 BIC -1444.124 BEST -1736.088 limit count 1 Gen 41 ID. 4 BIC -1577.289 BEST -1736.088 limit count 1 Gen 41 ID. 5 BIC -1531.663 BEST -1736.088 limit count 1 Gen 41 ID. 6 BIC -1473.801 BEST -1736.088 limit count 1 Gen 41 ID. 7 BIC -1339.174 BEST -1736.088 limit count 1 Gen 41 ID. 8 BIC -1505.276 BEST -1736.088 limit count 1 Gen 41 ID. 9 BIC -1374.464 BEST -1736.088 limit count 1 Gen 41 ID. 10 BIC -1687.07 BEST -1736.088 limit count 1 Gen 41 ID. 11 BIC -1649.47 BEST -1736.088 limit count 1 Gen 41 ID. 12 BIC -1516.415 BEST -1736.088 limit count 1 Gen 41 ID. 13 BIC -1661.408 BEST -1736.088 limit count 1 Gen 41 ID. 14 BIC -1429.034 BEST -1736.088 limit count 1 Gen 41 ID. 15 BIC -1702.897 BEST -1736.088 limit count 1 Gen 41 ID. 16 BIC -1527.843 BEST -1736.088 limit count 1 Gen 41 ID. 17 BIC -1537.837 BEST -1736.088 limit count 1 Gen 41 ID. 18 BIC -1618.737 BEST -1736.088 limit count 1 Gen 41 ID. 19 BIC -1617.385 BEST -1736.088 limit count 1 Gen 41 ID. 20 BIC -1605.587 BEST -1736.088 limit count 1 Gen 42 ID. 2 BIC -1462.994 BEST -1736.088 limit count 2 Gen 42 ID. 3 BIC -1594.348 BEST -1736.088 limit count 2 Gen 42 ID. 4 BIC -1553.395 BEST -1736.088 limit count 2 Gen 42 ID. 5 BIC -1726.403 BEST -1736.088 limit count 2 Gen 42 ID. 6 BIC -1649.645 BEST -1736.088 limit count 2 Gen 42 ID. 7 BIC -1461.938 BEST -1736.088 limit count 2 Gen 42 ID. 8 BIC -1655.615 BEST -1736.088 limit count 2 Gen 42 ID. 9 BIC -1619.058 BEST -1736.088 limit count 2 Gen 42 ID. 10 BIC -1855.413 BEST -1736.088 limit count 2 Gen 42 ID. 11 BIC -1744.076 BEST -1736.088 limit count 2 Gen 42 ID. 12 BIC -1869.998 BEST -1736.088 limit count 2 Gen 42 ID. 13 BIC -1503.22 BEST -1736.088 limit count 2 Gen 42 ID. 14 BIC -1628.977 BEST -1736.088 limit count 2 Gen 42 ID. 15 BIC -1501.527 BEST -1736.088 limit count 2 Gen 42 ID. 16 BIC -1535.337 BEST -1736.088 limit count 2 Gen 42 ID. 17 BIC -1700.161 BEST -1736.088 limit count 2 Gen 42 ID. 18 BIC -1708.181 BEST -1736.088 limit count 2 Gen 42 ID. 19 BIC -1761.5 BEST -1736.088 limit count 2 Gen 42 ID. 20 BIC -1387.704 BEST -1736.088 limit count 2 Gen 43 ID. 2 BIC -1741.938 BEST -1869.998 limit count 0 Gen 43 ID. 3 BIC -1868.766 BEST -1869.998 limit count 0 Gen 43 ID. 4 BIC -1809.541 BEST -1869.998 limit count 0 Gen 43 ID. 5 BIC -1862.289 BEST -1869.998 limit count 0 Gen 43 ID. 6 BIC -1659.381 BEST -1869.998 limit count 0 Gen 43 ID. 7 BIC -1653.148 BEST -1869.998 limit count 0 Gen 43 ID. 8 BIC -1592.401 BEST -1869.998 limit count 0 Gen 43 ID. 9 BIC -1534.174 BEST -1869.998 limit count 0 Gen 43 ID. 10 BIC -1710.911 BEST -1869.998 limit count 0 Gen 43 ID. 11 BIC -1604.095 BEST -1869.998 limit count 0 Gen 43 ID. 12 BIC -1638.915 BEST -1869.998 limit count 0 Gen 43 ID. 13 BIC -1524.327 BEST -1869.998 limit count 0 Gen 43 ID. 14 BIC -1581.601 BEST -1869.998 limit count 0 Gen 43 ID. 15 BIC -1581.977 BEST -1869.998 limit count 0 Gen 43 ID. 16 BIC -1642.245 BEST -1869.998 limit count 0 Gen 43 ID. 17 BIC -1681.592 BEST -1869.998 limit count 0 Gen 43 ID. 18 BIC -1672.636 BEST -1869.998 limit count 0 Gen 43 ID. 19 BIC -1569.523 BEST -1869.998 limit count 0 Gen 43 ID. 20 BIC -1559.963 BEST -1869.998 limit count 0 Gen 44 ID. 2 BIC -1811.713 BEST -1869.998 limit count 1 Gen 44 ID. 3 BIC -1578.931 BEST -1869.998 limit count 1 Gen 44 ID. 4 BIC -1523.969 BEST -1869.998 limit count 1 Gen 44 ID. 5 BIC -1741.764 BEST -1869.998 limit count 1 Gen 44 ID. 6 BIC -1618.673 BEST -1869.998 limit count 1 Gen 44 ID. 7 BIC -1478.28 BEST -1869.998 limit count 1 Gen 44 ID. 8 BIC -1694.622 BEST -1869.998 limit count 1 Gen 44 ID. 9 BIC -1747.557 BEST -1869.998 limit count 1 Gen 44 ID. 10 BIC -1516.415 BEST -1869.998 limit count 1 Gen 44 ID. 11 BIC -1567.297 BEST -1869.998 limit count 1 Gen 44 ID. 12 BIC -1846.823 BEST -1869.998 limit count 1 Gen 44 ID. 13 BIC -1625.587 BEST -1869.998 limit count 1 Gen 44 ID. 14 BIC -1588.55 BEST -1869.998 limit count 1 Gen 44 ID. 15 BIC -1510.016 BEST -1869.998 limit count 1 Gen 44 ID. 16 BIC -1613.802 BEST -1869.998 limit count 1 Gen 44 ID. 17 BIC -1699.977 BEST -1869.998 limit count 1 Gen 44 ID. 18 BIC -1693.993 BEST -1869.998 limit count 1 Gen 44 ID. 19 BIC -1534.296 BEST -1869.998 limit count 1 Gen 44 ID. 20 BIC -1568.824 BEST -1869.998 limit count 1 Gen 45 ID. 2 BIC -1693.353 BEST -1869.998 limit count 2 Gen 45 ID. 3 BIC -1783.382 BEST -1869.998 limit count 2 Gen 45 ID. 4 BIC -1717.245 BEST -1869.998 limit count 2 Gen 45 ID. 5 BIC -1776.794 BEST -1869.998 limit count 2 Gen 45 ID. 6 BIC -1664.374 BEST -1869.998 limit count 2 Gen 45 ID. 7 BIC -1669.775 BEST -1869.998 limit count 2 Gen 45 ID. 8 BIC -1641.524 BEST -1869.998 limit count 2 Gen 45 ID. 9 BIC -1621.923 BEST -1869.998 limit count 2 Gen 45 ID. 10 BIC -1699.082 BEST -1869.998 limit count 2 Gen 45 ID. 11 BIC -1889.164 BEST -1869.998 limit count 2 Gen 45 ID. 12 BIC -1723.223 BEST -1869.998 limit count 2 Gen 45 ID. 13 BIC -1504.396 BEST -1869.998 limit count 2 Gen 45 ID. 14 BIC -1848.666 BEST -1869.998 limit count 2 Gen 45 ID. 15 BIC -1731.349 BEST -1869.998 limit count 2 Gen 45 ID. 16 BIC -1737.461 BEST -1869.998 limit count 2 Gen 45 ID. 17 BIC -1653.185 BEST -1869.998 limit count 2 Gen 45 ID. 18 BIC -1619.591 BEST -1869.998 limit count 2 Gen 45 ID. 19 BIC -1809.982 BEST -1869.998 limit count 2 Gen 45 ID. 20 BIC -1835.956 BEST -1869.998 limit count 2 Gen 46 ID. 2 BIC -1825.032 BEST -1889.164 limit count 0 Gen 46 ID. 3 BIC -1812.181 BEST -1889.164 limit count 0 Gen 46 ID. 4 BIC -1890.898 BEST -1889.164 limit count 0 Gen 46 ID. 5 BIC -1740.953 BEST -1889.164 limit count 0 Gen 46 ID. 6 BIC -1679.766 BEST -1889.164 limit count 0 Gen 46 ID. 7 BIC -1691.729 BEST -1889.164 limit count 0 Gen 46 ID. 8 BIC -1899.949 BEST -1889.164 limit count 0 Gen 46 ID. 9 BIC -1890.943 BEST -1889.164 limit count 0 Gen 46 ID. 10 BIC -1775.242 BEST -1889.164 limit count 0 Gen 46 ID. 11 BIC -1804.86 BEST -1889.164 limit count 0 Gen 46 ID. 12 BIC -1528.237 BEST -1889.164 limit count 0 Gen 46 ID. 13 BIC -1845.317 BEST -1889.164 limit count 0 Gen 46 ID. 14 BIC -1517.074 BEST -1889.164 limit count 0 Gen 46 ID. 15 BIC -1692.438 BEST -1889.164 limit count 0 Gen 46 ID. 16 BIC -1785.756 BEST -1889.164 limit count 0 Gen 46 ID. 17 BIC -1839.738 BEST -1889.164 limit count 0 Gen 46 ID. 18 BIC -1862.728 BEST -1889.164 limit count 0 Gen 46 ID. 19 BIC -1773.686 BEST -1889.164 limit count 0 Gen 46 ID. 20 BIC -1742.066 BEST -1889.164 limit count 0 Gen 47 ID. 2 BIC -1843.363 BEST -1899.949 limit count 0 Gen 47 ID. 3 BIC -1899.73 BEST -1899.949 limit count 0 Gen 47 ID. 4 BIC -1749.466 BEST -1899.949 limit count 0 Gen 47 ID. 5 BIC -1805.269 BEST -1899.949 limit count 0 Gen 47 ID. 6 BIC -1809.54 BEST -1899.949 limit count 0 Gen 47 ID. 7 BIC -1675.145 BEST -1899.949 limit count 0 Gen 47 ID. 8 BIC -1958.631 BEST -1899.949 limit count 0 Gen 47 ID. 9 BIC -1913.002 BEST -1899.949 limit count 0 Gen 47 ID. 10 BIC -1716.489 BEST -1899.949 limit count 0 Gen 47 ID. 11 BIC -1755.753 BEST -1899.949 limit count 0 Gen 47 ID. 12 BIC -1707.361 BEST -1899.949 limit count 0 Gen 47 ID. 13 BIC -1880.336 BEST -1899.949 limit count 0 Gen 47 ID. 14 BIC -1796.052 BEST -1899.949 limit count 0 Gen 47 ID. 15 BIC -1733.38 BEST -1899.949 limit count 0 Gen 47 ID. 16 BIC -1834.653 BEST -1899.949 limit count 0 Gen 47 ID. 17 BIC -1773.623 BEST -1899.949 limit count 0 Gen 47 ID. 18 BIC -1805.112 BEST -1899.949 limit count 0 Gen 47 ID. 19 BIC -1590.782 BEST -1899.949 limit count 0 Gen 47 ID. 20 BIC -1835.207 BEST -1899.949 limit count 0 Gen 48 ID. 2 BIC -1791.994 BEST -1958.631 limit count 0 Gen 48 ID. 3 BIC -1941.553 BEST -1958.631 limit count 0 Gen 48 ID. 4 BIC -1892.106 BEST -1958.631 limit count 0 Gen 48 ID. 5 BIC -1725.337 BEST -1958.631 limit count 0 Gen 48 ID. 6 BIC -1660.965 BEST -1958.631 limit count 0 Gen 48 ID. 7 BIC -1836.752 BEST -1958.631 limit count 0 Gen 48 ID. 8 BIC -1875.318 BEST -1958.631 limit count 0 Gen 48 ID. 9 BIC -1789.857 BEST -1958.631 limit count 0 Gen 48 ID. 10 BIC -1820.873 BEST -1958.631 limit count 0 Gen 48 ID. 11 BIC -1675.079 BEST -1958.631 limit count 0 Gen 48 ID. 12 BIC -1749.941 BEST -1958.631 limit count 0 Gen 48 ID. 13 BIC -1775.621 BEST -1958.631 limit count 0 Gen 48 ID. 14 BIC -1793.107 BEST -1958.631 limit count 0 Gen 48 ID. 15 BIC -1802.884 BEST -1958.631 limit count 0 Gen 48 ID. 16 BIC -2025.109 BEST -1958.631 limit count 0 Gen 48 ID. 17 BIC -1841.868 BEST -1958.631 limit count 0 Gen 48 ID. 18 BIC -1825.73 BEST -1958.631 limit count 0 Gen 48 ID. 19 BIC -1756.654 BEST -1958.631 limit count 0 Gen 48 ID. 20 BIC -1938.334 BEST -1958.631 limit count 0 Gen 49 ID. 2 BIC -1931.176 BEST -2025.109 limit count 0 Gen 49 ID. 3 BIC -2084.652 BEST -2025.109 limit count 0 Gen 49 ID. 4 BIC -1848.143 BEST -2025.109 limit count 0 Gen 49 ID. 5 BIC -1974.929 BEST -2025.109 limit count 0 Gen 49 ID. 6 BIC -1787.617 BEST -2025.109 limit count 0 Gen 49 ID. 7 BIC -1727.341 BEST -2025.109 limit count 0 Gen 49 ID. 8 BIC -1880.981 BEST -2025.109 limit count 0 Gen 49 ID. 9 BIC -1860.046 BEST -2025.109 limit count 0 Gen 49 ID. 10 BIC -1895.446 BEST -2025.109 limit count 0 Gen 49 ID. 11 BIC -1915.316 BEST -2025.109 limit count 0 Gen 49 ID. 12 BIC -1643.401 BEST -2025.109 limit count 0 Gen 49 ID. 13 BIC -1809.824 BEST -2025.109 limit count 0 Gen 49 ID. 14 BIC -1957.173 BEST -2025.109 limit count 0 Gen 49 ID. 15 BIC -2033.221 BEST -2025.109 limit count 0 Gen 49 ID. 16 BIC -1768.561 BEST -2025.109 limit count 0 Gen 49 ID. 17 BIC -1831.738 BEST -2025.109 limit count 0 Gen 49 ID. 18 BIC -1889.391 BEST -2025.109 limit count 0 Gen 49 ID. 19 BIC -1764.578 BEST -2025.109 limit count 0 Gen 49 ID. 20 BIC -1874.739 BEST -2025.109 limit count 0 Gen 50 ID. 2 BIC -1786.114 BEST -2084.652 limit count 0 Gen 50 ID. 3 BIC -2009.326 BEST -2084.652 limit count 0 Gen 50 ID. 4 BIC -1939.64 BEST -2084.652 limit count 0 Gen 50 ID. 5 BIC -1834.591 BEST -2084.652 limit count 0 Gen 50 ID. 6 BIC -2040.724 BEST -2084.652 limit count 0 Gen 50 ID. 7 BIC -1870.657 BEST -2084.652 limit count 0 Gen 50 ID. 8 BIC -1842.678 BEST -2084.652 limit count 0 Gen 50 ID. 9 BIC -1851.174 BEST -2084.652 limit count 0 Gen 50 ID. 10 BIC -1979.309 BEST -2084.652 limit count 0 Gen 50 ID. 11 BIC -2029.329 BEST -2084.652 limit count 0 Gen 50 ID. 12 BIC -1919.049 BEST -2084.652 limit count 0 Gen 50 ID. 13 BIC -1816.083 BEST -2084.652 limit count 0 Gen 50 ID. 14 BIC -1897.718 BEST -2084.652 limit count 0 Gen 50 ID. 15 BIC -2065.797 BEST -2084.652 limit count 0 Gen 50 ID. 16 BIC -1963.604 BEST -2084.652 limit count 0 Gen 50 ID. 17 BIC -1732.458 BEST -2084.652 limit count 0 Gen 50 ID. 18 BIC -2088.177 BEST -2084.652 limit count 0 Gen 50 ID. 19 BIC -1795.183 BEST -2084.652 limit count 0 Gen 50 ID. 20 BIC -1994.137 BEST -2084.652 limit count 0 Gen 51 ID. 2 BIC -1956.836 BEST -2088.177 limit count 0 Gen 51 ID. 3 BIC -1907.055 BEST -2088.177 limit count 0 Gen 51 ID. 4 BIC -1973.199 BEST -2088.177 limit count 0 Gen 51 ID. 5 BIC -1711.351 BEST -2088.177 limit count 0 Gen 51 ID. 6 BIC -1997.281 BEST -2088.177 limit count 0 Gen 51 ID. 7 BIC -2028.568 BEST -2088.177 limit count 0 Gen 51 ID. 8 BIC -1937.689 BEST -2088.177 limit count 0 Gen 51 ID. 9 BIC -1902.139 BEST -2088.177 limit count 0 Gen 51 ID. 10 BIC -1898.45 BEST -2088.177 limit count 0 Gen 51 ID. 11 BIC -1969.459 BEST -2088.177 limit count 0 Gen 51 ID. 12 BIC -1977.623 BEST -2088.177 limit count 0 Gen 51 ID. 13 BIC -1814.576 BEST -2088.177 limit count 0 Gen 51 ID. 14 BIC -1938.831 BEST -2088.177 limit count 0 Gen 51 ID. 15 BIC -1956.9 BEST -2088.177 limit count 0 Gen 51 ID. 16 BIC -2059.414 BEST -2088.177 limit count 0 Gen 51 ID. 17 BIC -1932.705 BEST -2088.177 limit count 0 Gen 51 ID. 18 BIC -1804.016 BEST -2088.177 limit count 0 Gen 51 ID. 19 BIC -1941.503 BEST -2088.177 limit count 0 Gen 51 ID. 20 BIC -2074.535 BEST -2088.177 limit count 0 Gen 52 ID. 2 BIC -1782.645 BEST -2088.177 limit count 1 Gen 52 ID. 3 BIC -1810.493 BEST -2088.177 limit count 1 Gen 52 ID. 4 BIC -2001.419 BEST -2088.177 limit count 1 Gen 52 ID. 5 BIC -1907.567 BEST -2088.177 limit count 1 Gen 52 ID. 6 BIC -1815.721 BEST -2088.177 limit count 1 Gen 52 ID. 7 BIC -2085.778 BEST -2088.177 limit count 1 Gen 52 ID. 8 BIC -2073.263 BEST -2088.177 limit count 1 Gen 52 ID. 9 BIC -1766.984 BEST -2088.177 limit count 1 Gen 52 ID. 10 BIC -1734.885 BEST -2088.177 limit count 1 Gen 52 ID. 11 BIC -2060.665 BEST -2088.177 limit count 1 Gen 52 ID. 12 BIC -1916.062 BEST -2088.177 limit count 1 Gen 52 ID. 13 BIC -2044.213 BEST -2088.177 limit count 1 Gen 52 ID. 14 BIC -1766.376 BEST -2088.177 limit count 1 Gen 52 ID. 15 BIC -1922.823 BEST -2088.177 limit count 1 Gen 52 ID. 16 BIC -1826.955 BEST -2088.177 limit count 1 Gen 52 ID. 17 BIC -1900.918 BEST -2088.177 limit count 1 Gen 52 ID. 18 BIC -1972.889 BEST -2088.177 limit count 1 Gen 52 ID. 19 BIC -1948.56 BEST -2088.177 limit count 1 Gen 52 ID. 20 BIC -1935.585 BEST -2088.177 limit count 1 Gen 53 ID. 2 BIC -2113.538 BEST -2088.177 limit count 2 Gen 53 ID. 3 BIC -2017.895 BEST -2088.177 limit count 2 Gen 53 ID. 4 BIC -2012.51 BEST -2088.177 limit count 2 Gen 53 ID. 5 BIC -2062.614 BEST -2088.177 limit count 2 Gen 53 ID. 6 BIC -2098.835 BEST -2088.177 limit count 2 Gen 53 ID. 7 BIC -1987.934 BEST -2088.177 limit count 2 Gen 53 ID. 8 BIC -2154.645 BEST -2088.177 limit count 2 Gen 53 ID. 9 BIC -1909.904 BEST -2088.177 limit count 2 Gen 53 ID. 10 BIC -2003.395 BEST -2088.177 limit count 2 Gen 53 ID. 11 BIC -2234.748 BEST -2088.177 limit count 2 Gen 53 ID. 12 BIC -1809.898 BEST -2088.177 limit count 2 Gen 53 ID. 13 BIC -2091.697 BEST -2088.177 limit count 2 Gen 53 ID. 14 BIC -2100.046 BEST -2088.177 limit count 2 Gen 53 ID. 15 BIC -1893.919 BEST -2088.177 limit count 2 Gen 53 ID. 16 BIC -1810.269 BEST -2088.177 limit count 2 Gen 53 ID. 17 BIC -1920.001 BEST -2088.177 limit count 2 Gen 53 ID. 18 BIC -2084.303 BEST -2088.177 limit count 2 Gen 53 ID. 19 BIC -1952.451 BEST -2088.177 limit count 2 Gen 53 ID. 20 BIC -2117.107 BEST -2088.177 limit count 2 Gen 54 ID. 2 BIC -1896.159 BEST -2234.748 limit count 0 Gen 54 ID. 3 BIC -1978.984 BEST -2234.748 limit count 0 Gen 54 ID. 4 BIC -1815.625 BEST -2234.748 limit count 0 Gen 54 ID. 5 BIC -1965.427 BEST -2234.748 limit count 0 Gen 54 ID. 6 BIC -1914.529 BEST -2234.748 limit count 0 Gen 54 ID. 7 BIC -1870.207 BEST -2234.748 limit count 0 Gen 54 ID. 8 BIC -2258.039 BEST -2234.748 limit count 0 Gen 54 ID. 9 BIC -2115.595 BEST -2234.748 limit count 0 Gen 54 ID. 10 BIC -1919.504 BEST -2234.748 limit count 0 Gen 54 ID. 11 BIC -1998.914 BEST -2234.748 limit count 0 Gen 54 ID. 12 BIC -2035.701 BEST -2234.748 limit count 0 Gen 54 ID. 13 BIC -2026.583 BEST -2234.748 limit count 0 Gen 54 ID. 14 BIC -2147.828 BEST -2234.748 limit count 0 Gen 54 ID. 15 BIC -2090.755 BEST -2234.748 limit count 0 Gen 54 ID. 16 BIC -2047.723 BEST -2234.748 limit count 0 Gen 54 ID. 17 BIC -1981.944 BEST -2234.748 limit count 0 Gen 54 ID. 18 BIC -1951.283 BEST -2234.748 limit count 0 Gen 54 ID. 19 BIC -2056.846 BEST -2234.748 limit count 0 Gen 54 ID. 20 BIC -2001.602 BEST -2234.748 limit count 0 Gen 55 ID. 2 BIC -2065.24 BEST -2258.039 limit count 0 Gen 55 ID. 3 BIC -2102.363 BEST -2258.039 limit count 0 Gen 55 ID. 4 BIC -1948.49 BEST -2258.039 limit count 0 Gen 55 ID. 5 BIC -1959.526 BEST -2258.039 limit count 0 Gen 55 ID. 6 BIC -1891.372 BEST -2258.039 limit count 0 Gen 55 ID. 7 BIC -1840.543 BEST -2258.039 limit count 0 Gen 55 ID. 8 BIC -2035.951 BEST -2258.039 limit count 0 Gen 55 ID. 9 BIC -1862.45 BEST -2258.039 limit count 0 Gen 55 ID. 10 BIC -2154.371 BEST -2258.039 limit count 0 Gen 55 ID. 11 BIC -2074.921 BEST -2258.039 limit count 0 Gen 55 ID. 12 BIC -2071.445 BEST -2258.039 limit count 0 Gen 55 ID. 13 BIC -2010.345 BEST -2258.039 limit count 0 Gen 55 ID. 14 BIC -2050.382 BEST -2258.039 limit count 0 Gen 55 ID. 15 BIC -2017.949 BEST -2258.039 limit count 0 Gen 55 ID. 16 BIC -2015.645 BEST -2258.039 limit count 0 Gen 55 ID. 17 BIC -1994.36 BEST -2258.039 limit count 0 Gen 55 ID. 18 BIC -2009.995 BEST -2258.039 limit count 0 Gen 55 ID. 19 BIC -1845.208 BEST -2258.039 limit count 0 Gen 55 ID. 20 BIC -2034.334 BEST -2258.039 limit count 0 Gen 56 ID. 2 BIC -2071.893 BEST -2258.039 limit count 1 Gen 56 ID. 3 BIC -2130.273 BEST -2258.039 limit count 1 Gen 56 ID. 4 BIC -2183.892 BEST -2258.039 limit count 1 Gen 56 ID. 5 BIC -2145.744 BEST -2258.039 limit count 1 Gen 56 ID. 6 BIC -2007.759 BEST -2258.039 limit count 1 Gen 56 ID. 7 BIC -1971.2 BEST -2258.039 limit count 1 Gen 56 ID. 8 BIC -2027.271 BEST -2258.039 limit count 1 Gen 56 ID. 9 BIC -2161.124 BEST -2258.039 limit count 1 Gen 56 ID. 10 BIC -1916.422 BEST -2258.039 limit count 1 Gen 56 ID. 11 BIC -2005.61 BEST -2258.039 limit count 1 Gen 56 ID. 12 BIC -1958.413 BEST -2258.039 limit count 1 Gen 56 ID. 13 BIC -2091.709 BEST -2258.039 limit count 1 Gen 56 ID. 14 BIC -1979.493 BEST -2258.039 limit count 1 Gen 56 ID. 15 BIC -1978.018 BEST -2258.039 limit count 1 Gen 56 ID. 16 BIC -1998.516 BEST -2258.039 limit count 1 Gen 56 ID. 17 BIC -2153.281 BEST -2258.039 limit count 1 Gen 56 ID. 18 BIC -1889.775 BEST -2258.039 limit count 1 Gen 56 ID. 19 BIC -2109.536 BEST -2258.039 limit count 1 Gen 56 ID. 20 BIC -2083.031 BEST -2258.039 limit count 1 Gen 57 ID. 2 BIC -2095.639 BEST -2258.039 limit count 2 Gen 57 ID. 3 BIC -1742.682 BEST -2258.039 limit count 2 Gen 57 ID. 4 BIC -2071.024 BEST -2258.039 limit count 2 Gen 57 ID. 5 BIC -2143.041 BEST -2258.039 limit count 2 Gen 57 ID. 6 BIC -2115.21 BEST -2258.039 limit count 2 Gen 57 ID. 7 BIC -1978.272 BEST -2258.039 limit count 2 Gen 57 ID. 8 BIC -2207.392 BEST -2258.039 limit count 2 Gen 57 ID. 9 BIC -1937.981 BEST -2258.039 limit count 2 Gen 57 ID. 10 BIC -2011.438 BEST -2258.039 limit count 2 Gen 57 ID. 11 BIC -2217.598 BEST -2258.039 limit count 2 Gen 57 ID. 12 BIC -1929.155 BEST -2258.039 limit count 2 Gen 57 ID. 13 BIC -2117.604 BEST -2258.039 limit count 2 Gen 57 ID. 14 BIC -2180.69 BEST -2258.039 limit count 2 Gen 57 ID. 15 BIC -1994.19 BEST -2258.039 limit count 2 Gen 57 ID. 16 BIC -2156.581 BEST -2258.039 limit count 2 Gen 57 ID. 17 BIC -1841.125 BEST -2258.039 limit count 2 Gen 57 ID. 18 BIC -2129.285 BEST -2258.039 limit count 2 Gen 57 ID. 19 BIC -1946.051 BEST -2258.039 limit count 2 Gen 57 ID. 20 BIC -2277.499 BEST -2258.039 limit count 2 Gen 58 ID. 2 BIC -2006.207 BEST -2277.499 limit count 0 Gen 58 ID. 3 BIC -2209.65 BEST -2277.499 limit count 0 Gen 58 ID. 4 BIC -2025.395 BEST -2277.499 limit count 0 Gen 58 ID. 5 BIC -1906.567 BEST -2277.499 limit count 0 Gen 58 ID. 6 BIC -2236.216 BEST -2277.499 limit count 0 Gen 58 ID. 7 BIC -2397.943 BEST -2277.499 limit count 0 Gen 58 ID. 8 BIC -2039.481 BEST -2277.499 limit count 0 Gen 58 ID. 9 BIC -2154.468 BEST -2277.499 limit count 0 Gen 58 ID. 10 BIC -2149.026 BEST -2277.499 limit count 0 Gen 58 ID. 11 BIC -2213.663 BEST -2277.499 limit count 0 Gen 58 ID. 12 BIC -2055.737 BEST -2277.499 limit count 0 Gen 58 ID. 13 BIC -2336.022 BEST -2277.499 limit count 0 Gen 58 ID. 14 BIC -1996.898 BEST -2277.499 limit count 0 Gen 58 ID. 15 BIC -2090.928 BEST -2277.499 limit count 0 Gen 58 ID. 16 BIC -1990.984 BEST -2277.499 limit count 0 Gen 58 ID. 17 BIC -1988.805 BEST -2277.499 limit count 0 Gen 58 ID. 18 BIC -2073.028 BEST -2277.499 limit count 0 Gen 58 ID. 19 BIC -2117.644 BEST -2277.499 limit count 0 Gen 58 ID. 20 BIC -1973.365 BEST -2277.499 limit count 0 Gen 59 ID. 2 BIC -2248.575 BEST -2397.943 limit count 0 Gen 59 ID. 3 BIC -2312.895 BEST -2397.943 limit count 0 Gen 59 ID. 4 BIC -2202.887 BEST -2397.943 limit count 0 Gen 59 ID. 5 BIC -2083.443 BEST -2397.943 limit count 0 Gen 59 ID. 6 BIC -2158.257 BEST -2397.943 limit count 0 Gen 59 ID. 7 BIC -2221.626 BEST -2397.943 limit count 0 Gen 59 ID. 8 BIC -2226.083 BEST -2397.943 limit count 0 Gen 59 ID. 9 BIC -1975.198 BEST -2397.943 limit count 0 Gen 59 ID. 10 BIC -2388.32 BEST -2397.943 limit count 0 Gen 59 ID. 11 BIC -2066.799 BEST -2397.943 limit count 0 Gen 59 ID. 12 BIC -2206.183 BEST -2397.943 limit count 0 Gen 59 ID. 13 BIC -2130.629 BEST -2397.943 limit count 0 Gen 59 ID. 14 BIC -1940.965 BEST -2397.943 limit count 0 Gen 59 ID. 15 BIC -1964.375 BEST -2397.943 limit count 0 Gen 59 ID. 16 BIC -2039.136 BEST -2397.943 limit count 0 Gen 59 ID. 17 BIC -2098.501 BEST -2397.943 limit count 0 Gen 59 ID. 18 BIC -2155.666 BEST -2397.943 limit count 0 Gen 59 ID. 19 BIC -2049.992 BEST -2397.943 limit count 0 Gen 59 ID. 20 BIC -2028.273 BEST -2397.943 limit count 0 Gen 60 ID. 2 BIC -2040.321 BEST -2397.943 limit count 1 Gen 60 ID. 3 BIC -1979.38 BEST -2397.943 limit count 1 Gen 60 ID. 4 BIC -2205.383 BEST -2397.943 limit count 1 Gen 60 ID. 5 BIC -2141.198 BEST -2397.943 limit count 1 Gen 60 ID. 6 BIC -2108.735 BEST -2397.943 limit count 1 Gen 60 ID. 7 BIC -2103.143 BEST -2397.943 limit count 1 Gen 60 ID. 8 BIC -2029.562 BEST -2397.943 limit count 1 Gen 60 ID. 9 BIC -1903.945 BEST -2397.943 limit count 1 Gen 60 ID. 10 BIC -2087.934 BEST -2397.943 limit count 1 Gen 60 ID. 11 BIC -2079.653 BEST -2397.943 limit count 1 Gen 60 ID. 12 BIC -2161.333 BEST -2397.943 limit count 1 Gen 60 ID. 13 BIC -2096.731 BEST -2397.943 limit count 1 Gen 60 ID. 14 BIC -2038.512 BEST -2397.943 limit count 1 Gen 60 ID. 15 BIC -2189.299 BEST -2397.943 limit count 1 Gen 60 ID. 16 BIC -2157.061 BEST -2397.943 limit count 1 Gen 60 ID. 17 BIC -2135.053 BEST -2397.943 limit count 1 Gen 60 ID. 18 BIC -2235.166 BEST -2397.943 limit count 1 Gen 60 ID. 19 BIC -2172.597 BEST -2397.943 limit count 1 Gen 60 ID. 20 BIC -2188.468 BEST -2397.943 limit count 1 Gen 61 ID. 2 BIC -2119.178 BEST -2397.943 limit count 2 Gen 61 ID. 3 BIC -2311.676 BEST -2397.943 limit count 2 Gen 61 ID. 4 BIC -2193.388 BEST -2397.943 limit count 2 Gen 61 ID. 5 BIC -2072.699 BEST -2397.943 limit count 2 Gen 61 ID. 6 BIC -2279.474 BEST -2397.943 limit count 2 Gen 61 ID. 7 BIC -2052.394 BEST -2397.943 limit count 2 Gen 61 ID. 8 BIC -2024.928 BEST -2397.943 limit count 2 Gen 61 ID. 9 BIC -2181.59 BEST -2397.943 limit count 2 Gen 61 ID. 10 BIC -2278.199 BEST -2397.943 limit count 2 Gen 61 ID. 11 BIC -2243.543 BEST -2397.943 limit count 2 Gen 61 ID. 12 BIC -2185.161 BEST -2397.943 limit count 2 Gen 61 ID. 13 BIC -2022.732 BEST -2397.943 limit count 2 Gen 61 ID. 14 BIC -2109.121 BEST -2397.943 limit count 2 Gen 61 ID. 15 BIC -2129.403 BEST -2397.943 limit count 2 Gen 61 ID. 16 BIC -2256.709 BEST -2397.943 limit count 2 Gen 61 ID. 17 BIC -2216.028 BEST -2397.943 limit count 2 Gen 61 ID. 18 BIC -2239.878 BEST -2397.943 limit count 2 Gen 61 ID. 19 BIC -2164.355 BEST -2397.943 limit count 2 Gen 61 ID. 20 BIC -2333.901 BEST -2397.943 limit count 2 Gen 62 ID. 2 BIC -2274.871 BEST -2397.943 limit count 3 Gen 62 ID. 3 BIC -2300.492 BEST -2397.943 limit count 3 Gen 62 ID. 4 BIC -2166.296 BEST -2397.943 limit count 3 Gen 62 ID. 5 BIC -2211.501 BEST -2397.943 limit count 3 Gen 62 ID. 6 BIC -2156.88 BEST -2397.943 limit count 3 Gen 62 ID. 7 BIC -2205.596 BEST -2397.943 limit count 3 Gen 62 ID. 8 BIC -2112.03 BEST -2397.943 limit count 3 Gen 62 ID. 9 BIC -2202.661 BEST -2397.943 limit count 3 Gen 62 ID. 10 BIC -2141.279 BEST -2397.943 limit count 3 Gen 62 ID. 11 BIC -2185.682 BEST -2397.943 limit count 3 Gen 62 ID. 12 BIC -2141.94 BEST -2397.943 limit count 3 Gen 62 ID. 13 BIC -2328.816 BEST -2397.943 limit count 3 Gen 62 ID. 14 BIC -2269.041 BEST -2397.943 limit count 3 Gen 62 ID. 15 BIC -2155.543 BEST -2397.943 limit count 3 Gen 62 ID. 16 BIC -2288.008 BEST -2397.943 limit count 3 Gen 62 ID. 17 BIC -2462.403 BEST -2397.943 limit count 3 Gen 62 ID. 18 BIC -2269.444 BEST -2397.943 limit count 3 Gen 62 ID. 19 BIC -2202.455 BEST -2397.943 limit count 3 Gen 62 ID. 20 BIC -2192.283 BEST -2397.943 limit count 3 Gen 63 ID. 2 BIC -2195.608 BEST -2462.403 limit count 0 Gen 63 ID. 3 BIC -2320.113 BEST -2462.403 limit count 0 Gen 63 ID. 4 BIC -2122.35 BEST -2462.403 limit count 0 Gen 63 ID. 5 BIC -2251.075 BEST -2462.403 limit count 0 Gen 63 ID. 6 BIC -2227.068 BEST -2462.403 limit count 0 Gen 63 ID. 7 BIC -2141.875 BEST -2462.403 limit count 0 Gen 63 ID. 8 BIC -2115.331 BEST -2462.403 limit count 0 Gen 63 ID. 9 BIC -2187.117 BEST -2462.403 limit count 0 Gen 63 ID. 10 BIC -2067.326 BEST -2462.403 limit count 0 Gen 63 ID. 11 BIC -2115.344 BEST -2462.403 limit count 0 Gen 63 ID. 12 BIC -2137.269 BEST -2462.403 limit count 0 Gen 63 ID. 13 BIC -2267.982 BEST -2462.403 limit count 0 Gen 63 ID. 14 BIC -2320.921 BEST -2462.403 limit count 0 Gen 63 ID. 15 BIC -2121.939 BEST -2462.403 limit count 0 Gen 63 ID. 16 BIC -2079.254 BEST -2462.403 limit count 0 Gen 63 ID. 17 BIC -2285.777 BEST -2462.403 limit count 0 Gen 63 ID. 18 BIC -2260.781 BEST -2462.403 limit count 0 Gen 63 ID. 19 BIC -1920.242 BEST -2462.403 limit count 0 Gen 63 ID. 20 BIC -2034.285 BEST -2462.403 limit count 0 Gen 64 ID. 2 BIC -2199.274 BEST -2462.403 limit count 1 Gen 64 ID. 3 BIC -2350.553 BEST -2462.403 limit count 1 Gen 64 ID. 4 BIC -2219.851 BEST -2462.403 limit count 1 Gen 64 ID. 5 BIC -2344.843 BEST -2462.403 limit count 1 Gen 64 ID. 6 BIC -2202 BEST -2462.403 limit count 1 Gen 64 ID. 7 BIC -2206.044 BEST -2462.403 limit count 1 Gen 64 ID. 8 BIC -2120.368 BEST -2462.403 limit count 1 Gen 64 ID. 9 BIC -2217.169 BEST -2462.403 limit count 1 Gen 64 ID. 10 BIC -2149.498 BEST -2462.403 limit count 1 Gen 64 ID. 11 BIC -2159.934 BEST -2462.403 limit count 1 Gen 64 ID. 12 BIC -2134.64 BEST -2462.403 limit count 1 Gen 64 ID. 13 BIC -2010.446 BEST -2462.403 limit count 1 Gen 64 ID. 14 BIC -2178.582 BEST -2462.403 limit count 1 Gen 64 ID. 15 BIC -2144.781 BEST -2462.403 limit count 1 Gen 64 ID. 16 BIC -2105.49 BEST -2462.403 limit count 1 Gen 64 ID. 17 BIC -2283.454 BEST -2462.403 limit count 1 Gen 64 ID. 18 BIC -2264.362 BEST -2462.403 limit count 1 Gen 64 ID. 19 BIC -2214.056 BEST -2462.403 limit count 1 Gen 64 ID. 20 BIC -2279.517 BEST -2462.403 limit count 1 Gen 65 ID. 2 BIC -2301.203 BEST -2462.403 limit count 2 Gen 65 ID. 3 BIC -2168.372 BEST -2462.403 limit count 2 Gen 65 ID. 4 BIC -2213.872 BEST -2462.403 limit count 2 Gen 65 ID. 5 BIC -2233.564 BEST -2462.403 limit count 2 Gen 65 ID. 6 BIC -2134.804 BEST -2462.403 limit count 2 Gen 65 ID. 7 BIC -2257.441 BEST -2462.403 limit count 2 Gen 65 ID. 8 BIC -2274.927 BEST -2462.403 limit count 2 Gen 65 ID. 9 BIC -2183.482 BEST -2462.403 limit count 2 Gen 65 ID. 10 BIC -2345.678 BEST -2462.403 limit count 2 Gen 65 ID. 11 BIC -2158.016 BEST -2462.403 limit count 2 Gen 65 ID. 12 BIC -2288.334 BEST -2462.403 limit count 2 Gen 65 ID. 13 BIC -2155.043 BEST -2462.403 limit count 2 Gen 65 ID. 14 BIC -2271.01 BEST -2462.403 limit count 2 Gen 65 ID. 15 BIC -2362.166 BEST -2462.403 limit count 2 Gen 65 ID. 16 BIC -2122.54 BEST -2462.403 limit count 2 Gen 65 ID. 17 BIC -2195.51 BEST -2462.403 limit count 2 Gen 65 ID. 18 BIC -2231.945 BEST -2462.403 limit count 2 Gen 65 ID. 19 BIC -2294.129 BEST -2462.403 limit count 2 Gen 65 ID. 20 BIC -2307.361 BEST -2462.403 limit count 2 Gen 66 ID. 2 BIC -2080.778 BEST -2462.403 limit count 3 Gen 66 ID. 3 BIC -2134.706 BEST -2462.403 limit count 3 Gen 66 ID. 4 BIC -2227.436 BEST -2462.403 limit count 3 Gen 66 ID. 5 BIC -2334.66 BEST -2462.403 limit count 3 Gen 66 ID. 6 BIC -2157.263 BEST -2462.403 limit count 3 Gen 66 ID. 7 BIC -2274.496 BEST -2462.403 limit count 3 Gen 66 ID. 8 BIC -2301.955 BEST -2462.403 limit count 3 Gen 66 ID. 9 BIC -2282.877 BEST -2462.403 limit count 3 Gen 66 ID. 10 BIC -2224.607 BEST -2462.403 limit count 3 Gen 66 ID. 11 BIC -2371.181 BEST -2462.403 limit count 3 Gen 66 ID. 12 BIC -2150.915 BEST -2462.403 limit count 3 Gen 66 ID. 13 BIC -2299.974 BEST -2462.403 limit count 3 Gen 66 ID. 14 BIC -2106.24 BEST -2462.403 limit count 3 Gen 66 ID. 15 BIC -2305.927 BEST -2462.403 limit count 3 Gen 66 ID. 16 BIC -2159.017 BEST -2462.403 limit count 3 Gen 66 ID. 17 BIC -2316.9 BEST -2462.403 limit count 3 Gen 66 ID. 18 BIC -2445.831 BEST -2462.403 limit count 3 Gen 66 ID. 19 BIC -2058.425 BEST -2462.403 limit count 3 Gen 66 ID. 20 BIC -2261.009 BEST -2462.403 limit count 3 Gen 67 ID. 2 BIC -2312.093 BEST -2462.403 limit count 4 Gen 67 ID. 3 BIC -2325.399 BEST -2462.403 limit count 4 Gen 67 ID. 4 BIC -2155.911 BEST -2462.403 limit count 4 Gen 67 ID. 5 BIC -2135.31 BEST -2462.403 limit count 4 Gen 67 ID. 6 BIC -2232.653 BEST -2462.403 limit count 4 Gen 67 ID. 7 BIC -2366.361 BEST -2462.403 limit count 4 Gen 67 ID. 8 BIC -2179.612 BEST -2462.403 limit count 4 Gen 67 ID. 9 BIC -2239.079 BEST -2462.403 limit count 4 Gen 67 ID. 10 BIC -2257.855 BEST -2462.403 limit count 4 Gen 67 ID. 11 BIC -2326.491 BEST -2462.403 limit count 4 Gen 67 ID. 12 BIC -2339.272 BEST -2462.403 limit count 4 Gen 67 ID. 13 BIC -2333.31 BEST -2462.403 limit count 4 Gen 67 ID. 14 BIC -2341.612 BEST -2462.403 limit count 4 Gen 67 ID. 15 BIC -2226.628 BEST -2462.403 limit count 4 Gen 67 ID. 16 BIC -2266.006 BEST -2462.403 limit count 4 Gen 67 ID. 17 BIC -2369.808 BEST -2462.403 limit count 4 Gen 67 ID. 18 BIC -2074.986 BEST -2462.403 limit count 4 Gen 67 ID. 19 BIC -2346.28 BEST -2462.403 limit count 4 Gen 67 ID. 20 BIC -2287.474 BEST -2462.403 limit count 4 Gen 68 ID. 2 BIC -2406.343 BEST -2462.403 limit count 5 Gen 68 ID. 3 BIC -2277.946 BEST -2462.403 limit count 5 Gen 68 ID. 4 BIC -2311.91 BEST -2462.403 limit count 5 Gen 68 ID. 5 BIC -2284.304 BEST -2462.403 limit count 5 Gen 68 ID. 6 BIC -2232.805 BEST -2462.403 limit count 5 Gen 68 ID. 7 BIC -2266.21 BEST -2462.403 limit count 5 Gen 68 ID. 8 BIC -2248.689 BEST -2462.403 limit count 5 Gen 68 ID. 9 BIC -2209.205 BEST -2462.403 limit count 5 Gen 68 ID. 10 BIC -2335.947 BEST -2462.403 limit count 5 Gen 68 ID. 11 BIC -2231.59 BEST -2462.403 limit count 5 Gen 68 ID. 12 BIC -2330.779 BEST -2462.403 limit count 5 Gen 68 ID. 13 BIC -2262.118 BEST -2462.403 limit count 5 Gen 68 ID. 14 BIC -2239.891 BEST -2462.403 limit count 5 Gen 68 ID. 15 BIC -2183.792 BEST -2462.403 limit count 5 Gen 68 ID. 16 BIC -2264.786 BEST -2462.403 limit count 5 Gen 68 ID. 17 BIC -2388.166 BEST -2462.403 limit count 5 Gen 68 ID. 18 BIC -2284.215 BEST -2462.403 limit count 5 Gen 68 ID. 19 BIC -2253.102 BEST -2462.403 limit count 5 Gen 68 ID. 20 BIC -2261.952 BEST -2462.403 limit count 5 Gen 69 ID. 2 BIC -2353.882 BEST -2462.403 limit count 6 Gen 69 ID. 3 BIC -2503.243 BEST -2462.403 limit count 6 Gen 69 ID. 4 BIC -2290.904 BEST -2462.403 limit count 6 Gen 69 ID. 5 BIC -2343.046 BEST -2462.403 limit count 6 Gen 69 ID. 6 BIC -2489.132 BEST -2462.403 limit count 6 Gen 69 ID. 7 BIC -2293.529 BEST -2462.403 limit count 6 Gen 69 ID. 8 BIC -2274.923 BEST -2462.403 limit count 6 Gen 69 ID. 9 BIC -2209.634 BEST -2462.403 limit count 6 Gen 69 ID. 10 BIC -2281 BEST -2462.403 limit count 6 Gen 69 ID. 11 BIC -2337.868 BEST -2462.403 limit count 6 Gen 69 ID. 12 BIC -2392.451 BEST -2462.403 limit count 6 Gen 69 ID. 13 BIC -2300.355 BEST -2462.403 limit count 6 Gen 69 ID. 14 BIC -2258.418 BEST -2462.403 limit count 6 Gen 69 ID. 15 BIC -2257.059 BEST -2462.403 limit count 6 Gen 69 ID. 16 BIC -2256.083 BEST -2462.403 limit count 6 Gen 69 ID. 17 BIC -2207.849 BEST -2462.403 limit count 6 Gen 69 ID. 18 BIC -2358.848 BEST -2462.403 limit count 6 Gen 69 ID. 19 BIC -2270.227 BEST -2462.403 limit count 6 Gen 69 ID. 20 BIC -2080.291 BEST -2462.403 limit count 6 Gen 70 ID. 2 BIC -2384.985 BEST -2503.243 limit count 0 Gen 70 ID. 3 BIC -2558.204 BEST -2503.243 limit count 0 Gen 70 ID. 4 BIC -2238.839 BEST -2503.243 limit count 0 Gen 70 ID. 5 BIC -2260.844 BEST -2503.243 limit count 0 Gen 70 ID. 6 BIC -2263.973 BEST -2503.243 limit count 0 Gen 70 ID. 7 BIC -2531.703 BEST -2503.243 limit count 0 Gen 70 ID. 8 BIC -2368.783 BEST -2503.243 limit count 0 Gen 70 ID. 9 BIC -2320.083 BEST -2503.243 limit count 0 Gen 70 ID. 10 BIC -2344.081 BEST -2503.243 limit count 0 Gen 70 ID. 11 BIC -2356.89 BEST -2503.243 limit count 0 Gen 70 ID. 12 BIC -2313.518 BEST -2503.243 limit count 0 Gen 70 ID. 13 BIC -2480.152 BEST -2503.243 limit count 0 Gen 70 ID. 14 BIC -2311.782 BEST -2503.243 limit count 0 Gen 70 ID. 15 BIC -2380.255 BEST -2503.243 limit count 0 Gen 70 ID. 16 BIC -2394.41 BEST -2503.243 limit count 0 Gen 70 ID. 17 BIC -2365.387 BEST -2503.243 limit count 0 Gen 70 ID. 18 BIC -2483.332 BEST -2503.243 limit count 0 Gen 70 ID. 19 BIC -2291.341 BEST -2503.243 limit count 0 Gen 70 ID. 20 BIC -2260.444 BEST -2503.243 limit count 0 Gen 71 ID. 2 BIC -2399.302 BEST -2558.204 limit count 0 Gen 71 ID. 3 BIC -2403.698 BEST -2558.204 limit count 0 Gen 71 ID. 4 BIC -2296.613 BEST -2558.204 limit count 0 Gen 71 ID. 5 BIC -2234.225 BEST -2558.204 limit count 0 Gen 71 ID. 6 BIC -2235.376 BEST -2558.204 limit count 0 Gen 71 ID. 7 BIC -2360.868 BEST -2558.204 limit count 0 Gen 71 ID. 8 BIC -2366.03 BEST -2558.204 limit count 0 Gen 71 ID. 9 BIC -2335.843 BEST -2558.204 limit count 0 Gen 71 ID. 10 BIC -2298.426 BEST -2558.204 limit count 0 Gen 71 ID. 11 BIC -2401.236 BEST -2558.204 limit count 0 Gen 71 ID. 12 BIC -2396.186 BEST -2558.204 limit count 0 Gen 71 ID. 13 BIC -2219.654 BEST -2558.204 limit count 0 Gen 71 ID. 14 BIC -2406.182 BEST -2558.204 limit count 0 Gen 71 ID. 15 BIC -2344.626 BEST -2558.204 limit count 0 Gen 71 ID. 16 BIC -2289.495 BEST -2558.204 limit count 0 Gen 71 ID. 17 BIC -2422.092 BEST -2558.204 limit count 0 Gen 71 ID. 18 BIC -2357.315 BEST -2558.204 limit count 0 Gen 71 ID. 19 BIC -2349.355 BEST -2558.204 limit count 0 Gen 71 ID. 20 BIC -2357.125 BEST -2558.204 limit count 0 Gen 72 ID. 2 BIC -2240.772 BEST -2558.204 limit count 1 Gen 72 ID. 3 BIC -2212.52 BEST -2558.204 limit count 1 Gen 72 ID. 4 BIC -2365.979 BEST -2558.204 limit count 1 Gen 72 ID. 5 BIC -2413.613 BEST -2558.204 limit count 1 Gen 72 ID. 6 BIC -2408.091 BEST -2558.204 limit count 1 Gen 72 ID. 7 BIC -2340.027 BEST -2558.204 limit count 1 Gen 72 ID. 8 BIC -2322.423 BEST -2558.204 limit count 1 Gen 72 ID. 9 BIC -2190.599 BEST -2558.204 limit count 1 Gen 72 ID. 10 BIC -2451.731 BEST -2558.204 limit count 1 Gen 72 ID. 11 BIC -2367.176 BEST -2558.204 limit count 1 Gen 72 ID. 12 BIC -2441.25 BEST -2558.204 limit count 1 Gen 72 ID. 13 BIC -2365.37 BEST -2558.204 limit count 1 Gen 72 ID. 14 BIC -2464.722 BEST -2558.204 limit count 1 Gen 72 ID. 15 BIC -2387.642 BEST -2558.204 limit count 1 Gen 72 ID. 16 BIC -2382.449 BEST -2558.204 limit count 1 Gen 72 ID. 17 BIC -2250.695 BEST -2558.204 limit count 1 Gen 72 ID. 18 BIC -2408.609 BEST -2558.204 limit count 1 Gen 72 ID. 19 BIC -2374.333 BEST -2558.204 limit count 1 Gen 72 ID. 20 BIC -2327.468 BEST -2558.204 limit count 1 Gen 73 ID. 2 BIC -2355.702 BEST -2558.204 limit count 2 Gen 73 ID. 3 BIC -2409.897 BEST -2558.204 limit count 2 Gen 73 ID. 4 BIC -2175.147 BEST -2558.204 limit count 2 Gen 73 ID. 5 BIC -2371.603 BEST -2558.204 limit count 2 Gen 73 ID. 6 BIC -2235.55 BEST -2558.204 limit count 2 Gen 73 ID. 7 BIC -2500.232 BEST -2558.204 limit count 2 Gen 73 ID. 8 BIC -2473.395 BEST -2558.204 limit count 2 Gen 73 ID. 9 BIC -2326.276 BEST -2558.204 limit count 2 Gen 73 ID. 10 BIC -2291.638 BEST -2558.204 limit count 2 Gen 73 ID. 11 BIC -2291.9 BEST -2558.204 limit count 2 Gen 73 ID. 12 BIC -2352.173 BEST -2558.204 limit count 2 Gen 73 ID. 13 BIC -2454.736 BEST -2558.204 limit count 2 Gen 73 ID. 14 BIC -2387.318 BEST -2558.204 limit count 2 Gen 73 ID. 15 BIC -2439.132 BEST -2558.204 limit count 2 Gen 73 ID. 16 BIC -2289.86 BEST -2558.204 limit count 2 Gen 73 ID. 17 BIC -2419.608 BEST -2558.204 limit count 2 Gen 73 ID. 18 BIC -2441.82 BEST -2558.204 limit count 2 Gen 73 ID. 19 BIC -2249.945 BEST -2558.204 limit count 2 Gen 73 ID. 20 BIC -2328.317 BEST -2558.204 limit count 2 Gen 74 ID. 2 BIC -2397.493 BEST -2558.204 limit count 3 Gen 74 ID. 3 BIC -2360.088 BEST -2558.204 limit count 3 Gen 74 ID. 4 BIC -2287.785 BEST -2558.204 limit count 3 Gen 74 ID. 5 BIC -2435.835 BEST -2558.204 limit count 3 Gen 74 ID. 6 BIC -2466.26 BEST -2558.204 limit count 3 Gen 74 ID. 7 BIC -2343.9 BEST -2558.204 limit count 3 Gen 74 ID. 8 BIC -2333.929 BEST -2558.204 limit count 3 Gen 74 ID. 9 BIC -2435.876 BEST -2558.204 limit count 3 Gen 74 ID. 10 BIC -2519.479 BEST -2558.204 limit count 3 Gen 74 ID. 11 BIC -2380.246 BEST -2558.204 limit count 3 Gen 74 ID. 12 BIC -2380.897 BEST -2558.204 limit count 3 Gen 74 ID. 13 BIC -2318.425 BEST -2558.204 limit count 3 Gen 74 ID. 14 BIC -2482.987 BEST -2558.204 limit count 3 Gen 74 ID. 15 BIC -2315.491 BEST -2558.204 limit count 3 Gen 74 ID. 16 BIC -2284.224 BEST -2558.204 limit count 3 Gen 74 ID. 17 BIC -2379.493 BEST -2558.204 limit count 3 Gen 74 ID. 18 BIC -2305.33 BEST -2558.204 limit count 3 Gen 74 ID. 19 BIC -2305.974 BEST -2558.204 limit count 3 Gen 74 ID. 20 BIC -2310.701 BEST -2558.204 limit count 3 Gen 75 ID. 2 BIC -2429.853 BEST -2558.204 limit count 4 Gen 75 ID. 3 BIC -2580.906 BEST -2558.204 limit count 4 Gen 75 ID. 4 BIC -2416.573 BEST -2558.204 limit count 4 Gen 75 ID. 5 BIC -2443.867 BEST -2558.204 limit count 4 Gen 75 ID. 6 BIC -2467.826 BEST -2558.204 limit count 4 Gen 75 ID. 7 BIC -2451.338 BEST -2558.204 limit count 4 Gen 75 ID. 8 BIC -2495.178 BEST -2558.204 limit count 4 Gen 75 ID. 9 BIC -2460.082 BEST -2558.204 limit count 4 Gen 75 ID. 10 BIC -2405.616 BEST -2558.204 limit count 4 Gen 75 ID. 11 BIC -2269.824 BEST -2558.204 limit count 4 Gen 75 ID. 12 BIC -2443.589 BEST -2558.204 limit count 4 Gen 75 ID. 13 BIC -2265.817 BEST -2558.204 limit count 4 Gen 75 ID. 14 BIC -2361.192 BEST -2558.204 limit count 4 Gen 75 ID. 15 BIC -2360.368 BEST -2558.204 limit count 4 Gen 75 ID. 16 BIC -2399.65 BEST -2558.204 limit count 4 Gen 75 ID. 17 BIC -2525.241 BEST -2558.204 limit count 4 Gen 75 ID. 18 BIC -2334.377 BEST -2558.204 limit count 4 Gen 75 ID. 19 BIC -2276.592 BEST -2558.204 limit count 4 Gen 75 ID. 20 BIC -2460.989 BEST -2558.204 limit count 4 Gen 76 ID. 2 BIC -2362.53 BEST -2580.906 limit count 0 Gen 76 ID. 3 BIC -2438.507 BEST -2580.906 limit count 0 Gen 76 ID. 4 BIC -2578.712 BEST -2580.906 limit count 0 Gen 76 ID. 5 BIC -2213.095 BEST -2580.906 limit count 0 Gen 76 ID. 6 BIC -2422.099 BEST -2580.906 limit count 0 Gen 76 ID. 7 BIC -2217.777 BEST -2580.906 limit count 0 Gen 76 ID. 8 BIC -2270.129 BEST -2580.906 limit count 0 Gen 76 ID. 9 BIC -2387.921 BEST -2580.906 limit count 0 Gen 76 ID. 10 BIC -2388.367 BEST -2580.906 limit count 0 Gen 76 ID. 11 BIC -2402.668 BEST -2580.906 limit count 0 Gen 76 ID. 12 BIC -2404.874 BEST -2580.906 limit count 0 Gen 76 ID. 13 BIC -2421.692 BEST -2580.906 limit count 0 Gen 76 ID. 14 BIC -2468.008 BEST -2580.906 limit count 0 Gen 76 ID. 15 BIC -2344.928 BEST -2580.906 limit count 0 Gen 76 ID. 16 BIC -2326.81 BEST -2580.906 limit count 0 Gen 76 ID. 17 BIC -2307.532 BEST -2580.906 limit count 0 Gen 76 ID. 18 BIC -2326.246 BEST -2580.906 limit count 0 Gen 76 ID. 19 BIC -2407.689 BEST -2580.906 limit count 0 Gen 76 ID. 20 BIC -2523.002 BEST -2580.906 limit count 0 Gen 77 ID. 2 BIC -2436.953 BEST -2580.906 limit count 1 Gen 77 ID. 3 BIC -2556.292 BEST -2580.906 limit count 1 Gen 77 ID. 4 BIC -2450.299 BEST -2580.906 limit count 1 Gen 77 ID. 5 BIC -2472.401 BEST -2580.906 limit count 1 Gen 77 ID. 6 BIC -2273.582 BEST -2580.906 limit count 1 Gen 77 ID. 7 BIC -2493.72 BEST -2580.906 limit count 1 Gen 77 ID. 8 BIC -2269.711 BEST -2580.906 limit count 1 Gen 77 ID. 9 BIC -2411.507 BEST -2580.906 limit count 1 Gen 77 ID. 10 BIC -2450.025 BEST -2580.906 limit count 1 Gen 77 ID. 11 BIC -2304.535 BEST -2580.906 limit count 1 Gen 77 ID. 12 BIC -2334.434 BEST -2580.906 limit count 1 Gen 77 ID. 13 BIC -2231.168 BEST -2580.906 limit count 1 Gen 77 ID. 14 BIC -2452.591 BEST -2580.906 limit count 1 Gen 77 ID. 15 BIC -2380.548 BEST -2580.906 limit count 1 Gen 77 ID. 16 BIC -2282.946 BEST -2580.906 limit count 1 Gen 77 ID. 17 BIC -2467.021 BEST -2580.906 limit count 1 Gen 77 ID. 18 BIC -2383.932 BEST -2580.906 limit count 1 Gen 77 ID. 19 BIC -2469.358 BEST -2580.906 limit count 1 Gen 77 ID. 20 BIC -2399.392 BEST -2580.906 limit count 1 Gen 78 ID. 2 BIC -2471.523 BEST -2580.906 limit count 2 Gen 78 ID. 3 BIC -2392.864 BEST -2580.906 limit count 2 Gen 78 ID. 4 BIC -2508.216 BEST -2580.906 limit count 2 Gen 78 ID. 5 BIC -2436.978 BEST -2580.906 limit count 2 Gen 78 ID. 6 BIC -2363.925 BEST -2580.906 limit count 2 Gen 78 ID. 7 BIC -2459.65 BEST -2580.906 limit count 2 Gen 78 ID. 8 BIC -2402.376 BEST -2580.906 limit count 2 Gen 78 ID. 9 BIC -2351.044 BEST -2580.906 limit count 2 Gen 78 ID. 10 BIC -2399.312 BEST -2580.906 limit count 2 Gen 78 ID. 11 BIC -2354.148 BEST -2580.906 limit count 2 Gen 78 ID. 12 BIC -2381.268 BEST -2580.906 limit count 2 Gen 78 ID. 13 BIC -2451.009 BEST -2580.906 limit count 2 Gen 78 ID. 14 BIC -2326.478 BEST -2580.906 limit count 2 Gen 78 ID. 15 BIC -2390.939 BEST -2580.906 limit count 2 Gen 78 ID. 16 BIC -2382.213 BEST -2580.906 limit count 2 Gen 78 ID. 17 BIC -2369.083 BEST -2580.906 limit count 2 Gen 78 ID. 18 BIC -2291.178 BEST -2580.906 limit count 2 Gen 78 ID. 19 BIC -2404.545 BEST -2580.906 limit count 2 Gen 78 ID. 20 BIC -2328.138 BEST -2580.906 limit count 2 Gen 79 ID. 2 BIC -2269.009 BEST -2580.906 limit count 3 Gen 79 ID. 3 BIC -2540.18 BEST -2580.906 limit count 3 Gen 79 ID. 4 BIC -2423.666 BEST -2580.906 limit count 3 Gen 79 ID. 5 BIC -2432.905 BEST -2580.906 limit count 3 Gen 79 ID. 6 BIC -2354.376 BEST -2580.906 limit count 3 Gen 79 ID. 7 BIC -2434.996 BEST -2580.906 limit count 3 Gen 79 ID. 8 BIC -2538.854 BEST -2580.906 limit count 3 Gen 79 ID. 9 BIC -2325.882 BEST -2580.906 limit count 3 Gen 79 ID. 10 BIC -2297.236 BEST -2580.906 limit count 3 Gen 79 ID. 11 BIC -2439.329 BEST -2580.906 limit count 3 Gen 79 ID. 12 BIC -2388.807 BEST -2580.906 limit count 3 Gen 79 ID. 13 BIC -2343.403 BEST -2580.906 limit count 3 Gen 79 ID. 14 BIC -2602.831 BEST -2580.906 limit count 3 Gen 79 ID. 15 BIC -2366.567 BEST -2580.906 limit count 3 Gen 79 ID. 16 BIC -2438.428 BEST -2580.906 limit count 3 Gen 79 ID. 17 BIC -2491.172 BEST -2580.906 limit count 3 Gen 79 ID. 18 BIC -2329.946 BEST -2580.906 limit count 3 Gen 79 ID. 19 BIC -2310.104 BEST -2580.906 limit count 3 Gen 79 ID. 20 BIC -2526.177 BEST -2580.906 limit count 3 Gen 80 ID. 2 BIC -2462.223 BEST -2602.831 limit count 0 Gen 80 ID. 3 BIC -2525.611 BEST -2602.831 limit count 0 Gen 80 ID. 4 BIC -2335.308 BEST -2602.831 limit count 0 Gen 80 ID. 5 BIC -2404.942 BEST -2602.831 limit count 0 Gen 80 ID. 6 BIC -2462.294 BEST -2602.831 limit count 0 Gen 80 ID. 7 BIC -2324.174 BEST -2602.831 limit count 0 Gen 80 ID. 8 BIC -2381.782 BEST -2602.831 limit count 0 Gen 80 ID. 9 BIC -2435.84 BEST -2602.831 limit count 0 Gen 80 ID. 10 BIC -2387.252 BEST -2602.831 limit count 0 Gen 80 ID. 11 BIC -2473.819 BEST -2602.831 limit count 0 Gen 80 ID. 12 BIC -2438.343 BEST -2602.831 limit count 0 Gen 80 ID. 13 BIC -2477.582 BEST -2602.831 limit count 0 Gen 80 ID. 14 BIC -2367.689 BEST -2602.831 limit count 0 Gen 80 ID. 15 BIC -2474.377 BEST -2602.831 limit count 0 Gen 80 ID. 16 BIC -2480.044 BEST -2602.831 limit count 0 Gen 80 ID. 17 BIC -2494.416 BEST -2602.831 limit count 0 Gen 80 ID. 18 BIC -2436.21 BEST -2602.831 limit count 0 Gen 80 ID. 19 BIC -2427.407 BEST -2602.831 limit count 0 Gen 80 ID. 20 BIC -2398.357 BEST -2602.831 limit count 0 Gen 81 ID. 2 BIC -2346.929 BEST -2602.831 limit count 1 Gen 81 ID. 3 BIC -2496.005 BEST -2602.831 limit count 1 Gen 81 ID. 4 BIC -2484.646 BEST -2602.831 limit count 1 Gen 81 ID. 5 BIC -2531.379 BEST -2602.831 limit count 1 Gen 81 ID. 6 BIC -2442.958 BEST -2602.831 limit count 1 Gen 81 ID. 7 BIC -2381.598 BEST -2602.831 limit count 1 Gen 81 ID. 8 BIC -2401.514 BEST -2602.831 limit count 1 Gen 81 ID. 9 BIC -2336.207 BEST -2602.831 limit count 1 Gen 81 ID. 10 BIC -2430.366 BEST -2602.831 limit count 1 Gen 81 ID. 11 BIC -2395.33 BEST -2602.831 limit count 1 Gen 81 ID. 12 BIC -2336.465 BEST -2602.831 limit count 1 Gen 81 ID. 13 BIC -2391.582 BEST -2602.831 limit count 1 Gen 81 ID. 14 BIC -2407.332 BEST -2602.831 limit count 1 Gen 81 ID. 15 BIC -2342.121 BEST -2602.831 limit count 1 Gen 81 ID. 16 BIC -2417.399 BEST -2602.831 limit count 1 Gen 81 ID. 17 BIC -2473.93 BEST -2602.831 limit count 1 Gen 81 ID. 18 BIC -2445.673 BEST -2602.831 limit count 1 Gen 81 ID. 19 BIC -2334.991 BEST -2602.831 limit count 1 Gen 81 ID. 20 BIC -2454.178 BEST -2602.831 limit count 1 Gen 82 ID. 2 BIC -2476.999 BEST -2602.831 limit count 2 Gen 82 ID. 3 BIC -2364.832 BEST -2602.831 limit count 2 Gen 82 ID. 4 BIC -2522.032 BEST -2602.831 limit count 2 Gen 82 ID. 5 BIC -2449.187 BEST -2602.831 limit count 2 Gen 82 ID. 6 BIC -2337.709 BEST -2602.831 limit count 2 Gen 82 ID. 7 BIC -2382.194 BEST -2602.831 limit count 2 Gen 82 ID. 8 BIC -2438.093 BEST -2602.831 limit count 2 Gen 82 ID. 9 BIC -2278.438 BEST -2602.831 limit count 2 Gen 82 ID. 10 BIC -2415.115 BEST -2602.831 limit count 2 Gen 82 ID. 11 BIC -2417.301 BEST -2602.831 limit count 2 Gen 82 ID. 12 BIC -2419.093 BEST -2602.831 limit count 2 Gen 82 ID. 13 BIC -2487.891 BEST -2602.831 limit count 2 Gen 82 ID. 14 BIC -2444.191 BEST -2602.831 limit count 2 Gen 82 ID. 15 BIC -2415.632 BEST -2602.831 limit count 2 Gen 82 ID. 16 BIC -2360.809 BEST -2602.831 limit count 2 Gen 82 ID. 17 BIC -2350.567 BEST -2602.831 limit count 2 Gen 82 ID. 18 BIC -2478.897 BEST -2602.831 limit count 2 Gen 82 ID. 19 BIC -2454.063 BEST -2602.831 limit count 2 Gen 82 ID. 20 BIC -2345.519 BEST -2602.831 limit count 2 Gen 83 ID. 2 BIC -2500.719 BEST -2602.831 limit count 3 Gen 83 ID. 3 BIC -2415.289 BEST -2602.831 limit count 3 Gen 83 ID. 4 BIC -2422.066 BEST -2602.831 limit count 3 Gen 83 ID. 5 BIC -2365.066 BEST -2602.831 limit count 3 Gen 83 ID. 6 BIC -2380.496 BEST -2602.831 limit count 3 Gen 83 ID. 7 BIC -2450.731 BEST -2602.831 limit count 3 Gen 83 ID. 8 BIC -2406.596 BEST -2602.831 limit count 3 Gen 83 ID. 9 BIC -2287.245 BEST -2602.831 limit count 3 Gen 83 ID. 10 BIC -2603.416 BEST -2602.831 limit count 3 Gen 83 ID. 11 BIC -2418.51 BEST -2602.831 limit count 3 Gen 83 ID. 12 BIC -2449.856 BEST -2602.831 limit count 3 Gen 83 ID. 13 BIC -2414.14 BEST -2602.831 limit count 3 Gen 83 ID. 14 BIC -2406.238 BEST -2602.831 limit count 3 Gen 83 ID. 15 BIC -2365.512 BEST -2602.831 limit count 3 Gen 83 ID. 16 BIC -2350.809 BEST -2602.831 limit count 3 Gen 83 ID. 17 BIC -2497.334 BEST -2602.831 limit count 3 Gen 83 ID. 18 BIC -2415.609 BEST -2602.831 limit count 3 Gen 83 ID. 19 BIC -2444.815 BEST -2602.831 limit count 3 Gen 83 ID. 20 BIC -2473.475 BEST -2602.831 limit count 3 Gen 84 ID. 2 BIC -2340.185 BEST -2603.416 limit count 0 Gen 84 ID. 3 BIC -2330.518 BEST -2603.416 limit count 0 Gen 84 ID. 4 BIC -2552.944 BEST -2603.416 limit count 0 Gen 84 ID. 5 BIC -2511.174 BEST -2603.416 limit count 0 Gen 84 ID. 6 BIC -2412.791 BEST -2603.416 limit count 0 Gen 84 ID. 7 BIC -2488.109 BEST -2603.416 limit count 0 Gen 84 ID. 8 BIC -2328.304 BEST -2603.416 limit count 0 Gen 84 ID. 9 BIC -2456.824 BEST -2603.416 limit count 0 Gen 84 ID. 10 BIC -2416.676 BEST -2603.416 limit count 0 Gen 84 ID. 11 BIC -2571.512 BEST -2603.416 limit count 0 Gen 84 ID. 12 BIC -2511.985 BEST -2603.416 limit count 0 Gen 84 ID. 13 BIC -2434.588 BEST -2603.416 limit count 0 Gen 84 ID. 14 BIC -2452.793 BEST -2603.416 limit count 0 Gen 84 ID. 15 BIC -2353.291 BEST -2603.416 limit count 0 Gen 84 ID. 16 BIC -2432.402 BEST -2603.416 limit count 0 Gen 84 ID. 17 BIC -2468.515 BEST -2603.416 limit count 0 Gen 84 ID. 18 BIC -2459.598 BEST -2603.416 limit count 0 Gen 84 ID. 19 BIC -2257.506 BEST -2603.416 limit count 0 Gen 84 ID. 20 BIC -2406.933 BEST -2603.416 limit count 0 Gen 85 ID. 2 BIC -2301.577 BEST -2603.416 limit count 1 Gen 85 ID. 3 BIC -2305.958 BEST -2603.416 limit count 1 Gen 85 ID. 4 BIC -2484.982 BEST -2603.416 limit count 1 Gen 85 ID. 5 BIC -2348.273 BEST -2603.416 limit count 1 Gen 85 ID. 6 BIC -2482.908 BEST -2603.416 limit count 1 Gen 85 ID. 7 BIC -2392.974 BEST -2603.416 limit count 1 Gen 85 ID. 8 BIC -2404.146 BEST -2603.416 limit count 1 Gen 85 ID. 9 BIC -2432.516 BEST -2603.416 limit count 1 Gen 85 ID. 10 BIC -2386.286 BEST -2603.416 limit count 1 Gen 85 ID. 11 BIC -2359.866 BEST -2603.416 limit count 1 Gen 85 ID. 12 BIC -2447.21 BEST -2603.416 limit count 1 Gen 85 ID. 13 BIC -2433.484 BEST -2603.416 limit count 1 Gen 85 ID. 14 BIC -2451.27 BEST -2603.416 limit count 1 Gen 85 ID. 15 BIC -2408.473 BEST -2603.416 limit count 1 Gen 85 ID. 16 BIC -2462.568 BEST -2603.416 limit count 1 Gen 85 ID. 17 BIC -2489.61 BEST -2603.416 limit count 1 Gen 85 ID. 18 BIC -2458.305 BEST -2603.416 limit count 1 Gen 85 ID. 19 BIC -2349.49 BEST -2603.416 limit count 1 Gen 85 ID. 20 BIC -2323.726 BEST -2603.416 limit count 1 Gen 86 ID. 2 BIC -2519.306 BEST -2603.416 limit count 2 Gen 86 ID. 3 BIC -2392.33 BEST -2603.416 limit count 2 Gen 86 ID. 4 BIC -2488.153 BEST -2603.416 limit count 2 Gen 86 ID. 5 BIC -2592.189 BEST -2603.416 limit count 2 Gen 86 ID. 6 BIC -2452.188 BEST -2603.416 limit count 2 Gen 86 ID. 7 BIC -2528.858 BEST -2603.416 limit count 2 Gen 86 ID. 8 BIC -2316.376 BEST -2603.416 limit count 2 Gen 86 ID. 9 BIC -2458.299 BEST -2603.416 limit count 2 Gen 86 ID. 10 BIC -2466.194 BEST -2603.416 limit count 2 Gen 86 ID. 11 BIC -2426.141 BEST -2603.416 limit count 2 Gen 86 ID. 12 BIC -2369.253 BEST -2603.416 limit count 2 Gen 86 ID. 13 BIC -2488.59 BEST -2603.416 limit count 2 Gen 86 ID. 14 BIC -2481.291 BEST -2603.416 limit count 2 Gen 86 ID. 15 BIC -2446.338 BEST -2603.416 limit count 2 Gen 86 ID. 16 BIC -2414.268 BEST -2603.416 limit count 2 Gen 86 ID. 17 BIC -2621.529 BEST -2603.416 limit count 2 Gen 86 ID. 18 BIC -2486.318 BEST -2603.416 limit count 2 Gen 86 ID. 19 BIC -2394.023 BEST -2603.416 limit count 2 Gen 86 ID. 20 BIC -2434.885 BEST -2603.416 limit count 2 Gen 87 ID. 2 BIC -2389.672 BEST -2621.529 limit count 0 Gen 87 ID. 3 BIC -2465.162 BEST -2621.529 limit count 0 Gen 87 ID. 4 BIC -2295.162 BEST -2621.529 limit count 0 Gen 87 ID. 5 BIC -2435.818 BEST -2621.529 limit count 0 Gen 87 ID. 6 BIC -2444.954 BEST -2621.529 limit count 0 Gen 87 ID. 7 BIC -2523.427 BEST -2621.529 limit count 0 Gen 87 ID. 8 BIC -2509.391 BEST -2621.529 limit count 0 Gen 87 ID. 9 BIC -2520.577 BEST -2621.529 limit count 0 Gen 87 ID. 10 BIC -2521.006 BEST -2621.529 limit count 0 Gen 87 ID. 11 BIC -2564.48 BEST -2621.529 limit count 0 Gen 87 ID. 12 BIC -2473.032 BEST -2621.529 limit count 0 Gen 87 ID. 13 BIC -2572.533 BEST -2621.529 limit count 0 Gen 87 ID. 14 BIC -2623.081 BEST -2621.529 limit count 0 Gen 87 ID. 15 BIC -2355.828 BEST -2621.529 limit count 0 Gen 87 ID. 16 BIC -2474.383 BEST -2621.529 limit count 0 Gen 87 ID. 17 BIC -2395.462 BEST -2621.529 limit count 0 Gen 87 ID. 18 BIC -2484.451 BEST -2621.529 limit count 0 Gen 87 ID. 19 BIC -2489.515 BEST -2621.529 limit count 0 Gen 87 ID. 20 BIC -2399.701 BEST -2621.529 limit count 0 Gen 88 ID. 2 BIC -2368.472 BEST -2623.081 limit count 0 Gen 88 ID. 3 BIC -2585.297 BEST -2623.081 limit count 0 Gen 88 ID. 4 BIC -2389.283 BEST -2623.081 limit count 0 Gen 88 ID. 5 BIC -2533.435 BEST -2623.081 limit count 0 Gen 88 ID. 6 BIC -2425.051 BEST -2623.081 limit count 0 Gen 88 ID. 7 BIC -2476.507 BEST -2623.081 limit count 0 Gen 88 ID. 8 BIC -2508.485 BEST -2623.081 limit count 0 Gen 88 ID. 9 BIC -2360.928 BEST -2623.081 limit count 0 Gen 88 ID. 10 BIC -2527.767 BEST -2623.081 limit count 0 Gen 88 ID. 11 BIC -2588.293 BEST -2623.081 limit count 0 Gen 88 ID. 12 BIC -2406.221 BEST -2623.081 limit count 0 Gen 88 ID. 13 BIC -2560.056 BEST -2623.081 limit count 0 Gen 88 ID. 14 BIC -2407.457 BEST -2623.081 limit count 0 Gen 88 ID. 15 BIC -2514.405 BEST -2623.081 limit count 0 Gen 88 ID. 16 BIC -2458.604 BEST -2623.081 limit count 0 Gen 88 ID. 17 BIC -2449.118 BEST -2623.081 limit count 0 Gen 88 ID. 18 BIC -2356.569 BEST -2623.081 limit count 0 Gen 88 ID. 19 BIC -2516.954 BEST -2623.081 limit count 0 Gen 88 ID. 20 BIC -2314.775 BEST -2623.081 limit count 0 Gen 89 ID. 2 BIC -2366.924 BEST -2623.081 limit count 1 Gen 89 ID. 3 BIC -2398.226 BEST -2623.081 limit count 1 Gen 89 ID. 4 BIC -2504.082 BEST -2623.081 limit count 1 Gen 89 ID. 5 BIC -2402.585 BEST -2623.081 limit count 1 Gen 89 ID. 6 BIC -2511.584 BEST -2623.081 limit count 1 Gen 89 ID. 7 BIC -2449.261 BEST -2623.081 limit count 1 Gen 89 ID. 8 BIC -2535.239 BEST -2623.081 limit count 1 Gen 89 ID. 9 BIC -2431.394 BEST -2623.081 limit count 1 Gen 89 ID. 10 BIC -2493.021 BEST -2623.081 limit count 1 Gen 89 ID. 11 BIC -2523.268 BEST -2623.081 limit count 1 Gen 89 ID. 12 BIC -2460.587 BEST -2623.081 limit count 1 Gen 89 ID. 13 BIC -2466.082 BEST -2623.081 limit count 1 Gen 89 ID. 14 BIC -2390.719 BEST -2623.081 limit count 1 Gen 89 ID. 15 BIC -2444.093 BEST -2623.081 limit count 1 Gen 89 ID. 16 BIC -2460.075 BEST -2623.081 limit count 1 Gen 89 ID. 17 BIC -2499.983 BEST -2623.081 limit count 1 Gen 89 ID. 18 BIC -2592.898 BEST -2623.081 limit count 1 Gen 89 ID. 19 BIC -2447.553 BEST -2623.081 limit count 1 Gen 89 ID. 20 BIC -2478.354 BEST -2623.081 limit count 1 Gen 90 ID. 2 BIC -2450.162 BEST -2623.081 limit count 2 Gen 90 ID. 3 BIC -2406.333 BEST -2623.081 limit count 2 Gen 90 ID. 4 BIC -2532.095 BEST -2623.081 limit count 2 Gen 90 ID. 5 BIC -2514.87 BEST -2623.081 limit count 2 Gen 90 ID. 6 BIC -2371.743 BEST -2623.081 limit count 2 Gen 90 ID. 7 BIC -2443.99 BEST -2623.081 limit count 2 Gen 90 ID. 8 BIC -2374.637 BEST -2623.081 limit count 2 Gen 90 ID. 9 BIC -2590.735 BEST -2623.081 limit count 2 Gen 90 ID. 10 BIC -2432.59 BEST -2623.081 limit count 2 Gen 90 ID. 11 BIC -2638.644 BEST -2623.081 limit count 2 Gen 90 ID. 12 BIC -2494.951 BEST -2623.081 limit count 2 Gen 90 ID. 13 BIC -2363.688 BEST -2623.081 limit count 2 Gen 90 ID. 14 BIC -2414.707 BEST -2623.081 limit count 2 Gen 90 ID. 15 BIC -2427.596 BEST -2623.081 limit count 2 Gen 90 ID. 16 BIC -2539.522 BEST -2623.081 limit count 2 Gen 90 ID. 17 BIC -2503.043 BEST -2623.081 limit count 2 Gen 90 ID. 18 BIC -2532.335 BEST -2623.081 limit count 2 Gen 90 ID. 19 BIC -2478.268 BEST -2623.081 limit count 2 Gen 90 ID. 20 BIC -2413.806 BEST -2623.081 limit count 2 Gen 91 ID. 2 BIC -2510.094 BEST -2638.644 limit count 0 Gen 91 ID. 3 BIC -2446.197 BEST -2638.644 limit count 0 Gen 91 ID. 4 BIC -2430.916 BEST -2638.644 limit count 0 Gen 91 ID. 5 BIC -2449.966 BEST -2638.644 limit count 0 Gen 91 ID. 6 BIC -2405.47 BEST -2638.644 limit count 0 Gen 91 ID. 7 BIC -2400.051 BEST -2638.644 limit count 0 Gen 91 ID. 8 BIC -2485.413 BEST -2638.644 limit count 0 Gen 91 ID. 9 BIC -2408.834 BEST -2638.644 limit count 0 Gen 91 ID. 10 BIC -2478.618 BEST -2638.644 limit count 0 Gen 91 ID. 11 BIC -2451.534 BEST -2638.644 limit count 0 Gen 91 ID. 12 BIC -2394.691 BEST -2638.644 limit count 0 Gen 91 ID. 13 BIC -2459.698 BEST -2638.644 limit count 0 Gen 91 ID. 14 BIC -2515.716 BEST -2638.644 limit count 0 Gen 91 ID. 15 BIC -2452.68 BEST -2638.644 limit count 0 Gen 91 ID. 16 BIC -2479.996 BEST -2638.644 limit count 0 Gen 91 ID. 17 BIC -2397.118 BEST -2638.644 limit count 0 Gen 91 ID. 18 BIC -2461.061 BEST -2638.644 limit count 0 Gen 91 ID. 19 BIC -2460.361 BEST -2638.644 limit count 0 Gen 91 ID. 20 BIC -2527.041 BEST -2638.644 limit count 0 Gen 92 ID. 2 BIC -2513.905 BEST -2638.644 limit count 1 Gen 92 ID. 3 BIC -2562.465 BEST -2638.644 limit count 1 Gen 92 ID. 4 BIC -2504.405 BEST -2638.644 limit count 1 Gen 92 ID. 5 BIC -2489.945 BEST -2638.644 limit count 1 Gen 92 ID. 6 BIC -2343.508 BEST -2638.644 limit count 1 Gen 92 ID. 7 BIC -2441.009 BEST -2638.644 limit count 1 Gen 92 ID. 8 BIC -2368.161 BEST -2638.644 limit count 1 Gen 92 ID. 9 BIC -2547.49 BEST -2638.644 limit count 1 Gen 92 ID. 10 BIC -2423.995 BEST -2638.644 limit count 1 Gen 92 ID. 11 BIC -2542.052 BEST -2638.644 limit count 1 Gen 92 ID. 12 BIC -2437.156 BEST -2638.644 limit count 1 Gen 92 ID. 13 BIC -2414.274 BEST -2638.644 limit count 1 Gen 92 ID. 14 BIC -2445.163 BEST -2638.644 limit count 1 Gen 92 ID. 15 BIC -2491.821 BEST -2638.644 limit count 1 Gen 92 ID. 16 BIC -2450.478 BEST -2638.644 limit count 1 Gen 92 ID. 17 BIC -2512.644 BEST -2638.644 limit count 1 Gen 92 ID. 18 BIC -2444.465 BEST -2638.644 limit count 1 Gen 92 ID. 19 BIC -2382.261 BEST -2638.644 limit count 1 Gen 92 ID. 20 BIC -2456.195 BEST -2638.644 limit count 1 Gen 93 ID. 2 BIC -2484.818 BEST -2638.644 limit count 2 Gen 93 ID. 3 BIC -2444.857 BEST -2638.644 limit count 2 Gen 93 ID. 4 BIC -2348.707 BEST -2638.644 limit count 2 Gen 93 ID. 5 BIC -2515.883 BEST -2638.644 limit count 2 Gen 93 ID. 6 BIC -2418.333 BEST -2638.644 limit count 2 Gen 93 ID. 7 BIC -2588.042 BEST -2638.644 limit count 2 Gen 93 ID. 8 BIC -2553.051 BEST -2638.644 limit count 2 Gen 93 ID. 9 BIC -2496.88 BEST -2638.644 limit count 2 Gen 93 ID. 10 BIC -2464.323 BEST -2638.644 limit count 2 Gen 93 ID. 11 BIC -2407.345 BEST -2638.644 limit count 2 Gen 93 ID. 12 BIC -2432.456 BEST -2638.644 limit count 2 Gen 93 ID. 13 BIC -2433.88 BEST -2638.644 limit count 2 Gen 93 ID. 14 BIC -2508.502 BEST -2638.644 limit count 2 Gen 93 ID. 15 BIC -2432.089 BEST -2638.644 limit count 2 Gen 93 ID. 16 BIC -2478.19 BEST -2638.644 limit count 2 Gen 93 ID. 17 BIC -2464.136 BEST -2638.644 limit count 2 Gen 93 ID. 18 BIC -2448.087 BEST -2638.644 limit count 2 Gen 93 ID. 19 BIC -2532.632 BEST -2638.644 limit count 2 Gen 93 ID. 20 BIC -2519.912 BEST -2638.644 limit count 2 Gen 94 ID. 2 BIC -2403.528 BEST -2638.644 limit count 3 Gen 94 ID. 3 BIC -2486.067 BEST -2638.644 limit count 3 Gen 94 ID. 4 BIC -2290.777 BEST -2638.644 limit count 3 Gen 94 ID. 5 BIC -2392.831 BEST -2638.644 limit count 3 Gen 94 ID. 6 BIC -2455.645 BEST -2638.644 limit count 3 Gen 94 ID. 7 BIC -2635.168 BEST -2638.644 limit count 3 Gen 94 ID. 8 BIC -2489.084 BEST -2638.644 limit count 3 Gen 94 ID. 9 BIC -2484.556 BEST -2638.644 limit count 3 Gen 94 ID. 10 BIC -2506.98 BEST -2638.644 limit count 3 Gen 94 ID. 11 BIC -2542.907 BEST -2638.644 limit count 3 Gen 94 ID. 12 BIC -2492.464 BEST -2638.644 limit count 3 Gen 94 ID. 13 BIC -2483.899 BEST -2638.644 limit count 3 Gen 94 ID. 14 BIC -2354.313 BEST -2638.644 limit count 3 Gen 94 ID. 15 BIC -2396.777 BEST -2638.644 limit count 3 Gen 94 ID. 16 BIC -2432.969 BEST -2638.644 limit count 3 Gen 94 ID. 17 BIC -2412.682 BEST -2638.644 limit count 3 Gen 94 ID. 18 BIC -2425.087 BEST -2638.644 limit count 3 Gen 94 ID. 19 BIC -2428.279 BEST -2638.644 limit count 3 Gen 94 ID. 20 BIC -2459.527 BEST -2638.644 limit count 3 Gen 95 ID. 2 BIC -2409.356 BEST -2638.644 limit count 4 Gen 95 ID. 3 BIC -2552.186 BEST -2638.644 limit count 4 Gen 95 ID. 4 BIC -2487.236 BEST -2638.644 limit count 4 Gen 95 ID. 5 BIC -2502.579 BEST -2638.644 limit count 4 Gen 95 ID. 6 BIC -2517.421 BEST -2638.644 limit count 4 Gen 95 ID. 7 BIC -2454.721 BEST -2638.644 limit count 4 Gen 95 ID. 8 BIC -2435.475 BEST -2638.644 limit count 4 Gen 95 ID. 9 BIC -2516.433 BEST -2638.644 limit count 4 Gen 95 ID. 10 BIC -2408.715 BEST -2638.644 limit count 4 Gen 95 ID. 11 BIC -2497.689 BEST -2638.644 limit count 4 Gen 95 ID. 12 BIC -2493.175 BEST -2638.644 limit count 4 Gen 95 ID. 13 BIC -2415.443 BEST -2638.644 limit count 4 Gen 95 ID. 14 BIC -2457.686 BEST -2638.644 limit count 4 Gen 95 ID. 15 BIC -2523.465 BEST -2638.644 limit count 4 Gen 95 ID. 16 BIC -2585.668 BEST -2638.644 limit count 4 Gen 95 ID. 17 BIC -2508.051 BEST -2638.644 limit count 4 Gen 95 ID. 18 BIC -2474.579 BEST -2638.644 limit count 4 Gen 95 ID. 19 BIC -2482.48 BEST -2638.644 limit count 4 Gen 95 ID. 20 BIC -2418.41 BEST -2638.644 limit count 4 Gen 96 ID. 2 BIC -2492.06 BEST -2638.644 limit count 5 Gen 96 ID. 3 BIC -2391.026 BEST -2638.644 limit count 5 Gen 96 ID. 4 BIC -2490.327 BEST -2638.644 limit count 5 Gen 96 ID. 5 BIC -2559.629 BEST -2638.644 limit count 5 Gen 96 ID. 6 BIC -2456.958 BEST -2638.644 limit count 5 Gen 96 ID. 7 BIC -2423.755 BEST -2638.644 limit count 5 Gen 96 ID. 8 BIC -2471.451 BEST -2638.644 limit count 5 Gen 96 ID. 9 BIC -2413.256 BEST -2638.644 limit count 5 Gen 96 ID. 10 BIC -2514.303 BEST -2638.644 limit count 5 Gen 96 ID. 11 BIC -2459.425 BEST -2638.644 limit count 5 Gen 96 ID. 12 BIC -2494.326 BEST -2638.644 limit count 5 Gen 96 ID. 13 BIC -2417.401 BEST -2638.644 limit count 5 Gen 96 ID. 14 BIC -2505.529 BEST -2638.644 limit count 5 Gen 96 ID. 15 BIC -2525.319 BEST -2638.644 limit count 5 Gen 96 ID. 16 BIC -2495.496 BEST -2638.644 limit count 5 Gen 96 ID. 17 BIC -2416.415 BEST -2638.644 limit count 5 Gen 96 ID. 18 BIC -2460.62 BEST -2638.644 limit count 5 Gen 96 ID. 19 BIC -2519.108 BEST -2638.644 limit count 5 Gen 96 ID. 20 BIC -2378.32 BEST -2638.644 limit count 5 Gen 97 ID. 2 BIC -2521.066 BEST -2638.644 limit count 6 Gen 97 ID. 3 BIC -2532.114 BEST -2638.644 limit count 6 Gen 97 ID. 4 BIC -2523.319 BEST -2638.644 limit count 6 Gen 97 ID. 5 BIC -2510.051 BEST -2638.644 limit count 6 Gen 97 ID. 6 BIC -2448.717 BEST -2638.644 limit count 6 Gen 97 ID. 7 BIC -2577.967 BEST -2638.644 limit count 6 Gen 97 ID. 8 BIC -2489.725 BEST -2638.644 limit count 6 Gen 97 ID. 9 BIC -2598.264 BEST -2638.644 limit count 6 Gen 97 ID. 10 BIC -2438.001 BEST -2638.644 limit count 6 Gen 97 ID. 11 BIC -2419.078 BEST -2638.644 limit count 6 Gen 97 ID. 12 BIC -2545.811 BEST -2638.644 limit count 6 Gen 97 ID. 13 BIC -2459.074 BEST -2638.644 limit count 6 Gen 97 ID. 14 BIC -2459.831 BEST -2638.644 limit count 6 Gen 97 ID. 15 BIC -2559.903 BEST -2638.644 limit count 6 Gen 97 ID. 16 BIC -2601.949 BEST -2638.644 limit count 6 Gen 97 ID. 17 BIC -2434.579 BEST -2638.644 limit count 6 Gen 97 ID. 18 BIC -2456.243 BEST -2638.644 limit count 6 Gen 97 ID. 19 BIC -2375.474 BEST -2638.644 limit count 6 Gen 97 ID. 20 BIC -2450.296 BEST -2638.644 limit count 6 Gen 98 ID. 2 BIC -2480.999 BEST -2638.644 limit count 7 Gen 98 ID. 3 BIC -2510.773 BEST -2638.644 limit count 7 Gen 98 ID. 4 BIC -2387.826 BEST -2638.644 limit count 7 Gen 98 ID. 5 BIC -2529.309 BEST -2638.644 limit count 7 Gen 98 ID. 6 BIC -2542.775 BEST -2638.644 limit count 7 Gen 98 ID. 7 BIC -2407.414 BEST -2638.644 limit count 7 Gen 98 ID. 8 BIC -2405.677 BEST -2638.644 limit count 7 Gen 98 ID. 9 BIC -2482.945 BEST -2638.644 limit count 7 Gen 98 ID. 10 BIC -2506.67 BEST -2638.644 limit count 7 Gen 98 ID. 11 BIC -2603.623 BEST -2638.644 limit count 7 Gen 98 ID. 12 BIC -2442.973 BEST -2638.644 limit count 7 Gen 98 ID. 13 BIC -2382.804 BEST -2638.644 limit count 7 Gen 98 ID. 14 BIC -2363.194 BEST -2638.644 limit count 7 Gen 98 ID. 15 BIC -2552.13 BEST -2638.644 limit count 7 Gen 98 ID. 16 BIC -2390.695 BEST -2638.644 limit count 7 Gen 98 ID. 17 BIC -2549.093 BEST -2638.644 limit count 7 Gen 98 ID. 18 BIC -2395.571 BEST -2638.644 limit count 7 Gen 98 ID. 19 BIC -2551.875 BEST -2638.644 limit count 7 Gen 98 ID. 20 BIC -2568.864 BEST -2638.644 limit count 7 Gen 99 ID. 2 BIC -2531.264 BEST -2638.644 limit count 8 Gen 99 ID. 3 BIC -2612.848 BEST -2638.644 limit count 8 Gen 99 ID. 4 BIC -2502.824 BEST -2638.644 limit count 8 Gen 99 ID. 5 BIC -2456.426 BEST -2638.644 limit count 8 Gen 99 ID. 6 BIC -2470.531 BEST -2638.644 limit count 8 Gen 99 ID. 7 BIC -2573.837 BEST -2638.644 limit count 8 Gen 99 ID. 8 BIC -2321.1 BEST -2638.644 limit count 8 Gen 99 ID. 9 BIC -2480.598 BEST -2638.644 limit count 8 Gen 99 ID. 10 BIC -2466.737 BEST -2638.644 limit count 8 Gen 99 ID. 11 BIC -2499.486 BEST -2638.644 limit count 8 Gen 99 ID. 12 BIC -2512.69 BEST -2638.644 limit count 8 Gen 99 ID. 13 BIC -2604.043 BEST -2638.644 limit count 8 Gen 99 ID. 14 BIC -2467.375 BEST -2638.644 limit count 8 Gen 99 ID. 15 BIC -2397.662 BEST -2638.644 limit count 8 Gen 99 ID. 16 BIC -2466.405 BEST -2638.644 limit count 8 Gen 99 ID. 17 BIC -2416.494 BEST -2638.644 limit count 8 Gen 99 ID. 18 BIC -2442.72 BEST -2638.644 limit count 8 Gen 99 ID. 19 BIC -2543.111 BEST -2638.644 limit count 8 Gen 99 ID. 20 BIC -2512.062 BEST -2638.644 limit count 8 Gen 100 ID. 2 BIC -2552.94 BEST -2638.644 limit count 9 Gen 100 ID. 3 BIC -2507.004 BEST -2638.644 limit count 9 Gen 100 ID. 4 BIC -2505.136 BEST -2638.644 limit count 9 Gen 100 ID. 5 BIC -2436.722 BEST -2638.644 limit count 9 Gen 100 ID. 6 BIC -2487.002 BEST -2638.644 limit count 9 Gen 100 ID. 7 BIC -2486.632 BEST -2638.644 limit count 9 Gen 100 ID. 8 BIC -2558.87 BEST -2638.644 limit count 9 Gen 100 ID. 9 BIC -2570.46 BEST -2638.644 limit count 9 Gen 100 ID. 10 BIC -2543.321 BEST -2638.644 limit count 9 Gen 100 ID. 11 BIC -2530.148 BEST -2638.644 limit count 9 Gen 100 ID. 12 BIC -2514.857 BEST -2638.644 limit count 9 Gen 100 ID. 13 BIC -2506.638 BEST -2638.644 limit count 9 Gen 100 ID. 14 BIC -2525.367 BEST -2638.644 limit count 9 Gen 100 ID. 15 BIC -2431.984 BEST -2638.644 limit count 9 Gen 100 ID. 16 BIC -2406.959 BEST -2638.644 limit count 9 Gen 100 ID. 17 BIC -2470.218 BEST -2638.644 limit count 9 Gen 100 ID. 18 BIC -2411.926 BEST -2638.644 limit count 9 Gen 100 ID. 19 BIC -2498.971 BEST -2638.644 limit count 9 Gen 100 ID. 20 BIC -2444.972 BEST -2638.644 limit count 9 Gen 101 ID. 2 BIC -2472.459 BEST -2638.644 limit count 10 Gen 101 ID. 3 BIC -2303.46 BEST -2638.644 limit count 10 Gen 101 ID. 4 BIC -2605.956 BEST -2638.644 limit count 10 Gen 101 ID. 5 BIC -2469.301 BEST -2638.644 limit count 10 Gen 101 ID. 6 BIC -2408.713 BEST -2638.644 limit count 10 Gen 101 ID. 7 BIC -2503.227 BEST -2638.644 limit count 10 Gen 101 ID. 8 BIC -2534.477 BEST -2638.644 limit count 10 Gen 101 ID. 9 BIC -2580.272 BEST -2638.644 limit count 10 Gen 101 ID. 10 BIC -2517.507 BEST -2638.644 limit count 10 Gen 101 ID. 11 BIC -2552.315 BEST -2638.644 limit count 10 Gen 101 ID. 12 BIC -2519.579 BEST -2638.644 limit count 10 Gen 101 ID. 13 BIC -2577.682 BEST -2638.644 limit count 10 Gen 101 ID. 14 BIC -2491.274 BEST -2638.644 limit count 10 Gen 101 ID. 15 BIC -2499.673 BEST -2638.644 limit count 10 Gen 101 ID. 16 BIC -2481.018 BEST -2638.644 limit count 10 Gen 101 ID. 17 BIC -2484.629 BEST -2638.644 limit count 10 Gen 101 ID. 18 BIC -2341.206 BEST -2638.644 limit count 10 Gen 101 ID. 19 BIC -2571.149 BEST -2638.644 limit count 10 Gen 101 ID. 20 BIC -2470.029 BEST -2638.644 limit count 10 [1] "The maximum generation has been reached"
+
+``` r
+result.LDLRA.PBIL
+```
+
+    ## Adjacency Matrix
+    ## [[1]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      0      0      1      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      1      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      1      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12 Item13 Item14 Item15 Item16 Item17 Item18 Item19 Item20
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      1      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item21 Item22 Item23 Item24 Item25 Item26 Item27 Item28 Item29 Item30
+    ## Item01      0      0      1      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      1      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      1      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      1      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item31 Item32 Item33 Item34 Item35
+    ## Item01      1      1      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item03      0      0      0      0      0
+    ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
+    ## Item06      0      0      0      0      0
+    ## Item07      0      0      0      0      0
+    ## Item08      0      0      0      0      0
+    ## Item09      0      0      0      0      0
+    ## Item10      0      0      0      0      0
+    ## Item11      0      0      0      0      0
+    ## Item12      0      0      0      0      0
+    ## Item13      0      0      0      1      0
+    ## Item14      0      0      0      0      0
+    ## Item15      0      0      0      0      0
+    ## Item16      0      0      0      0      0
+    ## Item17      0      0      0      0      0
+    ## Item18      0      0      0      0      0
+    ## Item19      0      0      0      0      0
+    ## Item20      0      0      0      0      0
+    ## Item21      0      0      0      0      0
+    ## Item22      0      0      0      0      0
+    ## Item23      0      0      0      0      0
+    ## Item24      0      0      0      0      0
+    ## Item25      0      0      0      0      0
+    ## Item26      0      0      0      0      0
+    ## Item27      0      0      0      0      0
+    ## Item28      0      0      0      0      0
+    ## Item29      0      0      0      0      0
+    ## Item30      0      0      0      0      0
+    ## Item31      0      1      0      0      0
+    ## Item32      0      0      0      0      0
+    ## Item33      0      0      0      0      0
+    ## Item34      0      0      0      0      0
+    ## Item35      0      0      0      0      0
+    ## 
+    ## [[2]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      1      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      1      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      1      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12 Item13 Item14 Item15 Item16 Item17 Item18 Item19 Item20
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      1      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      1
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item21 Item22 Item23 Item24 Item25 Item26 Item27 Item28 Item29 Item30
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      1      0      0      0
+    ## Item12      0      0      0      0      0      0      0      1      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      1      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      1      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      1      0      0      0      0      1      0      0      0      0
+    ## Item32      0      0      1      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item31 Item32 Item33 Item34 Item35
+    ## Item01      1      1      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item03      0      0      0      0      0
+    ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
+    ## Item06      0      0      0      0      0
+    ## Item07      0      0      0      0      0
+    ## Item08      0      0      0      0      0
+    ## Item09      0      0      0      0      1
+    ## Item10      0      0      0      0      0
+    ## Item11      0      0      0      0      0
+    ## Item12      0      0      0      0      0
+    ## Item13      0      0      0      0      0
+    ## Item14      0      0      0      0      0
+    ## Item15      0      0      0      0      0
+    ## Item16      0      0      0      0      0
+    ## Item17      0      0      0      0      0
+    ## Item18      0      0      0      0      0
+    ## Item19      0      0      0      0      0
+    ## Item20      0      0      0      0      0
+    ## Item21      0      0      0      0      0
+    ## Item22      0      0      0      0      0
+    ## Item23      0      0      0      0      0
+    ## Item24      0      0      0      0      0
+    ## Item25      0      0      0      0      0
+    ## Item26      0      0      0      0      0
+    ## Item27      0      0      0      0      0
+    ## Item28      0      0      0      0      0
+    ## Item29      0      0      0      0      0
+    ## Item30      0      0      0      0      0
+    ## Item31      0      1      0      0      0
+    ## Item32      0      0      0      0      0
+    ## Item33      0      0      0      0      0
+    ## Item34      0      0      0      0      0
+    ## Item35      0      0      0      0      0
+    ## 
+    ## [[3]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      1      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      1      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      1      0      1      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      1      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      1      0
+    ## Item27      0      0      0      0      0      0      0      0      1      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12 Item13 Item14 Item15 Item16 Item17 Item18 Item19 Item20
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      1      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      1      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      1      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item21 Item22 Item23 Item24 Item25 Item26 Item27 Item28 Item29 Item30
+    ## Item01      1      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      1      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      1      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      1      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      1      0      1      0      1      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      1      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item31 Item32 Item33 Item34 Item35
+    ## Item01      1      0      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item03      0      0      0      0      0
+    ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
+    ## Item06      0      0      0      0      0
+    ## Item07      0      0      0      0      0
+    ## Item08      0      0      0      0      0
+    ## Item09      0      0      0      0      0
+    ## Item10      0      0      0      0      0
+    ## Item11      0      0      0      0      0
+    ## Item12      0      0      0      0      0
+    ## Item13      0      0      0      0      0
+    ## Item14      0      0      0      0      0
+    ## Item15      0      0      0      0      0
+    ## Item16      0      0      0      0      0
+    ## Item17      0      0      0      0      0
+    ## Item18      0      0      0      0      0
+    ## Item19      0      0      0      0      0
+    ## Item20      0      0      0      0      0
+    ## Item21      0      0      0      0      0
+    ## Item22      0      0      0      0      0
+    ## Item23      0      0      0      0      0
+    ## Item24      0      0      0      0      0
+    ## Item25      0      0      1      0      0
+    ## Item26      0      0      0      0      0
+    ## Item27      0      0      0      0      0
+    ## Item28      0      0      0      0      0
+    ## Item29      0      0      0      0      0
+    ## Item30      0      0      0      0      0
+    ## Item31      0      0      0      0      0
+    ## Item32      0      0      0      0      0
+    ## Item33      0      0      0      0      0
+    ## Item34      0      0      0      0      0
+    ## Item35      0      0      0      0      0
+    ## 
+    ## [[4]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      1      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      1      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      1      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12 Item13 Item14 Item15 Item16 Item17 Item18 Item19 Item20
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      1      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      1      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      1
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      1      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      1      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item21 Item22 Item23 Item24 Item25 Item26 Item27 Item28 Item29 Item30
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      1      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      1      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      1      0      0      0      0      0      0      0
+    ## Item32      1      0      0      1      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item31 Item32 Item33 Item34 Item35
+    ## Item01      1      1      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item03      0      0      0      0      0
+    ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
+    ## Item06      0      0      0      0      0
+    ## Item07      0      0      0      0      0
+    ## Item08      0      0      0      0      0
+    ## Item09      0      0      0      0      0
+    ## Item10      0      0      0      0      0
+    ## Item11      0      0      0      0      1
+    ## Item12      0      0      0      0      0
+    ## Item13      0      0      0      0      0
+    ## Item14      0      0      0      0      0
+    ## Item15      0      0      0      0      0
+    ## Item16      0      0      0      0      1
+    ## Item17      0      0      0      1      0
+    ## Item18      0      0      0      0      0
+    ## Item19      0      0      0      0      0
+    ## Item20      0      0      0      0      0
+    ## Item21      0      0      0      0      0
+    ## Item22      0      0      0      0      0
+    ## Item23      0      0      0      0      0
+    ## Item24      0      0      0      0      0
+    ## Item25      0      0      0      0      0
+    ## Item26      0      0      0      0      0
+    ## Item27      0      0      0      0      0
+    ## Item28      0      0      0      0      0
+    ## Item29      0      0      0      0      0
+    ## Item30      0      0      0      0      0
+    ## Item31      0      0      0      0      0
+    ## Item32      0      0      0      0      0
+    ## Item33      0      0      0      0      0
+    ## Item34      0      0      0      0      0
+    ## Item35      0      0      0      0      0
+    ## 
+    ## [[5]]
+    ##        Item01 Item02 Item03 Item04 Item05 Item06 Item07 Item08 Item09 Item10
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      1      0      0
+    ## Item08      0      0      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      1
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      1      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      1      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item11 Item12 Item13 Item14 Item15 Item16 Item17 Item18 Item19 Item20
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      1      0
+    ## Item05      0      0      0      0      0      0      0      1      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      1      0      0      0      0      0      0      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      1      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      0
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      0      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      0      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      1      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      0      0      0      0      0      0      0      0      0      0
+    ## Item32      0      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item21 Item22 Item23 Item24 Item25 Item26 Item27 Item28 Item29 Item30
+    ## Item01      0      0      0      0      0      0      0      0      0      0
+    ## Item02      0      0      0      0      0      0      0      0      0      0
+    ## Item03      0      0      0      0      0      0      0      0      0      0
+    ## Item04      0      0      0      0      0      0      0      0      0      0
+    ## Item05      0      0      0      0      0      0      0      0      0      0
+    ## Item06      0      0      0      0      0      0      0      0      0      0
+    ## Item07      0      0      0      0      0      0      0      0      0      0
+    ## Item08      0      0      0      0      0      0      0      1      0      0
+    ## Item09      0      0      0      0      0      0      0      0      0      0
+    ## Item10      0      0      0      0      0      0      0      0      0      0
+    ## Item11      0      0      0      0      0      0      0      0      0      0
+    ## Item12      0      0      0      0      0      0      0      0      0      0
+    ## Item13      0      0      0      0      0      0      0      0      0      0
+    ## Item14      0      0      0      0      0      0      0      0      0      0
+    ## Item15      0      0      0      0      0      0      0      0      0      0
+    ## Item16      0      0      0      0      0      0      0      0      0      1
+    ## Item17      0      0      0      0      0      0      0      0      0      0
+    ## Item18      0      0      0      0      0      0      0      0      0      0
+    ## Item19      0      0      0      0      0      0      0      0      0      0
+    ## Item20      0      0      0      0      0      0      0      0      0      0
+    ## Item21      0      0      1      0      0      0      0      0      0      0
+    ## Item22      0      0      0      0      0      0      0      0      0      0
+    ## Item23      0      1      0      0      0      0      0      0      0      0
+    ## Item24      0      0      0      0      0      0      0      0      0      0
+    ## Item25      0      0      0      0      0      0      0      0      0      0
+    ## Item26      0      0      0      0      0      0      0      0      0      0
+    ## Item27      0      0      0      0      0      0      0      0      0      0
+    ## Item28      0      0      0      0      0      0      0      0      0      0
+    ## Item29      0      0      0      0      0      0      0      0      0      0
+    ## Item30      0      0      0      0      0      0      0      0      0      0
+    ## Item31      1      0      0      0      0      0      0      0      0      0
+    ## Item32      1      0      0      0      0      0      0      0      0      0
+    ## Item33      0      0      0      0      0      0      0      0      0      0
+    ## Item34      0      0      0      0      0      0      0      0      0      0
+    ## Item35      0      0      0      0      0      0      0      0      0      0
+    ##        Item31 Item32 Item33 Item34 Item35
+    ## Item01      0      0      0      0      0
+    ## Item02      0      0      0      0      0
+    ## Item03      0      0      0      0      0
+    ## Item04      0      0      0      0      0
+    ## Item05      0      0      0      0      0
+    ## Item06      0      0      0      0      0
+    ## Item07      0      0      0      0      0
+    ## Item08      0      0      0      0      0
+    ## Item09      0      0      0      0      0
+    ## Item10      0      0      0      0      0
+    ## Item11      0      0      0      0      0
+    ## Item12      0      0      0      0      0
+    ## Item13      0      0      0      0      0
+    ## Item14      0      0      0      0      0
+    ## Item15      0      0      0      0      0
+    ## Item16      0      0      0      0      0
+    ## Item17      0      0      0      0      0
+    ## Item18      0      0      0      0      0
+    ## Item19      0      0      0      0      0
+    ## Item20      0      0      0      0      0
+    ## Item21      0      0      0      0      0
+    ## Item22      0      0      0      0      0
+    ## Item23      0      0      0      0      0
+    ## Item24      0      0      0      0      0
+    ## Item25      0      0      0      0      0
+    ## Item26      0      0      0      0      0
+    ## Item27      0      0      0      0      0
+    ## Item28      0      0      0      0      0
+    ## Item29      0      0      0      0      0
+    ## Item30      0      0      0      0      0
+    ## Item31      0      1      0      0      0
+    ## Item32      0      0      0      0      0
+    ## Item33      0      0      0      0      0
+    ## Item34      0      0      0      0      0
+    ## Item35      0      0      0      0      0
+
+![](Readme_files/figure-gfm/LDLRA_PBIL-1.png)<!-- -->![](Readme_files/figure-gfm/LDLRA_PBIL-2.png)<!-- -->![](Readme_files/figure-gfm/LDLRA_PBIL-3.png)<!-- -->![](Readme_files/figure-gfm/LDLRA_PBIL-4.png)<!-- -->![](Readme_files/figure-gfm/LDLRA_PBIL-5.png)<!-- -->
+
+    ## 
+    ## Parameter Learning
+    ##       Item Rank RIRP 1 RIRP 2 RIRP 3 RIRP 4
+    ## 1   Item01    1  0.710                     
+    ## 2   Item02    1  0.073  0.256              
+    ## 3   Item03    1  0.236                     
+    ## 4   Item04    1  0.079                     
+    ## 5   Item05    1  0.061                     
+    ## 6   Item06    1  0.040                     
+    ## 7   Item07    1  0.398  0.429              
+    ## 8   Item08    1  0.258                     
+    ## 9   Item09    1  0.227  0.246              
+    ## 10  Item10    1  0.192                     
+    ## 11  Item11    1  0.133                     
+    ## 12  Item12    1  0.111                     
+    ## 13  Item13    1  0.088                     
+    ## 14  Item14    1  0.013                     
+    ## 15  Item15    1  0.014                     
+    ## 16  Item16    1  0.058                     
+    ## 17  Item17    1  0.125                     
+    ## 18  Item18    1  0.030                     
+    ## 19  Item19    1  0.035  0.079              
+    ## 20  Item20    1  0.028                     
+    ## 21  Item21    1  0.174  0.298              
+    ## 22  Item22    1  0.226                     
+    ## 23  Item23    1  0.301  0.304              
+    ## 24  Item24    1  0.231                     
+    ## 25  Item25    1  0.133                     
+    ## 26  Item26    1  0.092                     
+    ## 27  Item27    1  0.106                     
+    ## 28  Item28    1  0.017  0.112              
+    ## 29  Item29    1  0.061  0.069              
+    ## 30  Item30    1  0.027                     
+    ## 31  Item31    1  0.645  0.706              
+    ## 32  Item32    1  0.484  0.801  0.543  0.809
+    ## 33  Item33    1  0.312                     
+    ## 34  Item34    1  0.183  0.239              
+    ## 35  Item35    1  0.098                     
+    ## 36  Item01    2  0.802                     
+    ## 37  Item02    2  0.231                     
+    ## 38  Item03    2  0.331                     
+    ## 39  Item04    2  0.157                     
+    ## 40  Item05    2  0.124                     
+    ## 41  Item06    2  0.094                     
+    ## 42  Item07    2  0.480                     
+    ## 43  Item08    2  0.276  0.285              
+    ## 44  Item09    2  0.239  0.302  0.348  0.436
+    ## 45  Item10    2  0.258                     
+    ## 46  Item11    2  0.282                     
+    ## 47  Item12    2  0.173                     
+    ## 48  Item13    2  0.114                     
+    ## 49  Item14    2  0.030                     
+    ## 50  Item15    2  0.020                     
+    ## 51  Item16    2  0.081                     
+    ## 52  Item17    2  0.143  0.216              
+    ## 53  Item18    2  0.026                     
+    ## 54  Item19    2  0.029                     
+    ## 55  Item20    2  0.050  0.036              
+    ## 56  Item21    2  0.307  0.522              
+    ## 57  Item22    2  0.317  0.586              
+    ## 58  Item23    2  0.361  0.456              
+    ## 59  Item24    2  0.386                     
+    ## 60  Item25    2  0.133  0.520              
+    ## 61  Item26    2  0.167  0.242              
+    ## 62  Item27    2  0.158  0.331              
+    ## 63  Item28    2  0.046  0.149              
+    ## 64  Item29    2  0.100                     
+    ## 65  Item30    2  0.040                     
+    ## 66  Item31    2  0.659  0.773              
+    ## 67  Item32    2  0.497  0.782  0.564  0.839
+    ## 68  Item33    2  0.354                     
+    ## 69  Item34    2  0.196                     
+    ## 70  Item35    2  0.131  0.106              
+    ## 71  Item01    3  0.877                     
+    ## 72  Item02    3  0.417                     
+    ## 73  Item03    3  0.434  0.523              
+    ## 74  Item04    3  0.308                     
+    ## 75  Item05    3  0.097  0.284              
+    ## 76  Item06    3  0.047  0.024  0.775  0.778
+    ## 77  Item07    3  0.577                     
+    ## 78  Item08    3  0.327  0.354              
+    ## 79  Item09    3  0.301  0.311  0.440  0.503
+    ## 80  Item10    3  0.366                     
+    ## 81  Item11    3  0.501                     
+    ## 82  Item12    3  0.316                     
+    ## 83  Item13    3  0.201                     
+    ## 84  Item14    3  0.041  0.072  0.271  0.437
+    ## 85  Item15    3  0.024  0.133              
+    ## 86  Item16    3  0.185                     
+    ## 87  Item17    3  0.247                     
+    ## 88  Item18    3  0.041                     
+    ## 89  Item19    3  0.045                     
+    ## 90  Item20    3  0.050                     
+    ## 91  Item21    3  0.366  0.390  0.502  0.781
+    ## 92  Item22    3  0.416  0.787              
+    ## 93  Item23    3  0.436  0.669              
+    ## 94  Item24    3  0.598                     
+    ## 95  Item25    3  0.354  0.548              
+    ## 96  Item26    3  0.456                     
+    ## 97  Item27    3  0.098  0.761              
+    ## 98  Item28    3  0.163  0.295              
+    ## 99  Item29    3  0.171  0.301              
+    ## 100 Item30    3  0.082                     
+    ## 101 Item31    3  0.662  0.833              
+    ## 102 Item32    3  0.814                     
+    ## 103 Item33    3  0.366  0.480              
+    ## 104 Item34    3  0.232                     
+    ## 105 Item35    3  0.155                     
+    ## 106 Item01    4  0.950                     
+    ## 107 Item02    4  0.595                     
+    ## 108 Item03    4  0.618                     
+    ## 109 Item04    4  0.157  0.082  0.677  0.695
+    ## 110 Item05    4  0.168  0.449              
+    ## 111 Item06    4  0.329                     
+    ## 112 Item07    4  0.688                     
+    ## 113 Item08    4  0.408                     
+    ## 114 Item09    4  0.499                     
+    ## 115 Item10    4  0.470                     
+    ## 116 Item11    4  0.740                     
+    ## 117 Item12    4  0.496                     
+    ## 118 Item13    4  0.198  0.334              
+    ## 119 Item14    4  0.194                     
+    ## 120 Item15    4  0.128                     
+    ## 121 Item16    4  0.248  0.417              
+    ## 122 Item17    4  0.335  0.410              
+    ## 123 Item18    4  0.019  0.182              
+    ## 124 Item19    4  0.066                     
+    ## 125 Item20    4  0.038  0.128              
+    ## 126 Item21    4  0.802  0.912              
+    ## 127 Item22    4  0.636  0.912              
+    ## 128 Item23    4  0.672  0.858              
+    ## 129 Item24    4  0.757  0.849              
+    ## 130 Item25    4  0.253  0.883              
+    ## 131 Item26    4  0.751                     
+    ## 132 Item27    4  0.656                     
+    ## 133 Item28    4  0.363                     
+    ## 134 Item29    4  0.340                     
+    ## 135 Item30    4  0.131                     
+    ## 136 Item31    4  0.685  0.900              
+    ## 137 Item32    4  0.640  0.860              
+    ## 138 Item33    4  0.520                     
+    ## 139 Item34    4  0.207  0.344              
+    ## 140 Item35    4  0.157  0.269  0.166  0.327
+    ## 141 Item01    5  0.967                     
+    ## 142 Item02    5  0.739                     
+    ## 143 Item03    5  0.732                     
+    ## 144 Item04    5  0.614                     
+    ## 145 Item05    5  0.457  0.591              
+    ## 146 Item06    5  0.157  0.527              
+    ## 147 Item07    5  0.759                     
+    ## 148 Item08    5  0.454  0.511              
+    ## 149 Item09    5  0.627                     
+    ## 150 Item10    5  0.319  0.710              
+    ## 151 Item11    5  0.885                     
+    ## 152 Item12    5  0.628  0.723              
+    ## 153 Item13    5  0.502                     
+    ## 154 Item14    5  0.335                     
+    ## 155 Item15    5  0.244                     
+    ## 156 Item16    5  0.492                     
+    ## 157 Item17    5  0.533                     
+    ## 158 Item18    5  0.171  0.048  0.181  0.211
+    ## 159 Item19    5  0.104  0.031  0.229  0.206
+    ## 160 Item20    5  0.131                     
+    ## 161 Item21    5  0.631  0.799  0.901  0.971
+    ## 162 Item22    5  0.727  0.959              
+    ## 163 Item23    5  0.622  0.941              
+    ## 164 Item24    5  0.941                     
+    ## 165 Item25    5  0.915                     
+    ## 166 Item26    5  0.902                     
+    ## 167 Item27    5  0.824                     
+    ## 168 Item28    5  0.488  0.614              
+    ## 169 Item29    5  0.496                     
+    ## 170 Item30    5  0.101  0.309              
+    ## 171 Item31    5  0.930                     
+    ## 172 Item32    5  0.628  0.899              
+    ## 173 Item33    5  0.616                     
+    ## 174 Item34    5  0.318                     
+    ## 175 Item35    5  0.260                     
+    ## 
+    ## Conditional Correct Response Rate
+    ##     Child Item Rank N of Parents  Parent Items       PIRP Conditional CRR
+    ## 1       Item01    1            0    No parents No Pattern          0.7104
+    ## 2       Item02    1            1        Item21          0          0.0725
+    ## 3       Item02    1            1        Item21          1          0.2563
+    ## 4       Item03    1            0    No parents No Pattern          0.2360
+    ## 5       Item04    1            0    No parents No Pattern          0.0789
+    ## 6       Item05    1            0    No parents No Pattern          0.0608
+    ## 7       Item06    1            0    No parents No Pattern          0.0400
+    ## 8       Item07    1            1        Item01          0          0.3979
+    ## 9       Item07    1            1        Item01          1          0.4292
+    ## 10      Item08    1            0    No parents No Pattern          0.2581
+    ## 11      Item09    1            1        Item03          0          0.2275
+    ## 12      Item09    1            1        Item03          1          0.2465
+    ## 13      Item10    1            0    No parents No Pattern          0.1916
+    ## 14      Item11    1            0    No parents No Pattern          0.1325
+    ## 15      Item12    1            0    No parents No Pattern          0.1111
+    ## 16      Item13    1            0    No parents No Pattern          0.0884
+    ## 17      Item14    1            0    No parents No Pattern          0.0134
+    ## 18      Item15    1            0    No parents No Pattern          0.0139
+    ## 19      Item16    1            0    No parents No Pattern          0.0578
+    ## 20      Item17    1            0    No parents No Pattern          0.1253
+    ## 21      Item18    1            0    No parents No Pattern          0.0303
+    ## 22      Item19    1            1        Item13          0          0.0354
+    ## 23      Item19    1            1        Item13          1          0.0795
+    ## 24      Item20    1            0    No parents No Pattern          0.0283
+    ## 25      Item21    1            1        Item31          0          0.1737
+    ## 26      Item21    1            1        Item31          1          0.2978
+    ## 27      Item22    1            0    No parents No Pattern          0.2256
+    ## 28      Item23    1            1        Item01          0          0.3009
+    ## 29      Item23    1            1        Item01          1          0.3036
+    ## 30      Item24    1            0    No parents No Pattern          0.2312
+    ## 31      Item25    1            0    No parents No Pattern          0.1329
+    ## 32      Item26    1            0    No parents No Pattern          0.0922
+    ## 33      Item27    1            0    No parents No Pattern          0.1058
+    ## 34      Item28    1            1        Item05          0          0.0166
+    ## 35      Item28    1            1        Item05          1          0.1120
+    ## 36      Item29    1            1        Item07          0          0.0611
+    ## 37      Item29    1            1        Item07          1          0.0693
+    ## 38      Item30    1            0    No parents No Pattern          0.0275
+    ## 39      Item31    1            1        Item01          0          0.6446
+    ## 40      Item31    1            1        Item01          1          0.7056
+    ## 41      Item32    1            2 Item01,Item31         00          0.4841
+    ## 42      Item32    1            2 Item01,Item31         01          0.8011
+    ## 43      Item32    1            2 Item01,Item31         10          0.5430
+    ## 44      Item32    1            2 Item01,Item31         11          0.8090
+    ## 45      Item33    1            0    No parents No Pattern          0.3122
+    ## 46      Item34    1            1        Item13          0          0.1826
+    ## 47      Item34    1            1        Item13          1          0.2390
+    ## 48      Item35    1            0    No parents No Pattern          0.0985
+    ## 49      Item01    2            0    No parents No Pattern          0.8019
+    ## 50      Item02    2            0    No parents No Pattern          0.2314
+    ## 51      Item03    2            0    No parents No Pattern          0.3315
+    ## 52      Item04    2            0    No parents No Pattern          0.1574
+    ## 53      Item05    2            0    No parents No Pattern          0.1245
+    ## 54      Item06    2            0    No parents No Pattern          0.0938
+    ## 55      Item07    2            0    No parents No Pattern          0.4805
+    ## 56      Item08    2            1        Item32          0          0.2758
+    ## 57      Item08    2            1        Item32          1          0.2853
+    ## 58      Item09    2            2 Item11,Item26         00          0.2390
+    ## 59      Item09    2            2 Item11,Item26         01          0.3025
+    ## 60      Item09    2            2 Item11,Item26         10          0.3484
+    ## 61      Item09    2            2 Item11,Item26         11          0.4357
+    ## 62      Item10    2            0    No parents No Pattern          0.2584
+    ## 63      Item11    2            0    No parents No Pattern          0.2817
+    ## 64      Item12    2            0    No parents No Pattern          0.1729
+    ## 65      Item13    2            0    No parents No Pattern          0.1141
+    ## 66      Item14    2            0    No parents No Pattern          0.0304
+    ## 67      Item15    2            0    No parents No Pattern          0.0204
+    ## 68      Item16    2            0    No parents No Pattern          0.0814
+    ## 69      Item17    2            1        Item26          0          0.1429
+    ## 70      Item17    2            1        Item26          1          0.2164
+    ## 71      Item18    2            0    No parents No Pattern          0.0261
+    ## 72      Item19    2            0    No parents No Pattern          0.0287
+    ## 73      Item20    2            1        Item31          0          0.0498
+    ## 74      Item20    2            1        Item31          1          0.0362
+    ## 75      Item21    2            1        Item31          0          0.3073
+    ## 76      Item21    2            1        Item31          1          0.5221
+    ## 77      Item22    2            1        Item23          0          0.3171
+    ## 78      Item22    2            1        Item23          1          0.5862
+    ## 79      Item23    2            1        Item32          0          0.3612
+    ## 80      Item23    2            1        Item32          1          0.4558
+    ## 81      Item24    2            0    No parents No Pattern          0.3861
+    ## 82      Item25    2            1        Item24          0          0.1334
+    ## 83      Item25    2            1        Item24          1          0.5204
+    ## 84      Item26    2            1        Item31          0          0.1670
+    ## 85      Item26    2            1        Item31          1          0.2420
+    ## 86      Item27    2            1        Item11          0          0.1581
+    ## 87      Item27    2            1        Item11          1          0.3310
+    ## 88      Item28    2            1        Item12          0          0.0458
+    ## 89      Item28    2            1        Item12          1          0.1493
+    ## 90      Item29    2            0    No parents No Pattern          0.1001
+    ## 91      Item30    2            0    No parents No Pattern          0.0402
+    ## 92      Item31    2            1        Item01          0          0.6591
+    ## 93      Item31    2            1        Item01          1          0.7730
+    ## 94      Item32    2            2 Item01,Item31         00          0.4973
+    ## 95      Item32    2            2 Item01,Item31         01          0.7824
+    ## 96      Item32    2            2 Item01,Item31         10          0.5641
+    ## 97      Item32    2            2 Item01,Item31         11          0.8388
+    ## 98      Item33    2            0    No parents No Pattern          0.3538
+    ## 99      Item34    2            0    No parents No Pattern          0.1957
+    ## 100     Item35    2            1        Item09          0          0.1307
+    ## 101     Item35    2            1        Item09          1          0.1056
+    ## 102     Item01    3            0    No parents No Pattern          0.8766
+    ## 103     Item02    3            0    No parents No Pattern          0.4172
+    ## 104     Item03    3            1        Item25          0          0.4344
+    ## 105     Item03    3            1        Item25          1          0.5228
+    ## 106     Item04    3            0    No parents No Pattern          0.3078
+    ## 107     Item05    3            1        Item01          0          0.0972
+    ## 108     Item05    3            1        Item01          1          0.2836
+    ## 109     Item06    3            2 Item05,Item23         00          0.0471
+    ## 110     Item06    3            2 Item05,Item23         01          0.0239
+    ## 111     Item06    3            2 Item05,Item23         10          0.7752
+    ## 112     Item06    3            2 Item05,Item23         11          0.7779
+    ## 113     Item07    3            0    No parents No Pattern          0.5768
+    ## 114     Item08    3            1        Item23          0          0.3271
+    ## 115     Item08    3            1        Item23          1          0.3542
+    ## 116     Item09    3            2 Item26,Item27         00          0.3008
+    ## 117     Item09    3            2 Item26,Item27         01          0.3107
+    ## 118     Item09    3            2 Item26,Item27         10          0.4403
+    ## 119     Item09    3            2 Item26,Item27         11          0.5028
+    ## 120     Item10    3            0    No parents No Pattern          0.3665
+    ## 121     Item11    3            0    No parents No Pattern          0.5008
+    ## 122     Item12    3            0    No parents No Pattern          0.3162
+    ## 123     Item13    3            0    No parents No Pattern          0.2012
+    ## 124     Item14    3            2 Item13,Item24         00          0.0414
+    ## 125     Item14    3            2 Item13,Item24         01          0.0721
+    ## 126     Item14    3            2 Item13,Item24         10          0.2709
+    ## 127     Item14    3            2 Item13,Item24         11          0.4372
+    ## 128     Item15    3            1        Item11          0          0.0244
+    ## 129     Item15    3            1        Item11          1          0.1329
+    ## 130     Item16    3            0    No parents No Pattern          0.1848
+    ## 131     Item17    3            0    No parents No Pattern          0.2474
+    ## 132     Item18    3            0    No parents No Pattern          0.0408
+    ## 133     Item19    3            0    No parents No Pattern          0.0450
+    ## 134     Item20    3            0    No parents No Pattern          0.0495
+    ## 135     Item21    3            2 Item01,Item31         00          0.3659
+    ## 136     Item21    3            2 Item01,Item31         01          0.3898
+    ## 137     Item21    3            2 Item01,Item31         10          0.5020
+    ## 138     Item21    3            2 Item01,Item31         11          0.7812
+    ## 139     Item22    3            1        Item23          0          0.4160
+    ## 140     Item22    3            1        Item23          1          0.7868
+    ## 141     Item23    3            1        Item31          0          0.4360
+    ## 142     Item23    3            1        Item31          1          0.6688
+    ## 143     Item24    3            0    No parents No Pattern          0.5984
+    ## 144     Item25    3            1        Item31          0          0.3543
+    ## 145     Item25    3            1        Item31          1          0.5483
+    ## 146     Item26    3            0    No parents No Pattern          0.4555
+    ## 147     Item27    3            1        Item26          0          0.0977
+    ## 148     Item27    3            1        Item26          1          0.7606
+    ## 149     Item28    3            1        Item34          0          0.1633
+    ## 150     Item28    3            1        Item34          1          0.2946
+    ## 151     Item29    3            1        Item04          0          0.1713
+    ## 152     Item29    3            1        Item04          1          0.3011
+    ## 153     Item30    3            0    No parents No Pattern          0.0821
+    ## 154     Item31    3            1        Item01          0          0.6618
+    ## 155     Item31    3            1        Item01          1          0.8333
+    ## 156     Item32    3            0    No parents No Pattern          0.8141
+    ## 157     Item33    3            1        Item25          0          0.3665
+    ## 158     Item33    3            1        Item25          1          0.4800
+    ## 159     Item34    3            0    No parents No Pattern          0.2321
+    ## 160     Item35    3            0    No parents No Pattern          0.1546
+    ## 161     Item01    4            0    No parents No Pattern          0.9497
+    ## 162     Item02    4            0    No parents No Pattern          0.5947
+    ## 163     Item03    4            0    No parents No Pattern          0.6182
+    ## 164     Item04    4            2 Item03,Item23         00          0.1572
+    ## 165     Item04    4            2 Item03,Item23         01          0.0821
+    ## 166     Item04    4            2 Item03,Item23         10          0.6769
+    ## 167     Item04    4            2 Item03,Item23         11          0.6946
+    ## 168     Item05    4            1        Item11          0          0.1677
+    ## 169     Item05    4            1        Item11          1          0.4492
+    ## 170     Item06    4            0    No parents No Pattern          0.3285
+    ## 171     Item07    4            0    No parents No Pattern          0.6876
+    ## 172     Item08    4            0    No parents No Pattern          0.4083
+    ## 173     Item09    4            0    No parents No Pattern          0.4991
+    ## 174     Item10    4            0    No parents No Pattern          0.4701
+    ## 175     Item11    4            0    No parents No Pattern          0.7402
+    ## 176     Item12    4            0    No parents No Pattern          0.4962
+    ## 177     Item13    4            1        Item21          0          0.1981
+    ## 178     Item13    4            1        Item21          1          0.3335
+    ## 179     Item14    4            0    No parents No Pattern          0.1940
+    ## 180     Item15    4            0    No parents No Pattern          0.1281
+    ## 181     Item16    4            1        Item05          0          0.2483
+    ## 182     Item16    4            1        Item05          1          0.4170
+    ## 183     Item17    4            1        Item08          0          0.3349
+    ## 184     Item17    4            1        Item08          1          0.4103
+    ## 185     Item18    4            1        Item13          0          0.0188
+    ## 186     Item18    4            1        Item13          1          0.1821
+    ## 187     Item19    4            0    No parents No Pattern          0.0657
+    ## 188     Item20    4            1        Item10          0          0.0383
+    ## 189     Item20    4            1        Item10          1          0.1284
+    ## 190     Item21    4            1        Item32          0          0.8020
+    ## 191     Item21    4            1        Item32          1          0.9118
+    ## 192     Item22    4            1        Item23          0          0.6357
+    ## 193     Item22    4            1        Item23          1          0.9125
+    ## 194     Item23    4            1        Item31          0          0.6720
+    ## 195     Item23    4            1        Item31          1          0.8585
+    ## 196     Item24    4            1        Item32          0          0.7567
+    ## 197     Item24    4            1        Item32          1          0.8491
+    ## 198     Item25    4            1        Item24          0          0.2533
+    ## 199     Item25    4            1        Item24          1          0.8835
+    ## 200     Item26    4            0    No parents No Pattern          0.7507
+    ## 201     Item27    4            0    No parents No Pattern          0.6559
+    ## 202     Item28    4            0    No parents No Pattern          0.3633
+    ## 203     Item29    4            0    No parents No Pattern          0.3401
+    ## 204     Item30    4            0    No parents No Pattern          0.1310
+    ## 205     Item31    4            1        Item01          0          0.6849
+    ## 206     Item31    4            1        Item01          1          0.9001
+    ## 207     Item32    4            1        Item01          0          0.6398
+    ## 208     Item32    4            1        Item01          1          0.8596
+    ## 209     Item33    4            0    No parents No Pattern          0.5199
+    ## 210     Item34    4            1        Item17          0          0.2075
+    ## 211     Item34    4            1        Item17          1          0.3444
+    ## 212     Item35    4            2 Item11,Item16         00          0.1565
+    ## 213     Item35    4            2 Item11,Item16         01          0.2690
+    ## 214     Item35    4            2 Item11,Item16         10          0.1658
+    ## 215     Item35    4            2 Item11,Item16         11          0.3272
+    ## 216     Item01    5            0    No parents No Pattern          0.9674
+    ## 217     Item02    5            0    No parents No Pattern          0.7392
+    ## 218     Item03    5            0    No parents No Pattern          0.7320
+    ## 219     Item04    5            0    No parents No Pattern          0.6143
+    ## 220     Item05    5            1        Item17          0          0.4570
+    ## 221     Item05    5            1        Item17          1          0.5908
+    ## 222     Item06    5            1        Item11          0          0.1572
+    ## 223     Item06    5            1        Item11          1          0.5268
+    ## 224     Item07    5            0    No parents No Pattern          0.7591
+    ## 225     Item08    5            1        Item07          0          0.4539
+    ## 226     Item08    5            1        Item07          1          0.5110
+    ## 227     Item09    5            0    No parents No Pattern          0.6270
+    ## 228     Item10    5            1        Item09          0          0.3187
+    ## 229     Item10    5            1        Item09          1          0.7098
+    ## 230     Item11    5            0    No parents No Pattern          0.8853
+    ## 231     Item12    5            1        Item08          0          0.6280
+    ## 232     Item12    5            1        Item08          1          0.7234
+    ## 233     Item13    5            0    No parents No Pattern          0.5022
+    ## 234     Item14    5            0    No parents No Pattern          0.3348
+    ## 235     Item15    5            0    No parents No Pattern          0.2438
+    ## 236     Item16    5            0    No parents No Pattern          0.4923
+    ## 237     Item17    5            0    No parents No Pattern          0.5326
+    ## 238     Item18    5            2 Item05,Item25         00          0.1711
+    ## 239     Item18    5            2 Item05,Item25         01          0.0482
+    ## 240     Item18    5            2 Item05,Item25         10          0.1809
+    ## 241     Item18    5            2 Item05,Item25         11          0.2111
+    ## 242     Item19    5            2 Item04,Item11         00          0.1040
+    ## 243     Item19    5            2 Item04,Item11         01          0.0311
+    ## 244     Item19    5            2 Item04,Item11         10          0.2288
+    ## 245     Item19    5            2 Item04,Item11         11          0.2065
+    ## 246     Item20    5            0    No parents No Pattern          0.1309
+    ## 247     Item21    5            2 Item31,Item32         00          0.6312
+    ## 248     Item21    5            2 Item31,Item32         01          0.7986
+    ## 249     Item21    5            2 Item31,Item32         10          0.9008
+    ## 250     Item21    5            2 Item31,Item32         11          0.9715
+    ## 251     Item22    5            1        Item23          0          0.7273
+    ## 252     Item22    5            1        Item23          1          0.9585
+    ## 253     Item23    5            1        Item21          0          0.6220
+    ## 254     Item23    5            1        Item21          1          0.9412
+    ## 255     Item24    5            0    No parents No Pattern          0.9410
+    ## 256     Item25    5            0    No parents No Pattern          0.9148
+    ## 257     Item26    5            0    No parents No Pattern          0.9019
+    ## 258     Item27    5            0    No parents No Pattern          0.8242
+    ## 259     Item28    5            1        Item08          0          0.4880
+    ## 260     Item28    5            1        Item08          1          0.6142
+    ## 261     Item29    5            0    No parents No Pattern          0.4960
+    ## 262     Item30    5            1        Item16          0          0.1008
+    ## 263     Item30    5            1        Item16          1          0.3090
+    ## 264     Item31    5            0    No parents No Pattern          0.9299
+    ## 265     Item32    5            1        Item31          0          0.6278
+    ## 266     Item32    5            1        Item31          1          0.8989
+    ## 267     Item33    5            0    No parents No Pattern          0.6160
+    ## 268     Item34    5            0    No parents No Pattern          0.3181
+    ## 269     Item35    5            0    No parents No Pattern          0.2602
+    ## 
+    ## Marginal Item Reference Profile
+    ##        Rank 1 Rank 2 Rank 3 Rank 4 Rank 5
+    ## Item01 0.7104 0.8019 0.8766 0.9497  0.967
+    ## Item02 0.0957 0.2314 0.4172 0.5947  0.739
+    ## Item03 0.2360 0.3315 0.4774 0.6182  0.732
+    ## Item04 0.0789 0.1574 0.3078 0.4316  0.614
+    ## Item05 0.0608 0.1245 0.2751 0.3886  0.550
+    ## Item06 0.0400 0.0938 0.2827 0.3285  0.520
+    ## Item07 0.4183 0.4805 0.5768 0.6876  0.759
+    ## Item08 0.2581 0.2834 0.3445 0.4083  0.501
+    ## Item09 0.2308 0.2753 0.3750 0.4991  0.627
+    ## Item10 0.1916 0.2584 0.3665 0.4701  0.606
+    ## Item11 0.1325 0.2817 0.5008 0.7402  0.885
+    ## Item12 0.1111 0.1729 0.3162 0.4962  0.682
+    ## Item13 0.0884 0.1141 0.2012 0.3305  0.502
+    ## Item14 0.0134 0.0304 0.1007 0.1940  0.335
+    ## Item15 0.0139 0.0204 0.0888 0.1281  0.244
+    ## Item16 0.0578 0.0814 0.1848 0.2941  0.492
+    ## Item17 0.1253 0.1548 0.2474 0.3624  0.533
+    ## Item18 0.0303 0.0261 0.0408 0.0487  0.155
+    ## Item19 0.0384 0.0287 0.0450 0.0657  0.161
+    ## Item20 0.0283 0.0391 0.0495 0.0758  0.131
+    ## Item21 0.2576 0.4755 0.7174 0.8948  0.955
+    ## Item22 0.2256 0.4260 0.6539 0.8968  0.955
+    ## Item23 0.3027 0.4369 0.6292 0.8418  0.939
+    ## Item24 0.2312 0.3861 0.5984 0.8347  0.941
+    ## Item25 0.1329 0.2833 0.5152 0.8528  0.915
+    ## Item26 0.0922 0.2257 0.4555 0.7507  0.902
+    ## Item27 0.1058 0.1985 0.3572 0.6559  0.824
+    ## Item28 0.0180 0.0589 0.1966 0.3633  0.559
+    ## Item29 0.0643 0.1001 0.2182 0.3401  0.496
+    ## Item30 0.0275 0.0402 0.0821 0.1310  0.239
+    ## Item31 0.6844 0.7566 0.8254 0.8934  0.930
+    ## Item32 0.7139 0.7705 0.8141 0.8527  0.886
+    ## Item33 0.3122 0.3538 0.4217 0.5199  0.616
+    ## Item34 0.1866 0.1957 0.2321 0.2429  0.318
+    ## Item35 0.0985 0.1239 0.1546 0.1967  0.260
+    ## 
+    ## IRP Indices
+    ##        Alpha          A Beta         B Gamma            C
+    ## Item01     1 0.09147897    1 0.7104169  0.00  0.000000000
+    ## Item02     2 0.18575838    3 0.4171962  0.00  0.000000000
+    ## Item03     2 0.14596474    3 0.4774193  0.00  0.000000000
+    ## Item04     4 0.18270703    4 0.4316332  0.00  0.000000000
+    ## Item05     4 0.16182210    5 0.5504280  0.00  0.000000000
+    ## Item06     4 0.19192621    5 0.5204344  0.00  0.000000000
+    ## Item07     3 0.11078674    2 0.4804693  0.00  0.000000000
+    ## Item08     4 0.09271153    5 0.5009651  0.00  0.000000000
+    ## Item09     4 0.12790164    4 0.4991280  0.00  0.000000000
+    ## Item10     4 0.13606029    4 0.4700913  0.00  0.000000000
+    ## Item11     3 0.23945895    3 0.5007893  0.00  0.000000000
+    ## Item12     4 0.18559983    4 0.4961763  0.00  0.000000000
+    ## Item13     4 0.17168271    5 0.5022082  0.00  0.000000000
+    ## Item14     4 0.14087675    5 0.3348446  0.00  0.000000000
+    ## Item15     4 0.11578699    5 0.2438481  0.00  0.000000000
+    ## Item16     4 0.19823273    5 0.4923369  0.00  0.000000000
+    ## Item17     4 0.17017469    5 0.5325965  0.00  0.000000000
+    ## Item18     4 0.10679453    5 0.1554454  0.25 -0.004248974
+    ## Item19     4 0.09483464    5 0.1605088  0.25 -0.009740845
+    ## Item20     4 0.05504400    5 0.1308940  0.00  0.000000000
+    ## Item21     2 0.24190430    2 0.4755097  0.00  0.000000000
+    ## Item22     3 0.24291837    2 0.4259656  0.00  0.000000000
+    ## Item23     3 0.21261028    2 0.4369185  0.00  0.000000000
+    ## Item24     3 0.23639488    3 0.5983545  0.00  0.000000000
+    ## Item25     3 0.33752441    3 0.5152274  0.00  0.000000000
+    ## Item26     3 0.29514977    3 0.4555486  0.00  0.000000000
+    ## Item27     3 0.29864648    3 0.3572087  0.00  0.000000000
+    ## Item28     4 0.19588834    5 0.5591385  0.00  0.000000000
+    ## Item29     4 0.15593083    5 0.4960204  0.00  0.000000000
+    ## Item30     4 0.10842632    5 0.2394654  0.00  0.000000000
+    ## Item31     1 0.07218040    1 0.6843920  0.00  0.000000000
+    ## Item32     1 0.05661584    1 0.7139340  0.00  0.000000000
+    ## Item33     3 0.09815971    4 0.5199007  0.00  0.000000000
+    ## Item34     4 0.07524326    5 0.3181130  0.00  0.000000000
+    ## Item35     4 0.06353034    5 0.2601808  0.00  0.000000000
+    ## 
+    ## Test reference Profile and Latent Rank Distribution
+    ##                               Rank 1 Rank 2 Rank 3 Rank 4  Rank 5
+    ## Test Reference Profile         6.413  8.819 12.947 17.380  21.472
+    ## Latent Rank Ditribution      181.000 60.000 83.000 82.000 109.000
+    ## Rank Membership Distribuiton 165.388 78.163 81.015 80.658 109.777
+    ## [1] "Weakly ordinal alignment condition was satisfied."
+    ## 
+    ## Model Fit Indices
+    ##                    value
+    ## model_log_like -7796.306
+    ## bench_log_like -5891.314
+    ## null_log_like  -9862.114
+    ## model_Chi_sq    3809.985
+    ## null_Chi_sq     7941.601
+    ## model_df         921.000
+    ## null_df         1155.000
+    ## NFI                0.520
+    ## RFI                0.398
+    ## IFI                0.588
+    ## TLI                0.466
+    ## CFI                0.574
+    ## RMSEA              0.078
+    ## AIC             1967.985
+    ## CAIC           -1942.680
+    ## BIC            -1940.893
 
 ## Reference
 

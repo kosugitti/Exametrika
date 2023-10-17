@@ -15,6 +15,7 @@ The Exametrika package is designed for test data engineering and corresponds to 
 + Bayesian Network Analysis
 + Structure Learning for Bayesian Network Analysis by Genetic Algorithm
 + Local Dependence Latent Rank Analysis
++ Structure Learning for LDLRA by PBIL
 
 The estimation of the optimal number of ranks using the Chinese Restaurant Process algorithm has not yet been implemented. Additionally, the following models are also planned to be implemented, but are not yet available.
 

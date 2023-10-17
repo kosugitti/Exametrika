@@ -1,4 +1,10 @@
+# Exametrika 0.9.0 on October 17, 2023.
+
+* Structure Learning for LDLRA, by PBIL.
+
 # Exametrika 0.9.0 on October 16, 2023.
+
+* LDLRA model.
 
 # Exametrika 0.8.1 on October 10, 2023.
 
