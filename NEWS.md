@@ -1,3 +1,7 @@
+# Exametrika 0.10.0 on October 18, 2023.
+
+* LDB is now available
+
 # Exametrika 0.9.0 on October 17, 2023.
 
 * Structure Learning for LDLRA, by PBIL.

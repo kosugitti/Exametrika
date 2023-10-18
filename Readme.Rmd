@@ -16,10 +16,10 @@ The Exametrika package is designed for test data engineering and corresponds to 
 + Structure Learning for Bayesian Network Analysis by Genetic Algorithm
 + Local Dependence Latent Rank Analysis
 + Structure Learning for LDLRA by PBIL
++ Local Dependence Biclustering
 
 The estimation of the optimal number of ranks using the Chinese Restaurant Process algorithm has not yet been implemented. Additionally, the following models are also planned to be implemented, but are not yet available.
 
-+ Local Dependence Biclustering
 + Biclister Network Model
 
 Exametrika is originally implemented and published as a Mathematica and Excel Add-in. Please refer to the following website for more information.
@@ -341,11 +341,12 @@ You can learn item-interaction graphs for each rank using the PBIL algorithm. In
 
 ```{r LDLRA_PBIL}
 result.LDLRA.PBIL <- StrLearningPBIL_LDLRA(J35S515,
-                                           seed = 123,
-                                           ncls = 5,
-                                           method = "R",
-                                           elitism = 1,
-                                           successiveLimit = 15)
+  seed = 123,
+  ncls = 5,
+  method = "R",
+  elitism = 1,
+  successiveLimit = 15
+)
 result.LDLRA.PBIL
 ```
 

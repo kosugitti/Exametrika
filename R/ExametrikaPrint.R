@@ -242,12 +242,12 @@ print.Exametrika <- function(x, digits = 3, ...) {
         print("Your graph is connected DAG.")
       }
       lay.tree <- layout_on_grid(x$g)
-      xcoord <- lay.tree[,1]
-      ycoord <- lay.tree[,2]
+      xcoord <- lay.tree[, 1]
+      ycoord <- lay.tree[, 2]
       xcoord <- xcoord[order(rowSums(x$adj))]
-      ycoord <- ycoord[order(x$crr,decreasing = TRUE)]
+      ycoord <- ycoord[order(x$crr, decreasing = TRUE)]
 
-      plot.igraph(x$g, layout = cbind(xcoord,ycoord))
+      plot.igraph(x$g, layout = cbind(xcoord, ycoord))
 
       cat("\nParameter Learning\n")
       p_table <- x$param
@@ -283,13 +283,13 @@ print.Exametrika <- function(x, digits = 3, ...) {
       cat("Adjacency Matrix\n")
       print(x$adj_list)
       lay.tree <- layout_on_grid(x$g_list[[1]])
-      xcoord <- lay.tree[,1]
-      ycoord <- lay.tree[,2]
+      xcoord <- lay.tree[, 1]
+      ycoord <- lay.tree[, 2]
       xcoord <- xcoord[order(rowSums(x$adj_list[[1]]))]
-      ycoord <- ycoord[order(x$crr,decreasing = TRUE)]
+      ycoord <- ycoord[order(x$crr, decreasing = TRUE)]
       for (i in 1:x$Nclass) {
         plot.igraph(x$g_list[[i]],
-          layout = cbind(xcoord,ycoord),
+          layout = cbind(xcoord, ycoord),
           main = paste("Graph of ", msg, i)
         )
       }
@@ -343,6 +343,64 @@ print.Exametrika <- function(x, digits = 3, ...) {
       y <- t(as.data.frame(y))
       colnames(y) <- "value"
       print(round(y, digits))
+    },
+    LDB = {
+      cat("Adjacency Matrix\n")
+      print(x$adj_list)
+      lay.tree <- layout_on_grid(x$g_list[[1]])
+      xcoord <- lay.tree[, 1]
+      ycoord <- lay.tree[, 2]
+      xcoord <- xcoord[order(rowSums(x$adj_list[[1]]))]
+      ycoord <- ycoord[order(colSums(x$adj_list[[1]]))]
+      for (i in 1:x$Nclass) {
+        plot.igraph(x$g_list[[i]],
+          layout = cbind(xcoord, ycoord),
+          main = paste("Graph at Rank", i)
+        )
+      }
+
+      cat("\nParameter Learning\n")
+      for (i in 1:x$Nclass) {
+        tbl <- x$IRP[i, , ]
+        tbl[tbl == 0] <- NA
+        rownames(tbl) <- x$FieldLabel
+        colnames(tbl) <- paste("PIRP", 1:NCOL(tbl))
+        cat(paste("Rank", i, "\n"))
+        print(tbl, na.print = "", digits = digits)
+      }
+
+      cat("\nMarginal Rankluster Reference Matrix\n")
+      print(x$FRP, digits = digits)
+      cat("\nIRP Indices\n")
+      print(x$FRPIndex)
+
+      y <- rbind(x$TRP, x$LRD, x$RMD)
+      rownames(y) <- c(
+        "Test Reference Profile",
+        "Latent Rank Ditribution",
+        "Rank Membership Dsitribution"
+      )
+      colnames(y) <- paste("Rank", 1:x$Nclass)
+      print(round(y, digits))
+
+      cat("\nLatent Field Distribution\n")
+      y <- matrix(x$LFD, nrow = 1)
+      rownames(y) <- "N of Items"
+      colnames(y) <- paste("Field", 1:x$Nfield)
+      print(y)
+
+      cat("\nModel Fit Indices\n")
+      y <- unclass(x$TestFitIndices)
+      y <- t(as.data.frame(y))
+      colnames(y) <- "value"
+      print(round(y, digits))
+
+      if (x$SOACflg & x$WOACflg) {
+        message("Strongly ordinal alignment condition was satisfied.")
+      }
+      if (!x$SOACflg & x$WOACflg) {
+        message("Weakly ordinal alignment condition was satisfied.")
+      }
     },
     ModelFit = {
       tmp <- data.frame(unclass(x))

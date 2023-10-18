@@ -8,16 +8,17 @@
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @param conf For the 'conf'irmatory parameter, you can input either a vector with
+#' @param conf For the confirmatory parameter, you can input either a vector with
 #' items and corresponding fields in sequence, or a field membership profile
 #' matrix. In the case of the former, the field membership profile matrix will be generated internally.
 #' When providing a membership profile matrix, it needs to be either matrix or data.frame.
-#' The number of fields(nfld) will be overwrite to the number of colums of this matrix.
+#' The number of fields(nfld) will be overwrite to the number of columns of this matrix.
 #' The default is NULL, and the field membership
-#' matrix will be estimated according to the specified number of classes(ncls) and fields(nfld)."
+#' matrix will be estimated according to the specified number of classes(ncls) and fields(nfld).
 #' @param mic Monotonic increasing IRP option. The default is FALSE.
 #' @param method Specify either "B"iclustering or "R"unklustering.
 #' @param maxiter Maximum number of iterations. default is 100.
+#' @param verbose verbose output Flag. default is TRUE
 #'
 #' @return
 #' \describe{
@@ -46,7 +47,8 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
                          method = "B",
                          conf = NULL,
                          mic = FALSE,
-                         maxiter = 100) {
+                         maxiter = 100,
+                         verbose = TRUE) {
   # data format
   if (class(U)[1] != "Exametrika") {
     tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
@@ -59,10 +61,14 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   const <- exp(-testlength)
 
   if (method == "B" | method == "Biclustering") {
-    print("Biclustering is chosen.")
+    if (verbose) {
+      print("Biclustering is chosen.")
+    }
     model <- 1
   } else if (method == "R" | method == "Ranklustering") {
-    print("Ranklustering is chosen.")
+    if (verbose) {
+      print("Ranklustering is chosen.")
+    }
     model <- 2
   } else {
     stop("The method must be selected as either Biclustering or Ranklustering.")
@@ -70,7 +76,9 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
 
   # set conf_mat for confirmatory clustering
   if (!is.null(conf)) {
-    print("Confirmatory Clustering is chosen.")
+    if (verbose) {
+      print("Confirmatory Clustering is chosen.")
+    }
     if (is.vector(conf)) {
       # check size
       if (length(conf) != NCOL(U)) {
@@ -193,13 +201,17 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     }
 
     testell <- sum(cfr * log(PiFR + const) + ffr * log(1 - PiFR + const))
-    cat(paste("iter", emt, " logLik", testell, "\r"))
+    if (verbose) {
+      cat(paste("iter", emt, " logLik", testell, "\r"))
+    }
     if (testell - oldtestell <= 0) {
       PiFR <- oldPiFR
       break
     }
   }
-  cat(paste("iter", emt, " logLik", testell, "\n"))
+  if (verbose) {
+    cat(paste("iter", emt, " logLik", testell, "\n"))
+  }
   #### OUTPUT
 
   cls <- apply(clsmemb, 1, which.max)
@@ -252,11 +264,13 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
       SOACflg <- TRUE
     }
   }
-  if (SOACflg & WOACflg) {
-    message("Strongly ordinal alignment condition was satisfied.")
-  }
-  if (!SOACflg & WOACflg) {
-    message("Weakly ordinal alignment condition was satisfied.")
+  if (verbose) {
+    if (SOACflg & WOACflg) {
+      message("Strongly ordinal alignment condition was satisfied.")
+    }
+    if (!SOACflg & WOACflg) {
+      message("Weakly ordinal alignment condition was satisfied.")
+    }
   }
 
   ### Model Fit
@@ -283,6 +297,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     CMD = colSums(clsmemb),
     FieldMembership = fldmemb,
     ClassMembership = clsmemb,
+    SmoothedMembership = smoothed_memb,
     FieldEstimated = fld,
     ClassEstimated = cls,
     Students = StudentRank,
