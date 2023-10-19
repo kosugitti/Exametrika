@@ -35,6 +35,7 @@
 #' The Class Membership Profile("CMP") visualizes the probability of a student belonging to each latent class.
 #'
 #' @importFrom graphics curve
+#' @importFrom graphics title
 #' @importFrom utils tail
 #' @importFrom graphics axis barplot mtext par text lines rect
 #' @export
@@ -102,15 +103,17 @@ plot.Exametrika <- function(x,
       par(mar = c(5, 4, 4, 4) + 0.1)
       if (value == "LCA" | value == "LRA" | value == "IRM") {
         target <- x$LCD
-      } else if (value == "Biclustering" | value == "LDLRA") {
+        msg <- "Class"
+      } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {
         target <- x$LRD
+        msg <- "Rank"
       }
       bp <- barplot(target,
         names.arg = 1:x$Nclass,
         width = .9,
         ylim = c(0, max(target) + 10),
         xlim = c(0, x$Nclass + 1),
-        xlab = "Latent Class",
+        xlab = paste("Latent", msg),
         ylab = "Number of Students"
       )
       text(x = bp, y = target, label = target, pos = 1, cex = 1.2)
@@ -132,11 +135,13 @@ plot.Exametrika <- function(x,
       par(mar = c(5, 4, 4, 4) + 0.1)
       if (value == "LCA" | value == "LRA" | value == "IRM") {
         target <- x$LCD
-      } else if (value == "Biclustering" | value == "LDLRA") {
+        msg <- "Class"
+      } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {
         target <- x$LRD
       }
       if (is.null(x$CMD)) {
         x$CMD <- x$RMD
+        msg <- "Rank"
       }
 
       bp <- barplot(target,
@@ -144,7 +149,7 @@ plot.Exametrika <- function(x,
         width = .9,
         ylim = c(0, max(target) + 10),
         xlim = c(0, x$Nclass + 1),
-        xlab = "Latent Class",
+        xlab = paste("Latent", msg),
         ylab = "Number of Students"
       )
       text(x = bp, y = target, label = target, pos = 1, cex = 1.2)
@@ -163,11 +168,16 @@ plot.Exametrika <- function(x,
     if (type == "CMP" | type == "RMP") {
       # Class Membership Profile ----------------------------------------
       params <- x$Students[plotStudentID, 1:x$Nclass]
+      if (type == "CMP") {
+        msg <- "Class"
+      } else {
+        msg <- "Rank"
+      }
       for (i in 1:NROW(params)) {
         y <- params[i, ]
         plot(y,
           type = "b",
-          xlab = "Latent Class",
+          xlab = paste("Latent", msg),
           ylab = "Membership",
           ylim = c(0, 1),
           main = paste("Student", plotStudentID[i])
@@ -177,12 +187,17 @@ plot.Exametrika <- function(x,
     if (type == "FRP") {
       # Item Reference Profile ----------------------------------------
       params <- x$FRP
+      if (value == "LDB") {
+        msg <- "Rank"
+      } else {
+        msg <- "Class"
+      }
       for (i in 1:nrow(params)) {
         y <- params[i, ]
         plot(y,
           type = "b",
           ylab = "Correct Response Rate",
-          xlab = "Latent Class",
+          xlab = paste("Latent", msg),
           ylim = c(0, 1),
           main = paste("Field", i)
         )
@@ -245,7 +260,32 @@ plot.Exametrika <- function(x,
     }
   }
 
-
+  field_PIRP <- function() {
+    target <- x$IRP
+    ## rank x field x nrs
+    nrank <- dim(target)[1]
+    nfld <- dim(target)[2]
+    nrs <- dim(target)[3]
+    for (i in 1:nrank) {
+      mat <- target[i, , ]
+      mat[mat == 0] <- NA
+      x <- 0:nrs
+      plot(x,
+        y = runif(length(x)), type = "n",
+        xlim = c(0, nrs), ylim = c(0, 1),
+        xlab = "PIRP(Number-Right Score) in Parent Field(s)",
+        ylab = "Correct Response Rate"
+      )
+      for (j in 1:NROW(mat)) {
+        y <- as.vector(na.omit(mat[j, ]))
+        x <- seq(0, nrs)[1:length(y)]
+        labels <- rep(as.character(j), length(y))
+        lines(x, y, type = "l", lwd = 2)
+        text(x, y, labels = labels, pos = 1)
+      }
+      title(main = paste("Rank", i))
+    }
+  }
   # Switching function (main) ----------------------------------------
 
   switch(value,
@@ -333,11 +373,24 @@ plot.Exametrika <- function(x,
       }
     },
     LDLRA = {
-      valid_types <- c("IRP", "LRD", "TRP")
+      valid_types <- c("IRP", "LRD", "TRP", "RMP")
       if (!(type %in% valid_types)) {
         stop("That type of output is not defined.")
       }
       graph_common()
+    },
+    LDB = {
+      valid_types <- c("LRD", "TRP", "RMP", "FRP", "FieldPIRP", "Array")
+      if (!(type %in% valid_types)) {
+        stop("That type of output is not defined.")
+      }
+      if (type == "FieldPIRP") {
+        field_PIRP()
+      } else if (type == "Array") {
+        array_plot()
+      } else {
+        graph_common()
+      }
     },
     none = {
       cat("Sorry, this is not an object that can be plotted.")

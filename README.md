@@ -17,13 +17,13 @@ models.
 - Structure Learning for Bayesian Network Analysis by Genetic Algorithm
 - Local Dependence Latent Rank Analysis
 - Structure Learning for LDLRA by PBIL
+- Local Dependence Biclustering
 
 The estimation of the optimal number of ranks using the Chinese
 Restaurant Process algorithm has not yet been implemented. Additionally,
 the following models are also planned to be implemented, but are not yet
 available.
 
-- Local Dependence Biclustering
 - Biclister Network Model
 
 Exametrika is originally implemented and published as a Mathematica and
@@ -152,7 +152,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101332373 iter 2 LogLik -3938.35116100808 iter 3 LogLik -3931.82446461276 iter 4 LogLik -3928.6800380476 iter 5 LogLik -3926.99336167255 iter 6 LogLik -3926.0480317866 iter 7 LogLik -3925.50627056095 iter 8 LogLik -3925.19155136224 iter 9 LogLik -3925.00750269435 iter 10 LogLik -3924.8991272117 iter 11 LogLik -3924.83512236951 iter 12 LogLik -3924.79720050943 iter 13 LogLik -3924.77443504456 
+    ## iter 1 LogLik -3960.28101334636 iter 2 LogLik -3938.35072515048 iter 3 LogLik -3931.82434289359 iter 4 LogLik -3928.6800560188 iter 5 LogLik -3926.99361840321 iter 6 LogLik -3926.04839074798 iter 7 LogLik -3925.50653749632 iter 8 LogLik -3925.19180526593 iter 9 LogLik -3925.00732674931 iter 10 LogLik -3924.89894280432 iter 11 LogLik -3924.8349854256 iter 12 LogLik -3924.79706171022 iter 13 LogLik -3924.77459052693 
 
 ``` r
 result.IRT
@@ -181,15 +181,15 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.884       -192.072      -265.962       25.624     147.780
+    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
-    ## Item11       -248.409       -224.085      -299.265       48.646     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
+    ## Item11       -248.409       -224.085      -299.265       48.647     150.360
+    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -197,15 +197,15 @@ result.IRT
     ## Item01       11      13 0.472 0.376 0.541 0.443 0.528 0.079 23.578 -22.805
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
-    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.624 -42.759
+    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
     ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.646 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -243,7 +243,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.883
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -252,12 +252,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526242 0.5805703
-    ## 2 Student002 -0.17398782 0.5473602
-    ## 3 Student003  0.01382245 0.5530499
-    ## 4 Student004  0.57627923 0.5749106
-    ## 5 Student005 -0.97449556 0.5915605
-    ## 6 Student006  0.85233195 0.5820533
+    ## 1 Student001 -0.75526825 0.5805705
+    ## 2 Student002 -0.17398769 0.5473603
+    ## 3 Student003  0.01382281 0.5530500
+    ## 4 Student004  0.57628048 0.5749108
+    ## 5 Student005 -0.97449481 0.5915605
+    ## 6 Student006  0.85233092 0.5820542
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -780,9 +780,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH fc7d510 DN-- 5 5 -- 
+    ## IGRAPH b1fa0dd DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from fc7d510 (vertex names):
+    ## + edges from b1fa0dd (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -1133,36 +1133,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH 80bff77 DN-- 4 2 -- 
+    ## IGRAPH 80b4234 DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from 80bff77 (vertex names):
+    ## + edges from 80b4234 (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 585baba DN-- 9 7 -- 
+    ## IGRAPH 01101bc DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 585baba (vertex names):
+    ## + edges from 01101bc (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 3cfafa4 DN-- 9 7 -- 
+    ## IGRAPH 85c7827 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 3cfafa4 (vertex names):
+    ## + edges from 85c7827 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH 8c9bd31 DN-- 10 8 -- 
+    ## IGRAPH c84bd2d DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 8c9bd31 (vertex names):
+    ## + edges from c84bd2d (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH 83e38a6 DN-- 10 8 -- 
+    ## IGRAPH 758e01b DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 83e38a6 (vertex names):
+    ## + edges from 758e01b (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -1647,11 +1647,12 @@ the optimal solution.
 
 ``` r
 result.LDLRA.PBIL <- StrLearningPBIL_LDLRA(J35S515,
-                                           seed = 123,
-                                           ncls = 5,
-                                           method = "R",
-                                           elitism = 1,
-                                           successiveLimit = 15)
+  seed = 123,
+  ncls = 5,
+  method = "R",
+  elitism = 1,
+  successiveLimit = 15
+)
 ```
 
     ## [1] "local dependence latent Rank model is chosen."
@@ -2948,7 +2949,427 @@ result.LDLRA.PBIL
     ## CAIC           -1942.680
     ## BIC            -1940.893
 
-## Reference
+## Local Dependence Biclustring
+
+Latent dependece Biclustering, which incorporates biclustering and a
+Bayesian network model.
+
+To execute this, you need to determine the number of ranks, the
+correspondence between items and fields, and the network structure for
+each rank in advance. For confirmatory Rankclustering, the
+correspondence between items and fields is provided in the form of a
+matrix or vector.
+
+``` r
+lines <- readLines(fieldFile)
+for (line in lines) {
+  cat(line)
+  cat("\n")
+}
+```
+
+    ## Item,Field
+    ## Item01,1
+    ## Item02,6
+    ## Item03,6
+    ## Item04,8
+    ## Item05,9
+    ## Item06,9
+    ## Item07,4
+    ## Item08,7
+    ## Item09,7
+    ## Item10,7
+    ## Item11,5
+    ## Item12,8
+    ## Item13,9
+    ## Item14,10
+    ## Item15,10
+    ## Item16,9
+    ## Item17,9
+    ## Item18,10
+    ## Item19,10
+    ## Item20,10
+    ## Item21,2
+    ## Item22,2
+    ## Item23,3
+    ## Item24,3
+    ## Item25,5
+    ## Item26,5
+    ## Item27,6
+    ## Item28,9
+    ## Item29,9
+    ## Item30,10
+    ## Item31,1
+    ## Item32,1
+    ## Item33,7
+    ## Item34,9
+    ## Item35,10
+
+``` r
+FieldData <- read.csv(fieldFile)
+conf <- FieldData[, 2]
+conf
+```
+
+    ##  [1]  1  6  6  8  9  9  4  7  7  7  5  8  9 10 10  9  9 10 10 10  2  2  3  3  5
+    ## [26]  5  6  9  9 10  1  1  7  9 10
+
+The network structure for each rank can be specified using a matrix, a
+graph object, or a CSV file. Here is an example using a CSV file for
+specification.
+
+``` r
+lines <- readLines(edgeFile)
+for (line in lines) {
+  cat(line)
+  cat("\n")
+}
+```
+
+    ## From Field (Parent) >>>,>>> To Field (Child),At Class/Rank (Locus)
+    ## 6,8,2
+    ## 4,7,2
+    ## 5,8,2
+    ## 1,7,2
+    ## 1,2,2
+    ## 4,5,2
+    ## 3,5,3
+    ## 4,8,3
+    ## 6,8,3
+    ## 2,4,3
+    ## 4,6,3
+    ## 4,7,3
+    ## 3,5,4
+    ## 6,8,4
+    ## 4,5,4
+    ## 1,8,4
+    ## 7,10,5
+    ## 9,10,5
+    ## 6,8,5
+    ## 7,9,5
+
+Additionally, as mentioned in the text (Shojima, 2022), it is often the
+case that seeking the network structure exploratively does not yield
+appropriate results, so it has not been implemented.
+
+``` r
+result.LDB <- LDB(U = J35S515, ncls = 5, conf = conf, adj_file = edgeFile)
+result.LDB
+```
+
+    ## Adjacency Matrix
+    ## [[1]]
+    ##         Field01 Field02 Field03 Field04 Field05 Field06 Field07 Field08 Field09
+    ## Field01       0       0       0       0       0       0       0       0       0
+    ## Field02       0       0       0       0       0       0       0       0       0
+    ## Field03       0       0       0       0       0       0       0       0       0
+    ## Field04       0       0       0       0       0       0       0       0       0
+    ## Field05       0       0       0       0       0       0       0       0       0
+    ## Field06       0       0       0       0       0       0       0       0       0
+    ## Field07       0       0       0       0       0       0       0       0       0
+    ## Field08       0       0       0       0       0       0       0       0       0
+    ## Field09       0       0       0       0       0       0       0       0       0
+    ## Field10       0       0       0       0       0       0       0       0       0
+    ##         Field10
+    ## Field01       0
+    ## Field02       0
+    ## Field03       0
+    ## Field04       0
+    ## Field05       0
+    ## Field06       0
+    ## Field07       0
+    ## Field08       0
+    ## Field09       0
+    ## Field10       0
+    ## 
+    ## [[2]]
+    ##         Field01 Field02 Field03 Field04 Field05 Field06 Field07 Field08 Field09
+    ## Field01       0       1       0       0       0       0       1       0       0
+    ## Field02       0       0       0       0       0       0       0       0       0
+    ## Field03       0       0       0       0       0       0       0       0       0
+    ## Field04       0       0       0       0       1       0       1       0       0
+    ## Field05       0       0       0       0       0       0       0       1       0
+    ## Field06       0       0       0       0       0       0       0       1       0
+    ## Field07       0       0       0       0       0       0       0       0       0
+    ## Field08       0       0       0       0       0       0       0       0       0
+    ## Field09       0       0       0       0       0       0       0       0       0
+    ## Field10       0       0       0       0       0       0       0       0       0
+    ##         Field10
+    ## Field01       0
+    ## Field02       0
+    ## Field03       0
+    ## Field04       0
+    ## Field05       0
+    ## Field06       0
+    ## Field07       0
+    ## Field08       0
+    ## Field09       0
+    ## Field10       0
+    ## 
+    ## [[3]]
+    ##         Field01 Field02 Field03 Field04 Field05 Field06 Field07 Field08 Field09
+    ## Field01       0       0       0       0       0       0       0       0       0
+    ## Field02       0       0       0       1       0       0       0       0       0
+    ## Field03       0       0       0       0       1       0       0       0       0
+    ## Field04       0       0       0       0       0       1       1       1       0
+    ## Field05       0       0       0       0       0       0       0       0       0
+    ## Field06       0       0       0       0       0       0       0       1       0
+    ## Field07       0       0       0       0       0       0       0       0       0
+    ## Field08       0       0       0       0       0       0       0       0       0
+    ## Field09       0       0       0       0       0       0       0       0       0
+    ## Field10       0       0       0       0       0       0       0       0       0
+    ##         Field10
+    ## Field01       0
+    ## Field02       0
+    ## Field03       0
+    ## Field04       0
+    ## Field05       0
+    ## Field06       0
+    ## Field07       0
+    ## Field08       0
+    ## Field09       0
+    ## Field10       0
+    ## 
+    ## [[4]]
+    ##         Field01 Field02 Field03 Field04 Field05 Field06 Field07 Field08 Field09
+    ## Field01       0       0       0       0       0       0       0       1       0
+    ## Field02       0       0       0       0       0       0       0       0       0
+    ## Field03       0       0       0       0       1       0       0       0       0
+    ## Field04       0       0       0       0       1       0       0       0       0
+    ## Field05       0       0       0       0       0       0       0       0       0
+    ## Field06       0       0       0       0       0       0       0       1       0
+    ## Field07       0       0       0       0       0       0       0       0       0
+    ## Field08       0       0       0       0       0       0       0       0       0
+    ## Field09       0       0       0       0       0       0       0       0       0
+    ## Field10       0       0       0       0       0       0       0       0       0
+    ##         Field10
+    ## Field01       0
+    ## Field02       0
+    ## Field03       0
+    ## Field04       0
+    ## Field05       0
+    ## Field06       0
+    ## Field07       0
+    ## Field08       0
+    ## Field09       0
+    ## Field10       0
+    ## 
+    ## [[5]]
+    ##         Field01 Field02 Field03 Field04 Field05 Field06 Field07 Field08 Field09
+    ## Field01       0       0       0       0       0       0       0       0       0
+    ## Field02       0       0       0       0       0       0       0       0       0
+    ## Field03       0       0       0       0       0       0       0       0       0
+    ## Field04       0       0       0       0       0       0       0       0       0
+    ## Field05       0       0       0       0       0       0       0       0       0
+    ## Field06       0       0       0       0       0       0       0       1       0
+    ## Field07       0       0       0       0       0       0       0       0       1
+    ## Field08       0       0       0       0       0       0       0       0       0
+    ## Field09       0       0       0       0       0       0       0       0       0
+    ## Field10       0       0       0       0       0       0       0       0       0
+    ##         Field10
+    ## Field01       0
+    ## Field02       0
+    ## Field03       0
+    ## Field04       0
+    ## Field05       0
+    ## Field06       0
+    ## Field07       1
+    ## Field08       0
+    ## Field09       1
+    ## Field10       0
+
+![](Readme_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-16-3.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-16-4.png)<!-- -->
+
+    ## 
+    ## Parameter Learning
+    ## Rank 1 
+    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
+    ## Field01 0.6538                                                                
+    ## Field02 0.0756                                                                
+    ## Field03 0.1835                                                                
+    ## Field04 0.3819                                                                
+    ## Field05 0.0500                                                                
+    ## Field06 0.0985                                                                
+    ## Field07 0.2176                                                                
+    ## Field08 0.0608                                                                
+    ## Field09 0.0563                                                                
+    ## Field10 0.0237                                                                
+    ##         PIRP 11 PIRP 12 PIRP 13
+    ## Field01                        
+    ## Field02                        
+    ## Field03                        
+    ## Field04                        
+    ## Field05                        
+    ## Field06                        
+    ## Field07                        
+    ## Field08                        
+    ## Field09                        
+    ## Field10                        
+    ## Rank 2 
+    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
+    ## Field01 0.8216                                                                
+    ## Field02 0.1463 0.3181  0.383  0.597                                           
+    ## Field03 0.3320                                                                
+    ## Field04 0.4931                                                                
+    ## Field05 0.1596 0.2552                                                         
+    ## Field06 0.2541                                                                
+    ## Field07 0.1232 0.2926  0.217  0.306  0.376                                    
+    ## Field08 0.0648 0.0887  0.236  0.443  0.196  0.285  0.624                      
+    ## Field09 0.1101                                                                
+    ## Field10 0.0359                                                                
+    ##         PIRP 11 PIRP 12 PIRP 13
+    ## Field01                        
+    ## Field02                        
+    ## Field03                        
+    ## Field04                        
+    ## Field05                        
+    ## Field06                        
+    ## Field07                        
+    ## Field08                        
+    ## Field09                        
+    ## Field10                        
+    ## Rank 3 
+    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
+    ## Field01 0.8923                                                                
+    ## Field02 0.8736                                                                
+    ## Field03 0.8030                                                                
+    ## Field04 0.4730  0.492  0.650                                                  
+    ## Field05 0.2732  0.319  0.714                                                  
+    ## Field06 0.4025  0.486                                                         
+    ## Field07 0.3162  0.408                                                         
+    ## Field08 0.1028  0.166  0.177  0.439   0.59                                    
+    ## Field09 0.1799                                                                
+    ## Field10 0.0431                                                                
+    ##         PIRP 11 PIRP 12 PIRP 13
+    ## Field01                        
+    ## Field02                        
+    ## Field03                        
+    ## Field04                        
+    ## Field05                        
+    ## Field06                        
+    ## Field07                        
+    ## Field08                        
+    ## Field09                        
+    ## Field10                        
+    ## Rank 4 
+    ##          PIRP 1   PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9
+    ## Field01 0.91975                                                          
+    ## Field02 0.97126                                                          
+    ## Field03 0.96955                                                          
+    ## Field04 0.70098                                                          
+    ## Field05 0.28691 0.476702  0.911  0.952                                   
+    ## Field06 0.72620                                                          
+    ## Field07 0.48152                                                          
+    ## Field08 0.00353 0.000122  0.370  0.370  0.401  0.532  0.779              
+    ## Field09 0.36220                                                          
+    ## Field10 0.08630                                                          
+    ##         PIRP 10 PIRP 11 PIRP 12 PIRP 13
+    ## Field01                                
+    ## Field02                                
+    ## Field03                                
+    ## Field04                                
+    ## Field05                                
+    ## Field06                                
+    ## Field07                                
+    ## Field08                                
+    ## Field09                                
+    ## Field10                                
+    ## Rank 5 
+    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
+    ## Field01 0.9627                                                                
+    ## Field02 0.9959                                                                
+    ## Field03 0.9947                                                                
+    ## Field04 0.8654                                                                
+    ## Field05 0.9939                                                                
+    ## Field06 0.9178                                                                
+    ## Field07 0.7334                                                                
+    ## Field08 0.5109 0.4442 0.5939 0.9174                                           
+    ## Field09 0.4062 0.5193 0.6496 0.6786  0.851                                    
+    ## Field10 0.0874 0.0278 0.0652 0.0429  0.110  0.117  0.118  0.163  0.217   0.275
+    ##         PIRP 11 PIRP 12 PIRP 13
+    ## Field01                        
+    ## Field02                        
+    ## Field03                        
+    ## Field04                        
+    ## Field05                        
+    ## Field06                        
+    ## Field07                        
+    ## Field08                        
+    ## Field09                        
+    ## Field10   0.262   0.257    0.95
+    ## 
+    ## Marginal Rankluster Reference Matrix
+    ##         Rank 1 Rank 2 Rank 3 Rank 4 Rank 5
+    ## Field01 0.6538 0.8216 0.8923 0.9198  0.963
+    ## Field02 0.0756 0.5069 0.8736 0.9713  0.996
+    ## Field03 0.1835 0.3320 0.8030 0.9696  0.995
+    ## Field04 0.3819 0.4931 0.6271 0.7010  0.865
+    ## Field05 0.0500 0.2072 0.6182 0.9263  0.994
+    ## Field06 0.0985 0.2541 0.4550 0.7262  0.918
+    ## Field07 0.2176 0.3119 0.3738 0.4815  0.733
+    ## Field08 0.0608 0.1723 0.2718 0.5700  0.863
+    ## Field09 0.0563 0.1101 0.1799 0.3622  0.715
+    ## Field10 0.0237 0.0359 0.0431 0.0863  0.377
+    ## 
+    ## IRP Indices
+    ##        Alpha            A Beta         B     Gamma          C
+    ## Rank 1     3  0.198408592    4 0.3819384 0.5555556 -1.1040288
+    ## Rank 2     3  0.161062216    2 0.5068824 0.6666667 -1.0515969
+    ## Rank 3     4 -0.008896938    6 0.4549879 1.0000000 -0.8491448
+    ## Rank 4     4  0.225294055    7 0.4815211 0.6666667 -1.1987322
+    ## Rank 5     7  0.129490652   10 0.3769977 0.6666667 -0.8769418
+    ##                               Rank 1  Rank 2  Rank 3 Rank 4 Rank 5
+    ## Test Reference Profile         4.915   8.744  13.657 18.867 26.488
+    ## Latent Rank Ditribution      163.000  91.000 102.000 91.000 68.000
+    ## Rank Membership Dsitribution 148.275 103.002 105.606 86.100 72.017
+    ## 
+    ## Latent Field Distribution
+    ##            Field 1 Field 2 Field 3 Field 4 Field 5 Field 6 Field 7 Field 8
+    ## N of Items       3       2       2       1       3       3       4       2
+    ##            Field 9 Field 10
+    ## N of Items       8        7
+    ## 
+    ## Model Fit Indices
+    ##                    value
+    ## model_log_like -6804.899
+    ## bench_log_like -5891.314
+    ## null_log_like  -9862.114
+    ## model_Chi_sq    1827.169
+    ## null_Chi_sq     7941.601
+    ## model_df        1088.000
+    ## null_df         1155.000
+    ## NFI                0.770
+    ## RFI                0.756
+    ## IFI                0.892
+    ## TLI                0.884
+    ## CFI                0.891
+    ## RMSEA              0.036
+    ## AIC             -348.831
+    ## CAIC           -4968.595
+    ## BIC            -4966.485
+
+    ## Weakly ordinal alignment condition was satisfied.
+
+![](Readme_files/figure-gfm/unnamed-chunk-16-5.png)<!-- -->
+
+Of course, it also supports various types of plots.
+
+``` r
+plot(result.LDB, type = "Array")
+plot(result.LDB, type = "TRP")
+plot(result.LDB, type = "LRD")
+plot(result.LDB, type = "RMP", students = 1:9, nc = 3, nr = 3)
+plot(result.LDB, type = "FRP", nc = 3, nr = 2)
+```
+
+In this model, you can draw a Field PIRP Profile that visualizes the
+correct answer count for each rank and each field.
+
+``` r
+plot(result.LDB, type = "FieldPIRP")
+```
+
+\`\`\` \## Reference
 
 Shojima, Kojiro (2022) Test Data Engineering: Latent Rank Analysis,
 Biclustering, and Bayesian Network (Behaviormetrics: Quantitative
