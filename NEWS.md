@@ -1,3 +1,7 @@
+# Exametrika 0.11.0 on October 26, 2023.
+
+* BINET is now.
+
 # Exametrika 0.10.0 on October 18, 2023.
 
 * LDB is now available

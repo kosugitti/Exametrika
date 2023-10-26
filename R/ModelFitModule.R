@@ -184,6 +184,69 @@ TestFit <- function(U, Z, ell_A, nparam) {
   )
 }
 
+#' @title Model Fit Functions for saturated model
+#' @description
+#' A general function that returns the model fit indices.
+#' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
+#' it is converted to the Exametrika class with the [dataFormat] function.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param ell_A log likelihood of this model
+#' @param nparam number of parameters for this model
+#' @return
+#' \describe{
+#' \item{model_log_like}{log likelihood of analysis model}
+#' \item{bench_log_like}{log likelihood of benchmark model}
+#' \item{null_log_like}{log likelihood of null model}
+#' \item{model_Chi_sq}{Chi-Square statistics for analysis model}
+#' \item{null_Chi_sq}{Chi-Square statistics for null model}
+#' \item{model_df}{degrees of freedom of analysis model}
+#' \item{null_df}{degrees of freedom of null model}
+#' \item{NFI}{Normed Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{RFI}{Relative Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{IFI}{Incremental Fit Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{TLI}{Tucker-Lewis Index. Lager values closer to 1.0 indicate a better fit.}
+#' \item{CFI}{Comparative Fit Inderx. Lager values closer to 1.0 indicate a better fit.}
+#' \item{RMSEA}{Root Mean Square Error of Approximation. Smaller values closer to 0.0 indicate a better fit.}
+#' \item{AIC}{Akaike Information Criterion. A lower value indicates a better fit.}
+#' \item{CAIC}{Consistent AIC.A lower value indicates a better fit.}
+#' \item{BIC}{Bayesian Information Criterion. A lower value indicates a better fit.}
+#' }
+#' @export
+
+TestFitSaturated <- function(U, Z, ell_A, nparam) {
+  nres <- colSums(Z)
+  nitem <- NCOL(U)
+  nobs <- NROW(U)
+  crr <- colSums(U) / nres
+  const <- exp(-nitem)
+  # Benchmark model
+  ell_B <- 0
+  npattern <- length(as.numeric(table(apply(U, 1, paste, collapse = ""))))
+  bench_nparm <- npattern * nitem
+  # Null model
+  ell_N <- nobs * crr * log(crr + const) + nobs * (1 - crr) * log(1 - crr + const)
+  ell_N <- sum(ell_N)
+  null_nparam <- nitem
+  df_B <- bench_nparm - null_nparam
+  chi_B <- 2 * (ell_B - ell_N)
+  # Analysis model
+  chi_A <- 2 * (ell_B - ell_A)
+  df_A <- bench_nparm - nparam
+
+  indices <- calcFitIndices(chi_A, chi_B, df_A, df_B, nobs)
+  TestFitIndices <- structure(
+    c(list(
+      model_log_like = ell_A,
+      bench_log_like = ell_B,
+      null_log_like = ell_N,
+      model_Chi_sq = chi_A,
+      null_Chi_sq = chi_B,
+      model_df = df_A,
+      null_df = df_B
+    ), indices),
+    class = c("Exametrika", "ModelFit")
+  )
+}
 
 #' @title calc Fit Indices
 #' @description
@@ -209,11 +272,6 @@ TestFit <- function(U, Z, ell_A, nparam) {
 #'
 
 calcFitIndices <- function(chi_A, chi_B, df_A, df_B, nobs) {
-  NFI <- 1 - (chi_A / chi_B)
-  RFI <- 1 - ((chi_A / df_A) / (chi_B / df_B))
-  IFI <- 1 - ((chi_A - df_A) / (chi_B - df_A))
-  TLI <- 1 - ((chi_A / df_A) - 1) / ((chi_B / df_B) - 1)
-  CFI <- 1 - ((chi_A - df_A) / (chi_B - df_B))
   corrected_values <- pmax(chi_A - df_A, 0)
   RMSEA <- sqrt(corrected_values / (df_A * nobs - 1))
 
@@ -221,12 +279,18 @@ calcFitIndices <- function(chi_A, chi_B, df_A, df_B, nobs) {
   CAIC <- chi_A - df_A * log(nobs + 1)
   BIC <- chi_A - df_A * log(nobs)
 
+  NFI <- (chi_A / chi_B)
+  RFI <- ((chi_A / df_A) / (chi_B / df_B))
+  IFI <- ((chi_A - df_A) / (chi_B - df_A))
+  TLI <- ((chi_A / df_A) - 1) / ((chi_B / df_B) - 1)
+  CFI <- ((chi_A - df_A) / (chi_B - df_B))
+
   ## Clip Function
   vars <- list(NFI, RFI, IFI, TLI, CFI)
   names <- c("NFI", "RFI", "IFI", "TLI", "CFI")
 
   for (i in 1:length(vars)) {
-    assign(names[i], pmin(pmax(vars[[i]], 0), 1))
+    assign(names[i], 1 - pmin(pmax(vars[[i]], 0), 1))
   }
 
   for (i in 1:length(chi_A)) {

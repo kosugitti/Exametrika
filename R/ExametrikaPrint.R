@@ -7,6 +7,8 @@
 #' @importFrom utils tail
 #' @importFrom igraph plot.igraph
 #' @importFrom igraph layout_on_grid
+#' @importFrom igraph layout_with_fr
+#' @importFrom igraph E
 #' @export
 
 print.Exametrika <- function(x, digits = 3, ...) {
@@ -401,6 +403,49 @@ print.Exametrika <- function(x, digits = 3, ...) {
       if (!x$SOACflg & x$WOACflg) {
         message("Weakly ordinal alignment condition was satisfied.")
       }
+    },
+    BINET = {
+      cat("Total Graph\n")
+      print(x$all_adj)
+      layout_fr <- layout_with_fr(x$all_g)
+      plot.igraph(x$all_g,
+        layout = layout_fr,
+        edge.label = E(x$all_g)$Field
+      )
+      cat("Estimation of Parameter set\n")
+      for (i in 1:length(x$PSRP)) {
+        cat("Field", i, "\n")
+        print(x$PSRP[[i]], na.print = "", digits = digits)
+      }
+      cat("Local Dependence Passing Student Rate\n")
+      df <- x$LDPSR
+      for (j in 1:NCOL(df)) {
+        if(is.numeric(df[,j])){
+          df[,j] <- sprintf(paste0("%.", digits, "f"),df[,j])
+        }
+        flg <- df[,j]=="NA"
+        df[,j][flg] <- ""
+      }
+      print(df,na.print = "")
+
+      cat("Marginal Bicluster Reference Matrix\n")
+      print(round(x$FRP,digits))
+
+      y <- rbind(x$TRP, x$LCD, x$CMD)
+      rownames(y) <- c(
+        "Test Reference Profile",
+        "Latent Class Ditribution",
+        "Class Membership Dsitribution"
+      )
+      colnames(y) <- paste("Class", 1:x$Nclass)
+      print(round(y, digits))
+
+      cat("\nModel Fit Indices\n")
+      y1 <- unclass(x$MG_FitIndices)
+      y2 <- unclass(x$SM_FitIndices)
+      y <- t(as.data.frame(rbind(y1, y2)))
+      colnames(y) <- c("Multigroup Model", "Saturated Moodel")
+      print(y)
     },
     ModelFit = {
       tmp <- data.frame(unclass(x))

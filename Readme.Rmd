@@ -17,9 +17,6 @@ The Exametrika package is designed for test data engineering and corresponds to 
 + Local Dependence Latent Rank Analysis
 + Structure Learning for LDLRA by PBIL
 + Local Dependence Biclustering
-
-The estimation of the optimal number of ranks using the Chinese Restaurant Process algorithm has not yet been implemented. Additionally, the following models are also planned to be implemented, but are not yet available.
-
 + Biclister Network Model
 
 Exametrika is originally implemented and published as a Mathematica and Excel Add-in. Please refer to the following website for more information.
@@ -410,7 +407,64 @@ In this model, you can draw a Field PIRP Profile that visualizes the correct ans
 plot(result.LDB, type = "FieldPIRP")
 ```
 
+## Bicluster Network Model
+
+Bicluster Network Model: BINET is a model that combines the Bayesian 
+network model and Biclustering. BINET is very similar to LDB and LDR.
+
+The most significant difference is that in LDB, the nodes represent the fields, whereas in BINET, they represent the class. BINET explores the local dependency structure among latent classes at each latent field, where each field is a locus.
+
+To execute this analysis, in addition to the dataset, the same field correspondence file used during exploratory Biclustering is required, as well as an adjacency matrix between classes. 
+
+```{r BINET setting}
+fieldFile <- "develop/mtmk14forVer13/FixFieldBINET.csv"
+edgeFile <- "develop/mtmk14forVer13/EdgesBINET.csv"
+FieldData <- read.csv(fieldFile)
+conf <- FieldData[, 2]
 ```
+
+```{r}
+conf <- FieldData[, 2]
+conf
+```
+
+The adjacency matrix between classes can be provided in a CSV file like as follow:
+
+```{r BINET conf}
+lines <- readLines(edgeFile)
+for (line in lines) {
+  cat(line)
+  cat("\n")
+}
+```
+
+For verification purposes, you also need to specify the number of classes and fields. Once you input these along with the dataset into the function, the analysis will be executed.
+
+
+```{r BINET}
+result.BINET <- BINET(U = J35S515, 
+                      ncls =13, nfld = 12,
+                      conf = conf, adj_file = edgeFile)
+result.BINET
+```
+
+Of course, it also supports various types of plots.
+
+```{r BINET plot}
+plot(result.BINET, type = "Array")
+plot(result.BINET, type = "TRP")
+plot(result.BINET, type = "LCD")
+plot(result.BINET, type = "CMP", students = 1:9, nc = 3, nr = 3)
+plot(result.BINET, type = "FRP", nc = 3, nr = 2)
+```
+
+LDPSR plot shows all Passing Student Rates for all locallyu dependent classes compared with their respective parents.
+
+
+```{r LDPSRplot}
+plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
+```
+
 ## Reference
 
 Shojima, Kojiro (2022) Test Data Engineering: Latent Rank Analysis, Biclustering, and Bayesian Network (Behaviormetrics: Quantitative Approaches to Human Behavior, 13),Springer, [https://amzn.to/42eNArd](https://amzn.to/42eNArd)

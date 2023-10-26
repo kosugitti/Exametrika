@@ -101,7 +101,7 @@ plot.Exametrika <- function(x,
       # Test Reference Profile ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      if (value == "LCA" | value == "LRA" | value == "IRM") {
+      if (value == "LCA" | value == "LRA" | value == "IRM" | value == "BINET") {
         target <- x$LCD
         msg <- "Class"
       } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {
@@ -133,15 +133,15 @@ plot.Exametrika <- function(x,
       # Latent Class Distribution ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      if (value == "LCA" | value == "LRA" | value == "IRM") {
+      if (value == "LCA" | value == "LRA" | value == "IRM" | value == "BINET") {
         target <- x$LCD
-        msg <- "Class"
       } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {
         target <- x$LRD
       }
-      if (is.null(x$CMD)) {
-        x$CMD <- x$RMD
+      if(value=="Biclustering" && x$model ==2){
         msg <- "Rank"
+      }else{
+        msg <- "Class"
       }
 
       bp <- barplot(target,
@@ -286,6 +286,35 @@ plot.Exametrika <- function(x,
       title(main = paste("Rank", i))
     }
   }
+
+  LDPSR <- function() {
+    for (i in 1:length(x$params)) {
+      target <- x$params[[i]]
+      ln <- length(target$fld)
+      lb <- names(target$chap)
+      y1 <- target$pap
+      y2 <- target$chap
+      plot(1:ln, y1,
+        type = "b", xaxt = "n",
+        col = 3, lwd = 2, ylim = c(0, 1),
+        ylab = "Probability",
+        xlab = "",
+        main = paste("Field", i, "items")
+      )
+      lines(1:ln, y2, col = 2, lwd = 2, type = "b")
+      axis(1, at = 1:ln, labels = lb)
+      posx <- length(1:ln)
+      text(
+        x = posx, y = y1[posx], labels = paste("C", target$parent),
+        col = 1, pos = 3, lwd = 2
+      )
+      text(
+        x = posx, y = y2[posx], labels = paste("C", target$child),
+        col = 1, pos = 3, lwd = 2
+      )
+    }
+  }
+
   # Switching function (main) ----------------------------------------
 
   switch(value,
@@ -386,6 +415,19 @@ plot.Exametrika <- function(x,
       }
       if (type == "FieldPIRP") {
         field_PIRP()
+      } else if (type == "Array") {
+        array_plot()
+      } else {
+        graph_common()
+      }
+    },
+    BINET = {
+      valid_types <- c("LCD", "TRP", "CMP", "FRP", "Array", "LDPSR")
+      if (!(type %in% valid_types)) {
+        stop("That type of output is not defined.")
+      }
+      if (type == "LDPSR") {
+        LDPSR()
       } else if (type == "Array") {
         array_plot()
       } else {

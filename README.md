@@ -18,12 +18,6 @@ models.
 - Local Dependence Latent Rank Analysis
 - Structure Learning for LDLRA by PBIL
 - Local Dependence Biclustering
-
-The estimation of the optimal number of ranks using the Chinese
-Restaurant Process algorithm has not yet been implemented. Additionally,
-the following models are also planned to be implemented, but are not yet
-available.
-
 - Biclister Network Model
 
 Exametrika is originally implemented and published as a Mathematica and
@@ -152,7 +146,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101334636 iter 2 LogLik -3938.35072515048 iter 3 LogLik -3931.82434289359 iter 4 LogLik -3928.6800560188 iter 5 LogLik -3926.99361840321 iter 6 LogLik -3926.04839074798 iter 7 LogLik -3925.50653749632 iter 8 LogLik -3925.19180526593 iter 9 LogLik -3925.00732674931 iter 10 LogLik -3924.89894280432 iter 11 LogLik -3924.8349854256 iter 12 LogLik -3924.79706171022 iter 13 LogLik -3924.77459052693 
+    ## iter 1 LogLik -3960.28101332109 iter 2 LogLik -3938.35088190531 iter 3 LogLik -3931.82431817842 iter 4 LogLik -3928.68003633632 iter 5 LogLik -3926.99359100081 iter 6 LogLik -3926.04871166827 iter 7 LogLik -3925.50686016951 iter 8 LogLik -3925.19187405975 iter 9 LogLik -3925.00750447695 iter 10 LogLik -3924.89903833234 iter 11 LogLik -3924.83499840888 iter 12 LogLik -3924.79710139693 iter 13 LogLik -3924.77439263649 
 
 ``` r
 result.IRT
@@ -181,7 +175,7 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
+    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
@@ -204,8 +198,8 @@ result.IRT
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -220,8 +214,8 @@ result.IRT
     ## Item08 -25.250
     ## Item09 -25.505
     ## Item10 -26.121
-    ## Item11 -19.714
-    ## Item12 -20.200
+    ## Item11 -19.713
+    ## Item12 -20.201
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -231,7 +225,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.528
+    ## model_Chi_sq     641.527
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -241,9 +235,9 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.528
-    ## CAIC            -384.212
-    ## BIC             -383.882
+    ## AIC              311.527
+    ## CAIC            -384.213
+    ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
 
@@ -252,12 +246,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526825 0.5805705
-    ## 2 Student002 -0.17398769 0.5473603
-    ## 3 Student003  0.01382281 0.5530500
-    ## 4 Student004  0.57628048 0.5749108
-    ## 5 Student005 -0.97449481 0.5915605
-    ## 6 Student006  0.85233092 0.5820542
+    ## 1 Student001 -0.75526729 0.5805703
+    ## 2 Student002 -0.17398684 0.5473604
+    ## 3 Student003  0.01382365 0.5530501
+    ## 4 Student004  0.57628390 0.5749105
+    ## 5 Student005 -0.97449486 0.5915605
+    ## 6 Student006  0.85233008 0.5820540
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -616,7 +610,7 @@ Biclustering(J35S515, nfld = 5, ncls = 6, method = "B")
 ```
 
     ## [1] "Biclustering is chosen."
-    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687047 iter 4  logLik -7151.01420978008 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434517 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997202 iter 31  logLik -6885.67287118413 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
+    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687047 iter 4  logLik -7151.01420978007 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434516 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997203 iter 31  logLik -6885.67287118412 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
 
     ## Bicluster Matrix Profile
     ##        Class1 Class2 Class3 Class4 Class5 Class6
@@ -780,9 +774,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH b1fa0dd DN-- 5 5 -- 
+    ## IGRAPH 157fb5e DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from b1fa0dd (vertex names):
+    ## + edges from 157fb5e (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -1133,36 +1127,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH 80b4234 DN-- 4 2 -- 
+    ## IGRAPH dc03944 DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from 80b4234 (vertex names):
+    ## + edges from dc03944 (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 01101bc DN-- 9 7 -- 
+    ## IGRAPH aac2457 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 01101bc (vertex names):
+    ## + edges from aac2457 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 85c7827 DN-- 9 7 -- 
+    ## IGRAPH 5a7fc28 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 85c7827 (vertex names):
+    ## + edges from 5a7fc28 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH c84bd2d DN-- 10 8 -- 
+    ## IGRAPH 5f67f35 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from c84bd2d (vertex names):
+    ## + edges from 5f67f35 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH 758e01b DN-- 10 8 -- 
+    ## IGRAPH ab6106f DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 758e01b (vertex names):
+    ## + edges from ab6106f (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -3356,11 +3350,33 @@ Of course, it also supports various types of plots.
 
 ``` r
 plot(result.LDB, type = "Array")
+```
+
+![](Readme_files/figure-gfm/LDB%20plot-1.png)<!-- -->
+
+``` r
 plot(result.LDB, type = "TRP")
+```
+
+![](Readme_files/figure-gfm/LDB%20plot-2.png)<!-- -->
+
+``` r
 plot(result.LDB, type = "LRD")
+```
+
+![](Readme_files/figure-gfm/LDB%20plot-3.png)<!-- -->
+
+``` r
 plot(result.LDB, type = "RMP", students = 1:9, nc = 3, nr = 3)
+```
+
+![](Readme_files/figure-gfm/LDB%20plot-4.png)<!-- -->
+
+``` r
 plot(result.LDB, type = "FRP", nc = 3, nr = 2)
 ```
+
+![](Readme_files/figure-gfm/LDB%20plot-5.png)<!-- -->![](Readme_files/figure-gfm/LDB%20plot-6.png)<!-- -->
 
 In this model, you can draw a Field PIRP Profile that visualizes the
 correct answer count for each rank and each field.
@@ -3369,7 +3385,447 @@ correct answer count for each rank and each field.
 plot(result.LDB, type = "FieldPIRP")
 ```
 
-\`\`\` \## Reference
+![](Readme_files/figure-gfm/LDB%20FieldPIRP-1.png)<!-- -->![](Readme_files/figure-gfm/LDB%20FieldPIRP-2.png)<!-- -->![](Readme_files/figure-gfm/LDB%20FieldPIRP-3.png)<!-- -->![](Readme_files/figure-gfm/LDB%20FieldPIRP-4.png)<!-- -->![](Readme_files/figure-gfm/LDB%20FieldPIRP-5.png)<!-- -->
+
+## Bicluster Network Model
+
+Bicluster Network Model: BINET is a model that combines the Bayesian
+network model and Biclustering. BINET is very similar to LDB and LDR.
+
+The most significant difference is that in LDB, the nodes represent the
+fields, whereas in BINET, they represent the class. BINET explores the
+local dependency structure among latent classes at each latent field,
+where each field is a locus.
+
+To execute this analysis, in addition to the dataset, the same field
+correspondence file used during exploratory Biclustering is required, as
+well as an adjacency matrix between classes.
+
+``` r
+fieldFile <- "develop/mtmk14forVer13/FixFieldBINET.csv"
+edgeFile <- "develop/mtmk14forVer13/EdgesBINET.csv"
+FieldData <- read.csv(fieldFile)
+conf <- FieldData[, 2]
+```
+
+``` r
+conf <- FieldData[, 2]
+conf
+```
+
+    ##  [1]  1  5  5  5  9  9  6  6  6  6  2  7  7 11 11  7  7 12 12 12  2  2  3  3  4
+    ## [26]  4  4  8  8 12  1  1  6 10 10
+
+The adjacency matrix between classes can be provided in a CSV file like
+as follow:
+
+``` r
+lines <- readLines(edgeFile)
+for (line in lines) {
+  cat(line)
+  cat("\n")
+}
+```
+
+    ## From Class (Parent) >>>,>>> To Class (Child),At Field (Locus)
+    ## 1,2,1
+    ## 2,4,2
+    ## 3,5,2
+    ## 4,5,3
+    ## 5,6,4
+    ## 7,11,4
+    ## 2,3,5
+    ## 4,7,5
+    ## 6,9,5
+    ## 8,12,5
+    ## 10,12,5
+    ## 6,10,7
+    ## 6,8,8
+    ## 11,12,8
+    ## 8,12,9
+    ## 9,11,9
+    ## 12,13,12
+
+For verification purposes, you also need to specify the number of
+classes and fields. Once you input these along with the dataset into the
+function, the analysis will be executed.
+
+``` r
+result.BINET <- BINET(U = J35S515, 
+                      ncls =13, nfld = 12,
+                      conf = conf, adj_file = edgeFile)
+result.BINET
+```
+
+    ## Total Graph
+    ##         Class01 Class02 Class03 Class04 Class05 Class06 Class07 Class08 Class09
+    ## Class01       0       1       0       0       0       0       0       0       0
+    ## Class02       0       0       1       1       0       0       0       0       0
+    ## Class03       0       0       0       0       1       0       0       0       0
+    ## Class04       0       0       0       0       1       0       1       0       0
+    ## Class05       0       0       0       0       0       1       0       0       0
+    ## Class06       0       0       0       0       0       0       0       1       1
+    ## Class07       0       0       0       0       0       0       0       0       0
+    ## Class08       0       0       0       0       0       0       0       0       0
+    ## Class09       0       0       0       0       0       0       0       0       0
+    ## Class10       0       0       0       0       0       0       0       0       0
+    ## Class11       0       0       0       0       0       0       0       0       0
+    ## Class12       0       0       0       0       0       0       0       0       0
+    ## Class13       0       0       0       0       0       0       0       0       0
+    ##         Class10 Class11 Class12 Class13
+    ## Class01       0       0       0       0
+    ## Class02       0       0       0       0
+    ## Class03       0       0       0       0
+    ## Class04       0       0       0       0
+    ## Class05       0       0       0       0
+    ## Class06       1       0       0       0
+    ## Class07       0       1       0       0
+    ## Class08       0       0       1       0
+    ## Class09       0       1       0       0
+    ## Class10       0       0       1       0
+    ## Class11       0       0       1       0
+    ## Class12       0       0       0       1
+    ## Class13       0       0       0       0
+
+![](Readme_files/figure-gfm/BINET-1.png)<!-- -->
+
+    ## Estimation of Parameter set
+    ## Field 1 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1   0.000                     
+    ## Class 2   0.554  0.558  0.649       
+    ## Class 3   0.740                     
+    ## Class 4   0.859                     
+    ## Class 5   0.875                     
+    ## Class 6   0.910                     
+    ## Class 7   0.868                     
+    ## Class 8   0.889                     
+    ## Class 9   0.961                     
+    ## Class 10  0.932                     
+    ## Class 11  0.898                     
+    ## Class 12  0.975                     
+    ## Class 13  1.000                     
+    ## Field 2 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.0000                     
+    ## Class 2  0.0090                     
+    ## Class 3  0.0396                     
+    ## Class 4  0.6813  0.785  0.637       
+    ## Class 5  0.4040  0.728  0.696       
+    ## Class 6  0.6877                     
+    ## Class 7  0.8316                     
+    ## Class 8  0.8218                     
+    ## Class 9  1.0000                     
+    ## Class 10 0.9836                     
+    ## Class 11 1.0000                     
+    ## Class 12 1.0000                     
+    ## Class 13 1.0000                     
+    ## Field 3 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1   0.000                     
+    ## Class 2   0.177                     
+    ## Class 3   0.219                     
+    ## Class 4   0.206                     
+    ## Class 5   0.189  0.253              
+    ## Class 6   1.000                     
+    ## Class 7   1.000                     
+    ## Class 8   1.000                     
+    ## Class 9   0.986                     
+    ## Class 10  1.000                     
+    ## Class 11  0.973                     
+    ## Class 12  1.000                     
+    ## Class 13  1.000                     
+    ## Field 4 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.0000                     
+    ## Class 2  0.0127                     
+    ## Class 3  0.1228                     
+    ## Class 4  0.0468                     
+    ## Class 5  0.1131                     
+    ## Class 6  0.6131  0.436  0.179       
+    ## Class 7  0.9775                     
+    ## Class 8  0.9539                     
+    ## Class 9  0.9751                     
+    ## Class 10 0.9660                     
+    ## Class 11 0.9411  0.925  0.757       
+    ## Class 12 1.0000                     
+    ## Class 13 1.0000                     
+    ## Field 5 
+    ##          PSRP 1 PSRP 2  PSRP 3 PSRP 4
+    ## Class 1  0.0000                      
+    ## Class 2  0.0157                      
+    ## Class 3  0.0731  0.330 0.06789       
+    ## Class 4  0.9626                      
+    ## Class 5  0.1028                      
+    ## Class 6  0.2199                      
+    ## Class 7  0.1446  0.265 0.00602       
+    ## Class 8  0.9403                      
+    ## Class 9  0.2936  0.298 0.12080       
+    ## Class 10 0.8255                      
+    ## Class 11 0.9123                      
+    ## Class 12 1.0000  1.000 1.00000       
+    ## Class 13 1.0000                      
+    ## Field 6 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1   0.000                     
+    ## Class 2   0.236                     
+    ## Class 3   0.275                     
+    ## Class 4   0.449                     
+    ## Class 5   0.414                     
+    ## Class 6   0.302                     
+    ## Class 7   0.415                     
+    ## Class 8   0.469                     
+    ## Class 9   0.560                     
+    ## Class 10  0.564                     
+    ## Class 11  0.614                     
+    ## Class 12  0.764                     
+    ## Class 13  1.000                     
+    ## Field 7 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.0000                     
+    ## Class 2  0.0731                     
+    ## Class 3  0.0810                     
+    ## Class 4  0.1924                     
+    ## Class 5  0.1596                     
+    ## Class 6  0.1316                     
+    ## Class 7  0.1263                     
+    ## Class 8  0.1792                     
+    ## Class 9  0.7542                     
+    ## Class 10 0.9818  0.883  0.933  0.975
+    ## Class 11 0.3047                     
+    ## Class 12 0.7862                     
+    ## Class 13 1.0000                     
+    ## Field 8 
+    ##            PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.00e+00                     
+    ## Class 2  9.83e-05                     
+    ## Class 3  3.70e-02                     
+    ## Class 4  3.91e-02                     
+    ## Class 5  4.21e-02                     
+    ## Class 6  6.88e-02                     
+    ## Class 7  4.56e-01                     
+    ## Class 8  1.65e-01  0.192              
+    ## Class 9  6.15e-01                     
+    ## Class 10 3.88e-01                     
+    ## Class 11 3.16e-01                     
+    ## Class 12 1.00e+00  1.000              
+    ## Class 13 1.00e+00                     
+    ## Field 9 
+    ##            PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.00e+00                     
+    ## Class 2  3.13e-16                     
+    ## Class 3  1.61e-02                     
+    ## Class 4  6.15e-01                     
+    ## Class 5  3.46e-02                     
+    ## Class 6  5.26e-02                     
+    ## Class 7  1.44e-11                     
+    ## Class 8  2.09e-01                     
+    ## Class 9  1.90e-17                     
+    ## Class 10 8.09e-01                     
+    ## Class 11 1.00e+00  1.000              
+    ## Class 12 7.81e-01  0.703              
+    ## Class 13 1.00e+00                     
+    ## Field 10 
+    ##          PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.0000                     
+    ## Class 2  0.0952                     
+    ## Class 3  0.1798                     
+    ## Class 4  0.1741                     
+    ## Class 5  0.1594                     
+    ## Class 6  0.1789                     
+    ## Class 7  0.1208                     
+    ## Class 8  0.1550                     
+    ## Class 9  0.2228                     
+    ## Class 10 0.2602                     
+    ## Class 11 0.1724                     
+    ## Class 12 0.3109                     
+    ## Class 13 1.0000                     
+    ## Field 11 
+    ##            PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.00e+00                     
+    ## Class 2  6.13e-14                     
+    ## Class 3  8.84e-07                     
+    ## Class 4  8.14e-02                     
+    ## Class 5  2.46e-02                     
+    ## Class 6  2.13e-02                     
+    ## Class 7  2.56e-02                     
+    ## Class 8  3.84e-16                     
+    ## Class 9  2.44e-01                     
+    ## Class 10 4.30e-01                     
+    ## Class 11 3.84e-02                     
+    ## Class 12 5.86e-01                     
+    ## Class 13 1.00e+00                     
+    ## Field 12 
+    ##            PSRP 1 PSRP 2 PSRP 3 PSRP 4
+    ## Class 1  0.00e+00                     
+    ## Class 2  2.35e-03                     
+    ## Class 3  5.57e-02                     
+    ## Class 4  1.50e-18                     
+    ## Class 5  2.02e-02                     
+    ## Class 6  1.67e-02                     
+    ## Class 7  1.93e-02                     
+    ## Class 8  4.62e-02                     
+    ## Class 9  1.85e-02                     
+    ## Class 10 2.54e-02                     
+    ## Class 11 5.76e-15                     
+    ## Class 12 2.26e-01                     
+    ## Class 13 1.00e+00      1      1      1
+    ## Local Dependence Passing Student Rate
+    ##     Field Field Item 1 Field Item 2 Field Item 3 Field Item 4 Parent Class
+    ## 1   1.000       Item01       Item31       Item32                     1.000
+    ## 2   2.000       Item11       Item21       Item22                     2.000
+    ## 3   2.000       Item11       Item21       Item22                     3.000
+    ## 4   3.000       Item23       Item24                                  4.000
+    ## 5   4.000       Item25       Item26       Item27                     5.000
+    ## 6   4.000       Item25       Item26       Item27                     7.000
+    ## 7   5.000       Item02       Item03       Item04                     2.000
+    ## 8   5.000       Item02       Item03       Item04                     4.000
+    ## 9   5.000       Item02       Item03       Item04                     6.000
+    ## 10  5.000       Item02       Item03       Item04                     8.000
+    ## 11  5.000       Item02       Item03       Item04                    10.000
+    ## 12  7.000       Item12       Item13       Item16       Item17        6.000
+    ## 13  8.000       Item28       Item29                                  6.000
+    ## 14  8.000       Item28       Item29                                 11.000
+    ## 15  9.000       Item05       Item06                                  8.000
+    ## 16  9.000       Item05       Item06                                  9.000
+    ## 17 12.000       Item18       Item19       Item20       Item30       12.000
+    ##    Parent CCR 1 Parent CCR 2 Parent CCR 3 Parent CCR 4 Child Class Child CCR 1
+    ## 1         0.000        0.000        0.000                    2.000       0.554
+    ## 2         0.005        0.018        0.003                    4.000       0.681
+    ## 3         0.034        0.068        0.016                    5.000       0.404
+    ## 4         0.221        0.190                                 5.000       0.189
+    ## 5         0.147        0.050        0.142                    6.000       0.613
+    ## 6         0.999        0.991        0.943                   11.000       0.941
+    ## 7         0.005        0.040        0.002                    3.000       0.073
+    ## 8         0.996        0.998        0.893                    7.000       0.145
+    ## 9         0.263        0.334        0.063                    9.000       0.294
+    ## 10        0.980        0.958        0.882                   12.000       1.000
+    ## 11        0.943        0.800        0.733                   12.000       1.000
+    ## 12        0.181        0.146        0.037        0.162      10.000       0.982
+    ## 13        0.009        0.129                                 8.000       0.165
+    ## 14        0.359        0.273                                12.000       1.000
+    ## 15        0.266        0.152                                12.000       0.781
+    ## 16        0.000        0.000                                11.000       1.000
+    ## 17        0.158        0.178        0.217        0.352      13.000       1.000
+    ##    Child CCR 2 Child CCR 3 Child CCR 4
+    ## 1        0.558       0.649            
+    ## 2        0.785       0.637            
+    ## 3        0.728       0.696            
+    ## 4        0.253                        
+    ## 5        0.436       0.179            
+    ## 6        0.925       0.757            
+    ## 7        0.330       0.068            
+    ## 8        0.265       0.006            
+    ## 9        0.298       0.121            
+    ## 10       1.000       1.000            
+    ## 11       1.000       1.000            
+    ## 12       0.883       0.933       0.975
+    ## 13       0.192                        
+    ## 14       1.000                        
+    ## 15       0.703                        
+    ## 16       1.000                        
+    ## 17       1.000       1.000       1.000
+    ## Marginal Bicluster Reference Matrix
+    ##         Class1 Class2 Class3 Class4 Class5 Class6 Class7 Class8 Class9 Class10
+    ## Field1       0  0.587  0.740  0.859  0.875  0.910  0.868  0.889  0.961   0.932
+    ## Field2       0  0.009  0.040  0.701  0.609  0.688  0.832  0.822  1.000   0.984
+    ## Field3       0  0.177  0.219  0.206  0.221  1.000  1.000  1.000  0.986   1.000
+    ## Field4       0  0.013  0.123  0.047  0.113  0.410  0.978  0.954  0.975   0.966
+    ## Field5       0  0.016  0.157  0.963  0.103  0.220  0.138  0.940  0.237   0.825
+    ## Field6       0  0.236  0.275  0.449  0.414  0.302  0.415  0.469  0.560   0.564
+    ## Field7       0  0.073  0.081  0.192  0.160  0.132  0.126  0.179  0.754   0.943
+    ## Field8       0  0.000  0.037  0.039  0.042  0.069  0.456  0.179  0.615   0.388
+    ## Field9       0  0.000  0.016  0.615  0.035  0.053  0.000  0.209  0.000   0.809
+    ## Field10      0  0.095  0.180  0.174  0.159  0.179  0.121  0.155  0.223   0.260
+    ## Field11      0  0.000  0.000  0.081  0.025  0.021  0.026  0.000  0.244   0.430
+    ## Field12      0  0.002  0.056  0.000  0.020  0.017  0.019  0.046  0.019   0.025
+    ##         Class11 Class12 Class13
+    ## Field1    0.898   0.975       1
+    ## Field2    1.000   1.000       1
+    ## Field3    0.973   1.000       1
+    ## Field4    0.874   1.000       1
+    ## Field5    0.912   1.000       1
+    ## Field6    0.614   0.764       1
+    ## Field7    0.305   0.786       1
+    ## Field8    0.316   1.000       1
+    ## Field9    1.000   0.742       1
+    ## Field10   0.172   0.311       1
+    ## Field11   0.038   0.586       1
+    ## Field12   0.000   0.226       1
+    ##                               Class 1 Class 2 Class 3 Class 4 Class 5 Class 6
+    ## Test Reference Profile          0.000   3.900   6.001  12.951   8.853  11.428
+    ## Latent Class Ditribution        2.000  95.000  73.000  37.000  60.000  44.000
+    ## Class Membership Dsitribution   1.987  82.567  86.281  37.258  60.781  43.222
+    ##                               Class 7 Class 8 Class 9 Class 10 Class 11
+    ## Test Reference Profile         14.305  17.148  19.544   23.589   20.343
+    ## Latent Class Ditribution       43.000  30.000  34.000   18.000   37.000
+    ## Class Membership Dsitribution  43.062  30.087  34.435   20.063   34.811
+    ##                               Class 12 Class 13
+    ## Test Reference Profile          27.076       35
+    ## Latent Class Ditribution        27.000       15
+    ## Class Membership Dsitribution   25.445       15
+    ## 
+    ## Model Fit Indices
+    ##                Multigroup Model Saturated Moodel
+    ## model_log_like -5786.942        -5786.942       
+    ## bench_log_like -5891.314        0               
+    ## null_log_like  -9862.114        -9862.114       
+    ## model_Chi_sq   -208.744         11573.88        
+    ## null_Chi_sq    7941.601         19724.23        
+    ## model_df       1005             16895           
+    ## null_df        1155             17045           
+    ## NFI            1                0.4132149       
+    ## RFI            1                0.4080052       
+    ## IFI            1                1               
+    ## TLI            1                1               
+    ## CFI            1                1               
+    ## RMSEA          0                0               
+    ## AIC            -2218.744        -22216.12       
+    ## CAIC           -6486.081        -93954.09       
+    ## BIC            -6484.132        -93921.32
+
+Of course, it also supports various types of plots.
+
+``` r
+plot(result.BINET, type = "Array")
+```
+
+![](Readme_files/figure-gfm/BINET%20plot-1.png)<!-- -->
+
+``` r
+plot(result.BINET, type = "TRP")
+```
+
+![](Readme_files/figure-gfm/BINET%20plot-2.png)<!-- -->
+
+``` r
+plot(result.BINET, type = "LCD")
+```
+
+![](Readme_files/figure-gfm/BINET%20plot-3.png)<!-- -->
+
+``` r
+plot(result.BINET, type = "CMP", students = 1:9, nc = 3, nr = 3)
+```
+
+![](Readme_files/figure-gfm/BINET%20plot-4.png)<!-- -->
+
+``` r
+plot(result.BINET, type = "FRP", nc = 3, nr = 2)
+```
+
+![](Readme_files/figure-gfm/BINET%20plot-5.png)<!-- -->![](Readme_files/figure-gfm/BINET%20plot-6.png)<!-- -->
+
+LDPSR plot shows all Passing Student Rates for all locallyu dependent
+classes compared with their respective parents.
+
+``` r
+plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
+```
+
+![](Readme_files/figure-gfm/LDPSRplot-1.png)<!-- -->![](Readme_files/figure-gfm/LDPSRplot-2.png)<!-- -->![](Readme_files/figure-gfm/LDPSRplot-3.png)<!-- -->
+
+## Reference
 
 Shojima, Kojiro (2022) Test Data Engineering: Latent Rank Analysis,
 Biclustering, and Bayesian Network (Behaviormetrics: Quantitative

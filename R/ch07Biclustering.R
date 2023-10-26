@@ -1,3 +1,15 @@
+#' @title softmax function
+#' @description
+#' to avoid overflow
+#' @param x nummeric vector
+#'
+
+softmax <- function(x) {
+  x_max <- max(x)
+  x <- x - x_max
+  return(exp(x) / sum(exp(x)))
+}
+
 #' @title Biclustering and Ranklustering
 #' @description
 #' performs biclustering, rankclustering, and their confirmative models.
@@ -59,6 +71,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   testlength <- NCOL(tmp$U)
   nobs <- NROW(tmp$U)
   const <- exp(-testlength)
+  ret.TS <- TestStatistics(tmp)
 
   if (method == "B" | method == "Biclustering") {
     if (verbose) {
@@ -70,6 +83,11 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
       print("Ranklustering is chosen.")
     }
     model <- 2
+  } else if (method == "BINET") {
+    if (verbose) {
+      print("BINET is chosen.")
+    }
+    model <- 3
   } else {
     stop("The method must be selected as either Biclustering or Ranklustering.")
   }
@@ -111,6 +129,17 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     stop("Please set the number of classes to a number between 2 and less than 20.")
   }
 
+  if (model == 3) {
+    zero_scorer <- ifelse(ret.TS$Min == 0, 1, 0)
+    full_scorer <- ifelse(ret.TS$Max == testlength, 1, 0)
+    if (ncls < zero_scorer + full_scorer + 1) {
+      stop(paste(
+        "The number of class must be more than ",
+        zero_scorer + full_scorer + 1, "."
+      ))
+    }
+  }
+
   ### Algorithm
   beta1 <- 1
   beta2 <- 1
@@ -126,7 +155,7 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
   for (i in 1:testlength) {
     fldmemb[i, fld[i]] <- 1
   }
-
+  ## Confirmatory Biclustering
   if (!any(is.null(conf_mat))) {
     fldmemb <- conf_mat
   }
@@ -137,8 +166,17 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
       PiFR[i, j] <- (nfld - i + j) / (nfld + ncls)
     }
   }
+  # For BINET
+  if (model == 3) {
+    if (zero_scorer == 1) {
+      PiFR[, 1] <- 0
+    }
+    if (full_scorer == 1) {
+      PiFR[, ncls] <- 1
+    }
+  }
 
-  if (model == 1) {
+  if (model != 2) {
     Fil <- diag(rep(1, ncls))
   } else {
     f0 <- ifelse(ncls < 5, 1.05 - 0.05 * ncls,
@@ -152,7 +190,6 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     Fil[, 1] <- Fil[, 1] / sum(Fil[, 1])
     Fil[, ncls] <- Fil[, ncls] / sum(Fil[, ncls])
   }
-
 
   ## Algorithm
   FLG <- TRUE
@@ -170,9 +207,10 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     csr <- tmp$U %*% fldmemb
     fsr <- (tmp$Z * (1 - tmp$U)) %*% fldmemb
     llsr <- csr %*% log(PiFR + const) + fsr %*% log(1 - PiFR + const)
-    minllsr <- apply(llsr, 1, min)
-    expllsr <- exp(llsr - minllsr)
-    clsmemb <- round(expllsr / rowSums(expllsr), 1e8)
+    # minllsr <- apply(llsr, 1, min)
+    # expllsr <- exp(llsr - minllsr)
+    # clsmemb <- round(expllsr / rowSums(expllsr), 1e8)
+    clsmemb <- t(apply(llsr, 1, softmax))
 
     smoothed_memb <- clsmemb %*% Fil
 
@@ -180,22 +218,30 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     fjr <- t(tmp$Z * (1 - tmp$U)) %*% smoothed_memb
     lljf <- cjr %*% log(t(PiFR) + const) + fjr %*% log(t(1 - PiFR) + const)
 
-    max_log_lljf <- apply(lljf, 1, max)
-    log_lljf_adj <- lljf - max_log_lljf
-    log_fldmemb <- log_lljf_adj - log(rowSums(exp(log_lljf_adj)))
-    fldmemb <- exp(log_fldmemb)
+    # max_log_lljf <- apply(lljf, 1, max)
+    # log_lljf_adj <- lljf - max_log_lljf
+    # log_fldmemb <- log_lljf_adj - log(rowSums(exp(log_lljf_adj)))
+    fldmemb <- t(apply(lljf, 1, softmax))
 
     if (!any(is.null(conf_mat))) {
       fldmemb <- conf_mat
     }
+
     cfr <- t(fldmemb) %*% t(tmp$U) %*% smoothed_memb
     ffr <- t(fldmemb) %*% t(tmp$Z * (1 - tmp$U)) %*% smoothed_memb
     oldPiFR <- PiFR
     PiFR <- (cfr + beta1 - 1) / (cfr + ffr + beta1 + beta2 - 2)
+    if (model == 3) {
+      if (zero_scorer == 1) {
+        PiFR[, 1] <- 0
+      }
+      if (full_scorer == 1) {
+        PiFR[, ncls] <- 1
+      }
+    }
     if (mic) {
       PiFR <- t(apply(PiFR, 1, sort))
     }
-
     if (any(is.nan(cfr))) {
       stop("The calculation diverged during the process. Please adjust your settings appropriately")
     }
@@ -240,10 +286,10 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     )
   }
 
-  if (model == 1) {
-    msg1 <- "Class"
-  } else {
+  if (model == 2) {
     msg1 <- "Rank"
+  } else {
+    msg1 <- "Class"
   }
   FRP <- PiFR
   colnames(FRP) <- paste0(msg1, 1:ncls)
