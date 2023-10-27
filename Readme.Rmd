@@ -442,9 +442,11 @@ For verification purposes, you also need to specify the number of classes and fi
 
 
 ```{r BINET}
-result.BINET <- BINET(U = J35S515, 
-                      ncls =13, nfld = 12,
-                      conf = conf, adj_file = edgeFile)
+result.BINET <- BINET(
+  U = J35S515,
+  ncls = 13, nfld = 12,
+  conf = conf, adj_file = edgeFile
+)
 result.BINET
 ```
 

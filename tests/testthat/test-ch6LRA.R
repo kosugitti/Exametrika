@@ -9,8 +9,7 @@ student <- read_excel("../../develop/Chapter06LRA(GTMmic0).xlsx", sheet = "Stude
 
 
 ### Target
-dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
-  mutate(Student = as.factor(Student))
+dat <- J15S500
 
 tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
@@ -68,7 +67,9 @@ test_that("LRA Item Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- model$IRPIndex |> as.numeric()
+  result <- model$IRPIndex |>
+    unlist() |>
+    as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
   ## FitIndex
   expect <- items[, c(22, 18, 19, 23, 20, 24, 21, 25:33)] |>
@@ -94,7 +95,9 @@ test_that("LRA Student Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- model$IRPIndex |> as.numeric()
+  result <- model$IRPIndex |>
+    unlist() |>
+    as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
   ## FitIndex
   expect <- items[, c(22, 18, 19, 23, 20, 24, 21, 25:33)] |>

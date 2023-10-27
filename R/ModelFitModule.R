@@ -273,7 +273,7 @@ TestFitSaturated <- function(U, Z, ell_A, nparam) {
 
 calcFitIndices <- function(chi_A, chi_B, df_A, df_B, nobs) {
   corrected_values <- pmax(chi_A - df_A, 0)
-  RMSEA <- sqrt(corrected_values / (df_A * nobs - 1))
+  RMSEA <- sqrt(corrected_values / (df_A * (nobs - 1)))
 
   AIC <- chi_A - 2 * df_A
   CAIC <- chi_A - df_A * log(nobs + 1)

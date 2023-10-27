@@ -119,7 +119,7 @@ test_that("LCA Test Info", {
 })
 
 
-test_that("LCA Class Info", {
+test_that("LRA Class Info", {
   ## FRP
   expect <- Rankluster[1:5, 2:7] |>
     unlist() |>
@@ -158,6 +158,7 @@ test_that("LCA Class Info", {
     unname() |>
     as.vector()
   result <- Bic$FRPIndex |>
+    unlist() |>
     unname() |>
     as.vector()
   expect_equal(result, expect, tolerance = 1e-4)

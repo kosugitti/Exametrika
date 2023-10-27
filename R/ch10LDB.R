@@ -257,11 +257,24 @@ LDB <- function(U, Z = NULL, w = NULL, na = NULL,
     g_list[[i]] <- igraph::graph_from_adjacency_matrix(adj_list[[i]])
   }
 
+  CCRR_table <- as.data.frame(matrix(NA, nrow = ncls * nfld, ncol = 2 + Dmax))
+  colnames(CCRR_table) <- c(
+    "Rank", "Field", paste("PIRP", 0:(Dmax - 1))
+  )
+  CCRR_table[, 1] <- rep(paste("Rank", 1:ncls), each = nfld)
+  CCRR_table[, 2] <- rep(paste("Field", 1:nfld), ncls)
+  table_tmp <- param[1, , ]
+  for (i in 2:ncls) {
+    table_tmp <- rbind(table_tmp, param[i, , ])
+  }
+  table_tmp[table_tmp == 0] <- NA
+  CCRR_table[, 3:NCOL(CCRR_table)] <- table_tmp
+
   colnames(pifr) <- FieldLabel
   rownames(pifr) <- paste("Rank", 1:NROW(pifr))
   pifr <- t(pifr)
 
-  FRPIndex <- IRPindex(t(pifr))
+  FRPIndex <- IRPindex(pifr)
   TRP <- t(t(pifr) %*% flddist)
   RMD <- clsmembdist
   TRPlag <- TRP[2:ncls]
@@ -290,6 +303,7 @@ LDB <- function(U, Z = NULL, w = NULL, na = NULL,
     LFD = flddist,
     LRD = clsdist,
     FRP = pifr,
+    CCRR_table = CCRR_table,
     FRPIndex = FRPIndex,
     TRP = TRP,
     RMD = colSums(clsmemb),

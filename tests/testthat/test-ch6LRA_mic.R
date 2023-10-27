@@ -68,7 +68,9 @@ test_that("LRA Item Info2 IRPindex", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- model$IRPIndex |> as.numeric()
+  result <- model$IRPIndex |>
+    unlist() |>
+    as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
 })
 
@@ -92,14 +94,18 @@ test_that("LRA Student Info", {
     unlist() |>
     unname() |>
     as.numeric()
-  result <- model$IRP |> as.numeric()
+  result <- model$IRP |>
+    unlist() |>
+    as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
   ## IRP index
   expect <- items[, 12:17] |>
     unlist() |>
     unname() |>
     as.numeric()
-  result <- model$IRPIndex |> as.numeric()
+  result <- model$IRPIndex |>
+    unlist() |>
+    as.numeric()
   expect_equal(result, expect, tolerance = 1e-4)
   ## FitIndex
   expect <- items[, c(22, 18, 19, 23, 20, 24, 21, 25:33)] |>

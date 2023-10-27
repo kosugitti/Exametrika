@@ -289,7 +289,7 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
     model_msg <- "Rank"
   }
 
-  colnames(Estimation_table) <- c("Item", model_msg, paste("RIRP", 1:npapat))
+  colnames(Estimation_table) <- c("Item", model_msg, paste("PIRP", 1:npapat))
   Estimation_table[, 1] <- rep(tmp$ItemLabel, ncls)
   Estimation_table[, 2] <- rep(1:ncls, each = testlength)
 
@@ -311,10 +311,10 @@ LDLRA <- function(U, Z = NULL, w = NULL, na = NULL,
       if (length(parent[[i]][[j]]) == 1 && parent[[i]][[j]] == "") {
         max_k <- 1
         l2 <- l2 + 1
-        parent_items[l2] <- "No parents"
+        parent_items[l2] <- "No Parents"
       } else {
         max_k <- 2^length(parent[[i]][[j]])
-        word <- paste(unlist(parent[[i]][[j]]), collapse = ",")
+        word <- paste(unlist(parent[[i]][[j]]), collapse = ", ")
         rep_times <- 2^length(parent[[i]][[j]])
         for (k in 1:rep_times) {
           l2 <- l2 + 1

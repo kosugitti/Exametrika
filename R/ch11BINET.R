@@ -26,7 +26,7 @@
 #' @export
 
 BINET <- function(U, Z = NULL, w = NULL, na = NULL,
-                  conf = NULL,ncls=NULL,nfld=NULL,
+                  conf = NULL, ncls = NULL, nfld = NULL,
                   g_list = NULL, adj_list = NULL, adj_file = NULL,
                   verbose = FALSE) {
   # data format
@@ -39,10 +39,10 @@ BINET <- function(U, Z = NULL, w = NULL, na = NULL,
   testlength <- NCOL(tmp$U)
   nobs <- NROW(tmp$U)
 
-  if(is.null(ncls)){
+  if (is.null(ncls)) {
     stop("Please specify the appropriate number of classes")
   }
-  if(is.null(nfld)){
+  if (is.null(nfld)) {
     stop("Please specify the appropriate number of fields.")
   }
 

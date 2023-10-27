@@ -366,7 +366,7 @@ print.Exametrika <- function(x, digits = 3, ...) {
         tbl <- x$IRP[i, , ]
         tbl[tbl == 0] <- NA
         rownames(tbl) <- x$FieldLabel
-        colnames(tbl) <- paste("PIRP", 1:NCOL(tbl))
+        colnames(tbl) <- paste("PIRP", 0:(NCOL(tbl) - 1))
         cat(paste("Rank", i, "\n"))
         print(tbl, na.print = "", digits = digits)
       }
@@ -420,16 +420,16 @@ print.Exametrika <- function(x, digits = 3, ...) {
       cat("Local Dependence Passing Student Rate\n")
       df <- x$LDPSR
       for (j in 1:NCOL(df)) {
-        if(is.numeric(df[,j])){
-          df[,j] <- sprintf(paste0("%.", digits, "f"),df[,j])
+        if (is.numeric(df[, j])) {
+          df[, j] <- sprintf(paste0("%.", digits, "f"), df[, j])
         }
-        flg <- df[,j]=="NA"
-        df[,j][flg] <- ""
+        flg <- df[, j] == "NA"
+        df[, j][flg] <- ""
       }
-      print(df,na.print = "")
+      print(df, na.print = "")
 
       cat("Marginal Bicluster Reference Matrix\n")
-      print(round(x$FRP,digits))
+      print(round(x$FRP, digits))
 
       y <- rbind(x$TRP, x$LCD, x$CMD)
       rownames(y) <- c(

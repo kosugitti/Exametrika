@@ -138,9 +138,9 @@ plot.Exametrika <- function(x,
       } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {
         target <- x$LRD
       }
-      if(value=="Biclustering" && x$model ==2){
+      if (value == "Biclustering" && x$model == 2) {
         msg <- "Rank"
-      }else{
+      } else {
         msg <- "Class"
       }
 
