@@ -20,6 +20,40 @@
 #' @param adj_file A file detailing the relationships of the graph for each rank/class,
 #' listed in the order of starting point, ending point, and rank(class).
 #' @param verbose verbose output Flag. default is TRUE
+#' @return
+#' \describe{
+#'  \item{nobs}{Sample size. The number of rows in the dataset.}
+#'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{Nclass}{Optimal number of classes.}
+#'  \item{Nfield}{Optimal number of fields.}
+#'  \item{crr}{Correct Response Rate}
+#'  \item{ItemLabel}{Label of Items}
+#'  \item{FieldLabel}{Label of Fields}
+#'  \item{adj_list}{List of Adjacency matrix used in the model}
+#'  \item{g_list}{List of graph object used in the model}
+#'  \item{IRP}{List of Estimated Parameters. This objetct is three-dimensional
+#'  PIRP array, where each dimension represents the number of rank,number
+#'  of field, and Dmax. Dmax denotes the maximum number of correct response
+#'  patterns for each field.}
+#'  \item{LFD}{Latent Field Distribution. see also [plot.Exametrika]}
+#'  \item{LRD}{Latent Rank Distribution. see also [plot.Exametrika]}
+#'  \item{FRP}{Marginal Field Reference Matrix}
+#'  \item{FRPIndex}{Index of FFP includes the item location parameters B and Beta,
+#'  the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
+#'  \item{CCRR_table}{This table is a rearrangement of IRP into a data.frame
+#'  format for output, consisting of combinations of rank ,field and PIRP.}
+#'  \item{TRP}{Test Reference Profile}
+#'  \item{RMD}{Rank Membership Distribution.}
+#'  \item{FieldEstimated}{Given vector which correspondence between items
+#'  and the fields.}
+#'  \item{ClassEstimated}{An index indicating which class a student belongs
+#'  to, estimated by confirmatory Ranklustering.}
+#'  \item{Students}{Rank Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_R}, \eqn{\hat{m}_R}, is the
+#' rank membership profile of Student s, namely the posterior probability distribution representing the student's
+#' belonging to the respective latent classes. It also includes the rank with the maximum estimated membership probability,
+#' as well as the rank-up odds and rank-down odds.}
+#'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
+#' }
 #' @export
 
 LDB <- function(U, Z = NULL, w = NULL, na = NULL,

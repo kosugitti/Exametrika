@@ -23,6 +23,48 @@
 #' @param adj_file A file detailing the relationships of the graph for each rank/class,
 #' listed in the order of starting point, ending point, and rank(class).
 #' @param verbose verbose output Flag. default is TRUE
+#' @return
+#' \describe{
+#'  \item{nobs}{Sample size. The number of rows in the dataset.}
+#'  \item{testlength}{Length of the test. The number of items included in the test.}
+#'  \item{Nclass}{Optimal number of classes.}
+#'  \item{Nfield}{Optimal number of fields.}
+#'  \item{crr}{Correct Response Rate}
+#'  \item{ItemLabel}{Label of Items}
+#'  \item{FieldLabel}{Label of Fields}
+#'  \item{all_adj}{Integrated Adjacency matrix used to plot graph.}
+#'  \item{all_g}{Integrated graph object used to plot graph.see also
+#'  [plot.Exametrika]}
+#'  \item{adj_list}{List of Adjacency matrix used in the model}
+#'  \item{params}{A list of the estimated conditional probabilities.
+#'  It indicates which path was obtained from which parent node(class) to
+#'  which child node(class), held by `parent`, `child`, and `field`. The item
+#'  Items contained in the field is in `fld`. Named `chap` includes the
+#'  conditonal correct response answer rate of the child node, while `pap`
+#'  contains the pass rate of the parent node.}
+#'  \item{PSRP}{Response pattern by the students belonging to the parent
+#'  classes of Class c. A more comprehensible arrangement of `params.`}
+#'  \item{LCD}{Latent Class Distribution. see also [plot.Exametrika]}
+#'  \item{LFD}{Latent Field Distribution. see also [plot.Exametrika]}
+#'  \item{CMD}{Class Membership Distribution.}
+#'  \item{FRP}{Marginal bicluster reference matrix.}
+#'  \item{FRPIndex}{Index of FFP includes the item location parameters B and Beta,
+#'  the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
+#'  \item{TRP}{Test Reference Profile}
+#'  \item{LDPSR}{A rearranged set of parameters for output. It includes
+#'  the field the items contained within that field, and the conditional
+#'  correct response rate of parent nodes(class) and child node(class).}
+#'  \item{FieldEstimated}{Given vector which correspondence between items
+#'  and the fields.}
+#'  \item{Students}{Rank Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_R}, \eqn{\hat{m}_R}, is the
+#' rank membership profile of Student s, namely the posterior probability distribution representing the student's
+#' belonging to the respective latent classes. }
+#' \item{NextStage}{The next class that easiest for students to move to,
+#' its membership probability, class-up odds, and the field required for
+#' mobe.}
+#'  \item{MG_FitIndices}{Multigroup as Null model.See also [TestFit]}
+#'  \item{SM_FitIndices}{Saturated Model as Null model.See also [TestFit]}
+#' }
 #' @export
 
 BINET <- function(U, Z = NULL, w = NULL, na = NULL,

@@ -146,7 +146,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101332109 iter 2 LogLik -3938.35088190531 iter 3 LogLik -3931.82431817842 iter 4 LogLik -3928.68003633632 iter 5 LogLik -3926.99359100081 iter 6 LogLik -3926.04871166827 iter 7 LogLik -3925.50686016951 iter 8 LogLik -3925.19187405975 iter 9 LogLik -3925.00750447695 iter 10 LogLik -3924.89903833234 iter 11 LogLik -3924.83499840888 iter 12 LogLik -3924.79710139693 iter 13 LogLik -3924.77439263649 
+    ## iter 1 LogLik -3960.2810133382 iter 2 LogLik -3938.35086548093 iter 3 LogLik -3931.82426587368 iter 4 LogLik -3928.67997507651 iter 5 LogLik -3926.99347122849 iter 6 LogLik -3926.0483773557 iter 7 LogLik -3925.50626968241 iter 8 LogLik -3925.19163689198 iter 9 LogLik -3925.00738020734 iter 10 LogLik -3924.89897545827 iter 11 LogLik -3924.83500732004 iter 12 LogLik -3924.79717664529 iter 13 LogLik -3924.77452775533 
 
 ``` r
 result.IRT
@@ -175,7 +175,7 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
+    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
@@ -192,7 +192,7 @@ result.IRT
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
-    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.085 29.196 -17.186
+    ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.086 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
     ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
@@ -225,7 +225,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.527
+    ## model_Chi_sq     641.528
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -235,8 +235,8 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.527
-    ## CAIC            -384.213
+    ## AIC              311.528
+    ## CAIC            -384.212
     ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
@@ -246,12 +246,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526729 0.5805703
-    ## 2 Student002 -0.17398684 0.5473604
-    ## 3 Student003  0.01382365 0.5530501
-    ## 4 Student004  0.57628390 0.5749105
-    ## 5 Student005 -0.97449486 0.5915605
-    ## 6 Student006  0.85233008 0.5820540
+    ## 1 Student001 -0.75526315 0.5805691
+    ## 2 Student002 -0.17398783 0.5473605
+    ## 3 Student003  0.01382274 0.5530502
+    ## 4 Student004  0.57628308 0.5749114
+    ## 5 Student005 -0.97449552 0.5915604
+    ## 6 Student006  0.85232857 0.5820536
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -331,7 +331,7 @@ LCA(J15S500, ncls = 5)
     ## Item15       -268.616       -254.764      -302.847       27.705      96.166
     ##        model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA     AIC     CAIC
     ## Item01        9      13 0.444 0.197 0.496 0.232 0.468 0.093  29.978   -7.972
-    ## Item02        9      13 0.519 0.305 0.579 0.359 0.556 0.085  23.853  -14.097
+    ## Item02        9      13 0.519 0.305 0.579 0.359 0.556 0.086  23.853  -14.097
     ## Item03        9      13 1.000 1.000 1.000 1.000 1.000 0.000 -64.037 -101.987
     ## Item04        9      13 0.777 0.678 0.828 0.744 0.822 0.073  14.928  -23.022
     ## Item05        9      13 0.513 0.296 0.576 0.352 0.552 0.083  21.819  -16.130
@@ -344,7 +344,7 @@ LCA(J15S500, ncls = 5)
     ## Item12        9      13 0.778 0.679 0.825 0.740 0.820 0.076  17.020  -20.930
     ## Item13        9      13 0.915 0.878 0.982 0.973 0.981 0.022  -6.768  -44.717
     ## Item14        9      13 1.000 1.000 1.000 1.000 1.000 0.000 -20.969  -58.919
-    ## Item15        9      13 0.712 0.584 0.785 0.675 0.775 0.064   9.705  -28.244
+    ## Item15        9      13 0.712 0.584 0.785 0.675 0.775 0.065   9.705  -28.244
     ##             BIC
     ## Item01   -7.954
     ## Item02  -14.079
@@ -498,9 +498,9 @@ LRA(J15S500, ncls = 6)
     ##        model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA    AIC    CAIC
     ## Item01    9.233      13 0.437 0.207 0.489 0.244 0.463 0.092 30.146  -8.785
     ## Item02    9.233      13 0.593 0.427 0.664 0.502 0.646 0.075 16.944 -21.987
-    ## Item03    9.233      13 0.331 0.058 0.385 0.072 0.341 0.086 25.293 -13.638
+    ## Item03    9.233      13 0.331 0.058 0.385 0.072 0.341 0.087 25.293 -13.638
     ## Item04    9.233      13 0.797 0.714 0.850 0.783 0.846 0.067 11.555 -27.375
-    ## Item05    9.233      13 0.306 0.023 0.345 0.027 0.309 0.101 38.264  -0.667
+    ## Item05    9.233      13 0.306 0.023 0.345 0.027 0.309 0.102 38.264  -0.667
     ## Item06    9.233      13 0.682 0.552 0.760 0.646 0.748 0.065 10.091 -28.840
     ## Item07    9.233      13 0.679 0.548 0.727 0.604 0.718 0.088 26.504 -12.427
     ## Item08    9.233      13 0.574 0.401 0.639 0.467 0.622 0.080 20.326 -18.605
@@ -774,9 +774,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH 157fb5e DN-- 5 5 -- 
+    ## IGRAPH 52b6e10 DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from 157fb5e (vertex names):
+    ## + edges from 52b6e10 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -864,7 +864,7 @@ result.BNM
     ## IFI              0.248
     ## TLI              0.000
     ## CFI              0.000
-    ## RMSEA            0.274
+    ## RMSEA            0.288
     ## AIC             -5.047
     ## CAIC           -13.005
     ## BIC            -11.099
@@ -946,7 +946,7 @@ StrLearningGA_BNM(J5S10,
     ## IFI              0.242
     ## TLI              0.157
     ## CFI              0.191
-    ## RMSEA            0.225
+    ## RMSEA            0.236
     ## AIC            -11.952
     ## CAIC           -21.502
     ## BIC            -19.214
@@ -1046,7 +1046,7 @@ StrLearningPBIL_BNM(J5S10,
     ## IFI              0.242
     ## TLI              0.157
     ## CFI              0.191
-    ## RMSEA            0.225
+    ## RMSEA            0.236
     ## AIC            -11.952
     ## CAIC           -21.502
     ## BIC            -19.214
@@ -1127,36 +1127,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH dc03944 DN-- 4 2 -- 
+    ## IGRAPH cec6c58 DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from dc03944 (vertex names):
+    ## + edges from cec6c58 (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH aac2457 DN-- 9 7 -- 
+    ## IGRAPH 1d21d2d DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from aac2457 (vertex names):
+    ## + edges from 1d21d2d (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 5a7fc28 DN-- 9 7 -- 
+    ## IGRAPH 3752435 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 5a7fc28 (vertex names):
+    ## + edges from 3752435 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH 5f67f35 DN-- 10 8 -- 
+    ## IGRAPH 323e622 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 5f67f35 (vertex names):
+    ## + edges from 323e622 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH ab6106f DN-- 10 8 -- 
+    ## IGRAPH 22ea905 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from ab6106f (vertex names):
+    ## + edges from 22ea905 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -1389,7 +1389,7 @@ result.LDLRA
 
     ## 
     ## Parameter Learning
-    ##      Item Rank RIRP 1 RIRP 2 RIRP 3 RIRP 4
+    ##      Item Rank PIRP 1 PIRP 2 PIRP 3 PIRP 4
     ## 1  Item01    1  0.456                     
     ## 2  Item02    1  0.030  0.444              
     ## 3  Item03    1  0.083                     
@@ -1452,107 +1452,107 @@ result.LDLRA
     ## 60 Item12    5  0.153  0.341              
     ## 
     ## Conditional Correct Response Rate
-    ##     Child Item Rank N of Parents  Parent Items       PIRP Conditional CRR
-    ## 1       Item01    1            0    No parents No Pattern         0.45558
-    ## 2       Item02    1            1        Item01          0         0.03025
-    ## 3       Item02    1            1        Item01          1         0.44394
-    ## 4       Item03    1            0    No parents No Pattern         0.08278
-    ## 5       Item04    1            0    No parents No Pattern         0.42148
-    ## 6       Item05    1            1        Item04          0         0.10127
-    ## 7       Item05    1            1        Item04          1         0.24025
-    ## 8       Item06    1            0    No parents No Pattern         0.02499
-    ## 9       Item07    1            0    No parents No Pattern         0.01574
-    ## 10      Item08    1            0    No parents No Pattern         0.28642
-    ## 11      Item09    1            0    No parents No Pattern         0.32630
-    ## 12      Item10    1            0    No parents No Pattern         0.18092
-    ## 13      Item11    1            0    No parents No Pattern         0.10575
-    ## 14      Item12    1            0    No parents No Pattern         0.05523
-    ## 15      Item01    2            0    No parents No Pattern         0.54940
-    ## 16      Item02    2            1        Item01          0         0.03471
-    ## 17      Item02    2            1        Item01          1         0.56821
-    ## 18      Item03    2            1        Item02          0         0.02016
-    ## 19      Item03    2            1        Item02          1         0.45853
-    ## 20      Item04    2            0    No parents No Pattern         0.49508
-    ## 21      Item05    2            1        Item04          0         0.14771
-    ## 22      Item05    2            1        Item04          1         0.35073
-    ## 23      Item06    2            0    No parents No Pattern         0.06647
-    ## 24      Item07    2            0    No parents No Pattern         0.04491
-    ## 25      Item08    2            0    No parents No Pattern         0.40721
-    ## 26      Item09    2            1        Item08          0         0.26431
-    ## 27      Item09    2            1        Item08          1         0.73427
-    ## 28      Item10    2            2 Item08,Item09         00         0.08098
-    ## 29      Item10    2            2 Item08,Item09         01         0.13279
-    ## 30      Item10    2            2 Item08,Item09         10         0.15937
-    ## 31      Item10    2            2 Item08,Item09         11         0.74499
-    ## 32      Item11    2            1        Item08          0         0.04094
-    ## 33      Item11    2            1        Item08          1         0.44457
-    ## 34      Item12    2            0    No parents No Pattern         0.08574
-    ## 35      Item01    3            0    No parents No Pattern         0.68342
-    ## 36      Item02    3            1        Item01          0         0.04020
-    ## 37      Item02    3            1        Item01          1         0.72757
-    ## 38      Item03    3            1        Item02          0         0.03175
-    ## 39      Item03    3            1        Item02          1         0.61691
-    ## 40      Item04    3            0    No parents No Pattern         0.61195
-    ## 41      Item05    3            1        Item04          0         0.22705
-    ## 42      Item05    3            1        Item04          1         0.55588
-    ## 43      Item06    3            0    No parents No Pattern         0.20488
-    ## 44      Item07    3            0    No parents No Pattern         0.15633
-    ## 45      Item08    3            0    No parents No Pattern         0.58065
-    ## 46      Item09    3            1        Item08          0         0.32967
-    ## 47      Item09    3            1        Item08          1         0.84549
-    ## 48      Item10    3            2 Item08,Item09         00         0.09192
-    ## 49      Item10    3            2 Item08,Item09         01         0.15977
-    ## 50      Item10    3            2 Item08,Item09         10         0.21087
-    ## 51      Item10    3            2 Item08,Item09         11         0.84330
-    ## 52      Item11    3            1        Item08          0         0.05581
-    ## 53      Item11    3            1        Item08          1         0.63598
-    ## 54      Item12    3            0    No parents No Pattern         0.15169
-    ## 55      Item01    4            0    No parents No Pattern         0.83557
-    ## 56      Item02    4            0    No parents No Pattern         0.71950
-    ## 57      Item03    4            1        Item02          0         0.05808
-    ## 58      Item03    4            1        Item02          1         0.71297
-    ## 59      Item04    4            0    No parents No Pattern         0.73957
-    ## 60      Item05    4            0    No parents No Pattern         0.63526
-    ## 61      Item06    4            2 Item04,Item05         00         0.00816
-    ## 62      Item06    4            2 Item04,Item05         01         0.10474
-    ## 63      Item06    4            2 Item04,Item05         10         0.02265
-    ## 64      Item06    4            2 Item04,Item05         11         0.68419
-    ## 65      Item07    4            2 Item04,Item05         00         0.00984
-    ## 66      Item07    4            2 Item04,Item05         01         0.03091
-    ## 67      Item07    4            2 Item04,Item05         10         0.03850
-    ## 68      Item07    4            2 Item04,Item05         11         0.54195
-    ## 69      Item08    4            0    No parents No Pattern         0.75976
-    ## 70      Item09    4            0    No parents No Pattern         0.80490
-    ## 71      Item10    4            1        Item08          0         0.14956
-    ## 72      Item10    4            1        Item08          1         0.84430
-    ## 73      Item11    4            2 Item08,Item09         00         0.06376
-    ## 74      Item11    4            2 Item08,Item09         01         0.12384
-    ## 75      Item11    4            2 Item08,Item09         10         0.10494
-    ## 76      Item11    4            2 Item08,Item09         11         0.82451
-    ## 77      Item12    4            0    No parents No Pattern         0.22688
-    ## 78      Item01    5            0    No parents No Pattern         0.93131
-    ## 79      Item02    5            0    No parents No Pattern         0.86923
-    ## 80      Item03    5            1        Item02          0         0.09865
-    ## 81      Item03    5            1        Item02          1         0.78854
-    ## 82      Item04    5            0    No parents No Pattern         0.84621
-    ## 83      Item05    5            0    No parents No Pattern         0.81118
-    ## 84      Item06    5            2 Item04,Item05         00         0.01452
-    ## 85      Item06    5            2 Item04,Item05         01         0.12528
-    ## 86      Item06    5            2 Item04,Item05         10         0.04000
-    ## 87      Item06    5            2 Item04,Item05         11         0.78805
-    ## 88      Item07    5            2 Item04,Item05         00         0.01570
-    ## 89      Item07    5            2 Item04,Item05         01         0.03361
-    ## 90      Item07    5            2 Item04,Item05         10         0.06363
-    ## 91      Item07    5            2 Item04,Item05         11         0.65039
-    ## 92      Item08    5            0    No parents No Pattern         0.88028
-    ## 93      Item09    5            0    No parents No Pattern         0.91209
-    ## 94      Item10    5            0    No parents No Pattern         0.82476
-    ## 95      Item11    5            2 Item09,Item10         00         0.08248
-    ## 96      Item11    5            2 Item09,Item10         01         0.18951
-    ## 97      Item11    5            2 Item09,Item10         10         0.21590
-    ## 98      Item11    5            2 Item09,Item10         11         0.91466
-    ## 99      Item12    5            1        Item10          0         0.15301
-    ## 100     Item12    5            1        Item10          1         0.34114
+    ##     Child Item Rank N of Parents   Parent Items       PIRP Conditional CRR
+    ## 1       Item01    1            0     No Parents No Pattern         0.45558
+    ## 2       Item02    1            1         Item01          0         0.03025
+    ## 3       Item02    1            1         Item01          1         0.44394
+    ## 4       Item03    1            0     No Parents No Pattern         0.08278
+    ## 5       Item04    1            0     No Parents No Pattern         0.42148
+    ## 6       Item05    1            1         Item04          0         0.10127
+    ## 7       Item05    1            1         Item04          1         0.24025
+    ## 8       Item06    1            0     No Parents No Pattern         0.02499
+    ## 9       Item07    1            0     No Parents No Pattern         0.01574
+    ## 10      Item08    1            0     No Parents No Pattern         0.28642
+    ## 11      Item09    1            0     No Parents No Pattern         0.32630
+    ## 12      Item10    1            0     No Parents No Pattern         0.18092
+    ## 13      Item11    1            0     No Parents No Pattern         0.10575
+    ## 14      Item12    1            0     No Parents No Pattern         0.05523
+    ## 15      Item01    2            0     No Parents No Pattern         0.54940
+    ## 16      Item02    2            1         Item01          0         0.03471
+    ## 17      Item02    2            1         Item01          1         0.56821
+    ## 18      Item03    2            1         Item02          0         0.02016
+    ## 19      Item03    2            1         Item02          1         0.45853
+    ## 20      Item04    2            0     No Parents No Pattern         0.49508
+    ## 21      Item05    2            1         Item04          0         0.14771
+    ## 22      Item05    2            1         Item04          1         0.35073
+    ## 23      Item06    2            0     No Parents No Pattern         0.06647
+    ## 24      Item07    2            0     No Parents No Pattern         0.04491
+    ## 25      Item08    2            0     No Parents No Pattern         0.40721
+    ## 26      Item09    2            1         Item08          0         0.26431
+    ## 27      Item09    2            1         Item08          1         0.73427
+    ## 28      Item10    2            2 Item08, Item09         00         0.08098
+    ## 29      Item10    2            2 Item08, Item09         01         0.13279
+    ## 30      Item10    2            2 Item08, Item09         10         0.15937
+    ## 31      Item10    2            2 Item08, Item09         11         0.74499
+    ## 32      Item11    2            1         Item08          0         0.04094
+    ## 33      Item11    2            1         Item08          1         0.44457
+    ## 34      Item12    2            0     No Parents No Pattern         0.08574
+    ## 35      Item01    3            0     No Parents No Pattern         0.68342
+    ## 36      Item02    3            1         Item01          0         0.04020
+    ## 37      Item02    3            1         Item01          1         0.72757
+    ## 38      Item03    3            1         Item02          0         0.03175
+    ## 39      Item03    3            1         Item02          1         0.61691
+    ## 40      Item04    3            0     No Parents No Pattern         0.61195
+    ## 41      Item05    3            1         Item04          0         0.22705
+    ## 42      Item05    3            1         Item04          1         0.55588
+    ## 43      Item06    3            0     No Parents No Pattern         0.20488
+    ## 44      Item07    3            0     No Parents No Pattern         0.15633
+    ## 45      Item08    3            0     No Parents No Pattern         0.58065
+    ## 46      Item09    3            1         Item08          0         0.32967
+    ## 47      Item09    3            1         Item08          1         0.84549
+    ## 48      Item10    3            2 Item08, Item09         00         0.09192
+    ## 49      Item10    3            2 Item08, Item09         01         0.15977
+    ## 50      Item10    3            2 Item08, Item09         10         0.21087
+    ## 51      Item10    3            2 Item08, Item09         11         0.84330
+    ## 52      Item11    3            1         Item08          0         0.05581
+    ## 53      Item11    3            1         Item08          1         0.63598
+    ## 54      Item12    3            0     No Parents No Pattern         0.15169
+    ## 55      Item01    4            0     No Parents No Pattern         0.83557
+    ## 56      Item02    4            0     No Parents No Pattern         0.71950
+    ## 57      Item03    4            1         Item02          0         0.05808
+    ## 58      Item03    4            1         Item02          1         0.71297
+    ## 59      Item04    4            0     No Parents No Pattern         0.73957
+    ## 60      Item05    4            0     No Parents No Pattern         0.63526
+    ## 61      Item06    4            2 Item04, Item05         00         0.00816
+    ## 62      Item06    4            2 Item04, Item05         01         0.10474
+    ## 63      Item06    4            2 Item04, Item05         10         0.02265
+    ## 64      Item06    4            2 Item04, Item05         11         0.68419
+    ## 65      Item07    4            2 Item04, Item05         00         0.00984
+    ## 66      Item07    4            2 Item04, Item05         01         0.03091
+    ## 67      Item07    4            2 Item04, Item05         10         0.03850
+    ## 68      Item07    4            2 Item04, Item05         11         0.54195
+    ## 69      Item08    4            0     No Parents No Pattern         0.75976
+    ## 70      Item09    4            0     No Parents No Pattern         0.80490
+    ## 71      Item10    4            1         Item08          0         0.14956
+    ## 72      Item10    4            1         Item08          1         0.84430
+    ## 73      Item11    4            2 Item08, Item09         00         0.06376
+    ## 74      Item11    4            2 Item08, Item09         01         0.12384
+    ## 75      Item11    4            2 Item08, Item09         10         0.10494
+    ## 76      Item11    4            2 Item08, Item09         11         0.82451
+    ## 77      Item12    4            0     No Parents No Pattern         0.22688
+    ## 78      Item01    5            0     No Parents No Pattern         0.93131
+    ## 79      Item02    5            0     No Parents No Pattern         0.86923
+    ## 80      Item03    5            1         Item02          0         0.09865
+    ## 81      Item03    5            1         Item02          1         0.78854
+    ## 82      Item04    5            0     No Parents No Pattern         0.84621
+    ## 83      Item05    5            0     No Parents No Pattern         0.81118
+    ## 84      Item06    5            2 Item04, Item05         00         0.01452
+    ## 85      Item06    5            2 Item04, Item05         01         0.12528
+    ## 86      Item06    5            2 Item04, Item05         10         0.04000
+    ## 87      Item06    5            2 Item04, Item05         11         0.78805
+    ## 88      Item07    5            2 Item04, Item05         00         0.01570
+    ## 89      Item07    5            2 Item04, Item05         01         0.03361
+    ## 90      Item07    5            2 Item04, Item05         10         0.06363
+    ## 91      Item07    5            2 Item04, Item05         11         0.65039
+    ## 92      Item08    5            0     No Parents No Pattern         0.88028
+    ## 93      Item09    5            0     No Parents No Pattern         0.91209
+    ## 94      Item10    5            0     No Parents No Pattern         0.82476
+    ## 95      Item11    5            2 Item09, Item10         00         0.08248
+    ## 96      Item11    5            2 Item09, Item10         01         0.18951
+    ## 97      Item11    5            2 Item09, Item10         10         0.21590
+    ## 98      Item11    5            2 Item09, Item10         11         0.91466
+    ## 99      Item12    5            1         Item10          0         0.15301
+    ## 100     Item12    5            1         Item10          1         0.34114
     ## 
     ## Marginal Item Reference Profile
     ##        Rank 1 Rank 2 Rank 3 Rank 4 Rank 5
@@ -2392,7 +2392,7 @@ result.LDLRA.PBIL
 
     ## 
     ## Parameter Learning
-    ##       Item Rank RIRP 1 RIRP 2 RIRP 3 RIRP 4
+    ##       Item Rank PIRP 1 PIRP 2 PIRP 3 PIRP 4
     ## 1   Item01    1  0.710                     
     ## 2   Item02    1  0.073  0.256              
     ## 3   Item03    1  0.236                     
@@ -2570,276 +2570,276 @@ result.LDLRA.PBIL
     ## 175 Item35    5  0.260                     
     ## 
     ## Conditional Correct Response Rate
-    ##     Child Item Rank N of Parents  Parent Items       PIRP Conditional CRR
-    ## 1       Item01    1            0    No parents No Pattern          0.7104
-    ## 2       Item02    1            1        Item21          0          0.0725
-    ## 3       Item02    1            1        Item21          1          0.2563
-    ## 4       Item03    1            0    No parents No Pattern          0.2360
-    ## 5       Item04    1            0    No parents No Pattern          0.0789
-    ## 6       Item05    1            0    No parents No Pattern          0.0608
-    ## 7       Item06    1            0    No parents No Pattern          0.0400
-    ## 8       Item07    1            1        Item01          0          0.3979
-    ## 9       Item07    1            1        Item01          1          0.4292
-    ## 10      Item08    1            0    No parents No Pattern          0.2581
-    ## 11      Item09    1            1        Item03          0          0.2275
-    ## 12      Item09    1            1        Item03          1          0.2465
-    ## 13      Item10    1            0    No parents No Pattern          0.1916
-    ## 14      Item11    1            0    No parents No Pattern          0.1325
-    ## 15      Item12    1            0    No parents No Pattern          0.1111
-    ## 16      Item13    1            0    No parents No Pattern          0.0884
-    ## 17      Item14    1            0    No parents No Pattern          0.0134
-    ## 18      Item15    1            0    No parents No Pattern          0.0139
-    ## 19      Item16    1            0    No parents No Pattern          0.0578
-    ## 20      Item17    1            0    No parents No Pattern          0.1253
-    ## 21      Item18    1            0    No parents No Pattern          0.0303
-    ## 22      Item19    1            1        Item13          0          0.0354
-    ## 23      Item19    1            1        Item13          1          0.0795
-    ## 24      Item20    1            0    No parents No Pattern          0.0283
-    ## 25      Item21    1            1        Item31          0          0.1737
-    ## 26      Item21    1            1        Item31          1          0.2978
-    ## 27      Item22    1            0    No parents No Pattern          0.2256
-    ## 28      Item23    1            1        Item01          0          0.3009
-    ## 29      Item23    1            1        Item01          1          0.3036
-    ## 30      Item24    1            0    No parents No Pattern          0.2312
-    ## 31      Item25    1            0    No parents No Pattern          0.1329
-    ## 32      Item26    1            0    No parents No Pattern          0.0922
-    ## 33      Item27    1            0    No parents No Pattern          0.1058
-    ## 34      Item28    1            1        Item05          0          0.0166
-    ## 35      Item28    1            1        Item05          1          0.1120
-    ## 36      Item29    1            1        Item07          0          0.0611
-    ## 37      Item29    1            1        Item07          1          0.0693
-    ## 38      Item30    1            0    No parents No Pattern          0.0275
-    ## 39      Item31    1            1        Item01          0          0.6446
-    ## 40      Item31    1            1        Item01          1          0.7056
-    ## 41      Item32    1            2 Item01,Item31         00          0.4841
-    ## 42      Item32    1            2 Item01,Item31         01          0.8011
-    ## 43      Item32    1            2 Item01,Item31         10          0.5430
-    ## 44      Item32    1            2 Item01,Item31         11          0.8090
-    ## 45      Item33    1            0    No parents No Pattern          0.3122
-    ## 46      Item34    1            1        Item13          0          0.1826
-    ## 47      Item34    1            1        Item13          1          0.2390
-    ## 48      Item35    1            0    No parents No Pattern          0.0985
-    ## 49      Item01    2            0    No parents No Pattern          0.8019
-    ## 50      Item02    2            0    No parents No Pattern          0.2314
-    ## 51      Item03    2            0    No parents No Pattern          0.3315
-    ## 52      Item04    2            0    No parents No Pattern          0.1574
-    ## 53      Item05    2            0    No parents No Pattern          0.1245
-    ## 54      Item06    2            0    No parents No Pattern          0.0938
-    ## 55      Item07    2            0    No parents No Pattern          0.4805
-    ## 56      Item08    2            1        Item32          0          0.2758
-    ## 57      Item08    2            1        Item32          1          0.2853
-    ## 58      Item09    2            2 Item11,Item26         00          0.2390
-    ## 59      Item09    2            2 Item11,Item26         01          0.3025
-    ## 60      Item09    2            2 Item11,Item26         10          0.3484
-    ## 61      Item09    2            2 Item11,Item26         11          0.4357
-    ## 62      Item10    2            0    No parents No Pattern          0.2584
-    ## 63      Item11    2            0    No parents No Pattern          0.2817
-    ## 64      Item12    2            0    No parents No Pattern          0.1729
-    ## 65      Item13    2            0    No parents No Pattern          0.1141
-    ## 66      Item14    2            0    No parents No Pattern          0.0304
-    ## 67      Item15    2            0    No parents No Pattern          0.0204
-    ## 68      Item16    2            0    No parents No Pattern          0.0814
-    ## 69      Item17    2            1        Item26          0          0.1429
-    ## 70      Item17    2            1        Item26          1          0.2164
-    ## 71      Item18    2            0    No parents No Pattern          0.0261
-    ## 72      Item19    2            0    No parents No Pattern          0.0287
-    ## 73      Item20    2            1        Item31          0          0.0498
-    ## 74      Item20    2            1        Item31          1          0.0362
-    ## 75      Item21    2            1        Item31          0          0.3073
-    ## 76      Item21    2            1        Item31          1          0.5221
-    ## 77      Item22    2            1        Item23          0          0.3171
-    ## 78      Item22    2            1        Item23          1          0.5862
-    ## 79      Item23    2            1        Item32          0          0.3612
-    ## 80      Item23    2            1        Item32          1          0.4558
-    ## 81      Item24    2            0    No parents No Pattern          0.3861
-    ## 82      Item25    2            1        Item24          0          0.1334
-    ## 83      Item25    2            1        Item24          1          0.5204
-    ## 84      Item26    2            1        Item31          0          0.1670
-    ## 85      Item26    2            1        Item31          1          0.2420
-    ## 86      Item27    2            1        Item11          0          0.1581
-    ## 87      Item27    2            1        Item11          1          0.3310
-    ## 88      Item28    2            1        Item12          0          0.0458
-    ## 89      Item28    2            1        Item12          1          0.1493
-    ## 90      Item29    2            0    No parents No Pattern          0.1001
-    ## 91      Item30    2            0    No parents No Pattern          0.0402
-    ## 92      Item31    2            1        Item01          0          0.6591
-    ## 93      Item31    2            1        Item01          1          0.7730
-    ## 94      Item32    2            2 Item01,Item31         00          0.4973
-    ## 95      Item32    2            2 Item01,Item31         01          0.7824
-    ## 96      Item32    2            2 Item01,Item31         10          0.5641
-    ## 97      Item32    2            2 Item01,Item31         11          0.8388
-    ## 98      Item33    2            0    No parents No Pattern          0.3538
-    ## 99      Item34    2            0    No parents No Pattern          0.1957
-    ## 100     Item35    2            1        Item09          0          0.1307
-    ## 101     Item35    2            1        Item09          1          0.1056
-    ## 102     Item01    3            0    No parents No Pattern          0.8766
-    ## 103     Item02    3            0    No parents No Pattern          0.4172
-    ## 104     Item03    3            1        Item25          0          0.4344
-    ## 105     Item03    3            1        Item25          1          0.5228
-    ## 106     Item04    3            0    No parents No Pattern          0.3078
-    ## 107     Item05    3            1        Item01          0          0.0972
-    ## 108     Item05    3            1        Item01          1          0.2836
-    ## 109     Item06    3            2 Item05,Item23         00          0.0471
-    ## 110     Item06    3            2 Item05,Item23         01          0.0239
-    ## 111     Item06    3            2 Item05,Item23         10          0.7752
-    ## 112     Item06    3            2 Item05,Item23         11          0.7779
-    ## 113     Item07    3            0    No parents No Pattern          0.5768
-    ## 114     Item08    3            1        Item23          0          0.3271
-    ## 115     Item08    3            1        Item23          1          0.3542
-    ## 116     Item09    3            2 Item26,Item27         00          0.3008
-    ## 117     Item09    3            2 Item26,Item27         01          0.3107
-    ## 118     Item09    3            2 Item26,Item27         10          0.4403
-    ## 119     Item09    3            2 Item26,Item27         11          0.5028
-    ## 120     Item10    3            0    No parents No Pattern          0.3665
-    ## 121     Item11    3            0    No parents No Pattern          0.5008
-    ## 122     Item12    3            0    No parents No Pattern          0.3162
-    ## 123     Item13    3            0    No parents No Pattern          0.2012
-    ## 124     Item14    3            2 Item13,Item24         00          0.0414
-    ## 125     Item14    3            2 Item13,Item24         01          0.0721
-    ## 126     Item14    3            2 Item13,Item24         10          0.2709
-    ## 127     Item14    3            2 Item13,Item24         11          0.4372
-    ## 128     Item15    3            1        Item11          0          0.0244
-    ## 129     Item15    3            1        Item11          1          0.1329
-    ## 130     Item16    3            0    No parents No Pattern          0.1848
-    ## 131     Item17    3            0    No parents No Pattern          0.2474
-    ## 132     Item18    3            0    No parents No Pattern          0.0408
-    ## 133     Item19    3            0    No parents No Pattern          0.0450
-    ## 134     Item20    3            0    No parents No Pattern          0.0495
-    ## 135     Item21    3            2 Item01,Item31         00          0.3659
-    ## 136     Item21    3            2 Item01,Item31         01          0.3898
-    ## 137     Item21    3            2 Item01,Item31         10          0.5020
-    ## 138     Item21    3            2 Item01,Item31         11          0.7812
-    ## 139     Item22    3            1        Item23          0          0.4160
-    ## 140     Item22    3            1        Item23          1          0.7868
-    ## 141     Item23    3            1        Item31          0          0.4360
-    ## 142     Item23    3            1        Item31          1          0.6688
-    ## 143     Item24    3            0    No parents No Pattern          0.5984
-    ## 144     Item25    3            1        Item31          0          0.3543
-    ## 145     Item25    3            1        Item31          1          0.5483
-    ## 146     Item26    3            0    No parents No Pattern          0.4555
-    ## 147     Item27    3            1        Item26          0          0.0977
-    ## 148     Item27    3            1        Item26          1          0.7606
-    ## 149     Item28    3            1        Item34          0          0.1633
-    ## 150     Item28    3            1        Item34          1          0.2946
-    ## 151     Item29    3            1        Item04          0          0.1713
-    ## 152     Item29    3            1        Item04          1          0.3011
-    ## 153     Item30    3            0    No parents No Pattern          0.0821
-    ## 154     Item31    3            1        Item01          0          0.6618
-    ## 155     Item31    3            1        Item01          1          0.8333
-    ## 156     Item32    3            0    No parents No Pattern          0.8141
-    ## 157     Item33    3            1        Item25          0          0.3665
-    ## 158     Item33    3            1        Item25          1          0.4800
-    ## 159     Item34    3            0    No parents No Pattern          0.2321
-    ## 160     Item35    3            0    No parents No Pattern          0.1546
-    ## 161     Item01    4            0    No parents No Pattern          0.9497
-    ## 162     Item02    4            0    No parents No Pattern          0.5947
-    ## 163     Item03    4            0    No parents No Pattern          0.6182
-    ## 164     Item04    4            2 Item03,Item23         00          0.1572
-    ## 165     Item04    4            2 Item03,Item23         01          0.0821
-    ## 166     Item04    4            2 Item03,Item23         10          0.6769
-    ## 167     Item04    4            2 Item03,Item23         11          0.6946
-    ## 168     Item05    4            1        Item11          0          0.1677
-    ## 169     Item05    4            1        Item11          1          0.4492
-    ## 170     Item06    4            0    No parents No Pattern          0.3285
-    ## 171     Item07    4            0    No parents No Pattern          0.6876
-    ## 172     Item08    4            0    No parents No Pattern          0.4083
-    ## 173     Item09    4            0    No parents No Pattern          0.4991
-    ## 174     Item10    4            0    No parents No Pattern          0.4701
-    ## 175     Item11    4            0    No parents No Pattern          0.7402
-    ## 176     Item12    4            0    No parents No Pattern          0.4962
-    ## 177     Item13    4            1        Item21          0          0.1981
-    ## 178     Item13    4            1        Item21          1          0.3335
-    ## 179     Item14    4            0    No parents No Pattern          0.1940
-    ## 180     Item15    4            0    No parents No Pattern          0.1281
-    ## 181     Item16    4            1        Item05          0          0.2483
-    ## 182     Item16    4            1        Item05          1          0.4170
-    ## 183     Item17    4            1        Item08          0          0.3349
-    ## 184     Item17    4            1        Item08          1          0.4103
-    ## 185     Item18    4            1        Item13          0          0.0188
-    ## 186     Item18    4            1        Item13          1          0.1821
-    ## 187     Item19    4            0    No parents No Pattern          0.0657
-    ## 188     Item20    4            1        Item10          0          0.0383
-    ## 189     Item20    4            1        Item10          1          0.1284
-    ## 190     Item21    4            1        Item32          0          0.8020
-    ## 191     Item21    4            1        Item32          1          0.9118
-    ## 192     Item22    4            1        Item23          0          0.6357
-    ## 193     Item22    4            1        Item23          1          0.9125
-    ## 194     Item23    4            1        Item31          0          0.6720
-    ## 195     Item23    4            1        Item31          1          0.8585
-    ## 196     Item24    4            1        Item32          0          0.7567
-    ## 197     Item24    4            1        Item32          1          0.8491
-    ## 198     Item25    4            1        Item24          0          0.2533
-    ## 199     Item25    4            1        Item24          1          0.8835
-    ## 200     Item26    4            0    No parents No Pattern          0.7507
-    ## 201     Item27    4            0    No parents No Pattern          0.6559
-    ## 202     Item28    4            0    No parents No Pattern          0.3633
-    ## 203     Item29    4            0    No parents No Pattern          0.3401
-    ## 204     Item30    4            0    No parents No Pattern          0.1310
-    ## 205     Item31    4            1        Item01          0          0.6849
-    ## 206     Item31    4            1        Item01          1          0.9001
-    ## 207     Item32    4            1        Item01          0          0.6398
-    ## 208     Item32    4            1        Item01          1          0.8596
-    ## 209     Item33    4            0    No parents No Pattern          0.5199
-    ## 210     Item34    4            1        Item17          0          0.2075
-    ## 211     Item34    4            1        Item17          1          0.3444
-    ## 212     Item35    4            2 Item11,Item16         00          0.1565
-    ## 213     Item35    4            2 Item11,Item16         01          0.2690
-    ## 214     Item35    4            2 Item11,Item16         10          0.1658
-    ## 215     Item35    4            2 Item11,Item16         11          0.3272
-    ## 216     Item01    5            0    No parents No Pattern          0.9674
-    ## 217     Item02    5            0    No parents No Pattern          0.7392
-    ## 218     Item03    5            0    No parents No Pattern          0.7320
-    ## 219     Item04    5            0    No parents No Pattern          0.6143
-    ## 220     Item05    5            1        Item17          0          0.4570
-    ## 221     Item05    5            1        Item17          1          0.5908
-    ## 222     Item06    5            1        Item11          0          0.1572
-    ## 223     Item06    5            1        Item11          1          0.5268
-    ## 224     Item07    5            0    No parents No Pattern          0.7591
-    ## 225     Item08    5            1        Item07          0          0.4539
-    ## 226     Item08    5            1        Item07          1          0.5110
-    ## 227     Item09    5            0    No parents No Pattern          0.6270
-    ## 228     Item10    5            1        Item09          0          0.3187
-    ## 229     Item10    5            1        Item09          1          0.7098
-    ## 230     Item11    5            0    No parents No Pattern          0.8853
-    ## 231     Item12    5            1        Item08          0          0.6280
-    ## 232     Item12    5            1        Item08          1          0.7234
-    ## 233     Item13    5            0    No parents No Pattern          0.5022
-    ## 234     Item14    5            0    No parents No Pattern          0.3348
-    ## 235     Item15    5            0    No parents No Pattern          0.2438
-    ## 236     Item16    5            0    No parents No Pattern          0.4923
-    ## 237     Item17    5            0    No parents No Pattern          0.5326
-    ## 238     Item18    5            2 Item05,Item25         00          0.1711
-    ## 239     Item18    5            2 Item05,Item25         01          0.0482
-    ## 240     Item18    5            2 Item05,Item25         10          0.1809
-    ## 241     Item18    5            2 Item05,Item25         11          0.2111
-    ## 242     Item19    5            2 Item04,Item11         00          0.1040
-    ## 243     Item19    5            2 Item04,Item11         01          0.0311
-    ## 244     Item19    5            2 Item04,Item11         10          0.2288
-    ## 245     Item19    5            2 Item04,Item11         11          0.2065
-    ## 246     Item20    5            0    No parents No Pattern          0.1309
-    ## 247     Item21    5            2 Item31,Item32         00          0.6312
-    ## 248     Item21    5            2 Item31,Item32         01          0.7986
-    ## 249     Item21    5            2 Item31,Item32         10          0.9008
-    ## 250     Item21    5            2 Item31,Item32         11          0.9715
-    ## 251     Item22    5            1        Item23          0          0.7273
-    ## 252     Item22    5            1        Item23          1          0.9585
-    ## 253     Item23    5            1        Item21          0          0.6220
-    ## 254     Item23    5            1        Item21          1          0.9412
-    ## 255     Item24    5            0    No parents No Pattern          0.9410
-    ## 256     Item25    5            0    No parents No Pattern          0.9148
-    ## 257     Item26    5            0    No parents No Pattern          0.9019
-    ## 258     Item27    5            0    No parents No Pattern          0.8242
-    ## 259     Item28    5            1        Item08          0          0.4880
-    ## 260     Item28    5            1        Item08          1          0.6142
-    ## 261     Item29    5            0    No parents No Pattern          0.4960
-    ## 262     Item30    5            1        Item16          0          0.1008
-    ## 263     Item30    5            1        Item16          1          0.3090
-    ## 264     Item31    5            0    No parents No Pattern          0.9299
-    ## 265     Item32    5            1        Item31          0          0.6278
-    ## 266     Item32    5            1        Item31          1          0.8989
-    ## 267     Item33    5            0    No parents No Pattern          0.6160
-    ## 268     Item34    5            0    No parents No Pattern          0.3181
-    ## 269     Item35    5            0    No parents No Pattern          0.2602
+    ##     Child Item Rank N of Parents   Parent Items       PIRP Conditional CRR
+    ## 1       Item01    1            0     No Parents No Pattern          0.7104
+    ## 2       Item02    1            1         Item21          0          0.0725
+    ## 3       Item02    1            1         Item21          1          0.2563
+    ## 4       Item03    1            0     No Parents No Pattern          0.2360
+    ## 5       Item04    1            0     No Parents No Pattern          0.0789
+    ## 6       Item05    1            0     No Parents No Pattern          0.0608
+    ## 7       Item06    1            0     No Parents No Pattern          0.0400
+    ## 8       Item07    1            1         Item01          0          0.3979
+    ## 9       Item07    1            1         Item01          1          0.4292
+    ## 10      Item08    1            0     No Parents No Pattern          0.2581
+    ## 11      Item09    1            1         Item03          0          0.2275
+    ## 12      Item09    1            1         Item03          1          0.2465
+    ## 13      Item10    1            0     No Parents No Pattern          0.1916
+    ## 14      Item11    1            0     No Parents No Pattern          0.1325
+    ## 15      Item12    1            0     No Parents No Pattern          0.1111
+    ## 16      Item13    1            0     No Parents No Pattern          0.0884
+    ## 17      Item14    1            0     No Parents No Pattern          0.0134
+    ## 18      Item15    1            0     No Parents No Pattern          0.0139
+    ## 19      Item16    1            0     No Parents No Pattern          0.0578
+    ## 20      Item17    1            0     No Parents No Pattern          0.1253
+    ## 21      Item18    1            0     No Parents No Pattern          0.0303
+    ## 22      Item19    1            1         Item13          0          0.0354
+    ## 23      Item19    1            1         Item13          1          0.0795
+    ## 24      Item20    1            0     No Parents No Pattern          0.0283
+    ## 25      Item21    1            1         Item31          0          0.1737
+    ## 26      Item21    1            1         Item31          1          0.2978
+    ## 27      Item22    1            0     No Parents No Pattern          0.2256
+    ## 28      Item23    1            1         Item01          0          0.3009
+    ## 29      Item23    1            1         Item01          1          0.3036
+    ## 30      Item24    1            0     No Parents No Pattern          0.2312
+    ## 31      Item25    1            0     No Parents No Pattern          0.1329
+    ## 32      Item26    1            0     No Parents No Pattern          0.0922
+    ## 33      Item27    1            0     No Parents No Pattern          0.1058
+    ## 34      Item28    1            1         Item05          0          0.0166
+    ## 35      Item28    1            1         Item05          1          0.1120
+    ## 36      Item29    1            1         Item07          0          0.0611
+    ## 37      Item29    1            1         Item07          1          0.0693
+    ## 38      Item30    1            0     No Parents No Pattern          0.0275
+    ## 39      Item31    1            1         Item01          0          0.6446
+    ## 40      Item31    1            1         Item01          1          0.7056
+    ## 41      Item32    1            2 Item01, Item31         00          0.4841
+    ## 42      Item32    1            2 Item01, Item31         01          0.8011
+    ## 43      Item32    1            2 Item01, Item31         10          0.5430
+    ## 44      Item32    1            2 Item01, Item31         11          0.8090
+    ## 45      Item33    1            0     No Parents No Pattern          0.3122
+    ## 46      Item34    1            1         Item13          0          0.1826
+    ## 47      Item34    1            1         Item13          1          0.2390
+    ## 48      Item35    1            0     No Parents No Pattern          0.0985
+    ## 49      Item01    2            0     No Parents No Pattern          0.8019
+    ## 50      Item02    2            0     No Parents No Pattern          0.2314
+    ## 51      Item03    2            0     No Parents No Pattern          0.3315
+    ## 52      Item04    2            0     No Parents No Pattern          0.1574
+    ## 53      Item05    2            0     No Parents No Pattern          0.1245
+    ## 54      Item06    2            0     No Parents No Pattern          0.0938
+    ## 55      Item07    2            0     No Parents No Pattern          0.4805
+    ## 56      Item08    2            1         Item32          0          0.2758
+    ## 57      Item08    2            1         Item32          1          0.2853
+    ## 58      Item09    2            2 Item11, Item26         00          0.2390
+    ## 59      Item09    2            2 Item11, Item26         01          0.3025
+    ## 60      Item09    2            2 Item11, Item26         10          0.3484
+    ## 61      Item09    2            2 Item11, Item26         11          0.4357
+    ## 62      Item10    2            0     No Parents No Pattern          0.2584
+    ## 63      Item11    2            0     No Parents No Pattern          0.2817
+    ## 64      Item12    2            0     No Parents No Pattern          0.1729
+    ## 65      Item13    2            0     No Parents No Pattern          0.1141
+    ## 66      Item14    2            0     No Parents No Pattern          0.0304
+    ## 67      Item15    2            0     No Parents No Pattern          0.0204
+    ## 68      Item16    2            0     No Parents No Pattern          0.0814
+    ## 69      Item17    2            1         Item26          0          0.1429
+    ## 70      Item17    2            1         Item26          1          0.2164
+    ## 71      Item18    2            0     No Parents No Pattern          0.0261
+    ## 72      Item19    2            0     No Parents No Pattern          0.0287
+    ## 73      Item20    2            1         Item31          0          0.0498
+    ## 74      Item20    2            1         Item31          1          0.0362
+    ## 75      Item21    2            1         Item31          0          0.3073
+    ## 76      Item21    2            1         Item31          1          0.5221
+    ## 77      Item22    2            1         Item23          0          0.3171
+    ## 78      Item22    2            1         Item23          1          0.5862
+    ## 79      Item23    2            1         Item32          0          0.3612
+    ## 80      Item23    2            1         Item32          1          0.4558
+    ## 81      Item24    2            0     No Parents No Pattern          0.3861
+    ## 82      Item25    2            1         Item24          0          0.1334
+    ## 83      Item25    2            1         Item24          1          0.5204
+    ## 84      Item26    2            1         Item31          0          0.1670
+    ## 85      Item26    2            1         Item31          1          0.2420
+    ## 86      Item27    2            1         Item11          0          0.1581
+    ## 87      Item27    2            1         Item11          1          0.3310
+    ## 88      Item28    2            1         Item12          0          0.0458
+    ## 89      Item28    2            1         Item12          1          0.1493
+    ## 90      Item29    2            0     No Parents No Pattern          0.1001
+    ## 91      Item30    2            0     No Parents No Pattern          0.0402
+    ## 92      Item31    2            1         Item01          0          0.6591
+    ## 93      Item31    2            1         Item01          1          0.7730
+    ## 94      Item32    2            2 Item01, Item31         00          0.4973
+    ## 95      Item32    2            2 Item01, Item31         01          0.7824
+    ## 96      Item32    2            2 Item01, Item31         10          0.5641
+    ## 97      Item32    2            2 Item01, Item31         11          0.8388
+    ## 98      Item33    2            0     No Parents No Pattern          0.3538
+    ## 99      Item34    2            0     No Parents No Pattern          0.1957
+    ## 100     Item35    2            1         Item09          0          0.1307
+    ## 101     Item35    2            1         Item09          1          0.1056
+    ## 102     Item01    3            0     No Parents No Pattern          0.8766
+    ## 103     Item02    3            0     No Parents No Pattern          0.4172
+    ## 104     Item03    3            1         Item25          0          0.4344
+    ## 105     Item03    3            1         Item25          1          0.5228
+    ## 106     Item04    3            0     No Parents No Pattern          0.3078
+    ## 107     Item05    3            1         Item01          0          0.0972
+    ## 108     Item05    3            1         Item01          1          0.2836
+    ## 109     Item06    3            2 Item05, Item23         00          0.0471
+    ## 110     Item06    3            2 Item05, Item23         01          0.0239
+    ## 111     Item06    3            2 Item05, Item23         10          0.7752
+    ## 112     Item06    3            2 Item05, Item23         11          0.7779
+    ## 113     Item07    3            0     No Parents No Pattern          0.5768
+    ## 114     Item08    3            1         Item23          0          0.3271
+    ## 115     Item08    3            1         Item23          1          0.3542
+    ## 116     Item09    3            2 Item26, Item27         00          0.3008
+    ## 117     Item09    3            2 Item26, Item27         01          0.3107
+    ## 118     Item09    3            2 Item26, Item27         10          0.4403
+    ## 119     Item09    3            2 Item26, Item27         11          0.5028
+    ## 120     Item10    3            0     No Parents No Pattern          0.3665
+    ## 121     Item11    3            0     No Parents No Pattern          0.5008
+    ## 122     Item12    3            0     No Parents No Pattern          0.3162
+    ## 123     Item13    3            0     No Parents No Pattern          0.2012
+    ## 124     Item14    3            2 Item13, Item24         00          0.0414
+    ## 125     Item14    3            2 Item13, Item24         01          0.0721
+    ## 126     Item14    3            2 Item13, Item24         10          0.2709
+    ## 127     Item14    3            2 Item13, Item24         11          0.4372
+    ## 128     Item15    3            1         Item11          0          0.0244
+    ## 129     Item15    3            1         Item11          1          0.1329
+    ## 130     Item16    3            0     No Parents No Pattern          0.1848
+    ## 131     Item17    3            0     No Parents No Pattern          0.2474
+    ## 132     Item18    3            0     No Parents No Pattern          0.0408
+    ## 133     Item19    3            0     No Parents No Pattern          0.0450
+    ## 134     Item20    3            0     No Parents No Pattern          0.0495
+    ## 135     Item21    3            2 Item01, Item31         00          0.3659
+    ## 136     Item21    3            2 Item01, Item31         01          0.3898
+    ## 137     Item21    3            2 Item01, Item31         10          0.5020
+    ## 138     Item21    3            2 Item01, Item31         11          0.7812
+    ## 139     Item22    3            1         Item23          0          0.4160
+    ## 140     Item22    3            1         Item23          1          0.7868
+    ## 141     Item23    3            1         Item31          0          0.4360
+    ## 142     Item23    3            1         Item31          1          0.6688
+    ## 143     Item24    3            0     No Parents No Pattern          0.5984
+    ## 144     Item25    3            1         Item31          0          0.3543
+    ## 145     Item25    3            1         Item31          1          0.5483
+    ## 146     Item26    3            0     No Parents No Pattern          0.4555
+    ## 147     Item27    3            1         Item26          0          0.0977
+    ## 148     Item27    3            1         Item26          1          0.7606
+    ## 149     Item28    3            1         Item34          0          0.1633
+    ## 150     Item28    3            1         Item34          1          0.2946
+    ## 151     Item29    3            1         Item04          0          0.1713
+    ## 152     Item29    3            1         Item04          1          0.3011
+    ## 153     Item30    3            0     No Parents No Pattern          0.0821
+    ## 154     Item31    3            1         Item01          0          0.6618
+    ## 155     Item31    3            1         Item01          1          0.8333
+    ## 156     Item32    3            0     No Parents No Pattern          0.8141
+    ## 157     Item33    3            1         Item25          0          0.3665
+    ## 158     Item33    3            1         Item25          1          0.4800
+    ## 159     Item34    3            0     No Parents No Pattern          0.2321
+    ## 160     Item35    3            0     No Parents No Pattern          0.1546
+    ## 161     Item01    4            0     No Parents No Pattern          0.9497
+    ## 162     Item02    4            0     No Parents No Pattern          0.5947
+    ## 163     Item03    4            0     No Parents No Pattern          0.6182
+    ## 164     Item04    4            2 Item03, Item23         00          0.1572
+    ## 165     Item04    4            2 Item03, Item23         01          0.0821
+    ## 166     Item04    4            2 Item03, Item23         10          0.6769
+    ## 167     Item04    4            2 Item03, Item23         11          0.6946
+    ## 168     Item05    4            1         Item11          0          0.1677
+    ## 169     Item05    4            1         Item11          1          0.4492
+    ## 170     Item06    4            0     No Parents No Pattern          0.3285
+    ## 171     Item07    4            0     No Parents No Pattern          0.6876
+    ## 172     Item08    4            0     No Parents No Pattern          0.4083
+    ## 173     Item09    4            0     No Parents No Pattern          0.4991
+    ## 174     Item10    4            0     No Parents No Pattern          0.4701
+    ## 175     Item11    4            0     No Parents No Pattern          0.7402
+    ## 176     Item12    4            0     No Parents No Pattern          0.4962
+    ## 177     Item13    4            1         Item21          0          0.1981
+    ## 178     Item13    4            1         Item21          1          0.3335
+    ## 179     Item14    4            0     No Parents No Pattern          0.1940
+    ## 180     Item15    4            0     No Parents No Pattern          0.1281
+    ## 181     Item16    4            1         Item05          0          0.2483
+    ## 182     Item16    4            1         Item05          1          0.4170
+    ## 183     Item17    4            1         Item08          0          0.3349
+    ## 184     Item17    4            1         Item08          1          0.4103
+    ## 185     Item18    4            1         Item13          0          0.0188
+    ## 186     Item18    4            1         Item13          1          0.1821
+    ## 187     Item19    4            0     No Parents No Pattern          0.0657
+    ## 188     Item20    4            1         Item10          0          0.0383
+    ## 189     Item20    4            1         Item10          1          0.1284
+    ## 190     Item21    4            1         Item32          0          0.8020
+    ## 191     Item21    4            1         Item32          1          0.9118
+    ## 192     Item22    4            1         Item23          0          0.6357
+    ## 193     Item22    4            1         Item23          1          0.9125
+    ## 194     Item23    4            1         Item31          0          0.6720
+    ## 195     Item23    4            1         Item31          1          0.8585
+    ## 196     Item24    4            1         Item32          0          0.7567
+    ## 197     Item24    4            1         Item32          1          0.8491
+    ## 198     Item25    4            1         Item24          0          0.2533
+    ## 199     Item25    4            1         Item24          1          0.8835
+    ## 200     Item26    4            0     No Parents No Pattern          0.7507
+    ## 201     Item27    4            0     No Parents No Pattern          0.6559
+    ## 202     Item28    4            0     No Parents No Pattern          0.3633
+    ## 203     Item29    4            0     No Parents No Pattern          0.3401
+    ## 204     Item30    4            0     No Parents No Pattern          0.1310
+    ## 205     Item31    4            1         Item01          0          0.6849
+    ## 206     Item31    4            1         Item01          1          0.9001
+    ## 207     Item32    4            1         Item01          0          0.6398
+    ## 208     Item32    4            1         Item01          1          0.8596
+    ## 209     Item33    4            0     No Parents No Pattern          0.5199
+    ## 210     Item34    4            1         Item17          0          0.2075
+    ## 211     Item34    4            1         Item17          1          0.3444
+    ## 212     Item35    4            2 Item11, Item16         00          0.1565
+    ## 213     Item35    4            2 Item11, Item16         01          0.2690
+    ## 214     Item35    4            2 Item11, Item16         10          0.1658
+    ## 215     Item35    4            2 Item11, Item16         11          0.3272
+    ## 216     Item01    5            0     No Parents No Pattern          0.9674
+    ## 217     Item02    5            0     No Parents No Pattern          0.7392
+    ## 218     Item03    5            0     No Parents No Pattern          0.7320
+    ## 219     Item04    5            0     No Parents No Pattern          0.6143
+    ## 220     Item05    5            1         Item17          0          0.4570
+    ## 221     Item05    5            1         Item17          1          0.5908
+    ## 222     Item06    5            1         Item11          0          0.1572
+    ## 223     Item06    5            1         Item11          1          0.5268
+    ## 224     Item07    5            0     No Parents No Pattern          0.7591
+    ## 225     Item08    5            1         Item07          0          0.4539
+    ## 226     Item08    5            1         Item07          1          0.5110
+    ## 227     Item09    5            0     No Parents No Pattern          0.6270
+    ## 228     Item10    5            1         Item09          0          0.3187
+    ## 229     Item10    5            1         Item09          1          0.7098
+    ## 230     Item11    5            0     No Parents No Pattern          0.8853
+    ## 231     Item12    5            1         Item08          0          0.6280
+    ## 232     Item12    5            1         Item08          1          0.7234
+    ## 233     Item13    5            0     No Parents No Pattern          0.5022
+    ## 234     Item14    5            0     No Parents No Pattern          0.3348
+    ## 235     Item15    5            0     No Parents No Pattern          0.2438
+    ## 236     Item16    5            0     No Parents No Pattern          0.4923
+    ## 237     Item17    5            0     No Parents No Pattern          0.5326
+    ## 238     Item18    5            2 Item05, Item25         00          0.1711
+    ## 239     Item18    5            2 Item05, Item25         01          0.0482
+    ## 240     Item18    5            2 Item05, Item25         10          0.1809
+    ## 241     Item18    5            2 Item05, Item25         11          0.2111
+    ## 242     Item19    5            2 Item04, Item11         00          0.1040
+    ## 243     Item19    5            2 Item04, Item11         01          0.0311
+    ## 244     Item19    5            2 Item04, Item11         10          0.2288
+    ## 245     Item19    5            2 Item04, Item11         11          0.2065
+    ## 246     Item20    5            0     No Parents No Pattern          0.1309
+    ## 247     Item21    5            2 Item31, Item32         00          0.6312
+    ## 248     Item21    5            2 Item31, Item32         01          0.7986
+    ## 249     Item21    5            2 Item31, Item32         10          0.9008
+    ## 250     Item21    5            2 Item31, Item32         11          0.9715
+    ## 251     Item22    5            1         Item23          0          0.7273
+    ## 252     Item22    5            1         Item23          1          0.9585
+    ## 253     Item23    5            1         Item21          0          0.6220
+    ## 254     Item23    5            1         Item21          1          0.9412
+    ## 255     Item24    5            0     No Parents No Pattern          0.9410
+    ## 256     Item25    5            0     No Parents No Pattern          0.9148
+    ## 257     Item26    5            0     No Parents No Pattern          0.9019
+    ## 258     Item27    5            0     No Parents No Pattern          0.8242
+    ## 259     Item28    5            1         Item08          0          0.4880
+    ## 260     Item28    5            1         Item08          1          0.6142
+    ## 261     Item29    5            0     No Parents No Pattern          0.4960
+    ## 262     Item30    5            1         Item16          0          0.1008
+    ## 263     Item30    5            1         Item16          1          0.3090
+    ## 264     Item31    5            0     No Parents No Pattern          0.9299
+    ## 265     Item32    5            1         Item31          0          0.6278
+    ## 266     Item32    5            1         Item31          1          0.8989
+    ## 267     Item33    5            0     No Parents No Pattern          0.6160
+    ## 268     Item34    5            0     No Parents No Pattern          0.3181
+    ## 269     Item35    5            0     No Parents No Pattern          0.2602
     ## 
     ## Marginal Item Reference Profile
     ##        Rank 1 Rank 2 Rank 3 Rank 4 Rank 5
@@ -3177,18 +3177,18 @@ result.LDB
     ## 
     ## Parameter Learning
     ## Rank 1 
-    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
-    ## Field01 0.6538                                                                
-    ## Field02 0.0756                                                                
-    ## Field03 0.1835                                                                
-    ## Field04 0.3819                                                                
-    ## Field05 0.0500                                                                
-    ## Field06 0.0985                                                                
-    ## Field07 0.2176                                                                
-    ## Field08 0.0608                                                                
-    ## Field09 0.0563                                                                
-    ## Field10 0.0237                                                                
-    ##         PIRP 11 PIRP 12 PIRP 13
+    ##         PIRP 0 PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9
+    ## Field01 0.6538                                                               
+    ## Field02 0.0756                                                               
+    ## Field03 0.1835                                                               
+    ## Field04 0.3819                                                               
+    ## Field05 0.0500                                                               
+    ## Field06 0.0985                                                               
+    ## Field07 0.2176                                                               
+    ## Field08 0.0608                                                               
+    ## Field09 0.0563                                                               
+    ## Field10 0.0237                                                               
+    ##         PIRP 10 PIRP 11 PIRP 12
     ## Field01                        
     ## Field02                        
     ## Field03                        
@@ -3200,18 +3200,18 @@ result.LDB
     ## Field09                        
     ## Field10                        
     ## Rank 2 
-    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
-    ## Field01 0.8216                                                                
-    ## Field02 0.1463 0.3181  0.383  0.597                                           
-    ## Field03 0.3320                                                                
-    ## Field04 0.4931                                                                
-    ## Field05 0.1596 0.2552                                                         
-    ## Field06 0.2541                                                                
-    ## Field07 0.1232 0.2926  0.217  0.306  0.376                                    
-    ## Field08 0.0648 0.0887  0.236  0.443  0.196  0.285  0.624                      
-    ## Field09 0.1101                                                                
-    ## Field10 0.0359                                                                
-    ##         PIRP 11 PIRP 12 PIRP 13
+    ##         PIRP 0 PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9
+    ## Field01 0.8216                                                               
+    ## Field02 0.1463 0.3181  0.383  0.597                                          
+    ## Field03 0.3320                                                               
+    ## Field04 0.4931                                                               
+    ## Field05 0.1596 0.2552                                                        
+    ## Field06 0.2541                                                               
+    ## Field07 0.1232 0.2926  0.217  0.306  0.376                                   
+    ## Field08 0.0648 0.0887  0.236  0.443  0.196  0.285  0.624                     
+    ## Field09 0.1101                                                               
+    ## Field10 0.0359                                                               
+    ##         PIRP 10 PIRP 11 PIRP 12
     ## Field01                        
     ## Field02                        
     ## Field03                        
@@ -3223,18 +3223,18 @@ result.LDB
     ## Field09                        
     ## Field10                        
     ## Rank 3 
-    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
-    ## Field01 0.8923                                                                
-    ## Field02 0.8736                                                                
-    ## Field03 0.8030                                                                
-    ## Field04 0.4730  0.492  0.650                                                  
-    ## Field05 0.2732  0.319  0.714                                                  
-    ## Field06 0.4025  0.486                                                         
-    ## Field07 0.3162  0.408                                                         
-    ## Field08 0.1028  0.166  0.177  0.439   0.59                                    
-    ## Field09 0.1799                                                                
-    ## Field10 0.0431                                                                
-    ##         PIRP 11 PIRP 12 PIRP 13
+    ##         PIRP 0 PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9
+    ## Field01 0.8923                                                               
+    ## Field02 0.8736                                                               
+    ## Field03 0.8030                                                               
+    ## Field04 0.4730  0.492  0.650                                                 
+    ## Field05 0.2732  0.319  0.714                                                 
+    ## Field06 0.4025  0.486                                                        
+    ## Field07 0.3162  0.408                                                        
+    ## Field08 0.1028  0.166  0.177  0.439   0.59                                   
+    ## Field09 0.1799                                                               
+    ## Field10 0.0431                                                               
+    ##         PIRP 10 PIRP 11 PIRP 12
     ## Field01                        
     ## Field02                        
     ## Field03                        
@@ -3246,7 +3246,7 @@ result.LDB
     ## Field09                        
     ## Field10                        
     ## Rank 4 
-    ##          PIRP 1   PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9
+    ##          PIRP 0   PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8
     ## Field01 0.91975                                                          
     ## Field02 0.97126                                                          
     ## Field03 0.96955                                                          
@@ -3257,30 +3257,30 @@ result.LDB
     ## Field08 0.00353 0.000122  0.370  0.370  0.401  0.532  0.779              
     ## Field09 0.36220                                                          
     ## Field10 0.08630                                                          
-    ##         PIRP 10 PIRP 11 PIRP 12 PIRP 13
-    ## Field01                                
-    ## Field02                                
-    ## Field03                                
-    ## Field04                                
-    ## Field05                                
-    ## Field06                                
-    ## Field07                                
-    ## Field08                                
-    ## Field09                                
-    ## Field10                                
+    ##         PIRP 9 PIRP 10 PIRP 11 PIRP 12
+    ## Field01                               
+    ## Field02                               
+    ## Field03                               
+    ## Field04                               
+    ## Field05                               
+    ## Field06                               
+    ## Field07                               
+    ## Field08                               
+    ## Field09                               
+    ## Field10                               
     ## Rank 5 
-    ##         PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9 PIRP 10
-    ## Field01 0.9627                                                                
-    ## Field02 0.9959                                                                
-    ## Field03 0.9947                                                                
-    ## Field04 0.8654                                                                
-    ## Field05 0.9939                                                                
-    ## Field06 0.9178                                                                
-    ## Field07 0.7334                                                                
-    ## Field08 0.5109 0.4442 0.5939 0.9174                                           
-    ## Field09 0.4062 0.5193 0.6496 0.6786  0.851                                    
-    ## Field10 0.0874 0.0278 0.0652 0.0429  0.110  0.117  0.118  0.163  0.217   0.275
-    ##         PIRP 11 PIRP 12 PIRP 13
+    ##         PIRP 0 PIRP 1 PIRP 2 PIRP 3 PIRP 4 PIRP 5 PIRP 6 PIRP 7 PIRP 8 PIRP 9
+    ## Field01 0.9627                                                               
+    ## Field02 0.9959                                                               
+    ## Field03 0.9947                                                               
+    ## Field04 0.8654                                                               
+    ## Field05 0.9939                                                               
+    ## Field06 0.9178                                                               
+    ## Field07 0.7334                                                               
+    ## Field08 0.5109 0.4442 0.5939 0.9174                                          
+    ## Field09 0.4062 0.5193 0.6496 0.6786  0.851                                   
+    ## Field10 0.0874 0.0278 0.0652 0.0429  0.110  0.117  0.118  0.163  0.217  0.275
+    ##         PIRP 10 PIRP 11 PIRP 12
     ## Field01                        
     ## Field02                        
     ## Field03                        
@@ -3306,12 +3306,17 @@ result.LDB
     ## Field10 0.0237 0.0359 0.0431 0.0863  0.377
     ## 
     ## IRP Indices
-    ##        Alpha            A Beta         B     Gamma          C
-    ## Rank 1     3  0.198408592    4 0.3819384 0.5555556 -1.1040288
-    ## Rank 2     3  0.161062216    2 0.5068824 0.6666667 -1.0515969
-    ## Rank 3     4 -0.008896938    6 0.4549879 1.0000000 -0.8491448
-    ## Rank 4     4  0.225294055    7 0.4815211 0.6666667 -1.1987322
-    ## Rank 5     7  0.129490652   10 0.3769977 0.6666667 -0.8769418
+    ##         Alpha         A Beta         B Gamma C
+    ## Field01     1 0.1677977    1 0.6538429     0 0
+    ## Field02     1 0.4312713    2 0.5068824     0 0
+    ## Field03     2 0.4710088    2 0.3320336     0 0
+    ## Field04     4 0.1643891    2 0.4930958     0 0
+    ## Field05     2 0.4110466    3 0.6182062     0 0
+    ## Field06     3 0.2712108    3 0.4549879     0 0
+    ## Field07     4 0.2518684    4 0.4815211     0 0
+    ## Field08     3 0.2982121    4 0.5699954     0 0
+    ## Field09     4 0.3528379    4 0.3621986     0 0
+    ## Field10     4 0.2906998    5 0.3769977     0 0
     ##                               Rank 1  Rank 2  Rank 3 Rank 4 Rank 5
     ## Test Reference Profile         4.915   8.744  13.657 18.867 26.488
     ## Latent Rank Ditribution      163.000  91.000 102.000 91.000 68.000
@@ -3342,7 +3347,7 @@ result.LDB
     ## CAIC           -4968.595
     ## BIC            -4966.485
 
-    ## Weakly ordinal alignment condition was satisfied.
+    ## Strongly ordinal alignment condition was satisfied.
 
 ![](Readme_files/figure-gfm/unnamed-chunk-16-5.png)<!-- -->
 
@@ -3451,9 +3456,11 @@ classes and fields. Once you input these along with the dataset into the
 function, the analysis will be executed.
 
 ``` r
-result.BINET <- BINET(U = J35S515, 
-                      ncls =13, nfld = 12,
-                      conf = conf, adj_file = edgeFile)
+result.BINET <- BINET(
+  U = J35S515,
+  ncls = 13, nfld = 12,
+  conf = conf, adj_file = edgeFile
+)
 result.BINET
 ```
 

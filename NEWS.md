@@ -1,3 +1,7 @@
+# Exametrika 0.11.1 on October 27, 2023.
+
+* all model tested by testthat environment.
+
 # Exametrika 0.11.0 on October 26, 2023.
 
 * BINET is now.
