@@ -4,7 +4,7 @@
 #' @param Lambda Item parameters matrix
 #' @param U data matrix
 #' @param Z missing indicator
-
+#' @noRd
 LLtheta_mat <- function(theta, Lambda, U, Z) {
   f <- function(x) {
     p <- Lambda[, 3] + (Lambda[, 4] - Lambda[, 3]) / (1 + exp(-Lambda[, 1] * (x - Lambda[, 2])))
@@ -24,6 +24,7 @@ LLtheta_mat <- function(theta, Lambda, U, Z) {
 #' @param Lambda Item parameters matrix
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @noRd
 
 EAP_PSD <- function(Lambda, U, Z) {
   dev <- 0.01

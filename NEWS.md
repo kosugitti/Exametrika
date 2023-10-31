@@ -1,3 +1,8 @@
+# Exametrika 0.11.2 on October 27, 2023.
+
+* plot manual update.
+
+
 # Exametrika 0.11.1 on October 27, 2023.
 
 * all model tested by testthat environment.

@@ -2,7 +2,7 @@
 #' @description
 #' IRP indices(Kumagai,2007) that help us understand the IRP shape.
 #' @param IRP IRP table
-#'
+#' @noRd
 
 IRPindex <- function(IRP) {
   Beta <- apply(abs(IRP - 0.5), 1, which.min)

@@ -5,6 +5,7 @@
 #' Exametrika class data.
 #' @importFrom igraph get.adjacency
 #' @return adjacency matrix
+#' @noRd
 
 fill_adj <- function(g, ItemLabel) {
   testlength <- length(ItemLabel)

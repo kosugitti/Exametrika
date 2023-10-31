@@ -14,7 +14,7 @@
 #' @param maxiter Maximum number of iterations.
 #' @param mic Monotonic increasing IRP option
 #' @param verbose verbose output Flag. default is FALSE
-#'
+#' @noRd
 
 emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE, verbose = FALSE) {
   # Initialize
@@ -82,6 +82,7 @@ emclus <- function(U, Z, ncls, Fil, beta1, beta2, maxiter = 100, mic = FALSE, ve
 #' @param Z missing indicator matrix Z of the examData class.
 #' @param postDist class membership matrix
 #' @param classRefMat class reference matrix
+#' @noRd
 
 itemEll <- function(U, Z, postDist, classRefMat) {
   const <- exp(-NCOL(U))

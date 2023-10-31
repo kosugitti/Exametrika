@@ -140,9 +140,9 @@ head(result.LRA$Students)
 
 ```{r}
 plot(result.LRA, type = "IRP", items = 1:6, nc = 2, nr = 3)
-plot(result.LRA, type = "CMP", students = 1:9, nc = 3, nr = 3)
+plot(result.LRA, type = "RMP", students = 1:9, nc = 3, nr = 3)
 plot(result.LRA, type = "TRP")
-plot(result.LRA, type = "LCD")
+plot(result.LRA, type = "LRD")
 ```
 
 ## Biclustering Example
@@ -455,8 +455,8 @@ Of course, it also supports various types of plots.
 ```{r BINET plot}
 plot(result.BINET, type = "Array")
 plot(result.BINET, type = "TRP")
-plot(result.BINET, type = "LCD")
-plot(result.BINET, type = "CMP", students = 1:9, nc = 3, nr = 3)
+plot(result.BINET, type = "LRD")
+plot(result.BINET, type = "RMP", students = 1:9, nc = 3, nr = 3)
 plot(result.BINET, type = "FRP", nc = 3, nr = 2)
 ```
 
@@ -466,6 +466,21 @@ LDPSR plot shows all Passing Student Rates for all locallyu dependent classes co
 ```{r LDPSRplot}
 plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
 ```
+
+
+## Reference: Table of Model and Plotting Option Correspondence
+
+| model/type     | IIC | ICC | TIC | IRP | FRP | TRP | LCD/LRD | CMP/RMP | ARRAY | FieldPIRP | LDPSR |
+|----------------|-----|-----|-----|-----|-----|-----|---------|---------|-------|-----------|-------|
+| IRT            |  ◯  |  ◯  |  ◯  |     |     |     |         |         |       |           |       |
+| LCA            |     |     |     |  ◯  |  ◯  |  ◯  |    ◯    |    ◯    |       |           |       |
+| LRA            |     |     |     |  ◯  |  ◯  |  ◯  |    ◯    |    ◯    |       |           |       |
+| Biclustering   |     |     |     |  ◯  |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |           |       |
+| IRM            |     |     |     |     |  ◯  |  ◯  |    ◯    |         |   ◯   |           |       |
+| LDLRA          |     |     |     |  ◯  |     |     |    ◯    |    ◯    |       |           |       |
+| LDB            |     |     |     |     |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |     ◯     |       |
+| BINET          |     |     |     |     |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |           |   ◯   |
+
 
 ## Reference
 

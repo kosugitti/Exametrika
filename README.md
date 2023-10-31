@@ -146,7 +146,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.2810133382 iter 2 LogLik -3938.35086548093 iter 3 LogLik -3931.82426587368 iter 4 LogLik -3928.67997507651 iter 5 LogLik -3926.99347122849 iter 6 LogLik -3926.0483773557 iter 7 LogLik -3925.50626968241 iter 8 LogLik -3925.19163689198 iter 9 LogLik -3925.00738020734 iter 10 LogLik -3924.89897545827 iter 11 LogLik -3924.83500732004 iter 12 LogLik -3924.79717664529 iter 13 LogLik -3924.77452775533 
+    ## iter 1 LogLik -3960.28101333747 iter 2 LogLik -3938.35096263776 iter 3 LogLik -3931.82437692512 iter 4 LogLik -3928.68006204373 iter 5 LogLik -3926.99332951247 iter 6 LogLik -3926.04851883918 iter 7 LogLik -3925.5064578057 iter 8 LogLik -3925.19166626407 iter 9 LogLik -3925.00729965555 iter 10 LogLik -3924.89890638826 iter 11 LogLik -3924.83495828244 iter 12 LogLik -3924.79740602352 iter 13 LogLik -3924.77508648527 
 
 ``` r
 result.IRT
@@ -178,13 +178,13 @@ result.IRT
     ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
-    ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
-    ## Item13       -293.472       -262.031      -328.396       62.882     132.730
+    ## Item11       -248.409       -224.085      -299.265       48.648     150.360
+    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
+    ## Item13       -293.471       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
     ##        model_df null_df   NFI   RFI   IFI   TLI   CFI RMSEA    AIC    CAIC
@@ -194,12 +194,12 @@ result.IRT
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.086 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.648 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -215,7 +215,7 @@ result.IRT
     ## Item09 -25.505
     ## Item10 -26.121
     ## Item11 -19.713
-    ## Item12 -20.201
+    ## Item12 -20.200
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -225,7 +225,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.528
+    ## model_Chi_sq     641.529
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -235,9 +235,9 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.528
-    ## CAIC            -384.212
-    ## BIC             -383.883
+    ## AIC              311.529
+    ## CAIC            -384.211
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -245,13 +245,13 @@ The estimated population of subjects is included in the returned object.
 head(result.IRT$ability)
 ```
 
-    ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526315 0.5805691
-    ## 2 Student002 -0.17398783 0.5473605
-    ## 3 Student003  0.01382274 0.5530502
-    ## 4 Student004  0.57628308 0.5749114
-    ## 5 Student005 -0.97449552 0.5915604
-    ## 6 Student006  0.85232857 0.5820536
+    ##       tmp$ID        EAP       PSD
+    ## 1 Student001 -0.7552581 0.5805676
+    ## 2 Student002 -0.1739876 0.5473616
+    ## 3 Student003  0.0138239 0.5530519
+    ## 4 Student004  0.5762814 0.5749114
+    ## 5 Student005 -0.9744975 0.5915606
+    ## 6 Student006  0.8523338 0.5820564
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -581,7 +581,7 @@ plot(result.LRA, type = "IRP", items = 1:6, nc = 2, nr = 3)
 ![](Readme_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
-plot(result.LRA, type = "CMP", students = 1:9, nc = 3, nr = 3)
+plot(result.LRA, type = "RMP", students = 1:9, nc = 3, nr = 3)
 ```
 
 ![](Readme_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
@@ -593,7 +593,7 @@ plot(result.LRA, type = "TRP")
 ![](Readme_files/figure-gfm/unnamed-chunk-10-3.png)<!-- -->
 
 ``` r
-plot(result.LRA, type = "LCD")
+plot(result.LRA, type = "LRD")
 ```
 
 ![](Readme_files/figure-gfm/unnamed-chunk-10-4.png)<!-- -->
@@ -774,9 +774,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH 52b6e10 DN-- 5 5 -- 
+    ## IGRAPH d3150dc DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from 52b6e10 (vertex names):
+    ## + edges from d3150dc (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -1127,36 +1127,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH cec6c58 DN-- 4 2 -- 
+    ## IGRAPH 3287018 DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from cec6c58 (vertex names):
+    ## + edges from 3287018 (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 1d21d2d DN-- 9 7 -- 
+    ## IGRAPH 7ae6c16 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 1d21d2d (vertex names):
+    ## + edges from 7ae6c16 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 3752435 DN-- 9 7 -- 
+    ## IGRAPH 2e252d7 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 3752435 (vertex names):
+    ## + edges from 2e252d7 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH 323e622 DN-- 10 8 -- 
+    ## IGRAPH d9387ae DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 323e622 (vertex names):
+    ## + edges from d9387ae (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH 22ea905 DN-- 10 8 -- 
+    ## IGRAPH 74e2902 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 22ea905 (vertex names):
+    ## + edges from 74e2902 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -3806,13 +3806,13 @@ plot(result.BINET, type = "TRP")
 ![](Readme_files/figure-gfm/BINET%20plot-2.png)<!-- -->
 
 ``` r
-plot(result.BINET, type = "LCD")
+plot(result.BINET, type = "LRD")
 ```
 
 ![](Readme_files/figure-gfm/BINET%20plot-3.png)<!-- -->
 
 ``` r
-plot(result.BINET, type = "CMP", students = 1:9, nc = 3, nr = 3)
+plot(result.BINET, type = "RMP", students = 1:9, nc = 3, nr = 3)
 ```
 
 ![](Readme_files/figure-gfm/BINET%20plot-4.png)<!-- -->
@@ -3831,6 +3831,19 @@ plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
 ```
 
 ![](Readme_files/figure-gfm/LDPSRplot-1.png)<!-- -->![](Readme_files/figure-gfm/LDPSRplot-2.png)<!-- -->![](Readme_files/figure-gfm/LDPSRplot-3.png)<!-- -->
+
+## Reference: Table of Model and Plotting Option Correspondence
+
+| model/type   | IIC | ICC | TIC | IRP | FRP | TRP | LCD/LRD | CMP/RMP | ARRAY | FieldPIRP | LDPSR |
+|--------------|-----|-----|-----|-----|-----|-----|---------|---------|-------|-----------|-------|
+| IRT          | ◯   | ◯   | ◯   |     |     |     |         |         |       |           |       |
+| LCA          |     |     |     | ◯   | ◯   | ◯   | ◯       | ◯       |       |           |       |
+| LRA          |     |     |     | ◯   | ◯   | ◯   | ◯       | ◯       |       |           |       |
+| Biclustering |     |     |     | ◯   | ◯   | ◯   | ◯       | ◯       | ◯     |           |       |
+| IRM          |     |     |     |     | ◯   | ◯   | ◯       |         | ◯     |           |       |
+| LDLRA        |     |     |     | ◯   |     |     | ◯       | ◯       |       |           |       |
+| LDB          |     |     |     |     | ◯   | ◯   | ◯       | ◯       | ◯     | ◯         |       |
+| BINET        |     |     |     |     | ◯   | ◯   | ◯       | ◯       | ◯     |           | ◯     |
 
 ## Reference
 

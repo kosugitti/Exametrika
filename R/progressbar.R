@@ -4,7 +4,7 @@
 #' @param msg show message
 #' @description
 #' A progress bar to display the calculation process.
-#'
+#' @noRd
 show.progress <- function(pos, len, msg) {
   prg <- round(pos / len * 100)
   done <- paste(rep("#", round(prg / 2.5)), collapse = "")
