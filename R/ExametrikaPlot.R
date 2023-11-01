@@ -182,9 +182,11 @@ plot.Exametrika <- function(x,
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
       if (value == "LCA" | value == "LRA" | value == "IRM" | value == "BINET") {
-        target <- x$LCD
+        target1 <- x$LCD
+        target2 <- x$CMD
       } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {
-        target <- x$LRD
+        target1 <- x$LRD
+        target2 <- x$RMD
       }
       if (value == "Biclustering" && x$model == 2) {
         msg <- "Rank"
@@ -192,24 +194,24 @@ plot.Exametrika <- function(x,
         msg <- "Class"
       }
 
-      bp <- barplot(target,
+      bp <- barplot(target1,
         names.arg = 1:x$Nclass,
         width = .9,
-        ylim = c(0, max(target) + 10),
+        ylim = c(0, max(target1) + 10),
         xlim = c(0, x$Nclass + 1),
         xlab = paste("Latent", msg),
         ylab = "Number of Students"
       )
-      text(x = bp, y = target, label = target, pos = 1, cex = 1.2)
+      text(x = bp, y = target1, label = target1, pos = 1, cex = 1.2)
       par(new = TRUE)
-      plot(bp, x$CMD,
+      plot(bp, target2,
         type = "b", pch = 19, lty = 1,
         axes = FALSE, xaxt = "n", xlab = "", ylab = "",
         bty = "n",
-        ylim = c(0, max(target) + 10),
+        ylim = c(0, max(target1) + 10),
         xlim = c(0, x$Nclass + 1),
       )
-      axis(4, at = pretty(range(0, max(target) + 10)))
+      axis(4, at = pretty(range(0, max(target2) + 10)))
       mtext("Frequency", side = 4, line = 3)
       par(old_par)
     }

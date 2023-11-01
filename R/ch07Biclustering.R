@@ -43,11 +43,12 @@ softmax <- function(x) {
 #'  the slope parameters A and Alpha, and the monotonicity indices C and Gamma.}
 #'  \item{TRP}{Test Reference Profile}
 #'  \item{FMP}{Field Membership Profile}
-#'  \item{Students}{Rank Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_R}, \eqn{\hat{m}_R}, is the
+#'  \item{Students}{Class/Rank Membership Profile matrix.The s-th row vector of \eqn{\hat{M}_R}, \eqn{\hat{m}_R}, is the
 #' rank membership profile of Student s, namely the posterior probability distribution representing the student's
 #' belonging to the respective latent classes. It also includes the rank with the maximum estimated membership probability,
 #' as well as the rank-up odds and rank-down odds.}
 #'  \item{LRD}{Latent Rank Distribution. see also [plot.Exametrika]}
+#'  \item{LCD}{Latent Class Distribution. see also [plot.Exametrika]}
 #'  \item{LFD}{Latent Field Distribuiton. see also [plot.Exametrika]}
 #'  \item{RMD}{Rank Membership Distribution.}
 #'  \item{TestFitIndices}{Overall fit index for the test.See also [TestFit]}
@@ -337,10 +338,12 @@ Biclustering <- function(U, ncls = 2, nfld = 2,
     N_Cycle = emt,
     LFD = flddist,
     LRD = clsdist,
+    LCD = clsdist,
     FRP = FRP,
     FRPIndex = FRPIndex,
     TRP = TRP,
     CMD = colSums(clsmemb),
+    RMD = colSums(clsmemb),
     FieldMembership = fldmemb,
     ClassMembership = clsmemb,
     SmoothedMembership = smoothed_memb,
