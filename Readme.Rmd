@@ -172,6 +172,8 @@ plot(result.IRM, type = "TRP")
 plot(result.IRM, type = "LCD")
 ```
 
+Additionally, supplementary notes on the derivation of the Infinite Relational Model with Chinese restaurant process is [here](https://kosugitti.github.io/kosugitti10/notes/IRM_memo.pdf).
+
 ## Bayesian Network Model
 
 The Bayesian network model is a model that represents the conditional probabilities between items in a network format based on the pass rates of the items. By providing a Directed Acyclic Graph (DAG) between items externally, it calculates the conditional probabilities based on the specified graph. The igraph package is used for the analysis and representation of the network.
