@@ -146,7 +146,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333665 iter 2 LogLik -3938.35090124302 iter 3 LogLik -3931.8244169373 iter 4 LogLik -3928.6799542014 iter 5 LogLik -3926.99303033457 iter 6 LogLik -3926.04808530495 iter 7 LogLik -3925.50625988587 iter 8 LogLik -3925.19163565381 iter 9 LogLik -3925.0072917656 iter 10 LogLik -3924.89872972457 iter 11 LogLik -3924.83487697323 iter 12 LogLik -3924.79718447257 iter 13 LogLik -3924.77464645703 
+    ## iter 1 LogLik -3960.28101333696 iter 2 LogLik -3938.35086983088 iter 3 LogLik -3931.82429067773 iter 4 LogLik -3928.68021089691 iter 5 LogLik -3926.99356898588 iter 6 LogLik -3926.04834690054 iter 7 LogLik -3925.50646859288 iter 8 LogLik -3925.1917756854 iter 9 LogLik -3925.00724928106 iter 10 LogLik -3924.89896069879 iter 11 LogLik -3924.83494980804 iter 12 LogLik -3924.79672730365 iter 13 LogLik -3924.77443768803 
 
 ``` r
 result.IRT
@@ -175,7 +175,7 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
+    ## Item04       -204.883       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.197      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
@@ -183,7 +183,7 @@ result.IRT
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -199,7 +199,7 @@ result.IRT
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
     ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.223
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -215,7 +215,7 @@ result.IRT
     ## Item09 -25.505
     ## Item10 -26.121
     ## Item11 -19.714
-    ## Item12 -20.200
+    ## Item12 -20.201
     ## Item13  -5.479
     ## Item14 -31.321
     ## Item15 -34.082
@@ -225,7 +225,7 @@ result.IRT
     ## model_log_like -3880.769
     ## bench_log_like -3560.005
     ## null_log_like  -4350.217
-    ## model_Chi_sq     641.528
+    ## model_Chi_sq     641.527
     ## null_Chi_sq     1580.424
     ## model_df         165.000
     ## null_df          195.000
@@ -235,9 +235,9 @@ result.IRT
     ## TLI                0.594
     ## CFI                0.656
     ## RMSEA              0.076
-    ## AIC              311.528
-    ## CAIC            -384.212
-    ## BIC             -383.882
+    ## AIC              311.527
+    ## CAIC            -384.213
+    ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
 
@@ -246,12 +246,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526672 0.5805708
-    ## 2 Student002 -0.17398792 0.5473604
-    ## 3 Student003  0.01382269 0.5530501
-    ## 4 Student004  0.57627816 0.5749105
-    ## 5 Student005 -0.97449502 0.5915604
-    ## 6 Student006  0.85233286 0.5820544
+    ## 1 Student001 -0.75526877 0.5805703
+    ## 2 Student002 -0.17398792 0.5473601
+    ## 3 Student003  0.01382215 0.5530497
+    ## 4 Student004  0.57628280 0.5749101
+    ## 5 Student005 -0.97449499 0.5915604
+    ## 6 Student006  0.85232809 0.5820537
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -610,7 +610,7 @@ Biclustering(J35S515, nfld = 5, ncls = 6, method = "B")
 ```
 
     ## [1] "Biclustering is chosen."
-    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687047 iter 4  logLik -7151.01420978007 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434516 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997203 iter 31  logLik -6885.67287118412 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158907 iter 33  logLik -6884.58159158907
+    ## iter 1  logLik -7966.6631921428 iter 2  logLik -7442.38104439743 iter 3  logLik -7266.35013687048 iter 4  logLik -7151.01420978007 iter 5  logLik -7023.9362796307 iter 6  logLik -6984.82397730586 iter 7  logLik -6950.26733682219 iter 8  logLik -6939.33989302755 iter 9  logLik -6930.88678651642 iter 10  logLik -6923.50251603444 iter 11  logLik -6914.5605776238 iter 12  logLik -6908.8870867073 iter 13  logLik -6906.83729270017 iter 14  logLik -6905.38526744311 iter 15  logLik -6904.24110722217 iter 16  logLik -6903.27777230254 iter 17  logLik -6902.41093338714 iter 18  logLik -6901.58106348213 iter 19  logLik -6900.74296870095 iter 20  logLik -6899.85978618253 iter 21  logLik -6898.90023900742 iter 22  logLik -6897.8385382822 iter 23  logLik -6896.65653670301 iter 24  logLik -6895.34754434517 iter 25  logLik -6893.92074256499 iter 26  logLik -6892.40474396852 iter 27  logLik -6890.8488157661 iter 28  logLik -6889.32044803481 iter 29  logLik -6887.89829063523 iter 30  logLik -6886.66074997203 iter 31  logLik -6885.67287118412 iter 32  logLik -6884.97572106318 iter 33  logLik -6884.58159158906 iter 33  logLik -6884.58159158906
 
     ## Bicluster Matrix Profile
     ##        Class1 Class2 Class3 Class4 Class5 Class6
@@ -741,6 +741,10 @@ plot(result.IRM, type = "LCD")
 
 ![](Readme_files/figure-gfm/unnamed-chunk-13-7.png)<!-- -->
 
+Additionally, supplementary notes on the derivation of the Infinite
+Relational Model with Chinese restaurant process is
+[here](https://kosugitti.github.io/kosugitti10/notes/IRM_memo.pdf).
+
 ## Bayesian Network Model
 
 The Bayesian network model is a model that represents the conditional
@@ -776,9 +780,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH 2a5c26b DN-- 5 5 -- 
+    ## IGRAPH d897702 DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from 2a5c26b (vertex names):
+    ## + edges from d897702 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -976,7 +980,7 @@ StrLearningPBIL_BNM(J5S10,
     ## [1] "gen. 8 best BIC -16.7422588580787 limit count 0"
     ## [1] "gen. 9 best BIC -16.8753897755474 limit count 0"
     ## [1] "gen. 10 best BIC -18.4012186805156 limit count 0"
-    ## [1] "gen. 11 best BIC -16.8671984299345 limit count 0"
+    ## [1] "gen. 11 best BIC -16.8671984299346 limit count 0"
     ## [1] "gen. 12 best BIC -19.2142204292151 limit count 0"
     ## [1] "gen. 13 best BIC -17.1884625158029 limit count 0"
     ## [1] "gen. 14 best BIC -19.2142204292151 limit count 0"
@@ -1129,36 +1133,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH 29a3ba9 DN-- 4 2 -- 
+    ## IGRAPH d7d243b DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from 29a3ba9 (vertex names):
+    ## + edges from d7d243b (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 5e2a292 DN-- 9 7 -- 
+    ## IGRAPH 74cf948 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 5e2a292 (vertex names):
+    ## + edges from 74cf948 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 2ff5cce DN-- 9 7 -- 
+    ## IGRAPH b6bf718 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 2ff5cce (vertex names):
+    ## + edges from b6bf718 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH 6c26bc5 DN-- 10 8 -- 
+    ## IGRAPH 9178581 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 6c26bc5 (vertex names):
+    ## + edges from 9178581 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH 1ab5651 DN-- 10 8 -- 
+    ## IGRAPH d42a2db DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 1ab5651 (vertex names):
+    ## + edges from d42a2db (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
