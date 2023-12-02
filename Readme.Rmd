@@ -470,7 +470,7 @@ plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
 ```
 
 
-## Reference: Table of Model and Plotting Option Correspondence
+## Table of Model and Plotting Option Correspondence
 
 | model/type     | IIC | ICC | TIC | IRP | FRP | TRP | LCD/LRD | CMP/RMP | ARRAY | FieldPIRP | LDPSR |
 |----------------|-----|-----|-----|-----|-----|-----|---------|---------|-------|-----------|-------|
