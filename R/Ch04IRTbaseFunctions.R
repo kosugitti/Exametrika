@@ -98,7 +98,7 @@ IIF3PLM <- function(a, b, c, theta) {
 #' @param theta ability parameter
 #' @export
 
-ItemInformationFunc <- function(a = 1, b, c = 1, d = 0, theta) {
+ItemInformationFunc <- function(a = 1, b, c = 0, d = 1, theta) {
   numerator <- a^2 * (LogisticModel(a, b, c, d, theta) - c) * (d - LogisticModel(a, b, c, d, theta)) *
     (LogisticModel(a, b, c, d, theta) * (c + d - LogisticModel(a, b, c, d, theta)) - c * d)
   denominator <- (d - c)^2 * LogisticModel(a, b, c, d, theta) * (1 - LogisticModel(a, b, c, d, theta))

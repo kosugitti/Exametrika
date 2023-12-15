@@ -4,7 +4,7 @@
 \alias{ItemInformationFunc}
 \title{IIF for 4PLM}
 \usage{
-ItemInformationFunc(a = 1, b, c = 1, d = 0, theta)
+ItemInformationFunc(a = 1, b, c = 0, d = 1, theta)
 }
 \arguments{
 \item{a}{slope parameter}

@@ -1,3 +1,7 @@
+# Exametrika 0.11.3 on Decenber 15, 2023.
+
+* bug fix for item infromation curve
+
 # Exametrika 0.11.2 on October 27, 2023.
 
 * plot manual update.
