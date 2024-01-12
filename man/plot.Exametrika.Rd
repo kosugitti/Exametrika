@@ -85,7 +85,7 @@ from various perspectives, they correspond by specifying the 'type' variable whe
 \item "IRT": Can only have types "ICC", "IIC", "TIC".
 \item "LCA": Can only have types "IRP", "FRP", "TRP", "LCD", "CMP".
 \item "LRA": Can only have types "IRP", "FRP", "TRP", "LRD", "RMP".
-\item "Biclustering": Can only have types "IRP", "FRP", "TRP", "LCD", "LRD", "CMP", "RMP", "Array".
+\item "Biclustering": Can only have types "IRP", "FRP", "LCD", "LRD", "CMP", "RMP", "Array".
 \item "IRM": Can only have types "FRP", "TRP", "LCD", "LRD", "Array".
 \item "LDLRA": Can only have types "IRP", "TRP", "LRD", "RMP".
 \item "LDB": Can only have types "FRP", "TRP", "LRD", "RMP", "Array", "FieldPIRP".
