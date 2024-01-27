@@ -1,7 +1,7 @@
 Package: Exametrika
 Type: Package
 Title: Exametrika
-Version: 0.11.3
+Version: 0.11.4
 Authors@R: person("Koji Kosugi",role=c("aut","cre"),
                   email="kosugitti@gmail.com",
                   comment = c(ORCID = "0000-0001-5816-0099"))
@@ -12,7 +12,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3.9000
+RoxygenNote: 7.3.0
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

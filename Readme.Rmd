@@ -169,7 +169,6 @@ result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
 plot(result.IRM, type = "Array")
 plot(result.IRM, type = "FRP", nc = 3)
 plot(result.IRM, type = "TRP")
-plot(result.IRM, type = "LCD")
 ```
 
 Additionally, supplementary notes on the derivation of the Infinite Relational Model with Chinese restaurant process is [here](https://kosugitti.github.io/kosugitti10/notes/IRM_memo.pdf).
@@ -477,8 +476,8 @@ plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
 | IRT            |  ◯  |  ◯  |  ◯  |     |     |     |         |         |       |           |       |
 | LCA            |     |     |     |  ◯  |  ◯  |  ◯  |    ◯    |    ◯    |       |           |       |
 | LRA            |     |     |     |  ◯  |  ◯  |  ◯  |    ◯    |    ◯    |       |           |       |
-| Biclustering   |     |     |     |      |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |           |       |
-| IRM            |     |     |     |     |  ◯  |  ◯  |    ◯    |         |   ◯   |           |       |
+| Biclustering   |     |     |     |  ◯  |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |           |       |
+| IRM            |     |     |     |     |  ◯  |  ◯  |         |         |   ◯   |           |       |
 | LDLRA          |     |     |     |  ◯  |     |     |    ◯    |    ◯    |       |           |       |
 | LDB            |     |     |     |     |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |     ◯     |       |
 | BINET          |     |     |     |     |  ◯  |  ◯  |    ◯    |    ◯    |   ◯   |           |   ◯   |

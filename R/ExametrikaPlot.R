@@ -61,7 +61,7 @@
 #'     \item "LCA": Can only have types "IRP", "FRP", "TRP", "LCD", "CMP".
 #'     \item "LRA": Can only have types "IRP", "FRP", "TRP", "LRD", "RMP".
 #'     \item "Biclustering": Can only have types "IRP", "FRP", "LCD", "LRD", "CMP", "RMP", "Array".
-#'     \item "IRM": Can only have types "FRP", "TRP", "LCD", "LRD", "Array".
+#'     \item "IRM": Can only have types "FRP", "TRP", "Array".
 #'     \item "LDLRA": Can only have types "IRP", "TRP", "LRD", "RMP".
 #'     \item "LDB": Can only have types "FRP", "TRP", "LRD", "RMP", "Array", "FieldPIRP".
 #'     \item "BINET": Can only have types "FRP", "TRP", "LRD", "RMP", "Array", "LDPSR".
@@ -93,7 +93,7 @@ plot.Exametrika <- function(x,
     LCA = c("IRP", "TRP", "LCD", "CMP", "FRP"),
     LRA = c("IRP", "FRP", "TRP", "LRD", "RMP"),
     Biclustering = c("IRP", "FRP", "TRP", "LCD", "LRD", "CMP", "RMP", "Array"),
-    IRM = c("FRP", "TRP", "LCD", "LRD", "Array"),
+    IRM = c("FRP", "TRP", "Array"),
     LDLRA = c("IRP", "TRP", "LRD", "RMP"),
     LDB = c("FRP", "TRP", "LRD", "RMP", "Array", "FieldPIRP"),
     BINET = c("FRP", "TRP", "LRD", "RMP", "Array", "LDPSR")
@@ -181,7 +181,7 @@ plot.Exametrika <- function(x,
       # Latent Class Distribution ----------------------------------------
       old_par <- par(no.readonly = TRUE)
       par(mar = c(5, 4, 4, 4) + 0.1)
-      if (value == "LCA" | value == "LRA" | value == "IRM" | value == "BINET") {
+      if (value == "LCA" | value == "LRA" | value == "BINET") {
         target1 <- x$LCD
         target2 <- x$CMD
       } else if (value == "Biclustering" | value == "LDLRA" | value == "LDB") {

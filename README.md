@@ -146,7 +146,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101333813 iter 2 LogLik -3938.35086788409 iter 3 LogLik -3931.82433609838 iter 4 LogLik -3928.68004404966 iter 5 LogLik -3926.99366068065 iter 6 LogLik -3926.0485100648 iter 7 LogLik -3925.50647785763 iter 8 LogLik -3925.19187503437 iter 9 LogLik -3925.00744902482 iter 10 LogLik -3924.89896233114 iter 11 LogLik -3924.83483334735 iter 12 LogLik -3924.79733730621 iter 13 LogLik -3924.7747060796 
+    ## iter 1 LogLik -3960.28101332657 iter 2 LogLik -3938.35108868211 iter 3 LogLik -3931.82423114017 iter 4 LogLik -3928.68051720196 iter 5 LogLik -3926.99385014856 iter 6 LogLik -3926.04859835888 iter 7 LogLik -3925.50640663563 iter 8 LogLik -3925.19166916796 iter 9 LogLik -3925.0074050953 iter 10 LogLik -3924.89910966059 iter 11 LogLik -3924.83499649947 iter 12 LogLik -3924.79711081581 iter 13 LogLik -3924.77461783633 
 
 ``` r
 result.IRT
@@ -178,12 +178,12 @@ result.IRT
     ## Item04       -204.884       -192.072      -265.962       25.623     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
-    ## Item07       -250.905       -228.379      -298.345       45.052     139.933
+    ## Item07       -250.905       -228.379      -298.345       45.053     139.933
     ## Item08       -314.781       -293.225      -338.789       43.111      91.127
     ## Item09       -321.920       -300.492      -327.842       42.856      54.700
     ## Item10       -309.318       -288.198      -319.850       42.240      63.303
     ## Item11       -248.409       -224.085      -299.265       48.647     150.360
-    ## Item12       -238.877       -214.797      -293.598       48.161     157.603
+    ## Item12       -238.877       -214.797      -293.598       48.160     157.603
     ## Item13       -293.472       -262.031      -328.396       62.882     132.730
     ## Item14       -223.473       -204.953      -273.212       37.040     136.519
     ## Item15       -271.903       -254.764      -302.847       34.279      96.166
@@ -194,12 +194,12 @@ result.IRT
     ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.086 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
-    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.052 -23.330
+    ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
-    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.161 -20.222
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
     ## Item15       11      13 0.644 0.579 0.727 0.669 0.720 0.065 12.279 -34.104
@@ -237,7 +237,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.882
+    ## BIC             -383.883
 
 The estimated population of subjects is included in the returned object.
 
@@ -246,12 +246,12 @@ head(result.IRT$ability)
 ```
 
     ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526930 0.5805704
-    ## 2 Student002 -0.17398795 0.5473605
-    ## 3 Student003  0.01382249 0.5530504
-    ## 4 Student004  0.57627942 0.5749105
-    ## 5 Student005 -0.97449581 0.5915602
-    ## 6 Student006  0.85233213 0.5820552
+    ## 1 Student001 -0.75526812 0.5805702
+    ## 2 Student002 -0.17398755 0.5473604
+    ## 3 Student003  0.01382291 0.5530500
+    ## 4 Student004  0.57628112 0.5749109
+    ## 5 Student005 -0.97449534 0.5915605
+    ## 6 Student006  0.85232978 0.5820542
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -733,14 +733,6 @@ plot(result.IRM, type = "TRP")
 
 ![](Readme_files/figure-gfm/unnamed-chunk-13-6.png)<!-- -->
 
-``` r
-plot(result.IRM, type = "LCD")
-```
-
-    ## Warning in max(target2): no non-missing arguments to max; returning -Inf
-
-![](Readme_files/figure-gfm/unnamed-chunk-13-7.png)<!-- -->
-
 Additionally, supplementary notes on the derivation of the Infinite
 Relational Model with Chinese restaurant process is
 [here](https://kosugitti.github.io/kosugitti10/notes/IRM_memo.pdf).
@@ -780,9 +772,9 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH 56a1e95 DN-- 5 5 -- 
+    ## IGRAPH 17223b7 DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from 56a1e95 (vertex names):
+    ## + edges from 17223b7 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
@@ -1133,36 +1125,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH 22178a0 DN-- 4 2 -- 
+    ## IGRAPH fb5356a DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from 22178a0 (vertex names):
+    ## + edges from fb5356a (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH 277c771 DN-- 9 7 -- 
+    ## IGRAPH d78d2b0 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 277c771 (vertex names):
+    ## + edges from d78d2b0 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 72468e9 DN-- 9 7 -- 
+    ## IGRAPH 3479f66 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 72468e9 (vertex names):
+    ## + edges from 3479f66 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH 2d27ab1 DN-- 10 8 -- 
+    ## IGRAPH dca8c04 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from 2d27ab1 (vertex names):
+    ## + edges from dca8c04 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH e0e61b7 DN-- 10 8 -- 
+    ## IGRAPH e83d317 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from e0e61b7 (vertex names):
+    ## + edges from e83d317 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -3846,7 +3838,7 @@ plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
 | LCA          |     |     |     | ◯   | ◯   | ◯   | ◯       | ◯       |       |           |       |
 | LRA          |     |     |     | ◯   | ◯   | ◯   | ◯       | ◯       |       |           |       |
 | Biclustering |     |     |     | ◯   | ◯   | ◯   | ◯       | ◯       | ◯     |           |       |
-| IRM          |     |     |     |     | ◯   | ◯   | ◯       |         | ◯     |           |       |
+| IRM          |     |     |     |     | ◯   | ◯   |         |         | ◯     |           |       |
 | LDLRA        |     |     |     | ◯   |     |     | ◯       | ◯       |       |           |       |
 | LDB          |     |     |     |     | ◯   | ◯   | ◯       | ◯       | ◯     | ◯         |       |
 | BINET        |     |     |     |     | ◯   | ◯   | ◯       | ◯       | ◯     |           | ◯     |
