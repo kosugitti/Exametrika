@@ -1,3 +1,7 @@
+# Exametrika 0.11.5 on Mar 30, 2024.
+
+* bug fix for plot labels for TRP/LRD
+
 # Exametrika 0.11.4 on Jan 27, 2024.
 
 * bug fix for LCD/LRD for IRM

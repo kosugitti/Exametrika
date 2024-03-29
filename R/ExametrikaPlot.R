@@ -4,7 +4,7 @@
 #' In addition, the class name of the analysis model is also assigned.
 #' The models are listed as follows: IRT, LCA, LRA, Biclustering, IRM, LDLRA, LDB,
 #' BINET. A plot is made for each model. Although the analysis results are visualized
-#'from various perspectives, they correspond by specifying the 'type' variable when plotting.
+#' from various perspectives, they correspond by specifying the 'type' variable when plotting.
 #' @param x Exametrika Class object
 #' @param type Plot type.The selectable type names are as follows: IIC, ICC, TIC, IRP, TRP,
 #' LCD, CMP, FRP, RMP, LRD, Array, FieldPRIP, LDPSR.
@@ -77,7 +77,7 @@ plot.Exametrika <- function(x,
                               "IIC", "ICC", "TIC",
                               "IRP", "TRP", "LCD", "CMP",
                               "FRP", "RMP", "LRD", "Array",
-                              "FieldPIRP","LDPSR"
+                              "FieldPIRP", "LDPSR"
                             ),
                             items = NULL,
                             students = NULL,
@@ -134,15 +134,22 @@ plot.Exametrika <- function(x,
     if (type == "IRP") {
       # Item Reference Profile ----------------------------------------
       params <- x$IRP[plotItemID, ]
+      if (type == "CMP") {
+        msg <- "Class"
+      } else {
+        msg <- "Rank"
+      }
       for (i in 1:nrow(params)) {
         y <- params[i, ]
         plot(y,
           type = "b",
           ylab = "Correct Response Rate",
-          xlab = "Latent Class",
+          xlab = paste("Latent", msg),
           ylim = c(0, 1),
+          xaxt = "n",
           main = paste("Item", i)
         )
+        axis(1, at = 1:x$Nclass)
       }
     }
     if (type == "TRP") {
@@ -188,7 +195,7 @@ plot.Exametrika <- function(x,
         target1 <- x$LRD
         target2 <- x$RMD
       }
-      if (value == "Biclustering" && x$model == 2) {
+      if ((value == "Biclustering" && x$model == 2) || value == "LRA") {
         msg <- "Rank"
       } else {
         msg <- "Class"
