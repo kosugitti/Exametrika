@@ -1,5 +1,5 @@
 # Exametrika
-
+[https://zenodo.org/badge/DOI/10.5281/zenodo.11529926.svg]
 The Exametrika package is designed for test data engineering and
 corresponds to the text by Shojima (2022). Test data engineering
 involves analyzing test response patterns to classify item difficulty
