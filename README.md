@@ -1,4 +1,3 @@
-
 # Exametrika
 
 The Exametrika package is designed for test data engineering and
@@ -3848,3 +3847,7 @@ plot(result.BINET, type = "LDPSR", nc = 3, nr = 2)
 Shojima, Kojiro (2022) Test Data Engineering: Latent Rank Analysis,
 Biclustering, and Bayesian Network (Behaviormetrics: Quantitative
 Approaches to Human Behavior, 13),Springer, <https://amzn.to/42eNArd>
+
+## Citation
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11529926.svg)](https://doi.org/10.5281/zenodo.11529926)
