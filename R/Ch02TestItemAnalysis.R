@@ -385,10 +385,14 @@ ItemEntropy <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 ItemTotalCorr <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  p <- crr(U, na = na)
-  Zeta <- sscore(U, na = na)
-  TBL <- matrix(rep(p, each = NROW(U)), nrow = NROW(U), byrow = F)
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
+  p <- crr(tmp)
+  Zeta <- sscore(tmp)
+  TBL <- matrix(rep(p, each = NROW(tmp$U)), nrow = NROW(tmp$U), byrow = F)
   Una <- ifelse(is.na(tmp$U), 0, tmp$U)
   dev <- tmp$Z * (Una - TBL)
   V <- colSums(dev^2) / (colSums(tmp$Z) - 1)
@@ -738,5 +742,24 @@ Dimensionality <- function(U, na = NULL, Z = NULL, w = NULL) {
       class = c("Exametrika", "Dimensionality")
     )
 
+  return(ret)
+}
+
+
+ItemStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {
+  if (class(U)[1] != "Exametrika") {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+  } else {
+    tmp <- U
+  }
+
+  ret <-
+    structure(list(
+      ItemLabel = tmp$ItemLabel,
+      NumberOfRespondents = colSums(tmp$Z),
+      CorrectResponseRate = crr(tmp),
+      ItemThreshold = ItemThreshold(tmp),
+      ItemTotalCrr = ItemTotalCorr(tmp)
+    ), class = c("Exametrika", "ItemStatistics"))
   return(ret)
 }

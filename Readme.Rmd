@@ -69,6 +69,17 @@ Data column names (colnames) are available as item labels. If not specified, a s
 
 Before any analysis, the dataFormat function decomposes the provided data into an ID vector,Item label vector, data matrix U, missing value index matrix Z, and item weight vector w.
 
+## Test Statistics
+
+```{r}
+TestStatistics(J15S500)
+```
+
+## ItemStatistics
+
+```{r}
+ItemStatistics(J15S500)
+```
 
 ## CTT Example
 

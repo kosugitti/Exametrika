@@ -36,6 +36,12 @@ print.Exametrika <- function(x, digits = 3, ...) {
         ylab = "Eigenvalue", type = "b"
       )
     },
+    ItemStatistics = {
+      cat("Item Statics\n")
+      tmp <- as.data.frame(unclass(x))
+      rownames(tmp) <- NULL
+      print(tmp, digits = digits)
+    },
     examData = {
       cat("Resp Pattern\n")
       print(x$U)
