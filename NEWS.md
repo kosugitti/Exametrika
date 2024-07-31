@@ -1,6 +1,7 @@
 # Exametrika 0.11.6 on July 31, 2024.
 
 * bug fix for Item Total Correlation
+* bug fix for Fit indecies
 * New function called ItemStatistics
 
 # Exametrika 0.11.5 on Mar 30, 2024.
