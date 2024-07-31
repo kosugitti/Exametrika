@@ -23,6 +23,8 @@ Exametrika is originally implemented and published as a Mathematica and Excel Ad
 
 [Accompanying Website for Test Data Engineering](http://shojima.starfree.jp/tde/)
 
+[news](NEWS.md)
+
 ## Installation
 
 You can install the development version of Exametrika from [GitHub](https://github.com/) with:
@@ -139,13 +141,13 @@ plot(result.LCA, type = "LCD")
 Latent Class Analysis requires specifying the dataset and the number of classes.
 
 ```{r}
-LRA(J15S500, ncls = 6)
+LRA(J15S500, nrank = 6)
 ```
 
 The estimated subject rank membership probabilities and plots are almost the same as those in LCA (Latent Class Analysis). Since a ranking is assumed for the latent classes, rank-up odds and rank-down odds are calculated.
 
 ```{r}
-result.LRA <- LRA(J15S500, ncls = 6)
+result.LRA <- LRA(J15S500, nrank = 6)
 head(result.LRA$Students)
 ```
 
