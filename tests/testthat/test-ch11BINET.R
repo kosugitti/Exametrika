@@ -10,8 +10,8 @@ Item <- read_excel("../../develop/Chapter11BINET.xlsx", sheet = "Item")
 Student <- read_excel("../../develop/Chapter11BINET.xlsx", sheet = "Student")
 
 ### Target
-fieldFile <- "../../develop/mtmk14forVer13/FixFieldBINET.csv"
-edgeFile <- "../../develop/mtmk14forVer13/EdgesBINET.csv"
+fieldFile <- "../../develop/mtmk15forVer13/FixFieldBINET.csv"
+edgeFile <- "../../develop/mtmk15forVer13/EdgesBINET.csv"
 FieldData <- read.csv(fieldFile)
 conf <- FieldData[, 2]
 tgt <- BINET(

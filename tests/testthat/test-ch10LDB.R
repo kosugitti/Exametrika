@@ -9,9 +9,9 @@ Item <- read_excel("../../develop/Chapter10LDR.xlsx", sheet = "Item")
 Student <- read_excel("../../develop/Chapter10LDR.xlsx", sheet = "Student")
 
 ### Target
-fieldFile <- "../../develop/mtmk14forVer13/FixFieldLDB.csv"
+fieldFile <- "../../develop/mtmk15forVer13/FixFieldLDB.csv"
 ncls <- 5
-edgeFile <- "../../develop/mtmk14forVer13/EdgesLDB.csv"
+edgeFile <- "../../develop/mtmk15forVer13/EdgesLDB.csv"
 FieldData <- read.csv(fieldFile)
 conf <- FieldData[, 2]
 adj_file <- edgeFile

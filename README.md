@@ -1,5 +1,6 @@
+
 # Exametrika
-[https://zenodo.org/badge/DOI/10.5281/zenodo.11529926.svg]
+
 The Exametrika package is designed for test data engineering and
 corresponds to the text by Shojima (2022). Test data engineering
 involves analyzing test response patterns to classify item difficulty
@@ -102,6 +103,62 @@ Before any analysis, the dataFormat function decomposes the provided
 data into an ID vector,Item label vector, data matrix U, missing value
 index matrix Z, and item weight vector w.
 
+## Test Statistics
+
+``` r
+TestStatistics(J15S500)
+```
+
+    ## Test Statics
+    ##                   value
+    ## TestLength   15.0000000
+    ## SampleSize  500.0000000
+    ## Mean          9.6640000
+    ## SEofMean      0.1190738
+    ## Variance      7.0892826
+    ## SD            2.6625707
+    ## Skewness     -0.4116220
+    ## Kurtosis     -0.4471624
+    ## Min           2.0000000
+    ## Max          15.0000000
+    ## Range        13.0000000
+    ## Q1.25%        8.0000000
+    ## Median.50%   10.0000000
+    ## Q3.75%       12.0000000
+    ## IQR.75%       4.0000000
+    ## Stanine.4%    5.0000000
+    ## Stanine.11%   6.0000000
+    ## Stanine.23%   7.0000000
+    ## Stanine.40%   9.0000000
+    ## Stanine.60%  11.0000000
+    ## Stanine.77%  12.0000000
+    ## Stanine.89%  13.0000000
+    ## Stanine.96%  14.0000000
+
+## ItemStatistics
+
+``` r
+ItemStatistics(J15S500)
+```
+
+    ## Item Statics
+    ##    ItemLabel  NR   CRR  ODDs Threshold Entropy ITCrr
+    ## 1     Item01 500 0.746 2.937    -0.662   0.818 0.375
+    ## 2     Item02 500 0.754 3.065    -0.687   0.805 0.393
+    ## 3     Item03 500 0.726 2.650    -0.601   0.847 0.321
+    ## 4     Item04 500 0.776 3.464    -0.759   0.767 0.503
+    ## 5     Item05 500 0.804 4.102    -0.856   0.714 0.329
+    ## 6     Item06 500 0.864 6.353    -1.098   0.574 0.377
+    ## 7     Item07 500 0.716 2.521    -0.571   0.861 0.483
+    ## 8     Item08 500 0.588 1.427    -0.222   0.978 0.405
+    ## 9     Item09 500 0.364 0.572     0.348   0.946 0.225
+    ## 10    Item10 500 0.662 1.959    -0.418   0.923 0.314
+    ## 11    Item11 500 0.286 0.401     0.565   0.863 0.455
+    ## 12    Item12 500 0.274 0.377     0.601   0.847 0.468
+    ## 13    Item13 500 0.634 1.732    -0.342   0.948 0.471
+    ## 14    Item14 500 0.764 3.237    -0.719   0.788 0.485
+    ## 15    Item15 500 0.706 2.401    -0.542   0.874 0.413
+
 ## CTT Example
 
 ``` r
@@ -145,7 +202,7 @@ model, which can be specified using the `model` option. It supports 2PL,
 result.IRT <- IRT(J15S500, model = 3)
 ```
 
-    ## iter 1 LogLik -3960.28101332657 iter 2 LogLik -3938.35108868211 iter 3 LogLik -3931.82423114017 iter 4 LogLik -3928.68051720196 iter 5 LogLik -3926.99385014856 iter 6 LogLik -3926.04859835888 iter 7 LogLik -3925.50640663563 iter 8 LogLik -3925.19166916796 iter 9 LogLik -3925.0074050953 iter 10 LogLik -3924.89910966059 iter 11 LogLik -3924.83499649947 iter 12 LogLik -3924.79711081581 iter 13 LogLik -3924.77461783633 
+    ## iter 1 LogLik -3960.28101333844 iter 2 LogLik -3938.35087627816 iter 3 LogLik -3931.82430493958 iter 4 LogLik -3928.67998251937 iter 5 LogLik -3926.99352463613 iter 6 LogLik -3926.04836254599 iter 7 LogLik -3925.50640122538 iter 8 LogLik -3925.19172847357 iter 9 LogLik -3925.00751070039 iter 10 LogLik -3924.89902138137 iter 11 LogLik -3924.83508143668 iter 12 LogLik -3924.79712756988 iter 13 LogLik -3924.77473193401 
 
 ``` r
 result.IRT
@@ -174,7 +231,7 @@ result.IRT
     ## Item01       -262.979       -240.190      -283.343       45.578      86.307
     ## Item02       -253.405       -235.436      -278.949       35.937      87.025
     ## Item03       -280.640       -260.906      -293.598       39.468      65.383
-    ## Item04       -204.884       -192.072      -265.962       25.623     147.780
+    ## Item04       -204.884       -192.072      -265.962       25.624     147.780
     ## Item05       -232.135       -206.537      -247.403       51.196      81.732
     ## Item06       -173.669       -153.940      -198.817       39.459      89.755
     ## Item07       -250.905       -228.379      -298.345       45.053     139.933
@@ -190,14 +247,14 @@ result.IRT
     ## Item01       11      13 0.472 0.376 0.541 0.443 0.528 0.079 23.578 -22.805
     ## Item02       11      13 0.587 0.512 0.672 0.602 0.663 0.067 13.937 -32.446
     ## Item03       11      13 0.396 0.287 0.477 0.358 0.457 0.072 17.468 -28.915
-    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.623 -42.759
+    ## Item04       11      13 0.827 0.795 0.893 0.872 0.892 0.052  3.624 -42.759
     ## Item05       11      13 0.374 0.260 0.432 0.309 0.415 0.086 29.196 -17.186
     ## Item06       11      13 0.560 0.480 0.639 0.562 0.629 0.072 17.459 -28.924
     ## Item07       11      13 0.678 0.620 0.736 0.683 0.732 0.079 23.053 -23.330
     ## Item08       11      13 0.527 0.441 0.599 0.514 0.589 0.076 21.111 -25.272
     ## Item09       11      13 0.217 0.074 0.271 0.097 0.236 0.076 20.856 -25.527
     ## Item10       11      13 0.333 0.211 0.403 0.266 0.379 0.075 20.240 -26.143
-    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.735
+    ## Item11       11      13 0.676 0.618 0.730 0.676 0.726 0.083 26.647 -19.736
     ## Item12       11      13 0.694 0.639 0.747 0.696 0.743 0.082 26.160 -20.222
     ## Item13       11      13 0.526 0.440 0.574 0.488 0.567 0.097 40.882  -5.501
     ## Item14       11      13 0.729 0.679 0.793 0.751 0.789 0.069 15.040 -31.343
@@ -236,7 +293,7 @@ result.IRT
     ## RMSEA              0.076
     ## AIC              311.528
     ## CAIC            -384.212
-    ## BIC             -383.883
+    ## BIC             -383.882
 
 The estimated population of subjects is included in the returned object.
 
@@ -244,13 +301,13 @@ The estimated population of subjects is included in the returned object.
 head(result.IRT$ability)
 ```
 
-    ##       tmp$ID         EAP       PSD
-    ## 1 Student001 -0.75526812 0.5805702
-    ## 2 Student002 -0.17398755 0.5473604
-    ## 3 Student003  0.01382291 0.5530500
-    ## 4 Student004  0.57628112 0.5749109
-    ## 5 Student005 -0.97449534 0.5915605
-    ## 6 Student006  0.85232978 0.5820542
+    ##       tmp$ID        EAP       PSD
+    ## 1 Student001 -0.7552607 0.5805688
+    ## 2 Student002 -0.1739882 0.5473605
+    ## 3 Student003  0.0138223 0.5530503
+    ## 4 Student004  0.5762815 0.5749118
+    ## 5 Student005 -0.9744961 0.5915604
+    ## 6 Student006  0.8523289 0.5820537
 
 The plots offer options for Item Characteristic Curves (ICC), Item
 Information Curves (IIC), and Test Information Curves (TIC), which can
@@ -263,19 +320,19 @@ specified using `nr` and `nc`, respectively.
 plot(result.IRT, type = "ICC", items = 1:6, nc = 2, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
 plot(result.IRT, type = "IIC", items = 1:6, nc = 2, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-3-2.png)<!-- -->
 
 ``` r
 plot(result.IRT, type = "TIC")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-3-3.png)<!-- -->
 
 ## LCA Example
 
@@ -406,25 +463,25 @@ each, please refer to Shojima (2022).
 plot(result.LCA, type = "IRP", items = 1:6, nc = 2, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 plot(result.LCA, type = "CMP", students = 1:9, nc = 3, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
 
 ``` r
 plot(result.LCA, type = "TRP")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-6-3.png)<!-- -->
 
 ``` r
 plot(result.LCA, type = "LCD")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-6-4.png)<!-- -->
 
 ## LRA Example
 
@@ -577,25 +634,25 @@ head(result.LRA$Students)
 plot(result.LRA, type = "IRP", items = 1:6, nc = 2, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 plot(result.LRA, type = "RMP", students = 1:9, nc = 3, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-9-2.png)<!-- -->
 
 ``` r
 plot(result.LRA, type = "TRP")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-10-3.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-9-3.png)<!-- -->
 
 ``` r
 plot(result.LRA, type = "LRD")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-10-4.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-9-4.png)<!-- -->
 
 ## Biclustering Example
 
@@ -670,20 +727,20 @@ result.Ranklusteing <- Biclustering(J35S515, nfld = 5, ncls = 6, method = "R")
 plot(result.Ranklusteing, type = "Array")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 plot(result.Ranklusteing, type = "FRP", nc = 2, nr = 3)
 plot(result.Ranklusteing, type = "RMP", students = 1:9, nc = 3, nr = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->
 
 ``` r
 plot(result.Ranklusteing, type = "LRD")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-12-4.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->
 
 To find the optimal number of classes and the optimal number of fields,
 the Infinite Relational Model is available.
@@ -718,19 +775,19 @@ result.IRM <- IRM(J35S515, gamma_c = 1, gamma_f = 1, verbose = TRUE)
 plot(result.IRM, type = "Array")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 plot(result.IRM, type = "FRP", nc = 3)
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-3.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-4.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-13-5.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-12-4.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-12-5.png)<!-- -->
 
 ``` r
 plot(result.IRM, type = "TRP")
 ```
 
-![](Readme_files/figure-gfm/unnamed-chunk-13-6.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-12-6.png)<!-- -->
 
 Additionally, supplementary notes on the derivation of the Infinite
 Relational Model with Chinese restaurant process is
@@ -771,14 +828,23 @@ g <- igraph::graph_from_data_frame(DAG)
 g
 ```
 
-    ## IGRAPH 17223b7 DN-- 5 5 -- 
+    ## IGRAPH f320264 DN-- 5 5 -- 
     ## + attr: name (v/c)
-    ## + edges from 17223b7 (vertex names):
+    ## + edges from f320264 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item02->Item04 Item03->Item05 Item04->Item05
 
 ``` r
 ## Adj mmatrix
 adj_mat <- as.matrix(igraph::get.adjacency(g))
+```
+
+    ## Warning: `get.adjacency()` was deprecated in igraph 2.0.0.
+    ## ℹ Please use `as_adjacency_matrix()` instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+``` r
 adj_mat
 ```
 
@@ -1124,36 +1190,36 @@ g_list
 ```
 
     ## [[1]]
-    ## IGRAPH fb5356a DN-- 4 2 -- 
+    ## IGRAPH 1da87bd DN-- 4 2 -- 
     ## + attr: name (v/c)
-    ## + edges from fb5356a (vertex names):
+    ## + edges from 1da87bd (vertex names):
     ## [1] Item01->Item02 Item04->Item05
     ## 
     ## [[2]]
-    ## IGRAPH d78d2b0 DN-- 9 7 -- 
+    ## IGRAPH 2a564c0 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from d78d2b0 (vertex names):
+    ## + edges from 2a564c0 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[3]]
-    ## IGRAPH 3479f66 DN-- 9 7 -- 
+    ## IGRAPH 0057f56 DN-- 9 7 -- 
     ## + attr: name (v/c)
-    ## + edges from 3479f66 (vertex names):
+    ## + edges from 0057f56 (vertex names):
     ## [1] Item01->Item02 Item02->Item03 Item04->Item05 Item08->Item09 Item08->Item10
     ## [6] Item09->Item10 Item08->Item11
     ## 
     ## [[4]]
-    ## IGRAPH dca8c04 DN-- 10 8 -- 
+    ## IGRAPH 045410e DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from dca8c04 (vertex names):
+    ## + edges from 045410e (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item08->Item10 Item08->Item11 Item09->Item11
     ## 
     ## [[5]]
-    ## IGRAPH e83d317 DN-- 10 8 -- 
+    ## IGRAPH 3fe83f0 DN-- 10 8 -- 
     ## + attr: name (v/c)
-    ## + edges from e83d317 (vertex names):
+    ## + edges from 3fe83f0 (vertex names):
     ## [1] Item02->Item03 Item04->Item06 Item04->Item07 Item05->Item06 Item05->Item07
     ## [6] Item09->Item11 Item10->Item11 Item10->Item12
 
@@ -3169,7 +3235,7 @@ result.LDB
     ## Field09       1
     ## Field10       0
 
-![](Readme_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-16-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-16-3.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-16-4.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->![](Readme_files/figure-gfm/unnamed-chunk-15-4.png)<!-- -->
 
     ## 
     ## Parameter Learning
@@ -3346,7 +3412,7 @@ result.LDB
 
     ## Strongly ordinal alignment condition was satisfied.
 
-![](Readme_files/figure-gfm/unnamed-chunk-16-5.png)<!-- -->
+![](Readme_files/figure-gfm/unnamed-chunk-15-5.png)<!-- -->
 
 Of course, it also supports various types of plots.
 
@@ -3404,8 +3470,8 @@ correspondence file used during exploratory Biclustering is required, as
 well as an adjacency matrix between classes.
 
 ``` r
-fieldFile <- "develop/mtmk14forVer13/FixFieldBINET.csv"
-edgeFile <- "develop/mtmk14forVer13/EdgesBINET.csv"
+fieldFile <- "develop/mtmk15forVer13/FixFieldBINET.csv"
+edgeFile <- "develop/mtmk15forVer13/EdgesBINET.csv"
 FieldData <- read.csv(fieldFile)
 conf <- FieldData[, 2]
 ```
