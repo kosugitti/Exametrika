@@ -6,7 +6,7 @@
 \usage{
 LRA(
   U,
-  ncls = 2,
+  nrank = 2,
   na = NULL,
   Z = NULL,
   w = NULL,
@@ -21,7 +21,7 @@ LRA(
 \item{U}{U is either a data class of Exametrika, or raw data. When raw data is given,
 it is converted to the Exametrika class with the \link{dataFormat} function.}
 
-\item{ncls}{number of latent class}
+\item{nrank}{number of latent rank}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 

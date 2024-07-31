@@ -14,11 +14,11 @@ dat <- J15S500
 tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
-model <- LRA(tmp, ncls = 6)
+model <- LRA(tmp, nrank = 6)
 plot(model, type = "IRP")
 plot(model, type = "TRP")
 plot(model, type = "LRD")
-plot(model, type = "CMP", students = 1:15, nr = 5, nc = 3)
+plot(model, type = "RMP", students = 1:15, nr = 5, nc = 3)
 ### test
 test_that("LCA Test Info", {
   expect <- test[15:30, 2] %>%

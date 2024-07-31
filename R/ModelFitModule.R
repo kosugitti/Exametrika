@@ -32,12 +32,12 @@ ItemFit <- function(U, Z, ell_A, nparam) {
   testlength <- ncol(U)
   nobs <- NROW(U)
   nrs <- colSums(Z)
-  crr <- colSums(U) / nrs
+  crr <- colSums(Z * U) / nrs
   const <- exp(-testlength)
   # Null model
   ell_N <- nobs * crr * log(crr + const) + nobs * (1 - crr) * log(1 - crr + const)
   # Benchmark model
-  total <- rowSums(U)
+  total <- rowSums(Z * U)
   totalList <- sort(unique(total))
   totalDist <- as.vector(table(total))
   ntotal <- length(totalList)
@@ -47,9 +47,9 @@ ItemFit <- function(U, Z, ell_A, nparam) {
     MsG[i, which(totalList == total[i])] <- 1
   }
   ## PjG
-  PjG <- t(MsG) %*% (Z * U) / t(MsG) %*% Z
   U1gj <- t(MsG) %*% (Z * U)
-  U0gj <- t(MsG) %*% (Z * (1 - U))
+  U0gj <- replicate(testlength, totalDist, simplify = "matrix") - U1gj
+  PjG <- U1gj / totalDist
   ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
 
   # chisquares
@@ -140,22 +140,22 @@ TestFit <- function(U, Z, ell_A, nparam) {
   nres <- colSums(Z)
   nitem <- NCOL(U)
   nobs <- NROW(U)
-  crr <- colSums(U) / nres
+  crr <- colSums(Z * U) / nres
   const <- exp(-nitem)
   # Benchmark model
-  total <- rowSums(U)
+  total <- rowSums(Z * U)
   totalList <- sort(unique(total))
   totalDist <- as.vector(table(total))
   ntotal <- length(totalList)
   ## Group Membership Profile Matrix
-  MsG <- matrix(0, ncol = ntotal, nrow = nobs)
+  MsG <- matrix(0, ncol = nobs, nrow = ntotal)
   for (i in 1:nobs) {
-    MsG[i, which(totalList == total[i])] <- 1
+    MsG[which(total[i] == totalList), i] <- 1
   }
   ## PjG
-  PjG <- t(MsG) %*% (Z * U) / t(MsG) %*% Z
-  U1gj <- t(MsG) %*% (Z * U)
-  U0gj <- t(MsG) %*% (Z * (1 - U))
+  U1gj <- MsG %*% (Z * U)
+  U0gj <- replicate(nitem, totalDist, simplify = "matrix") - U1gj
+  PjG <- U1gj / totalDist
   ell_B <- colSums(U1gj * log(PjG + const) + U0gj * log(1 - PjG + const))
   ell_B <- sum(ell_B)
   bench_nparm <- ntotal * nitem

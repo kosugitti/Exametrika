@@ -3,7 +3,7 @@
 #' A function for estimating LRA by SOM/GTM
 #' @param U U is either a data class of Exametrika, or raw data. When raw data is given,
 #' it is converted to the Exametrika class with the [dataFormat] function.
-#' @param ncls number of latent class
+#' @param nrank number of latent rank
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
@@ -47,7 +47,7 @@
 #' @export
 #'
 
-LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
+LRA <- function(U, nrank = 2, na = NULL, Z = NULL, w = NULL,
                 method = "GTM",
                 mic = FALSE,
                 maxiter = 100,
@@ -63,6 +63,7 @@ LRA <- function(U, ncls = 2, na = NULL, Z = NULL, w = NULL,
   testlength <- NCOL(tmp$U)
   samplesize <- NROW(tmp$U)
   const <- exp(-testlength)
+  ncls <- nrank
 
   if (method != "SOM" & method != "GTM") {
     stop("The method must be selected as either SOM or GTM.")

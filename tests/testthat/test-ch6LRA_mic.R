@@ -15,7 +15,7 @@ dat <- read_csv("../../develop/sampleData/J15S500.csv") %>%
 tmp <- dataFormat(dat, na = -99)
 U <- ifelse(is.na(tmp$U), 0, tmp$U) * tmp$Z
 
-model <- LRA(tmp, ncls = 6, mic = TRUE)
+model <- LRA(tmp, nrank = 6, mic = TRUE)
 
 ### test
 test_that("LCA Test Info", {
