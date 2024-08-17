@@ -213,6 +213,7 @@ LRA <- function(U, nrank = 2, na = NULL, Z = NULL, w = NULL,
   ### Item Information
   IRP <- t(fit$classRefMat)
   colnames(IRP) <- paste0("IRP", 1:ncls)
+  rownames(IRP) <- tmp$ItemLabel
 
   IRPIndex <- IRPindex(IRP)
 

@@ -1,7 +1,7 @@
 Package: Exametrika
 Type: Package
 Title: Exametrika
-Version: 0.11.6
+Version: 1.0.1
 Authors@R: person("Koji Kosugi",role=c("aut","cre"),
                   email="kosugitti@gmail.com",
                   comment = c(ORCID = "0000-0001-5816-0099"))
