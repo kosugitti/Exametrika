@@ -1,5 +1,5 @@
 
-# Exametrika
+# Exametrika for R
 
 The Exametrika package is designed for test data engineering and
 corresponds to the text by Shojima (2022). Test data engineering
@@ -18,7 +18,7 @@ models.
 - Local Dependence Latent Rank Analysis
 - Structure Learning for LDLRA by PBIL
 - Local Dependence Biclustering
-- Biclister Network Model
+- Bicluster Network Model
 
 Exametrika is originally implemented and published as a Mathematica and
 Excel Add-in. Please refer to the following website for more
