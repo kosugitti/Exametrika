@@ -42,9 +42,15 @@ print.Exametrika <- function(x, digits = 3, ...) {
       rownames(tmp) <- NULL
       print(tmp, digits = digits)
     },
-    examData = {
-      cat("Resp Pattern\n")
-      print(x$U)
+    exametrikaData = {
+      cat("Response Type:", x$response.type, "\n")
+      if (x$response.type == "binary") {
+        cat("Binary Response Pattern\n")
+        print(x$U)
+      } else {
+        cat("Polytomous Response Pattern\n")
+        print(x$Q)
+      }
       cat("Missing Pattern\n")
       print(x$Z)
       cat("Weight\n")
