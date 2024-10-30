@@ -4,7 +4,7 @@
 \alias{ITBiserial}
 \title{Item-Total Biserial Correlation}
 \usage{
-ITBiserial(U, na = NULL, Z = NULL, w = NULL)
+ITBiserial(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,7 +15,25 @@ ITBiserial(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A numeric vector of item-total biserial correlations. Values range
+from -1 to 1, where:
+\itemize{
+\item Values near 1: Strong positive discrimination
+\item Values near 0: No discrimination
+\item Negative values: Potential item problems
+}
+}
 \description{
-The Item-Biserial Correlation computes the biserial correlation
-between an item and the total score.
+The Item-Total Biserial Correlation computes the biserial correlation
+between each item and the total score. This function is applicable only
+to binary response data.
+
+This correlation provides a measure of item discrimination, indicating how well
+each item distinguishes between high and low performing examinees.
+}
+\note{
+The biserial correlation is generally preferred over the point-biserial
+correlation when the dichotomization is artificial (i.e., when the underlying
+trait is continuous).
 }

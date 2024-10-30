@@ -4,7 +4,7 @@
 \alias{ItemEntropy}
 \title{Item Entropy}
 \usage{
-ItemEntropy(U, na = NULL, Z = NULL, w = NULL)
+ItemEntropy(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,10 +15,45 @@ ItemEntropy(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A numeric vector of entropy values for each item, measured in bits.
+Values range from 0 to 1, where:
+\itemize{
+\item 1: maximum uncertainty (p = 0.5)
+\item 0: complete certainty (p = 0 or 1)
+\item Values near 1 indicate items with balanced response patterns
+\item Values near 0 indicate items with extreme response patterns
+}
+}
 \description{
 The item entropy is an indicator of the variability or randomness
-of the responses.
+of the responses. This function is applicable only to binary response data.
+
+The entropy value represents the uncertainty or information content of the
+response pattern for each item, measured in bits. Maximum entropy (1 bit)
+occurs when correct and incorrect responses are equally likely (p = 0.5).
 }
 \details{
-\eqn{e_j = -p_j\log_2p_j-(1-p_j)\log_2(1-p_j)}
+The item entropy is calculated as:
+\deqn{e_j = -p_j\log_2p_j-(1-p_j)\log_2(1-p_j)}
+where \eqn{p_j} is the correct response rate for item j.
+
+The entropy value has the following properties:
+\itemize{
+\item Maximum value of 1 bit when p = 0.5 (most uncertainty)
+\item Minimum value of 0 bits when p = 0 or 1 (no uncertainty)
+\item Higher values indicate more balanced response patterns
+\item Lower values indicate more predictable response patterns
+}
+}
+\examples{
+\dontrun{
+# Balanced item (50\% correct)
+p1 <- 0.5
+e1 <- -p1 * log2(p1) - (1-p1) * log2(1-p1)  # maximum entropy
+
+# Extreme item (90\% correct)
+p2 <- 0.9
+e2 <- -p2 * log2(p2) - (1-p2) * log2(1-p2)  # low entropy
+}
 }

@@ -4,7 +4,7 @@
 \alias{TetrachoricCorrelationMatrix}
 \title{Tetrachoric Correlation Matrix}
 \usage{
-TetrachoricCorrelationMatrix(U, na = NULL, Z = NULL, w = NULL)
+TetrachoricCorrelationMatrix(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,6 +15,13 @@ TetrachoricCorrelationMatrix(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A matrix of tetrachoric correlations with Exametrika class.
+Each element (i,j) represents the tetrachoric correlation between items i and j.
+The matrix is symmetric with ones on the diagonal.
+}
 \description{
-This function returns the tetrachoric correlation for all item pairs.
+Calculates the matrix of tetrachoric correlations between all pairs of items.
+Tetrachoric Correlation is superior to the phi coefficient as a measure of the
+relation of an item pair. This function is applicable only to binary response data.
 }

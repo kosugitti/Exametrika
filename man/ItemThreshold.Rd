@@ -4,7 +4,7 @@
 \alias{ItemThreshold}
 \title{Item Threshold}
 \usage{
-ItemThreshold(U, na = NULL, Z = NULL, w = NULL)
+ItemThreshold(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,6 +15,35 @@ ItemThreshold(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A numeric vector of threshold values for each item on the standard normal scale.
+Typical values range from about -3 to 3, where:
+\itemize{
+\item Positive values indicate difficult items
+\item Zero indicates items of medium difficulty (50\% correct)
+\item Negative values indicate easy items
+}
+}
 \description{
-Itemthreshold is a measure of difficulty based on a standard normal distribuiton.
+Item threshold is a measure of difficulty based on a standard normal distribution.
+This function is applicable only to binary response data.
+
+The threshold is calculated as:
+\deqn{\tau_j = \Phi^{-1}(1-p_j)}
+where \eqn{\Phi^{-1}} is the inverse standard normal distribution function
+and \eqn{p_j} is the correct response rate for item j.
+
+Higher threshold values indicate more difficult items, as they represent the
+point on the standard normal scale above which examinees tend to answer incorrectly.
+}
+\examples{
+\dontrun{
+# Easy item (80\% correct)
+p1 <- 0.8
+tau1 <- qnorm(1 - p1)  # negative threshold
+
+# Hard item (20\% correct)
+p2 <- 0.2
+tau2 <- qnorm(1 - p2)  # positive threshold
+}
 }

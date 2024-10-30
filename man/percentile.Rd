@@ -2,9 +2,9 @@
 % Please edit documentation in R/Ch02TestItemAnalysis.R
 \name{percentile}
 \alias{percentile}
-\title{percentile}
+\title{Student Percentile Ranks}
 \usage{
-percentile(U, na = NULL, Z = NULL, w = NULL)
+percentile(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -16,12 +16,35 @@ percentile(U, na = NULL, Z = NULL, w = NULL)
 \item{w}{w is item weight vector}
 }
 \value{
-This function returns standardized score for each students.
+A numeric vector of percentile ranks (1-100) for each student, where:
+\itemize{
+\item 100: Highest performing student(s)
+\item 50: Median performance
+\item 1: Lowest performing student(s)
+}
 }
 \description{
-The percentile function returns the corresponding score percentile,
-out of 100 divisions, for each student.
+The percentile function calculates each student's relative standing in the group,
+expressed as a percentile rank (1-100). This function is applicable only to
+binary response data.
+
+The percentile rank indicates the percentage of scores in the distribution
+that fall below a given score. For example, a percentile rank of 75 means
+the student performed better than 75\% of the group.
+}
+\note{
+Percentile ranks are calculated using the empirical cumulative distribution
+function of standardized scores. Tied scores receive the same percentile rank.
+The values are rounded up to the nearest integer to provide ranks from 1 to 100.
 }
 \examples{
-# percentile(U)
+\dontrun{
+# Simple binary data
+U <- matrix(c(1,0,1,1,0,1), ncol=2)
+percentile(U)
+
+# With missing values
+U[1,1] <- NA
+percentile(U, na=NA)
+}
 }

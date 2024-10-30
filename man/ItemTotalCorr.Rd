@@ -4,7 +4,7 @@
 \alias{ItemTotalCorr}
 \title{Item-Total Correlation}
 \usage{
-ItemTotalCorr(U, na = NULL, Z = NULL, w = NULL)
+ItemTotalCorr(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,7 +15,34 @@ ItemTotalCorr(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A numeric vector of item-total correlations. Values typically range
+from -1 to 1, where:
+\itemize{
+\item Values near 1: Strong positive discrimination
+\item Values near 0: No discrimination
+\item Negative values: Potential item problems (lower ability students
+performing better than higher ability students)
+}
+}
 \description{
-Item-Total correlation(ITC) is a Peason's correlation of an item with
-the NRS/total score.
+Item-Total correlation (ITC) is a Pearson's correlation of an item with
+the Number-Right Score (NRS) or total score. This function is applicable
+only to binary response data.
+
+The ITC is a measure of item discrimination, indicating how well an item
+distinguishes between high and low performing examinees.
+}
+\details{
+The correlation is calculated between:
+\itemize{
+\item Each item's responses (0 or 1)
+\item The total test score (sum of correct responses)
+}
+Higher positive correlations indicate items that better discriminate between
+high and low ability examinees.
+}
+\note{
+Values below 0.2 might indicate problematic items that should be reviewed.
+Values above 0.3 are generally considered acceptable.
 }

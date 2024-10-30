@@ -4,7 +4,7 @@
 \alias{JCRR}
 \title{Joint Correct Response Rate}
 \usage{
-JCRR(U, na = NULL, Z = NULL, w = NULL)
+JCRR(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,7 +15,12 @@ JCRR(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A matrix of joint correct response rates with Exametrika class.
+Each element (i,j) represents the proportion of students who correctly
+answered both items i and j.
+}
 \description{
-The joint correct response rate(JCRR) is the rate of students who passed
-both items.
+The joint correct response rate (JCRR) is the rate of students who passed
+both items. This function is applicable only to binary response data.
 }

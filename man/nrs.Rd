@@ -4,7 +4,7 @@
 \alias{nrs}
 \title{Number Right Score}
 \usage{
-nrs(U, na = NULL, Z = NULL, w = NULL)
+nrs(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -16,12 +16,36 @@ nrs(U, na = NULL, Z = NULL, w = NULL)
 \item{w}{w is item weight vector}
 }
 \value{
-This function counts and returns the number of correct answers from the data matrix.
+A numeric vector containing the Number-Right Score for each examinee.
+The score represents the weighted sum of correct answers, where:
+\itemize{
+\item Maximum score is the sum of all item weights
+\item Minimum score is 0
+\item Missing responses do not contribute to the score
+}
 }
 \description{
-\code{nrs}
-The Number-right score (NRS) function returns the count of the items passed to it.
+The Number-Right Score (NRS) function calculates the weighted sum of correct
+responses for each examinee. This function is applicable only to binary
+response data.
+
+For each examinee, the score is computed as:
+\deqn{NRS_i = \sum_{j=1}^J z_{ij}u_{ij}w_j}
+where:
+\itemize{
+\item \eqn{z_{ij}} is the missing response indicator (0/1)
+\item \eqn{u_{ij}} is the response (0/1)
+\item \eqn{w_j} is the item weight
+}
 }
 \examples{
-# nrs(U)
+\dontrun{
+# Simple binary data
+U <- matrix(c(1,0,1,1,0,1), ncol=2)
+nrs(U)
+
+# With item weights
+w <- c(2,1)  # first item worth 2 points
+nrs(U, w=w)
+}
 }

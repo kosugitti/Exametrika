@@ -4,7 +4,7 @@
 \alias{ItemLift}
 \title{Item Lift}
 \usage{
-ItemLift(U, na = NULL, Z = NULL, w = NULL)
+ItemLift(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,13 +15,20 @@ ItemLift(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A matrix of item lift values with Exametrika class.
+Each element (j,k) represents the lift value of item k given item j,
+which indicates how much more likely item k is to be correct given that
+item j was answered correctly.
+}
 \description{
 The lift is a commonly used index in a POS data analysis.
-The item lift of Item $k$ to Item $J$ is defined as follow:
+The item lift of Item k to Item j is defined as follow:
 \eqn{ l_{jk} = \frac{p_{k\mid j}}{p_k} }
+This function is applicable only to binary response data.
 }
 \references{
 Brin, S., Motwani, R., Ullman, J., & Tsur, S. (1997). Dynamic itemset counting and
 implication rules for market basket data. In Proceedings of ACM SIGMOD International Conference
-on Management of Data (pp. 255–264).https://dl.acm.org/doi/10.1145/253262.253325
+on Management of Data (pp. 255–264). https://dl.acm.org/doi/10.1145/253262.253325
 }

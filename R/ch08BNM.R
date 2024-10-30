@@ -3,13 +3,13 @@
 #' @param g igraph object
 #' @param ItemLabel Labels for all items. Information should held by the
 #' Exametrika class data.
-#' @importFrom igraph get.adjacency
+#' @importFrom igraph as_adjacency_matrix
 #' @return adjacency matrix
 #' @noRd
 
 fill_adj <- function(g, ItemLabel) {
   testlength <- length(ItemLabel)
-  tmp_adj <- as.matrix(igraph::get.adjacency(g))
+  tmp_adj <- as.matrix(igraph::as_adjacency_matrix(g))
   adj <- matrix(0, ncol = testlength, nrow = testlength)
   colnames(adj) <- rownames(adj) <- ItemLabel
   tmp_col_names <- colnames(tmp_adj)

@@ -4,7 +4,7 @@
 \alias{MutualInformation}
 \title{Mutual Information}
 \usage{
-MutualInformation(U, na = NULL, Z = NULL, w = NULL)
+MutualInformation(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,7 +15,14 @@ MutualInformation(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A matrix of mutual information values with Exametrika class.
+Each element (i,j) represents the mutual information between items i and j,
+measured in bits. Higher values indicate stronger interdependence between items.
+}
 \description{
 Mutual Information is a measure that represents the degree of interdependence
-between two items
+between two items. This function is applicable only to binary response data.
+The measure is calculated using the joint probability distribution of responses
+between item pairs and their marginal probabilities.
 }

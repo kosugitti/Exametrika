@@ -4,7 +4,7 @@
 \alias{sscore}
 \title{Standardized Score}
 \usage{
-sscore(U, na = NULL, Z = NULL, w = NULL)
+sscore(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -16,12 +16,43 @@ sscore(U, na = NULL, Z = NULL, w = NULL)
 \item{w}{w is item weight vector}
 }
 \value{
-This function returns standardized score for each students.
+A numeric vector of standardized scores for each student. The scores follow
+a standard normal distribution with:
+\itemize{
+\item Mean = 0
+\item Standard deviation = 1
+\item Approximately 68\% of scores between -1 and 1
+\item Approximately 95\% of scores between -2 and 2
+\item Approximately 99\% of scores between -3 and 3
+}
 }
 \description{
-The standardized score indicates how high or low the student's ability is
-placed in the standard normal distribution.
+The standardized score (z-score) indicates how far a student's performance
+deviates from the mean in units of standard deviation. This function is
+applicable only to binary response data.
+
+The score is calculated by standardizing the passage rates:
+\deqn{Z_i = \frac{r_i - \bar{r}}{\sigma_r}}
+where:
+\itemize{
+\item \eqn{r_i} is student i's passage rate
+\item \eqn{\bar{r}} is the mean passage rate
+\item \eqn{\sigma_r} is the standard deviation of passage rates
+}
+}
+\note{
+The standardization allows for comparing student performance across different
+tests or groups. A positive score indicates above-average performance, while
+a negative score indicates below-average performance.
 }
 \examples{
-# sscore(U)
+\dontrun{
+# Simple binary data
+U <- matrix(c(1,0,1,1,0,1), ncol=2)
+sscore(U)
+
+# With missing values
+U[1,1] <- NA
+sscore(U, na=NA)
+}
 }

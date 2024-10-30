@@ -4,7 +4,7 @@
 \alias{InterItemAnalysis}
 \title{Inter-Item Analysis}
 \usage{
-InterItemAnalysis(U, na = NULL, Z = NULL, w = NULL)
+InterItemAnalysis(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,7 +15,28 @@ InterItemAnalysis(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A list of class "Exametrika" and "IIAnalysis" containing the following matrices:
+\describe{
+\item{JSS}{Joint Sample Size matrix}
+\item{JCRR}{Joint Correct Response Rate matrix}
+\item{IL}{Item Lift matrix}
+\item{MI}{Mutual Information matrix}
+\item{Phi}{Phi Coefficient matrix}
+\item{Tetrachoric}{Tetrachoric Correlation matrix}
+}
+}
 \description{
-Inter-Item Analysis returns various metrics such as JSS, JCRR, CCR,
-IL, MI, Phi, and Tetrachoric correlations in the form of a matrix.
+Inter-Item Analysis returns various metrics for analyzing relationships between pairs of items.
+This function is applicable only to binary response data. The following metrics are calculated:
+\itemize{
+\item JSS: Joint Sample Size
+\item JCRR: Joint Correct Response Rate
+\item IL: Item Lift
+\item MI: Mutual Information
+\item Phi: Phi Coefficient
+\item Tetrachoric: Tetrachoric Correlation
+}
+Each metric is returned in matrix form where element (i,j) represents the relationship
+between items i and j.
 }

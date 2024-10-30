@@ -4,7 +4,7 @@
 \alias{PhiCoefficient}
 \title{Phi-Coefficient}
 \usage{
-PhiCoefficient(U, na = NULL, Z = NULL, w = NULL)
+PhiCoefficient(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,7 +15,14 @@ PhiCoefficient(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A matrix of phi coefficients with Exametrika class.
+Each element (i,j) represents the phi coefficient between items i and j.
+The matrix is symmetric with ones on the diagonal.
+}
 \description{
-The phi coefficient is the Peason's product moment correlation coefficient
-between two binary items.
+The phi coefficient is the Pearson's product moment correlation coefficient
+between two binary items. This function is applicable only to binary response data.
+The coefficient ranges from -1 to 1, where 1 indicates perfect positive correlation,
+-1 indicates perfect negative correlation, and 0 indicates no correlation.
 }

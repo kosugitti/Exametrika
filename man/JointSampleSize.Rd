@@ -4,7 +4,7 @@
 \alias{JointSampleSize}
 \title{Joint Sample Size}
 \usage{
-JointSampleSize(U, na = NULL, Z = NULL, w = NULL)
+JointSampleSize(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}

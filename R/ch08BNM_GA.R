@@ -28,7 +28,7 @@
 #' @param filename Specify the filename when saving the generated adjacency matrix in CSV format.
 #' The default is null, and no output is written to the file.
 #' @param verbose verbose output Flag. default is TRUE
-#' @importFrom igraph get.adjacency
+#' @importFrom igraph as_adjacency_matrix
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom igraph as_data_frame
 #' @importFrom utils write.table
@@ -255,7 +255,7 @@ StrLearningGA_BNM <- function(U, Z = NULL, w = NULL, na = NULL,
 #' @param filename Specify the filename when saving the generated adjacency matrix in CSV format.
 #' The default is null, and no output is written to the file.
 #' @param verbose verbose output Flag. default is TRUE
-#' @importFrom igraph get.adjacency
+#' @importFrom igraph as_adjacency_matrix
 #' @importFrom igraph graph_from_adjacency_matrix
 #' @importFrom igraph as_data_frame
 #' @importFrom utils write.table

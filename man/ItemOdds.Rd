@@ -4,7 +4,7 @@
 \alias{ItemOdds}
 \title{Item Odds}
 \usage{
-ItemOdds(U, na = NULL, Z = NULL, w = NULL)
+ItemOdds(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -15,9 +15,34 @@ ItemOdds(U, na = NULL, Z = NULL, w = NULL)
 
 \item{w}{w is item weight vector}
 }
+\value{
+A numeric vector of odds values for each item. Values range from 0 to infinity,
+where:
+\itemize{
+\item odds > 1: correct response more likely than incorrect
+\item odds = 1: equally likely
+\item odds < 1: incorrect response more likely than correct
+}
+}
 \description{
-Item Odds are defined as
-\eqn{O_j = \frac{p_j}{1-p_j}}.
-Thus, this index represents the ratio of Correct Response Rate to
-Incorrect Response Rate.
+Item Odds are defined as the ratio of Correct Response Rate to
+Incorrect Response Rate:
+\deqn{O_j = \frac{p_j}{1-p_j}}
+where \eqn{p_j} is the correct response rate for item j.
+This function is applicable only to binary response data.
+
+The odds value represents how many times more likely a correct response is
+compared to an incorrect response. For example, an odds of 2 means students
+are twice as likely to answer correctly as incorrectly.
+}
+\examples{
+\dontrun{
+# Easy item (80\% correct)
+p1 <- 0.8
+o1 <- p1/(1-p1)  # odds = 4
+
+# Hard item (20\% correct)
+p2 <- 0.2
+o2 <- p2/(1-p2)  # odds = 0.25
+}
 }

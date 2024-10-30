@@ -25,7 +25,7 @@ DAG <-
 ## graph object
 g <- igraph::graph_from_data_frame(DAG)
 ## Adj mmatrix
-adj_mat <- as.matrix(igraph::get.adjacency(g))
+adj_mat <- as.matrix(igraph::as_adjacency_matrix(g))
 tgt <- BNM(tmp, adj_matrix = adj_mat)
 
 

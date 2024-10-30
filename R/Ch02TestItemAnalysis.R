@@ -8,138 +8,175 @@
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
 #' @export
 
-JointSampleSize <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  S_jk <- t(tmp$Z) %*% tmp$Z
-  ret <- structure(S_jk, class = c("Exametrika", "matrix"))
-  return(ret)
-}
+JointSampleSize <- createBinaryFunction(
+  function(U, ...) {
+    S_jk <- t(U$Z) %*% U$Z
+    structure(S_jk, class = c("Exametrika", "matrix"))
+  },
+  "JointSmapleSize"
+)
 
 #' @title Joint Correct Response Rate
 #' @description
-#' The joint correct response rate(JCRR) is the rate of students who passed
-#' both items.
+#' The joint correct response rate (JCRR) is the rate of students who passed
+#' both items. This function is applicable only to binary response data.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A matrix of joint correct response rates with Exametrika class.
+#' Each element (i,j) represents the proportion of students who correctly
+#' answered both items i and j.
 #' @export
+JCRR <- createBinaryFunction(
+  function(U, ...) {
+    P_J <- t(U$Z * U$U) %*% (U$Z * U$U) / (t(U$Z) %*% U$Z)
+    structure(P_J, class = c("Exametrika", "matrix"))
+  },
+  "JCRR"
+)
 
-JCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  P_J <- t(tmp$Z * tmp$U) %*% (tmp$Z * tmp$U) / (t(tmp$Z) %*% tmp$Z)
-  ret <- structure(P_J, class = c("Exametrika", "matrix"))
-  return(ret)
-}
-
-
-#' @title Conditional Correct Repsonse Rate
+#' @title Conditional Correct Response Rate
 #' @description
-#' The conditional correct response rate(CCRR) represents the ratio of the studnets
-#' who passed Item C(consequent item) to those who passed Item A(antecedent item)
+#' The conditional correct response rate (CCRR) represents the ratio of the students
+#' who passed Item C (consequent item) to those who passed Item A (antecedent item).
+#' This function is applicable only to binary response data.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A matrix of conditional correct response rates with Exametrika class.
+#' Each element (i,j) represents the probability of correctly answering item j
+#' given that item i was answered correctly.
 #' @export
-
-CCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  Z <- tmp$Z
-  OneJ <- rep(1, ncol(tmp$U))
-  Pj <- JCRR(tmp)
-  p <- crr(tmp)
-  P_C <- Pj / (p %*% t(OneJ))
-  ret <- structure(P_C, class = c("Exametrika", "matrix"))
-  return(ret)
-}
-
+CCRR <- createBinaryFunction(
+  function(U, ...) {
+    Z <- U$Z
+    OneJ <- rep(1, ncol(U$U))
+    Pj <- JCRR(U)
+    p <- crr(U)
+    P_C <- Pj / (p %*% t(OneJ))
+    structure(P_C, class = c("Exametrika", "matrix"))
+  },
+  "CCRR"
+)
 
 #' @title Item Lift
 #' @description
 #' The lift is a commonly used index in a POS data analysis.
-#' The item lift of Item $k$ to Item $J$ is defined as follow:
+#' The item lift of Item k to Item j is defined as follow:
 #' \eqn{ l_{jk} = \frac{p_{k\mid j}}{p_k} }
+#' This function is applicable only to binary response data.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A matrix of item lift values with Exametrika class.
+#' Each element (j,k) represents the lift value of item k given item j,
+#' which indicates how much more likely item k is to be correct given that
+#' item j was answered correctly.
 #' @references Brin, S., Motwani, R., Ullman, J., & Tsur, S. (1997). Dynamic itemset counting and
 #' implication rules for market basket data. In Proceedings of ACM SIGMOD International Conference
-#' on Management of Data (pp. 255–264).https://dl.acm.org/doi/10.1145/253262.253325
+#' on Management of Data (pp. 255–264). https://dl.acm.org/doi/10.1145/253262.253325
 #' @export
-
-ItemLift <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  OneJ <- rep(1, ncol(tmp$U))
-  Pc <- CCRR(tmp)
-  p <- crr(tmp)
-  P_L <- Pc / (OneJ %*% t(p))
-  ret <- structure(P_L, class = c("Exametrika", "matrix"))
-  return(ret)
-}
+ItemLift <- createBinaryFunction(
+  function(U, ...) {
+    OneJ <- rep(1, ncol(U$U))
+    Pc <- CCRR(U)
+    p <- crr(U)
+    P_L <- Pc / (OneJ %*% t(p))
+    structure(P_L, class = c("Exametrika", "matrix"))
+  },
+  "ItemLift"
+)
 
 #' @title Mutual Information
 #' @description
 #' Mutual Information is a measure that represents the degree of interdependence
-#' between two items
+#' between two items. This function is applicable only to binary response data.
+#' The measure is calculated using the joint probability distribution of responses
+#' between item pairs and their marginal probabilities.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A matrix of mutual information values with Exametrika class.
+#' Each element (i,j) represents the mutual information between items i and j,
+#' measured in bits. Higher values indicate stronger interdependence between items.
 #' @export
+MutualInformation <- createBinaryFunction(
+  function(U, ...) {
+    p <- crr(U)
 
-MutualInformation <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  p <- crr(tmp)
-  # Calculate joint response matrix
-  S <- list()
-  S$S_11 <- t(tmp$Z * tmp$U) %*% (tmp$Z * tmp$U)
-  S$S_10 <- t(tmp$Z * tmp$U) %*% (tmp$Z * (1 - tmp$U))
-  S$S_01 <- t(tmp$Z * (1 - tmp$U)) %*% (tmp$Z * tmp$U)
-  S$S_00 <- t(tmp$Z * (1 - tmp$U)) %*% (tmp$Z * (1 - tmp$U))
+    # Calculate joint response matrix
+    S <- list()
+    S$S_11 <- t(U$Z * U$U) %*% (U$Z * U$U)
+    S$S_10 <- t(U$Z * U$U) %*% (U$Z * (1 - U$U))
+    S$S_01 <- t(U$Z * (1 - U$U)) %*% (U$Z * U$U)
+    S$S_00 <- t(U$Z * (1 - U$U)) %*% (U$Z * (1 - U$U))
 
-  # Calculate joint probability matrix
-  P <- lapply(S, function(x) x / (t(tmp$Z) %*% tmp$Z))
+    # Calculate joint probability matrix
+    P <- lapply(S, function(x) x / (t(U$Z) %*% U$Z))
 
-  # Calculate lift matrix
-  L <- list()
-  L$L_11 <- P$S_11 / (p %*% t(p))
-  L$L_10 <- P$S_10 / (p %*% t(1 - p))
-  L$L_01 <- P$S_01 / ((1 - p) %*% t(p))
-  L$L_00 <- P$S_00 / ((1 - p) %*% t(1 - p))
+    # Calculate lift matrix
+    L <- list()
+    L$L_11 <- P$S_11 / (p %*% t(p))
+    L$L_10 <- P$S_10 / (p %*% t(1 - p))
+    L$L_01 <- P$S_01 / ((1 - p) %*% t(p))
+    L$L_00 <- P$S_00 / ((1 - p) %*% t(1 - p))
 
-  # Calculate mutual information
-  MI <- P$S_00 * log(L$L_00, base = 2) + P$S_01 * log(L$L_01, base = 2) +
-    P$S_10 * log(L$L_10, base = 2) + P$S_11 * log(L$L_11, base = 2)
-  diag(MI) <- diag(P$S_00 * log(L$L_00, base = 2) + P$S_11 * log(L$L_11, base = 2))
-  ret <- structure(MI, class = c("Exametrika", "matrix"))
-  return(ret)
-}
+    # Calculate mutual information
+    MI <- P$S_00 * log(L$L_00, base = 2) +
+      P$S_01 * log(L$L_01, base = 2) +
+      P$S_10 * log(L$L_10, base = 2) +
+      P$S_11 * log(L$L_11, base = 2)
+
+    # Adjust diagonal elements
+    diag(MI) <- diag(P$S_00 * log(L$L_00, base = 2) +
+                       P$S_11 * log(L$L_11, base = 2))
+
+    structure(MI, class = c("Exametrika", "matrix"))
+  },
+  "MutualInformation"
+)
 
 #' @title Phi-Coefficient
 #' @description
-#' The phi coefficient is the Peason's product moment correlation coefficient
-#' between two binary items.
+#' The phi coefficient is the Pearson's product moment correlation coefficient
+#' between two binary items. This function is applicable only to binary response data.
+#' The coefficient ranges from -1 to 1, where 1 indicates perfect positive correlation,
+#' -1 indicates perfect negative correlation, and 0 indicates no correlation.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A matrix of phi coefficients with Exametrika class.
+#' Each element (i,j) represents the phi coefficient between items i and j.
+#' The matrix is symmetric with ones on the diagonal.
 #' @export
+PhiCoefficient <- createBinaryFunction(
+  function(U, ...) {
+    p <- crr(U)
+    OneS <- rep(1, nrow(U$U))
+    OneJ <- rep(1, ncol(U$U))
 
-PhiCoefficient <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  p <- crr(tmp)
-  OneS <- rep(1, nrow(tmp$U))
-  OneJ <- rep(1, ncol(tmp$U))
-  C <- t(tmp$Z * (tmp$U - OneS %*% t(p))) %*% (tmp$Z * (tmp$U - OneS %*% t(p))) / (t(tmp$Z) %*% tmp$Z - OneJ %*% t(OneJ))
-  v <- diag(C)
-  phi <- C / sqrt(v) %*% t(sqrt(v))
-  ret <- structure(phi, class = c("Exametrika", "matrix"))
-  return(ret)
-}
+    # Calculate centered cross-product matrix
+    C <- t(U$Z * (U$U - OneS %*% t(p))) %*%
+      (U$Z * (U$U - OneS %*% t(p))) /
+      (t(U$Z) %*% U$Z - OneJ %*% t(OneJ))
 
-#' @title Tetrachoric Correlation
+    # Calculate standard deviations
+    v <- diag(C)
+
+    # Calculate correlation matrix
+    phi <- C / sqrt(v) %*% t(sqrt(v))
+
+    structure(phi, class = c("Exametrika", "matrix"))
+  },
+  "PhiCoefficient"
+)
+
+#'@title Tetrachoric Correlation
 #' @description
 #' Tetrachoric Correlation is superiror to the phi coefficient as a measure of the
 #' relation of an item pair. See Divgi, 1979; Olsson, 1979;Harris, 1988.
@@ -213,179 +250,370 @@ tetrachoric <- function(x, y) {
   return(ret)
 }
 
+
 #' @title Tetrachoric Correlation Matrix
 #' @description
-#' This function returns the tetrachoric correlation for all item pairs.
+#' Calculates the matrix of tetrachoric correlations between all pairs of items.
+#' Tetrachoric Correlation is superior to the phi coefficient as a measure of the
+#' relation of an item pair. This function is applicable only to binary response data.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A matrix of tetrachoric correlations with Exametrika class.
+#' Each element (i,j) represents the tetrachoric correlation between items i and j.
+#' The matrix is symmetric with ones on the diagonal.
 #' @export
-
-TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  tmp$U[tmp$Z == 0] <- NA
-  Una <- tmp$U
-  m <- ncol(Una)
-  mat <- matrix(NA, ncol = m, nrow = m)
-  colnames(mat) <- tmp$ItemLabel
-  rownames(mat) <- tmp$ItemLabel
-  for (i in 1:(m - 1)) {
-    for (j in (i + 1):m) {
-      x <- Una[, i]
-      y <- Una[, j]
-      mat[i, j] <- tetrachoric(x, y)
-      mat[j, i] <- mat[i, j]
+TetrachoricCorrelationMatrix <- createBinaryFunction(
+  function(U, ...) {
+    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
+    tmp$U[tmp$Z == 0] <- NA
+    Una <- tmp$U
+    m <- ncol(Una)
+    mat <- matrix(NA, ncol = m, nrow = m)
+    colnames(mat) <- tmp$ItemLabel
+    rownames(mat) <- tmp$ItemLabel
+    for (i in 1:(m - 1)) {
+      for (j in (i + 1):m) {
+        x <- Una[, i]
+        y <- Una[, j]
+        mat[i, j] <- tetrachoric(x, y)
+        mat[j, i] <- mat[i, j]
+      }
     }
-  }
-  diag(mat) <- 1
-  ret <- structure(mat, class = c("Exametrika", "matrix"))
-  return(ret)
-}
-
+    diag(mat) <- 1
+    structure(mat, class = c("Exametrika", "matrix"))
+  },
+  "TetrachoricCorrelationMatrix"
+)
 
 #' @title Inter-Item Analysis
 #' @description
-#' Inter-Item Analysis returns various metrics such as JSS, JCRR, CCR,
-#' IL, MI, Phi, and Tetrachoric correlations in the form of a matrix.
+#' Inter-Item Analysis returns various metrics for analyzing relationships between pairs of items.
+#' This function is applicable only to binary response data. The following metrics are calculated:
+#' \itemize{
+#'   \item JSS: Joint Sample Size
+#'   \item JCRR: Joint Correct Response Rate
+#'   \item IL: Item Lift
+#'   \item MI: Mutual Information
+#'   \item Phi: Phi Coefficient
+#'   \item Tetrachoric: Tetrachoric Correlation
+#' }
+#' Each metric is returned in matrix form where element (i,j) represents the relationship
+#' between items i and j.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A list of class "Exametrika" and "IIAnalysis" containing the following matrices:
+#' \describe{
+#'   \item{JSS}{Joint Sample Size matrix}
+#'   \item{JCRR}{Joint Correct Response Rate matrix}
+#'   \item{IL}{Item Lift matrix}
+#'   \item{MI}{Mutual Information matrix}
+#'   \item{Phi}{Phi Coefficient matrix}
+#'   \item{Tetrachoric}{Tetrachoric Correlation matrix}
+#' }
 #' @export
+InterItemAnalysis <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate all matrices
+    JSS <- JointSampleSize(U)
+    JCRR <- JCRR(U)
+    IL <- ItemLift(U)
+    MI <- MutualInformation(U)
+    Phi <- PhiCoefficient(U)
+    Tet <- TetrachoricCorrelation(U)
 
-InterItemAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  JSS <- JointSampleSize(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  JCRR <- JCRR(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  IL <- ItemLift(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  MI <- MutualInformation(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  Phi <- PhiCoefficient(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  Tet <- TetrachoricCorrelationMatrix(U = tmp$U, Z = tmp$Z, w = tmp$z)
-  ret <- structure(list(
-    JSS = JSS, JCRR = JCRR, IL = IL, MI = MI, Phi = Phi, Tetrachoric = Tet
-  ), class = c("Exametrika", "IIAnalysis"))
-  return(ret)
-}
+    # Create return structure
+    structure(
+      list(
+        JSS = JSS,
+        JCRR = JCRR,
+        IL = IL,
+        MI = MI,
+        Phi = Phi,
+        Tetrachoric = Tet
+      ),
+      class = c("Exametrika", "IIAnalysis")
+    )
+  },
+  "InterItemAnalysis"
+)
+
 #' @title Correct Response Rate
 #' @description
 #' The correct response rate (CRR) is one of the most basic and important
-#'  statistics for item analysis. This is an index of item difficulty and
-#'  a measure of how many students out of those who tried an item correctly
-#'  responded to it.
+#' statistics for item analysis. This is an index of item difficulty and
+#' a measure of how many students out of those who tried an item correctly
+#' responded to it. This function is applicable only to binary response data.
+#'
+#' The CRR for each item is calculated as:
+#' \deqn{p_j = \frac{\sum_{i=1}^n z_{ij}u_{ij}}{\sum_{i=1}^n z_{ij}}}
+#' where \eqn{z_{ij}} is the missing indicator and \eqn{u_{ij}} is the response.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of weighted correct response rates for each item.
+#' Values range from 0 to 1, where higher values indicate easier items
+#' (more students answered correctly).
+#' @examples
+#' \dontrun{
+#' # Simple binary data
+#' U <- matrix(c(1,0,1,1,0,1), ncol=2)
+#' crr(U)
+#'
+#' # With missing values
+#' U[1,1] <- NA
+#' crr(U, na = NA)
+#' }
 #' @export
+crr <- createBinaryFunction(
+  function(U, ...) {
+    # Create unit vector for summation
+    OneS <- rep(1, length = nrow(U$U))
 
-crr <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  OneS <- rep(1, length = nrow(tmp$U))
-  p <- t(tmp$Z * tmp$U) %*% OneS / t(tmp$Z) %*% OneS
-  pW <- tmp$w * p
-  return(pW)
-}
+    # Calculate correct response rate
+    # (sum of correct responses) / (sum of non-missing responses)
+    p <- t(U$Z * U$U) %*% OneS / t(U$Z) %*% OneS
+
+    # Apply item weights
+    pW <- U$w * p
+
+    return(pW)
+  },
+  "crr"
+)
 
 #' @title Item Odds
 #' @description
-#' Item Odds are defined as
-#' \eqn{O_j = \frac{p_j}{1-p_j}}.
-#' Thus, this index represents the ratio of Correct Response Rate to
-#' Incorrect Response Rate.
+#' Item Odds are defined as the ratio of Correct Response Rate to
+#' Incorrect Response Rate:
+#' \deqn{O_j = \frac{p_j}{1-p_j}}
+#' where \eqn{p_j} is the correct response rate for item j.
+#' This function is applicable only to binary response data.
+#'
+#' The odds value represents how many times more likely a correct response is
+#' compared to an incorrect response. For example, an odds of 2 means students
+#' are twice as likely to answer correctly as incorrectly.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of odds values for each item. Values range from 0 to infinity,
+#' where:
+#' \itemize{
+#'   \item odds > 1: correct response more likely than incorrect
+#'   \item odds = 1: equally likely
+#'   \item odds < 1: incorrect response more likely than correct
+#' }
+#' @examples
+#' \dontrun{
+#' # Easy item (80% correct)
+#' p1 <- 0.8
+#' o1 <- p1/(1-p1)  # odds = 4
+#'
+#' # Hard item (20% correct)
+#' p2 <- 0.2
+#' o2 <- p2/(1-p2)  # odds = 0.25
+#' }
 #' @export
+ItemOdds <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate correct response rates
+    p <- crr(U)
 
-ItemOdds <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  p <- crr(tmp)
-  o <- p / (1 - p)
-  return(o)
-}
+    # Calculate odds
+    o <- p / (1 - p)
+
+    return(o)
+  },
+  "ItemOdds"
+)
 
 #' @title Item Threshold
 #' @description
-#' Itemthreshold is a measure of difficulty based on a standard normal distribuiton.
+#' Item threshold is a measure of difficulty based on a standard normal distribution.
+#' This function is applicable only to binary response data.
+#'
+#' The threshold is calculated as:
+#' \deqn{\tau_j = \Phi^{-1}(1-p_j)}
+#' where \eqn{\Phi^{-1}} is the inverse standard normal distribution function
+#' and \eqn{p_j} is the correct response rate for item j.
+#'
+#' Higher threshold values indicate more difficult items, as they represent the
+#' point on the standard normal scale above which examinees tend to answer incorrectly.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of threshold values for each item on the standard normal scale.
+#' Typical values range from about -3 to 3, where:
+#' \itemize{
+#'   \item Positive values indicate difficult items
+#'   \item Zero indicates items of medium difficulty (50% correct)
+#'   \item Negative values indicate easy items
+#' }
 #' @importFrom stats qnorm
+#' @examples
+#' \dontrun{
+#' # Easy item (80% correct)
+#' p1 <- 0.8
+#' tau1 <- qnorm(1 - p1)  # negative threshold
+#'
+#' # Hard item (20% correct)
+#' p2 <- 0.2
+#' tau2 <- qnorm(1 - p2)  # positive threshold
+#' }
 #' @export
+ItemThreshold <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate correct response rates
+    p <- crr(U)
 
-ItemThreshold <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
-  p <- crr(tmp)
-  Tau <- qnorm(1 - p)
-  return(Tau)
-}
+    # Calculate thresholds using inverse normal distribution
+    tau <- qnorm(1 - p)
+
+    return(tau)
+  },
+  "ItemThreshold"
+)
 
 #' @title Item Entropy
 #' @description
 #' The item entropy is an indicator of the variability or randomness
-#' of the responses.
+#' of the responses. This function is applicable only to binary response data.
+#'
+#' The entropy value represents the uncertainty or information content of the
+#' response pattern for each item, measured in bits. Maximum entropy (1 bit)
+#' occurs when correct and incorrect responses are equally likely (p = 0.5).
 #' @details
-#' \eqn{e_j = -p_j\log_2p_j-(1-p_j)\log_2(1-p_j)}
+#' The item entropy is calculated as:
+#' \deqn{e_j = -p_j\log_2p_j-(1-p_j)\log_2(1-p_j)}
+#' where \eqn{p_j} is the correct response rate for item j.
+#'
+#' The entropy value has the following properties:
+#' \itemize{
+#'   \item Maximum value of 1 bit when p = 0.5 (most uncertainty)
+#'   \item Minimum value of 0 bits when p = 0 or 1 (no uncertainty)
+#'   \item Higher values indicate more balanced response patterns
+#'   \item Lower values indicate more predictable response patterns
+#' }
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of entropy values for each item, measured in bits.
+#' Values range from 0 to 1, where:
+#' \itemize{
+#'   \item 1: maximum uncertainty (p = 0.5)
+#'   \item 0: complete certainty (p = 0 or 1)
+#'   \item Values near 1 indicate items with balanced response patterns
+#'   \item Values near 0 indicate items with extreme response patterns
+#' }
+#' @examples
+#' \dontrun{
+#' # Balanced item (50% correct)
+#' p1 <- 0.5
+#' e1 <- -p1 * log2(p1) - (1-p1) * log2(1-p1)  # maximum entropy
+#'
+#' # Extreme item (90% correct)
+#' p2 <- 0.9
+#' e2 <- -p2 * log2(p2) - (1-p2) * log2(1-p2)  # low entropy
+#' }
 #' @export
+ItemEntropy <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate correct response rates
+    p <- crr(U)
 
-ItemEntropy <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
-  p <- crr(tmp)
-  itemE <- -p * log(p, base = 2) - (1 - p) * log(1 - p, base = 2)
-  return(itemE)
-}
+    # Calculate entropy in bits
+    # Using log base 2 for information content in bits
+    itemE <- -p * log(p, base = 2) - (1 - p) * log(1 - p, base = 2)
+
+    return(itemE)
+  },
+  "ItemEntropy"
+)
+
 
 #' @title Item-Total Correlation
 #' @description
-#' Item-Total correlation(ITC) is a Peason's correlation of an item with
-#' the NRS/total score.
+#' Item-Total correlation (ITC) is a Pearson's correlation of an item with
+#' the Number-Right Score (NRS) or total score. This function is applicable
+#' only to binary response data.
+#'
+#' The ITC is a measure of item discrimination, indicating how well an item
+#' distinguishes between high and low performing examinees.
+#' @details
+#' The correlation is calculated between:
+#' \itemize{
+#'   \item Each item's responses (0 or 1)
+#'   \item The total test score (sum of correct responses)
+#' }
+#' Higher positive correlations indicate items that better discriminate between
+#' high and low ability examinees.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of item-total correlations. Values typically range
+#' from -1 to 1, where:
+#' \itemize{
+#'   \item Values near 1: Strong positive discrimination
+#'   \item Values near 0: No discrimination
+#'   \item Negative values: Potential item problems (lower ability students
+#'         performing better than higher ability students)
+#' }
+#' @note
+#' Values below 0.2 might indicate problematic items that should be reviewed.
+#' Values above 0.3 are generally considered acceptable.
 #' @export
+ItemTotalCorr <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate item probabilities
+    p <- crr(U)
 
-ItemTotalCorr <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
-  p <- crr(tmp)
-  Zeta <- sscore(tmp)
-  TBL <- matrix(rep(p, each = NROW(tmp$U)), nrow = NROW(tmp$U), byrow = F)
-  Una <- ifelse(is.na(tmp$U), 0, tmp$U)
-  dev <- tmp$Z * (Una - TBL)
-  V <- colSums(dev^2) / (colSums(tmp$Z) - 1)
-  SD <- sqrt(V)
-  rho_Zi <- t(dev) %*% Zeta / SD / colSums(tmp$Z)
-  return(rho_Zi)
-}
+    # Calculate total scores
+    Zeta <- sscore(U)
+
+    # Create probability matrix (repeating p for each student)
+    TBL <- matrix(rep(p, each = NROW(U$U)),
+                  nrow = NROW(U$U),
+                  byrow = FALSE)
+
+    # Handle missing values in response matrix
+    Una <- ifelse(is.na(U$U), 0, U$U)
+
+    # Calculate deviations from expected values
+    dev <- U$Z * (Una - TBL)
+
+    # Calculate item variances
+    V <- colSums(dev^2) / (colSums(U$Z) - 1)
+    SD <- sqrt(V)
+
+    # Calculate correlations
+    rho_Zi <- t(dev) %*% Zeta / SD / colSums(U$Z)
+
+    return(rho_Zi)
+  },
+  "ItemTotalCorr"
+)
+
+
 
 #' @title Biserial Correlation
 #' @description
 #' A biserial correlation is a correlation between dichotomous-ordinal and
 #' continuous variables.
-#' @param i i is a dichotomous-ordinal variables. x and y can also be the other way around.
-#' @param t t is a continuous variables. x and y can also be the other way around.
+#' @param i i is a dichotomous-ordinal variable (0/1). x and y can also be the other way around.
+#' @param t t is a continuous variable. x and y can also be the other way around.
+#' @return The biserial correlation coefficient between the two variables.
+#' @importFrom stats na.omit qnorm pnorm optim
 #' @export
-
 Biserial_Correlation <- function(i, t) {
+  # Original function remains unchanged
   # Count unique values
   unique_i <- length(unique(na.omit(i)))
   unique_t <- length(unique(na.omit(t)))
@@ -400,7 +628,7 @@ Biserial_Correlation <- function(i, t) {
     t <- tmp
   }
   ## calcs correlation
-  tau_j <- qnorm(1 - mean(i, na.rm = T))
+  tau_j <- qnorm(1 - mean(i, na.rm = TRUE))
   ll <- function(rho, tau_j, i, t) {
     tmp <- (1 - i) %*% (log(pnorm(tau_j, mean = rho * t, sd = sqrt(1 - rho^2)))) +
       i %*% (log(1 - pnorm(tau_j, mean = rho * t, sd = sqrt(1 - rho^2))))
@@ -420,140 +648,360 @@ Biserial_Correlation <- function(i, t) {
 
 #' @title Item-Total Biserial Correlation
 #' @description
-#' The Item-Biserial Correlation computes the biserial correlation
-#' between an item and the total score.
+#' The Item-Total Biserial Correlation computes the biserial correlation
+#' between each item and the total score. This function is applicable only
+#' to binary response data.
+#'
+#' This correlation provides a measure of item discrimination, indicating how well
+#' each item distinguishes between high and low performing examinees.
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of item-total biserial correlations. Values range
+#' from -1 to 1, where:
+#' \itemize{
+#'   \item Values near 1: Strong positive discrimination
+#'   \item Values near 0: No discrimination
+#'   \item Negative values: Potential item problems
+#' }
+#' @note
+#' The biserial correlation is generally preferred over the point-biserial
+#' correlation when the dichotomization is artificial (i.e., when the underlying
+#' trait is continuous).
 #' @export
+ITBiserial <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate total scores
+    Zeta <- sscore(U)
 
-ITBiserial <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
-  Zeta <- sscore(tmp)
-  tmp$U[tmp$Z == 0] <- NA
-  ITB <- rep(NA, ncol(tmp$U))
-  for (i in 1:ncol(tmp$U)) {
-    tmptmp <- tmp$U[, i]
-    ITB[i] <- Biserial_Correlation(tmptmp, Zeta)
-  }
-  return(ITB)
-}
+    # Handle missing values
+    U_data <- U$U
+    U_data[U$Z == 0] <- NA
+
+    # Calculate biserial correlation for each item
+    ITB <- vapply(seq_len(ncol(U_data)), function(i) {
+      Biserial_Correlation(U_data[, i], Zeta)
+    }, numeric(1))
+
+    return(ITB)
+  },
+  "ITBiserial"
+)
+
 #' @title Number Right Score
-#' @description \code{nrs}
-#' The Number-right score (NRS) function returns the count of the items passed to it.
-#' @param U U is a data matrix of the type matrix or data.frame.
-#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
-#' @param w w is item weight vector
-#' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @return This function counts and returns the number of correct answers from the data matrix.
-#' @export
-#' @examples
-#' # nrs(U)
-nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  tW <- (tmp$Z * tmp$U) %*% tmp$w
-  return(tW)
-}
-
-#' @title Passage Rate of student
 #' @description
-#' Passage rate of Student s is NRS divided by the number of presented items.
+#' The Number-Right Score (NRS) function calculates the weighted sum of correct
+#' responses for each examinee. This function is applicable only to binary
+#' response data.
+#'
+#' For each examinee, the score is computed as:
+#' \deqn{NRS_i = \sum_{j=1}^J z_{ij}u_{ij}w_j}
+#' where:
+#' \itemize{
+#'   \item \eqn{z_{ij}} is the missing response indicator (0/1)
+#'   \item \eqn{u_{ij}} is the response (0/1)
+#'   \item \eqn{w_j} is the item weight
+#' }
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @return This function returns passage rate for each students
-#' @export
+#' @return A numeric vector containing the Number-Right Score for each examinee.
+#' The score represents the weighted sum of correct answers, where:
+#' \itemize{
+#'   \item Maximum score is the sum of all item weights
+#'   \item Minimum score is 0
+#'   \item Missing responses do not contribute to the score
+#' }
 #' @examples
-#' # passage(U)
-passage <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  tw <- nrs(tmp)
-  Js <- NCOL(tmp$U) - rowSums(1 - tmp$Z)
-  rW <- tw / Js
-  return(rW)
-}
+#' \dontrun{
+#' # Simple binary data
+#' U <- matrix(c(1,0,1,1,0,1), ncol=2)
+#' nrs(U)
+#'
+#' # With item weights
+#' w <- c(2,1)  # first item worth 2 points
+#' nrs(U, w=w)
+#' }
+#' @export
+nrs <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate weighted sum of correct responses
+    # Z * U gives correct answers accounting for missing data
+    # Multiply by weights and sum across items
+    total_weighted_score <- (U$Z * U$U) %*% U$w
+
+    return(total_weighted_score)
+  },
+  "nrs"
+)
+
+#' @title Passage Rate of Student
+#' @description
+#' The Passage Rate for each student is calculated as their Number-Right Score (NRS)
+#' divided by the number of items presented to them. This function is applicable
+#' only to binary response data.
+#'
+#' The passage rate is calculated as:
+#' \deqn{P_i = \frac{\sum_{j=1}^J z_{ij}u_{ij}w_j}{\sum_{j=1}^J z_{ij}}}
+#' where:
+#' \itemize{
+#'   \item \eqn{z_{ij}} is the missing response indicator (0/1)
+#'   \item \eqn{u_{ij}} is the response (0/1)
+#'   \item \eqn{w_j} is the item weight
+#' }
+#' @param U U is a data matrix of the type matrix or data.frame.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param w w is item weight vector
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector containing the passage rate for each student.
+#' Values range from 0 to 1 (or maximum weight) where:
+#' \itemize{
+#'   \item 1: Perfect score on all attempted items
+#'   \item 0: No correct answers
+#'   \item NA: No items attempted
+#' }
+#' @note
+#' The passage rate accounts for missing responses by only considering items that
+#' were actually presented to each student. This provides a fair comparison
+#' between students who attempted different numbers of items.
+#' @examples
+#' \dontrun{
+#' # Simple binary data
+#' U <- matrix(c(1,0,1,1,0,1), ncol=2)
+#' passage(U)
+#'
+#' # With missing responses
+#' U[1,1] <- NA
+#' passage(U, na=NA)
+#' }
+#' @export
+passage <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate Number-Right Score
+    total_score <- nrs(U)
+
+    # Calculate number of items presented to each student
+    items_attempted <- NCOL(U$U) - rowSums(1 - U$Z)
+
+    # Calculate passage rate
+    # Divide total score by number of items attempted
+    passage_rate <- total_score / items_attempted
+
+    return(passage_rate)
+  },
+  "passage"
+)
 
 #' @title Standardized Score
 #' @description
-#' The standardized score indicates how high or low the student's ability is
-#' placed in the standard normal distribution.
+#' The standardized score (z-score) indicates how far a student's performance
+#' deviates from the mean in units of standard deviation. This function is
+#' applicable only to binary response data.
+#'
+#' The score is calculated by standardizing the passage rates:
+#' \deqn{Z_i = \frac{r_i - \bar{r}}{\sigma_r}}
+#' where:
+#' \itemize{
+#'   \item \eqn{r_i} is student i's passage rate
+#'   \item \eqn{\bar{r}} is the mean passage rate
+#'   \item \eqn{\sigma_r} is the standard deviation of passage rates
+#' }
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @return This function returns standardized score for each students.
-#' @export
+#' @return A numeric vector of standardized scores for each student. The scores follow
+#' a standard normal distribution with:
+#' \itemize{
+#'   \item Mean = 0
+#'   \item Standard deviation = 1
+#'   \item Approximately 68% of scores between -1 and 1
+#'   \item Approximately 95% of scores between -2 and 2
+#'   \item Approximately 99% of scores between -3 and 3
+#' }
+#' @note
+#' The standardization allows for comparing student performance across different
+#' tests or groups. A positive score indicates above-average performance, while
+#' a negative score indicates below-average performance.
 #' @examples
-#' # sscore(U)
-sscore <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  S <- nrow(tmp$U)
-  OneS <- rep(1, length = S)
-  rW <- passage(tmp)
-  rBarW <- (t(OneS) %*% rW) / S
-  Var_rW <- t(rW - c(rBarW) * OneS) %*% (rW - c(rBarW) * OneS) / (S - 1)
-  Zeta_W <- (rW - c(rBarW) * OneS) / (sqrt(c(Var_rW)) * OneS)
-  return(Zeta_W)
-}
+#' \dontrun{
+#' # Simple binary data
+#' U <- matrix(c(1,0,1,1,0,1), ncol=2)
+#' sscore(U)
+#'
+#' # With missing values
+#' U[1,1] <- NA
+#' sscore(U, na=NA)
+#' }
+#' @export
+sscore <- createBinaryFunction(
+  function(U, ...) {
+    # Get number of students
+    S <- nrow(U$U)
 
-#' @title percentile
+    # Create unit vector
+    OneS <- rep(1, length = S)
+
+    # Calculate passage rates
+    passage_rates <- passage(U)
+
+    # Calculate mean passage rate
+    mean_rate <- mean(passage_rates, na.rm = TRUE)
+
+    # Calculate variance of passage rates
+    centered_rates <- passage_rates - mean_rate
+    var_rates <- sum(centered_rates^2, na.rm = TRUE) / (S - 1)
+
+    # Calculate standardized scores
+    z_scores <- centered_rates / sqrt(var_rates)
+
+    return(z_scores)
+  },
+  "sscore"
+)
+
+
+#' @title Student Percentile Ranks
 #' @description
-#' The percentile function returns the corresponding score percentile,
-#' out of 100 divisions, for each student.
+#' The percentile function calculates each student's relative standing in the group,
+#' expressed as a percentile rank (1-100). This function is applicable only to
+#' binary response data.
+#'
+#' The percentile rank indicates the percentage of scores in the distribution
+#' that fall below a given score. For example, a percentile rank of 75 means
+#' the student performed better than 75% of the group.
+#' @param U U is a data matrix of the type matrix or data.frame.
+#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
+#' @param w w is item weight vector
+#' @param na na argument specifies the numbers or characters to be treated as missing values.
+#' @return A numeric vector of percentile ranks (1-100) for each student, where:
+#' \itemize{
+#'   \item 100: Highest performing student(s)
+#'   \item 50: Median performance
+#'   \item 1: Lowest performing student(s)
+#' }
+#' @note
+#' Percentile ranks are calculated using the empirical cumulative distribution
+#' function of standardized scores. Tied scores receive the same percentile rank.
+#' The values are rounded up to the nearest integer to provide ranks from 1 to 100.
+#' @examples
+#' \dontrun{
+#' # Simple binary data
+#' U <- matrix(c(1,0,1,1,0,1), ncol=2)
+#' percentile(U)
+#'
+#' # With missing values
+#' U[1,1] <- NA
+#' percentile(U, na=NA)
+#' }
 #' @importFrom stats ecdf
+#' @export
+percentile <- createBinaryFunction(
+  function(U, ...) {
+    # Calculate standardized scores
+    standardized_scores <- sscore(U)
+
+    # Calculate empirical cumulative distribution function
+    empirical_dist <- ecdf(standardized_scores)
+
+    # Convert to percentiles (1-100)
+    # Ceiling function ensures minimum of 1 and handles rounding
+    percentile_ranks <- ceiling(empirical_dist(standardized_scores) * 100)
+
+    return(percentile_ranks)
+  },
+  "percentile"
+)
+
+#' @title Stanine Scores
+#' @description
+#' The Stanine (Standard Nine) scoring system divides students into nine groups
+#' based on a normalized distribution. This function is applicable only to
+#' binary response data.
+#'
+#' These groups correspond to the following percentile ranges:
+#' \itemize{
+#'   \item Stanine 1: lowest 4% (percentiles 1-4)
+#'   \item Stanine 2: next 7% (percentiles 5-11)
+#'   \item Stanine 3: next 12% (percentiles 12-23)
+#'   \item Stanine 4: next 17% (percentiles 24-40)
+#'   \item Stanine 5: middle 20% (percentiles 41-60)
+#'   \item Stanine 6: next 17% (percentiles 61-77)
+#'   \item Stanine 7: next 12% (percentiles 78-89)
+#'   \item Stanine 8: next 7% (percentiles 90-96)
+#'   \item Stanine 9: highest 4% (percentiles 97-100)
+#' }
 #' @param U U is a data matrix of the type matrix or data.frame.
 #' @param Z Z is a missing indicator matrix of the type matrix or data.frame
 #' @param w w is item weight vector
 #' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @return This function returns standardized score for each students.
-#' @export
-#' @examples
-#' # percentile(U)
-percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  sstmp <- sscore(tmp)
-  empiricalZeta <- ecdf(sstmp)
-  ret <- ceiling(empiricalZeta(sstmp) * 100)
-  return(ret)
-}
-
-#' @title Stanine
-#' @description
-#' The Stanine scoring system divides students into nine groups.
-#' These groups correspond to the following percentile ranges:
-#' the lowest 4%, the subsequent 7%, the following 12%, the next 17%,
-#' the middle 20%, the subsequent 17%, the following 12%,
-#' the next 7%, and the highest 4%.
-#' @import stats
+#' @return A list containing two elements:
+#' \describe{
+#'   \item{stanine}{The score boundaries for each stanine level}
+#'   \item{stanineScore}{The stanine score (1-9) for each student}
+#' }
+#' @note
+#' Stanine scores provide a normalized scale with:
+#' \itemize{
+#'   \item Mean = 5
+#'   \item Standard deviation = 2
+#'   \item Scores range from 1 to 9
+#'   \item Score of 5 represents average performance
+#' }
 #' @references
 #' Angoff, W. H. (1984). Scales, norms, and equivalent scores. Educational Testing Service.
 #' (Reprint of chapter in R. L. Thorndike (Ed.) (1971) Educational Measurement (2nd Ed.).
-#' American Councilon Education.
-#' @param U U is a data matrix of the type matrix or data.frame.
-#' @param Z Z is a missing indicator matrix of the type matrix or data.frame
-#' @param w w is item weight vector
-#' @param na na argument specifies the numbers or characters to be treated as missing values.
-#' @return This function returns Stanine Rank for each students.
-#' @export
+#' American Council on Education.
+#' @importFrom stats quantile cut
 #' @examples
-#' # stanine(U)
-stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
-  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  sttmp <- nrs(tmp)
-  pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
-  stanine_prob <- quantile(sttmp, pbs, na.rm = TRUE)
-  sttmp2 <- percentile(tmp)
-  stanine_prob_ss <- quantile(sttmp2, pbs)
-  stanine_scores <- cut(sttmp2, breaks = c(-Inf, stanine_prob_ss, Inf), right = F)
-  stanine_scores <- factor(stanine_scores, labels = 1:9)
-  return(list(stanine = stanine_prob, stanineScore = stanine_scores))
-}
+#' \dontrun{
+#' # Calculate stanine scores
+#' result <- stanine(U)
+#'
+#' # View score boundaries
+#' result$stanine
+#'
+#' # View individual scores
+#' result$stanineScore
+#' }
+#' @export
+stanine <- createBinaryFunction(
+  function(U, ...) {
+    # Define stanine boundaries (cumulative proportions)
+    stanine_bounds <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
+
+    # Calculate raw scores
+    raw_scores <- nrs(U)
+
+    # Calculate score boundaries using raw scores
+    stanine_boundaries <- quantile(raw_scores,
+                                   probs = stanine_bounds,
+                                   na.rm = TRUE)
+
+    # Calculate percentile scores
+    percentile_scores <- percentile(U)
+
+    # Calculate stanine boundaries using percentile scores
+    stanine_percentile_bounds <- quantile(percentile_scores,
+                                          probs = stanine_bounds)
+
+    # Assign stanine scores
+    stanine_scores <- cut(percentile_scores,
+                          breaks = c(-Inf, stanine_percentile_bounds, Inf),
+                          right = FALSE,
+                          labels = 1:9)
+
+    # Return results
+    list(
+      stanine = stanine_boundaries,
+      stanineScore = stanine_scores
+    )
+  },
+  "stanine"
+)
+
 
 #' @title StudentAnalysis
 #' @description
@@ -586,6 +1034,7 @@ StudentAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
   )
   return(ret)
 }
+
 #' @title Simple Test Statistics
 #' @description
 #' Statistics regarding the total score.

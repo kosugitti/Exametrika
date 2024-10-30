@@ -2,9 +2,9 @@
 % Please edit documentation in R/Ch02TestItemAnalysis.R
 \name{passage}
 \alias{passage}
-\title{Passage Rate of student}
+\title{Passage Rate of Student}
 \usage{
-passage(U, na = NULL, Z = NULL, w = NULL)
+passage(U, na = NULL, Z = NULL, w = NULL, ...)
 }
 \arguments{
 \item{U}{U is a data matrix of the type matrix or data.frame.}
@@ -16,11 +16,41 @@ passage(U, na = NULL, Z = NULL, w = NULL)
 \item{w}{w is item weight vector}
 }
 \value{
-This function returns passage rate for each students
+A numeric vector containing the passage rate for each student.
+Values range from 0 to 1 (or maximum weight) where:
+\itemize{
+\item 1: Perfect score on all attempted items
+\item 0: No correct answers
+\item NA: No items attempted
+}
 }
 \description{
-Passage rate of Student s is NRS divided by the number of presented items.
+The Passage Rate for each student is calculated as their Number-Right Score (NRS)
+divided by the number of items presented to them. This function is applicable
+only to binary response data.
+
+The passage rate is calculated as:
+\deqn{P_i = \frac{\sum_{j=1}^J z_{ij}u_{ij}w_j}{\sum_{j=1}^J z_{ij}}}
+where:
+\itemize{
+\item \eqn{z_{ij}} is the missing response indicator (0/1)
+\item \eqn{u_{ij}} is the response (0/1)
+\item \eqn{w_j} is the item weight
+}
+}
+\note{
+The passage rate accounts for missing responses by only considering items that
+were actually presented to each student. This provides a fair comparison
+between students who attempted different numbers of items.
 }
 \examples{
-# passage(U)
+\dontrun{
+# Simple binary data
+U <- matrix(c(1,0,1,1,0,1), ncol=2)
+passage(U)
+
+# With missing responses
+U[1,1] <- NA
+passage(U, na=NA)
+}
 }

@@ -7,9 +7,12 @@
 Biserial_Correlation(i, t)
 }
 \arguments{
-\item{i}{i is a dichotomous-ordinal variables. x and y can also be the other way around.}
+\item{i}{i is a dichotomous-ordinal variable (0/1). x and y can also be the other way around.}
 
-\item{t}{t is a continuous variables. x and y can also be the other way around.}
+\item{t}{t is a continuous variable. x and y can also be the other way around.}
+}
+\value{
+The biserial correlation coefficient between the two variables.
 }
 \description{
 A biserial correlation is a correlation between dichotomous-ordinal and
