@@ -2,37 +2,58 @@
 % Please edit documentation in R/Ch00dataFormat.R
 \name{dataFormat.long}
 \alias{dataFormat.long}
-\title{dataFormatter for long-type data}
+\title{dataFormat for long-type data}
 \usage{
-dataFormat.long(data, na = NULL, Sid = NULL, Qid = NULL, Resp = NULL, w = NULL)
+dataFormat.long(
+  data,
+  na = NULL,
+  Sid = NULL,
+  Qid = NULL,
+  Resp = NULL,
+  w = NULL,
+  response.type = NULL
+)
 }
 \arguments{
-\item{data}{is a data matrix of the type matrix or data.frame.This must
+\item{data}{is a data matrix of the type matrix or data.frame. This must
 contain at least three columns to identify the student, the item, and
 the response. Additionally, it can include a column for the weight of
 the items.}
 
 \item{na}{na argument specifies the numbers or characters to be treated as missing values.}
 
-\item{Sid}{Specify the column number containing the studnet ID label vector.}
+\item{Sid}{Specify the column number containing the student ID label vector.}
 
 \item{Qid}{Specify the column number containing the Question label vector.}
 
 \item{Resp}{Specify the column number containing the Response value vector.}
 
 \item{w}{Specify the column number containing the weight vector.}
+
+\item{response.type}{type of response data: "binary" or "polytomous" (can be abbreviated as "poly").
+If NULL, the type is automatically determined from the data.}
 }
 \value{
 \describe{
-\item{U}{Data matrix. A matrix with rows representing the sample size and columns
+\item{U}{For binary response data. A matrix with rows representing the sample size and columns
 representing the number of items, where elements are either 0 or 1. \eqn{u_{ij}=1} indicates
 that student i correctly answered item j, while \eqn{u_{ij}=0} means that student i answered
 item j incorrectly.}
-\item{ID}{The ID label given by the designated column or function."}
+\item{Q}{For polytomous response data. A matrix with rows representing the sample size and columns
+representing the number of items, where elements are non-negative integers. When input data is
+in factor format, the factor levels are converted to consecutive integers starting from 1, and
+the original factor labels are stored in factor_labels.}
+\item{ID}{The ID label given by the designated column or function.}
 \item{ItemLabel}{The item names given by the provided column names or function.}
-\item{Z}{Missing indicator matrix.\eqn{z_{uj}=1} indicates that item j is presented to Student i,
+\item{Z}{Missing indicator matrix. \eqn{z_{ij}=1} indicates that item j is presented to Student i,
 while \eqn{z_{ij}=0} indicates item j is NOT presented to Student i.}
-\item{w}{item weight vector}
+\item{w}{Item weight vector}
+\item{response.type}{Character string indicating the type of response data:
+"binary" for binary responses or "polytomous" for polytomous responses.}
+\item{factor_labels}{List containing the original factor labels when polytomous responses
+are provided as factors. NULL if no factor data is present.}
+\item{categories}{Numeric vector containing the number of response categories for each item.
+For binary data, all elements are 2.}
 }
 }
 \description{

@@ -21,32 +21,30 @@ names(data_list) <- c("Ch03Items", "Ch03JSS", "Ch03JCRR", "Ch03CCRR", "Ch03IL", 
 
 ## read same data
 dat <- suppressMessages(read_csv("../../develop/sampleData/J20S400.csv"))
-U <- as.matrix(dat[, -1])
-Z <- ifelse(U == -99, 0, 1)
 
 # Test Section ------------------------------------------------------------
 
 test_that("crr", {
-  result <- crr(U, na = -99) %>% as.vector()
+  result <- crr(dat, na = -99) %>% as.vector()
   expect <- data_list$Ch03Items[, 2] %>% as.vector()
   expect_equal(result, expect)
 })
 
 
 test_that("Item Odds", {
-  result <- ItemOdds(U, na = -99) %>% as.vector()
+  result <- ItemOdds(dat, na = -99) %>% as.vector()
   expect <- data_list$Ch03Items[, 3] %>% as.vector()
   expect_equal(result, expect)
 })
 
 test_that("Item Threshold", {
-  result <- ItemThreshold(U, na = -99) %>% as.vector()
+  result <- ItemThreshold(dat, na = -99) %>% as.vector()
   expect <- data_list$Ch03Items[, 4] %>% as.vector()
   expect_equal(result, expect)
 })
 
 test_that("Item Entropy", {
-  result <- ItemEntropy(U, na = -99) %>% as.vector()
+  result <- ItemEntropy(dat, na = -99) %>% as.vector()
   expect <- data_list$Ch03Items[, 5] %>% as.vector()
   expect_equal(result, expect)
 })
@@ -54,7 +52,7 @@ test_that("Item Entropy", {
 # Between Items Section ---------------------------------------------------
 
 test_that("Joint sample size", {
-  result <- JointSampleSize(U, na = -99) %>%
+  result <- JointSampleSize(dat, na = -99) %>%
     unclass() %>%
     unname()
   expect <- data_list$Ch03JSS %>% unname()
@@ -62,7 +60,7 @@ test_that("Joint sample size", {
 })
 
 test_that("Joint Correct Response Rate", {
-  result <- JCRR(U, na = -99) %>%
+  result <- JCRR(dat, na = -99) %>%
     unclass() %>%
     unname()
   expect <- data_list$Ch03JCRR %>% unname()
@@ -71,7 +69,7 @@ test_that("Joint Correct Response Rate", {
 
 
 test_that("Conditional Correct Repsonse Rate", {
-  result <- CCRR(U, na = -99) %>%
+  result <- CCRR(dat, na = -99) %>%
     unclass() %>%
     unname()
   expect <- data_list$Ch03CCRR %>% unname()
@@ -80,7 +78,7 @@ test_that("Conditional Correct Repsonse Rate", {
 
 
 test_that("Item Lift", {
-  result <- ItemLift(U, na = -99) %>%
+  result <- ItemLift(dat, na = -99) %>%
     unclass() %>%
     unname()
   expect <- data_list$Ch03IL %>% unname()
@@ -88,7 +86,7 @@ test_that("Item Lift", {
 })
 
 test_that("Mutual Informaiton", {
-  result <- MutualInformation(U, na = -99) %>%
+  result <- MutualInformation(dat, na = -99) %>%
     unclass() %>%
     unname()
   expect <- data_list$Ch03MI %>% unname()
@@ -96,7 +94,7 @@ test_that("Mutual Informaiton", {
 })
 
 test_that("Phi Coefficient", {
-  result <- PhiCoefficient(U, na = -99) %>%
+  result <- PhiCoefficient(dat, na = -99) %>%
     unclass() %>%
     unname()
   expect <- data_list$Ch03Phi %>% unname()
@@ -104,23 +102,22 @@ test_that("Phi Coefficient", {
 })
 
 test_that("Tetrachoric Correlation Matrix", {
-  result <- TetrachoricCorrelationMatrix(U, na = -99) %>%
+  result <- TetrachoricCorrelationMatrix(dat, na = -99) %>%
     unclass() %>%
     unname()
-  Una <- ifelse(U == -99, NA, U)
   expect <- data_list$Ch03Tet %>% unname()
   expect_equal(expected = expect, object = result, tolerance = 1e-4)
 })
 
 test_that("Item Total Correlation", {
-  result <- ItemTotalCorr(U, na = -99)
+  result <- ItemTotalCorr(dat, na = -99)
   expect <- data_list$Ch03Items[, 6]
   expect_equal(expected = expect, object = as.vector(result))
 })
 
 
 test_that("Item Total Biserial Correlation", {
-  result <- ITBiserial(U, na = -99) %>% as.vector()
+  result <- ITBiserial(dat, na = -99) %>% as.vector()
   expect <- data_list$Ch03Items[, 7] %>% as.vector()
   expect_equal(result, expect, tolerance = 1e-4)
 })

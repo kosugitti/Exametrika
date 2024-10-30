@@ -44,11 +44,7 @@ JCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 CCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   Z <- tmp$Z
   OneJ <- rep(1, ncol(tmp$U))
   Pj <- JCRR(tmp)
@@ -74,11 +70,7 @@ CCRR <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 ItemLift <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   OneJ <- rep(1, ncol(tmp$U))
   Pc <- CCRR(tmp)
   p <- crr(tmp)
@@ -98,11 +90,7 @@ ItemLift <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 MutualInformation <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   p <- crr(tmp)
   # Calculate joint response matrix
   S <- list()
@@ -140,11 +128,7 @@ MutualInformation <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 PhiCoefficient <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   p <- crr(tmp)
   OneS <- rep(1, nrow(tmp$U))
   OneJ <- rep(1, ncol(tmp$U))
@@ -239,11 +223,7 @@ tetrachoric <- function(x, y) {
 #' @export
 
 TetrachoricCorrelationMatrix <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   tmp$U[tmp$Z == 0] <- NA
   Una <- tmp$U
   m <- ncol(Una)
@@ -320,11 +300,7 @@ crr <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 ItemOdds <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   p <- crr(tmp)
   o <- p / (1 - p)
   return(o)
@@ -479,11 +455,7 @@ ITBiserial <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # nrs(U)
 nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   tW <- (tmp$Z * tmp$U) %*% tmp$w
   return(tW)
 }
@@ -500,11 +472,7 @@ nrs <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # passage(U)
 passage <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   tw <- nrs(tmp)
   Js <- NCOL(tmp$U) - rowSums(1 - tmp$Z)
   rW <- tw / Js
@@ -524,11 +492,7 @@ passage <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # sscore(U)
 sscore <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   S <- nrow(tmp$U)
   OneS <- rep(1, length = S)
   rW <- passage(tmp)
@@ -552,11 +516,7 @@ sscore <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # percentile(U)
 percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   sstmp <- sscore(tmp)
   empiricalZeta <- ecdf(sstmp)
   ret <- ceiling(empiricalZeta(sstmp) * 100)
@@ -584,11 +544,7 @@ percentile <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @examples
 #' # stanine(U)
 stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   sttmp <- nrs(tmp)
   pbs <- cumsum(c(0.04, 0.07, 0.12, 0.17, 0.20, 0.17, 0.12, 0.07))
   stanine_prob <- quantile(sttmp, pbs, na.rm = TRUE)
@@ -612,12 +568,7 @@ stanine <- function(U, na = NULL, Z = NULL, w = NULL) {
 #'
 
 StudentAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
-
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   NRS <- nrs(U = tmp$U, Z = tmp$Z, w = tmp$w)
   NR <- NCOL(tmp$U) - rowSums(is.na(tmp$U))
   PR <- passage(U = tmp$U, Z = tmp$Z, w = tmp$w)
@@ -664,11 +615,7 @@ StudentAnalysis <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 TestStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   tW <- nrs(tmp)
   TestLength <- NCOL(tmp$Z)
   SampleSize <- NROW(tmp$Z)
@@ -721,11 +668,7 @@ TestStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 Dimensionality <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   R <- TetrachoricCorrelationMatrix(tmp)
   Esystem <- eigen(R)
   Eval <- Esystem$values
@@ -766,12 +709,7 @@ Dimensionality <- function(U, na = NULL, Z = NULL, w = NULL) {
 #' @export
 
 ItemStatistics <- function(U, na = NULL, Z = NULL, w = NULL) {
-  if (class(U)[1] != "Exametrika") {
-    tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
-  } else {
-    tmp <- U
-  }
-
+  tmp <- dataFormat(data = U, na = na, Z = Z, w = w)
   ret <-
     structure(list(
       ItemLabel = tmp$ItemLabel,

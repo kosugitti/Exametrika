@@ -20,17 +20,27 @@ If the answer pattern is contained in the first column, it is treated as if ther
 }
 \value{
 \describe{
-\item{U}{Data matrix. A matrix with rows representing the sample size and columns
+\item{U}{For binary response data. A matrix with rows representing the sample size and columns
 representing the number of items, where elements are either 0 or 1. \eqn{u_{ij}=1} indicates
 that student i correctly answered item j, while \eqn{u_{ij}=0} means that student i answered
 item j incorrectly. If the data contains NA values, any value can be filled in the matrix U,
-represented by the following missing value index matrix Z. However, in this funciton,
+represented by the following missing value index matrix Z. However, in this function,
 -1 is assigned.}
-\item{ID}{The ID label given by the designated column or function."}
+\item{Q}{For polytomous response data. A matrix with rows representing the sample size and columns
+representing the number of items, where elements are non-negative integers. When input data is
+in factor format, the factor levels are converted to consecutive integers starting from 1, and
+the original factor labels are stored in factor_labels.}
+\item{ID}{The ID label given by the designated column or function.}
 \item{ItemLabel}{The item names given by the provided column names or function.}
-\item{Z}{Missing indicator matrix.\eqn{z_{uj}=1} indicates that item j is presented to Student i,
+\item{Z}{Missing indicator matrix. \eqn{z_{ij}=1} indicates that item j is presented to Student i,
 while \eqn{z_{ij}=0} indicates item j is NOT presented to Student i.}
-\item{w}{item weight vector}
+\item{w}{Item weight vector}
+\item{response.type}{Character string indicating the type of response data:
+"binary" for binary responses or "polytomous" for polytomous responses.}
+\item{factor_labels}{List containing the original factor labels when polytomous responses
+are provided as factors. NULL if no factor data is present.}
+\item{categories}{Numeric vector containing the number of response categories for each item.
+For binary data, all elements are 2.}
 }
 }
 \description{

@@ -1,3 +1,7 @@
+# Exametrika 1.1.0 on Oct 30, 2024.
+
+ready for polytomous response
+
 # Exametrika 1.0.2 on Aug 17, 2024.
 
 * bug fix for Issue #12

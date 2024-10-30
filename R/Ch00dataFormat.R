@@ -34,16 +34,24 @@
 #' @export
 #'
 dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
-  # Convert to data.frame and handle factors
-  data <- as.data.frame(unclass(data))
+  # Check if the object is already formatted
+  if (inherits(data, "Exametrika")) {
+    return(data)
+  }
 
   # Detect response type if not specified
   # Function to check if data is binary
-  is_binary <- function(x) {
+  is_binary <- function(x, na_value = NULL) {
+    # Remove both NA and specified na values
     x_clean <- x[!is.na(x)]
+    if (!is.null(na_value)) {
+      x_clean <- x_clean[x_clean != na_value]
+    }
+
     if (length(x_clean) == 0) {
       return(TRUE)
     } # Empty data considered as binary
+
     if (is.factor(x)) {
       x_clean <- as.numeric(x_clean)
     } else {
@@ -52,24 +60,15 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
     all(x_clean %in% c(0, 1))
   }
 
-  # Check each column (excluding ID if specified)
-  check_cols <- if (is.null(rownames(data))) {
-    if (length(data) > 1) -id else 1
-  } else {
-    seq_len(ncol(data))
-  }
+  # Check each column (correctly excluding ID column)
+  check_cols <- setdiff(1:ncol(data), id)
 
-  is_all_binary <- all(sapply(data[check_cols], is_binary))
+  # Apply binary check to response columns only, passing na value
+  is_all_binary <- all(sapply(data[, check_cols], is_binary, na_value = na))
   response.type <- if (is_all_binary) "binary" else "polytomous"
 
-
-
-  # Check if the object is already formatted
-  if (inherits(data, "Examterika")) {
-    return(data)
-  }
-
   data <- as.data.frame(unclass(data))
+  data[data==na] <- NA
   # Store factor labels if exists
   factor_labels <- list()
   for (col in names(data)) {
@@ -79,7 +78,6 @@ dataFormat <- function(data, na = NULL, id = 1, Z = NULL, w = NULL) {
       data[[col]] <- as.numeric(data[[col]])
     }
   }
-
 
   # Check if U is either a matrix or a dataframe, otherwise stop the execution
   if (!is.matrix(data) && !is.data.frame(data)) {
